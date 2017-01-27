@@ -1,0 +1,9 @@
+
+{% block content %}
+<h2>Recipes</h2>
+<ul>
+    {% for recipe in all_recipes %}
+    <li><a href="../recipe/{{recipe.recipe_id}}/">{{ recipe.recipe_name }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

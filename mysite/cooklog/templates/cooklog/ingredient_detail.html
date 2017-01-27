@@ -1,0 +1,11 @@
+<h1>{{ object.headline }}</h1>
+<p>{{ object.content }}</p>
+<p>Ingredient name: {{ object.ingredient_name }}</p>
+<p>Type: {{ object.ingredient_type }}</p>
+<p>Date created: {{ object.date_created|date }}</p>
+<p> Dishes: </p>
+{% for dish in dishes %}
+<li><a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a></li>
+{% empty %}
+<p> No dishes yet. <li><a href="../../dish/add/">Make one! <p>
+{% endfor %}

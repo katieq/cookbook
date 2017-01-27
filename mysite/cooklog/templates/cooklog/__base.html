@@ -1,0 +1,25 @@
+{% comment %}
+Pasted from here. But I don't have plenty of these things.. so I removed them.
+And it "breaks" the title of home, and the side column isn't on the side.
+{% endcomment %}
+
+{% load staticfiles i18n %}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {% block meta_tags %}{% endblock %}
+        <title>
+            {% block title %}{% trans "Cook's Book'" %}{% endblock %}
+        </title>
+        
+    </head>
+    <body>
+        <div id="main" role="main">
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

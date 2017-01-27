@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Dish Search</title>
+    </head>
+    <body>
+        <p>You searched for: <strong>{{ query }}</strong></p>
+        
+        {% if dishs %}
+        <p>Found {{ dishs|length }} dish{{ dishs|pluralize }}.</p>
+        <ul>
+            {% for dish in dishs %}
+            <li>{{ dish.dish_name }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No dishes matched your search criteria.</p>
+        {% endif %}
+    </body>
+</html>

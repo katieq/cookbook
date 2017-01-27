@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Image upload</title>
+    </head>
+    <body>
+        <h1>Upload an image of a dish:</h1>
+        
+        {% if form.errors %}
+        <p style="color: red;">
+        Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+        {% endif %}
+        
+        <form action="" method="post" enctype="multipart/form-data">
+            <table>
+                {{ form.as_table }}
+            </table>
+            {% csrf_token %}
+            <input type="submit" value="Upload">
+        </form>
+    </body>
+</html>

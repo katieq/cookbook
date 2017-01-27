@@ -1,0 +1,20 @@
+<h1>{{ object.headline }}</h1>
+<p>{{ object.content }}</p>
+<p>Recipe name: {{ object.recipe_name }}</p>
+<p>Chef: {{ object.chef_id }}</p>
+<p>Recipe type: {{ object.recipe_type }}</p>
+<p>Recipe source: {{ object.recipe_source }}</p>
+<p>Date created: {{ object.date_created|date }}</p>
+<p>Date today: {{ now|date }}</p>
+
+<ul>
+    {% for dish in dishes %}
+    <li>Dish for this recipe: <a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a> (Rating: {{dish.dish_rating}}/5) from {{ dish.date_created|date}}</li>
+    {% endfor %}
+    <p> Any photos will show below! (need to shift to inline with dish) </p>
+    {% for photo in photos %}
+    <img src="/media/{{ photo.dish_image }}" height="200"/>
+    {% empty %}
+    <p> No photos yet for this recipe </p>
+    {% endfor %}
+<ul>

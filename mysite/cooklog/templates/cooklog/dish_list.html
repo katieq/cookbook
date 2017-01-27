@@ -1,0 +1,14 @@
+
+{% block content %}
+<h2>Dishes</h2>
+<ul>
+    {% for dish in all_dishes %}
+    <li><a href="../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a></li>
+    {% endfor %}
+</ul>
+
+<p>And a nice photo just for fun: </p>
+{% load static %}
+<img src="{% static "cooklog/chicken_soup.jpg" %}" alt="My image" height="200"/>
+
+{% endblock %}

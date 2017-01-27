@@ -1,0 +1,8 @@
+env-cooklog/
+*.DS_Store
+__MACOSX
+*.pyc
+*~
+__pycache__
+/static
+.DS_Store

@@ -1,0 +1,35 @@
+
+<h2>cook's book</h2>
+
+{% block main_col %}
+{% for dish in latest_dishs %}
+    <div>
+    <p><a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</p>
+    {% for photo in latest_photos %}
+    {% if photo.dish_id_id == dish.dish_id %}
+    <ul><ul><img src="/media/{{ photo.dish_image }}" height="100" /></ul></ul>
+    {% endif %}
+    {% endfor %}
+    </a>
+    
+    <ul><ul><p>
+        <li> Recipe: <a href="recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }} </a> (Chef=...)</li>
+        {% comment %}
+        
+        {% for recipe in latest_recipes %}
+        {% if recipe.recipe_id == dish.recipe_id_id %}
+        Chef: <a href="chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id }}</a>
+        {% endif %}
+        {% endfor %}
+        {% endcomment %}
+        <li> Rating: {{ dish.dish_rating }} / 5 </li>
+        <li> {{ dish.date_created|date }} </li>
+        <li> Chef: <a href="chef/{{dish.chef_id_id}}/">{{ dish.chef_id }}</a></li>
+    </ul></ul>
+    </p>
+    </div>
+{% empty %}
+    <li>No dishes yet.</li>
+{% endfor %}
+{% endblock %}
+

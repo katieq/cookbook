@@ -1,0 +1,21 @@
+<h1>{{ object.headline }}</h1>
+<p>{{ object.content }}</p>
+<p>Dish name: {{ object.dish_name }}</p>
+<p>Chef name: {{ object.chef_id }}</p>
+<p>Recipe: {{ object.recipe_id }} which is an instance of {{recipe.recipe_type}} by {{ recipe.chef_id}}</p>
+<p>Method: {{ object.dish_method }}</p>
+<p>Rating: {{ object.dish_rating }}</p>
+<p>Comments: {{ object.dish_comments }}</p>
+<p>Ingredients:
+{% for ingredient in object.ingredient_id.all %}
+<li><a href="../../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a></li>
+{% endfor %}</p>
+<p>Date created: {{ object.date_created|date }}</p>
+
+{% if photo.dish_image %}
+<p>Image is: {{photo.dish_image}} </p>
+<img src="/media/{{ photo.dish_image }}" height="200"/>
+{% else %}
+<p> No photos yet .. <a href="/cooklog/upload/">upload one here. </p>
+{% endif %}
+

@@ -1,0 +1,9 @@
+
+{% block content %}
+<h2>Chefs</h2>
+<ul>
+    {% for chef in all_chefs %}
+    <li><a href="../chef/{{chef.chef_id}}/">{{ chef.first_name }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

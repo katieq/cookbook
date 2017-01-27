@@ -1,0 +1,69 @@
+<h1>{{ object.headline }}</h1>
+<p>{{ object.content }}</p>
+<p>Chef name: {{ object.first_name }} {{ object.last_name }}</p>
+<p>Email: {{ object.email }}</p>
+<p>Date created: {{ object.date_created|date }}</p>
+
+<h4> {{ object.first_name}}'s best rated dishes: </h4>
+
+{% for dish in best_dishes %}
+<div>
+    <ul><p><a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</p>
+        {% for photo in best_photos %}
+        {% if photo.dish_id_id == dish.dish_id %}
+        <ul><ul><img src="/media/{{ photo.dish_image }}" height="100" /></ul></ul>
+        {% endif %}
+        {% endfor %}
+    </a></ul>
+    
+    <ul><ul><p>
+        <li> Recipe: <a href="../../recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a></li>
+        {% comment %}
+        This was used initially to get, in a very messy way, the chef of the recipe. Omit for now.
+        {% for recipe in latest_recipes %}
+        {% if recipe.recipe_id == dish.recipe_id_id %}
+        Chef: <a href="chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id }}</a>
+        {% endif %}
+        {% endfor %}
+        {% endcomment %}
+        <li> Rating: {{ dish.dish_rating }} / 5 </li>
+        <li> {{ dish.date_created|date }} </li>
+        <li> Chef: <a href="../../chef/{{dish.chef_id_id}}/">{{ dish.chef_id }}</a></li>
+    </ul></ul>
+    </p>
+</div>
+{% empty %}
+<li>No dishes yet.</li>
+{% endfor %}
+
+<h4> {{ object.first_name}}'s latest dishes: </h4>
+
+{% for dish in latest_dishes %}
+<div>
+    <ul><p><a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</p>
+        {% for photo in latest_photos %}
+        {% if photo.dish_id_id == dish.dish_id %}
+        <ul><ul><img src="/media/{{ photo.dish_image }}" height="100" /></ul></ul>
+        {% endif %}
+        {% endfor %}
+    </a></ul>
+    
+    <ul><ul><p>
+        <li> Recipe: <a href="../../recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a></li>
+        {% comment %}
+        This was used initially to get, in a very messy way, the chef of the recipe. Omit for now.
+        {% for recipe in latest_recipes %}
+        {% if recipe.recipe_id == dish.recipe_id_id %}
+        Chef: <a href="chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id }}</a>
+        {% endif %}
+        {% endfor %}
+        {% endcomment %}
+        <li> Rating: {{ dish.dish_rating }} / 5 </li>
+        <li> {{ dish.date_created|date }} </li>
+        <li> Chef: <a href="../../chef/{{dish.chef_id_id}}/">{{ dish.chef_id }}</a></li>
+    </ul></ul>
+    </p>
+</div>
+{% empty %}
+<li>No dishes yet.</li>
+{% endfor %}

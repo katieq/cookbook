@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Dish Entry</title>
+    </head>
+    <body>
+        <h2>Enter or edit dish:</h2>
+        <h3><a href="../../recipe/add/">.. Or create new recipe here!</a> </h3>
+        
+        {% if form.errors %}
+        <p style="color: red;">
+        Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+        {% endif %}
+        
+        <form action="" method="post">
+            <table>
+                {{ form.as_table }}
+            </table>
+            {% csrf_token %}
+            <input type="submit" value="Submit">
+                </form>
+    </body>
+</html>

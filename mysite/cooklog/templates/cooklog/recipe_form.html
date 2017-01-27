@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Recipe Entry</title>
+    </head>
+    <body>
+        <h1>Enter or edit recipe:</h1>
+        
+        {% if form.errors %}
+        <p style="color: red;">
+        Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+        {% endif %}
+        
+        <form action="" method="post">
+            <table>
+                {{ form.as_table }}
+            </table>
+            {% csrf_token %}
+            <input type="submit" value="Submit">
+                </form>
+    </body>
+</html>
