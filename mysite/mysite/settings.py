@@ -25,7 +25,7 @@ SECRET_KEY = '-2=eqvkm_+-2ytgzv3r#7ih!^eh1j4fd-2yxm3(n2oerw=o!_%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cookbook.pythonanywhere.com']
 
 
 # Application definition
