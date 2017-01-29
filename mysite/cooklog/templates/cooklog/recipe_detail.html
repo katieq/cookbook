@@ -10,8 +10,10 @@
 <ul>
     {% for dish in dishes %}
     <li>Dish for this recipe: <a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a> (Rating: {{dish.dish_rating}}/5) from {{ dish.date_created|date}}</li>
+    {% empty %}
+    <p>No dishes yet: <a href="../../dish/add/">Add dish!</a></p>
     {% endfor %}
-    <p> Any photos will show below! (need to shift to inline with dish) </p>
+    <p> Any photos will show below.. (todo.. shift to inline with dish) </p>
     {% for photo in photos %}
     <img src="/media/{{ photo.dish_image }}" height="200"/>
     {% empty %}
