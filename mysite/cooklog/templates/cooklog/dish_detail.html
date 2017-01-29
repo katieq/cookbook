@@ -6,16 +6,48 @@
 <p>Method: {{ object.dish_method }}</p>
 <p>Rating: {{ object.dish_rating }}</p>
 <p>Comments: {{ object.dish_comments }}</p>
+
 <p>Ingredients:
 {% for ingredient in object.ingredient_id.all %}
-<li><a href="../../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a></li>
+    <li><a href="../../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a></li>
 {% endfor %}</p>
+
 <p>Date created: {{ object.date_created|date }}</p>
 
-{% if photo.dish_image %}
-<p>Image is: {{photo.dish_image}} </p>
-<img src="/media/{{ photo.dish_image }}" height="200"/>
+{% if photos %}
+    {% for photo in photos %}
+        <img src="/media/{{ photo.dish_image }}" height="200"/>
+        <p> {{ photo.photo_comment }} </p>
+    {% endfor %}
 {% else %}
-<p> No photos yet .. <a href="/cooklog/upload/">upload one here. </p>
+    <p> No photos yet .. <a href="/cooklog/upload/">upload one here. </p>
 {% endif %}
+
+<h3> Comments: </h3>
+{% if chef_comments %}
+{% for chef_comment in chef_comments %}
+<p> {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment }} </p>
+{% endfor %}
+{% else %}
+<p> No one has commented yet! </p>
+{% endif %}
+
+
+{% if likes %}
+{% load static %}
+<p><img src="{% static "emoji/img/yum.png" %}" alt="yum" height="30"/>
+ Dish has {{ likes|length }} yums (likes)!
+{% for like in likes %}
+{{like.chef_id}},
+{% endfor %}
+</p>
+{% else %}
+<p> No one likes it! (yet..) </p>
+{% endif %}
+
+{% comment %}
+{% for emoji in three_emojis %}
+{{ emoji.0 }}
+{% endfor %}
+{% endcomment %}
 

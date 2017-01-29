@@ -10,6 +10,11 @@ class UploadImageForm(forms.ModelForm):
     class Meta:
         model = Dish_Photo
         fields = ['dish_id', 'dish_image', 'photo_comment', 'date_created']
+    def __init__(self, *args, **kwargs):
+        super(UploadImageForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['dish_id'].widget.attrs['size']= 20
+        for key in self.fields:
+            self.fields[key].required = False
 
 class NewDishForm(forms.ModelForm):
     #class Meta:
@@ -25,7 +30,7 @@ class NewDishForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled',
-                  'dish_method', 'dish_rating',
+                  'dish_source', 'dish_method', 'dish_rating',
                   'dish_comments', 'ingredient_id', 'date_created']
     
     def __init__(self, *args, **kwargs):

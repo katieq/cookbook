@@ -5,11 +5,12 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo
+from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish_Comments, Likes
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
 from cooklog.forms import UploadImageForm, NewDishForm
 from django import forms
+from django.db.models import Count
 
 
 # Create your views here.
@@ -80,10 +81,9 @@ class DishDetailView(DetailView):
         context = super(DishDetailView,
                         self).get_context_data(**kwargs)
         context['recipe'] = Recipe.objects.get(recipe_id = self.object.recipe_id_id)
-        try:
-            context['photo'] = Dish_Photo.objects.get(dish_id=self.object.dish_id)  #only allows 1photo per dish
-        except:
-            context['photo'] = Dish_Photo.objects.none() # fake for now.
+        context['photos'] = Dish_Photo.objects.filter(dish_id = self.object.dish_id)
+        context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
+        context['likes'] = Likes.objects.filter(dish_id = self.object.dish_id)
         return context
 
 class ChefDetailView(DetailView):

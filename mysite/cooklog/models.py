@@ -52,6 +52,7 @@ class Dish(models.Model):
     dish_status = models.CharField("Dish status", max_length=1, choices=STATUS_CHOICES, default='1')
     date_scheduled = models.DateField("Date scheduled", null=True, blank=True)
     dish_name = models.CharField("Dish name", max_length=200) # default recipe name??
+    dish_source = models.CharField("Recipe source", null=True, blank=True, max_length=200)
     dish_method = models.CharField("Dish method", max_length=800,
                                    null=True, blank=True)
     dish_rating = models.IntegerField("Dish rating", validators=[MaxValueValidator(5), MinValueValidator(0)],
@@ -68,12 +69,26 @@ class Dish(models.Model):
 
 class Dish_Photo(models.Model):
     dish_photo_id = models.AutoField(primary_key=True)
-    dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE)
+    dish_id = models.ManyToManyField(Dish) #models.ForeignKey(Dish, on_delete=models.CASCADE)
     dish_image = models.ImageField(upload_to="dish_photos")
     photo_comment = models.CharField("Photo comment", max_length=200)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
 #def __str__(self):
 #return self.dish_id
+
+class Likes(models.Model):
+    like_id = models.AutoField(primary_key=True)
+    dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE)
+    chef_id = models.ForeignKey(Chef, on_delete=models.CASCADE)
+
+class Chef_Dish_Comments(models.Model):   # avoided ever just comment, since reserved word perhaps?
+    chef_dish_comment_id = models.AutoField(primary_key=True)
+    dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE)
+    chef_id = models.ForeignKey(Chef, default=1, on_delete=models.CASCADE)
+    chef_dish_comment = models.CharField("Chef dish comment", max_length = 800) # not sure what name should be?
+
+
+
 
 
 #class Recipe_Ingredients(models.Model):
