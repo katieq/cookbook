@@ -1,5 +1,5 @@
 from django import forms
-from cooklog.models import Dish_Photo, Dish, Ingredient
+from cooklog.models import Dish_Photo, Dish, Ingredient, Chef_Dish_Comments, Likes
 
 #class ChefEntryForm(forms.Form):
 #    first_name = forms.CharField()
@@ -42,3 +42,42 @@ class NewDishForm(forms.ModelForm):
         self.fields['ingredient_id'].widget.attrs['size']= 30
         for key in self.fields:
             self.fields[key].required = False
+
+class NewLikeForm(forms.ModelForm):
+    next = forms.CharField(required=False)
+    class Meta:
+        model = Likes
+        fields = ['dish_id', 'chef_id']
+    def __init__(self, *args, **kwargs):
+        super(NewLikeForm, self).__init__(*args, **kwargs)
+        self.fields['dish_id'].widget = forms.HiddenInput()
+        self.fields['next'].widget = forms.HiddenInput()
+        for key in self.fields:
+            self.fields[key].required = False
+
+class NewCommentForm(forms.ModelForm):
+    next = forms.CharField(required=False)
+    class Meta:
+        model = Chef_Dish_Comments
+        exclude = tuple()
+        fields = ['dish_id', 'chef_id', 'chef_dish_comment']
+    def __init__(self, *args, **kwargs):
+        super(NewCommentForm, self).__init__(*args, **kwargs)
+        self.fields['dish_id'].widget = forms.HiddenInput()
+        self.fields['next'].widget = forms.HiddenInput()
+        for key in self.fields:
+            self.fields[key].required = False
+
+# may be able to delete ALL of this.
+class CommentDeleteForm(forms.ModelForm):
+    next = forms.CharField(required=False)
+    class Meta:
+        model = Chef_Dish_Comments
+        exclude = tuple()
+    def __init__(self, *args, **kwargs):
+        super(NewCommentForm, self).__init__(*args, **kwargs)
+        self.fields['next'].widget = forms.HiddenInput()
+        for key in self.fields:
+            self.fields[key].required = False
+
+

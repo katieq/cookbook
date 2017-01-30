@@ -21,7 +21,7 @@ from cooklog.views import RecipeCreate, RecipeUpdate, RecipeDelete
 from cooklog.views import ChefCreate, ChefUpdate
 from cooklog.views import DishCreate, DishUpdate
 from cooklog.views import IngredientCreate, IngredientUpdate #, IngredientDelete
-from cooklog.views import my_image, UploadImageView
+from cooklog.views import my_image, UploadImageView, NewLikeView, NewCommentView, CommentDeleteView
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
@@ -32,10 +32,10 @@ urlpatterns = [
                url(r'^dishes/$', DishList.as_view()),
                url(r'^ingredients/$', IngredientList.as_view()),
                url(r'^$', HomePageView.as_view(), name='home'),
-               url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe-detail'),
-               url(r'^chef/(?P<pk>\d+)/$', ChefDetailView.as_view(), name='chef-detail'),
-               url(r'^dish/(?P<pk>\d+)/$', DishDetailView.as_view(), name='dish-detail'),
-               url(r'^ingredient/(?P<pk>\d+)/$', IngredientDetailView.as_view(), name='ingredient-detail'),
+               url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
+               url(r'^chef/(?P<pk>\d+)/$', ChefDetailView.as_view(), name='chef_detail'),
+               url(r'^dish/(?P<pk>\d+)/$', DishDetailView.as_view(), name='dish_detail'),
+               url(r'^ingredient/(?P<pk>\d+)/$', IngredientDetailView.as_view(), name='ingredient_detail'),
                url(r'^recipe/add/$', RecipeCreate.as_view(), name='recipe_add'),
                url(r'^recipe/add/(?P<pk>[0-9]+)/$', RecipeUpdate.as_view(), name='recipe_update'),
                url(r'^recipe/delete/(?P<pk>[0-9]+)/$', RecipeDelete.as_view(), name='recipe_delete'),
@@ -46,5 +46,8 @@ urlpatterns = [
                url(r'^ingredient/add/$', IngredientCreate.as_view(), name='ingredient_add'),
                url(r'^ingredient/add/(?P<pk>[0-9]+)/$', IngredientUpdate.as_view(), name='ingredient_update'),
                url(r'^my_image/$', my_image),
-               url(r'^upload/$', UploadImageView.as_view()),
+               url(r'^upload/$', UploadImageView.as_view(), name='photo_upload'),
+               url(r'^like/$', NewLikeView.as_view(), name='like_add'),
+               url(r'^comment/$', NewCommentView.as_view(), name='comment_add'),
+               url(r'^comment/delete/(?P<pk>[0-9]+)/$', CommentDeleteView.as_view(), name='comment_delete'),
 ]

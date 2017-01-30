@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>New like form:</title>
+    </head>
+    <body>
+        <h3>Say you like ...</h3>
+        <ul><h2> {{ dish.dish_name }} </h2></ul>
+        
+        
+        {% if form.errors %}
+        <p style="color: red;">
+        Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+        {% endif %}
+        
+        <form action="" method="post" enctype="multipart/form-data">
+            <table>
+                {{ form.as_table }}
+            </table>
+            {% csrf_token %}
+            <input type="submit" value="Upload">
+        </form>
+    </body>
+</html>

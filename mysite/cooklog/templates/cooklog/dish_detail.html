@@ -26,12 +26,14 @@
 <h3> Comments: </h3>
 {% if chef_comments %}
 {% for chef_comment in chef_comments %}
-<p> {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment }} </p>
+<p> {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment }}
+<a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/?next={{object.dish_id}}">delete</a></p>
 {% endfor %}
 {% else %}
 <p> No one has commented yet! </p>
 {% endif %}
 
+<p><a href="{% url 'comment_add' %}?next={{object.dish_id}}">Add comment</a></p>
 
 {% if likes %}
 {% load static %}
@@ -45,9 +47,6 @@
 <p> No one likes it! (yet..) </p>
 {% endif %}
 
-{% comment %}
-{% for emoji in three_emojis %}
-{{ emoji.0 }}
-{% endfor %}
-{% endcomment %}
+<a href="{% url 'like_add' %}?next={{object.dish_id}}">Like it.</a>
+
 
