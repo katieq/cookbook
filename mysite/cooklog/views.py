@@ -70,9 +70,9 @@ class RecipeDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(RecipeDetailView,
                         self).get_context_data(**kwargs)
-        context['dishes'] = Dish.objects.filter(recipe_id=self.object.recipe_id)
-        context['photos'] = Dish_Photo.objects.filter(dish_id = context['dishes'])
-        context['now'] = timezone.now()
+        context['dishes'] = Dish.objects.filter(recipe_id = self.object.recipe_id).order_by("-date_created")
+        context['photos'] = Dish_Photo.objects.filter(dish_id = context['dishes']) # hm, only returns for first one?!
+        #context['now'] = timezone.now()
         return context
 
 class DishDetailView(DetailView):
@@ -106,6 +106,7 @@ class IngredientDetailView(DetailView):
 class RecipeCreate(CreateView):
     model = Recipe
     fields = ['recipe_name', 'recipe_source', 'recipe_type', 'chef_id', 'date_created']
+    success_url = "/cooklog/recipes/" # todo maybe later to that recipe's page? (itd be maximum recipe_id?)
 
 class RecipeUpdate(UpdateView):
     model = Recipe
@@ -140,6 +141,7 @@ class DishUpdate(UpdateView):
 class IngredientCreate(CreateView):
     model = Ingredient
     fields = ['ingredient_name', 'ingredient_type', 'date_created']
+    success_url = '/cooklog/ingredients/' # maybe later to that ingredient's page?
 
 class IngredientUpdate(UpdateView):
     model = Ingredient

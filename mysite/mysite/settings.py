@@ -25,7 +25,8 @@ SECRET_KEY = '-2=eqvkm_+-2ytgzv3r#7ih!^eh1j4fd-2yxm3(n2oerw=o!_%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cookbook.pythonanywhere.com']
+ALLOWED_HOSTS = ['cookbook.pythonanywhere.com',
+                 '127.0.0.1']
 
 
 # Application definition
@@ -71,6 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+LOGIN_REDIRECT_URL = 'home'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

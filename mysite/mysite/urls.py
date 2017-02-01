@@ -16,6 +16,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+
 from mysite.views import hello, current_datetime, hours_ahead
 
 urlpatterns = [
@@ -24,4 +25,5 @@ urlpatterns = [
                #url(r'^time/$', current_datetime),
                #url(r'^time/plus/(\d{1,2})/$', hours_ahead),
                url(r'^cooklog/', include('cooklog.urls')),
+               
                ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # not sure if need this.. a random site suggested while attempting image upload, jan-11-2017

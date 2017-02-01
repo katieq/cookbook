@@ -21,10 +21,19 @@ from cooklog.views import RecipeCreate, RecipeUpdate, RecipeDelete
 from cooklog.views import ChefCreate, ChefUpdate
 from cooklog.views import DishCreate, DishUpdate
 from cooklog.views import IngredientCreate, IngredientUpdate #, IngredientDelete
+from django.contrib.auth import views as auth_views
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
 from cooklog.views import my_image, UploadImageView, NewLikeView, NewCommentView, CommentDeleteView
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
+               url(r'^login/$', auth_views.login, name='login'),
+               url(r'^logout/$', auth_views.logout, {'next_page': '/cooklog/login'}, name='logout'),
+               url(r'^register/', CreateView.as_view(template_name='registration/register.html',
+                                                     form_class=UserCreationForm,
+                                                     success_url='/cooklog/login')),
+               
                url(r'^search-form/$', views.search_form),
                url(r'^search/$', views.search),
                url(r'^chefs/$', ChefList.as_view()),

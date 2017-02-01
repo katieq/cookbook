@@ -12,7 +12,14 @@ And it "breaks" the title of home, and the side column isn't on the side.
     
     <body>
         <div>
+            {% if user.is_authenticated %}
+            <p>Welcome, <b>{{ user.username }}</b>. (Not {{ user.username }}? <a href="login/">Log in</a> as someone else.)</p>
+            {% else %}
+            <p>Welcome, Please <a href="login/">log in</a> or <a href="register/">register</a>.</p>
+            {% endif %}
+            
             <ul>
+                
                 {% if user.is_authenticated %}
                     <li><a href="/cooklog/restricted/">Restricted Page</a></li>
                     <li><a href="/cooklog/logout/">Logout</a></li>

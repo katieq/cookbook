@@ -1,7 +1,9 @@
+{% extends 'cooklog/__base.html' %}
 
+{% block body_block %}
 <h2>cook's book</h2>
 
-{% block main_col %}
+
 {% for dish in latest_dishs %}
     <div>
     <p><a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</p>

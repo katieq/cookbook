@@ -1,11 +1,14 @@
 <h1>{{ object.headline }}</h1>
 <p>{{ object.content }}</p>
 <p>Recipe name: {{ object.recipe_name }}</p>
-<p>Chef: {{ object.chef_id }}</p>
+<p>Chef: <a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id }}</a></p>
 <p>Recipe type: {{ object.recipe_type }}</p>
 <p>Recipe source: {{ object.recipe_source }}</p>
 <p>Date created: {{ object.date_created|date }}</p>
+
+{% comment %}
 <p>Date today: {{ now|date }}</p>
+{% endcomment %}
 
 <ul>
     {% for dish in dishes %}
@@ -13,7 +16,7 @@
     {% empty %}
     <p>No dishes yet: <a href="../../dish/add/">Add dish!</a></p>
     {% endfor %}
-    <p> Any photos will show below.. (todo.. shift to inline with dish) </p>
+    <p> Any photos will show below.. (oh dear.. for now, only the first dish's photos! + todo.. shift to inline with dish) </p>
     {% for photo in photos %}
     <img src="/media/{{ photo.dish_image }}" height="200"/>
     {% empty %}
