@@ -1,6 +1,9 @@
 import datetime
 
 from django.db import models
+from django.contrib.auth.models import User
+#from django.db.models.signals import post_save
+#from django.dispatch import receiver
 from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
@@ -9,22 +12,34 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Chef(models.Model):
     chef_id = models.AutoField(primary_key=True)
+    chef_to_user_id = models.ForeignKey(User) # could be OneToOneField, but annoying to start. I'm fine if One User Has Two Chef acounts.
+    # OneToOneField(User, on_delete=models.CASCADE, primary_key=True) # <- but created other problems.
     email = models.CharField("Email address", max_length=50)
     first_name = models.CharField("First name", max_length=30)
     last_name = models.CharField("Last name", max_length=30)
+    bio = models.TextField(max_length = 500, blank = True, null = True)
+    birth_date = models.DateField(null = True, blank = True)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
-    #date_created = models.DateTimeField(auto_now_add=True, editable=True)
     def __str__(self):
         return u'%s %s' % (self.first_name, self.last_name)
     def get_absolute_url(self):
         return reverse('chef-detail', kwargs={'pk': self.pk})
+
+
+#@receiver(post_save, sender=User)
+#def create_user_chef(sender, instance, created, **kwargs):
+#    if created:
+#        Chef.objects.create(user=instance)
+#@receiver(post_save, sender=User)
+#def save_user_chef(sender, instance, **kwargs):
+#    instance.chef.save()
 
 class Recipe(models.Model):
     recipe_id = models.AutoField(primary_key=True)
     recipe_name = models.CharField("Recipe name", max_length=200)
     recipe_source = models.CharField("Recipe source", max_length=200)
     recipe_type = models.CharField(max_length=30)
-    chef_id = models.ForeignKey(Chef, on_delete=models.CASCADE)
+    chef_id = models.ForeignKey(Chef) # removed on.delete=CASCADE, because if chef is deleted, I want to keep recipes
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
     def __str__(self):
         return self.recipe_name
