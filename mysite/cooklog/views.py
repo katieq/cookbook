@@ -10,7 +10,7 @@ from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish
 #from django.views.generic import CreateView
 from cooklog.forms import UploadImageForm, NewDishForm, NewLikeForm, NewCommentForm, CommentDeleteForm
 from django import forms
-from django.db.models import Count
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -25,14 +25,14 @@ def display_meta(request):
 def search_form(request):
     return render(request, 'search_form.html')
 
-def search(request):
+def search(request): # this still works for searching dish names!
     errors = []
     if 'q' in request.GET:
         q = request.GET['q']
         if not q:
             errors.append('Enter a search term.')
-        elif len(q) > 20:
-            errors.append('Please enter at most 20 characters.')
+        elif len(q) > 40:
+            errors.append('Please enter at most 40 characters.')
         else:
             dishs = Dish.objects.filter(dish_name__icontains=q)
             return render(request, 'search_results.html',

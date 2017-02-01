@@ -9,7 +9,7 @@
         <p>Found {{ dishs|length }} dish{{ dishs|pluralize }}.</p>
         <ul>
             {% for dish in dishs %}
-            <li>{{ dish.dish_name }}</li>
+            <li><a href="../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a></li>
             {% endfor %}
         </ul>
         {% else %}
