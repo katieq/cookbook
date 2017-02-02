@@ -119,7 +119,10 @@ class RecipeDelete(DeleteView):
 
 class ChefCreate(CreateView):
     model = Chef
-    fields = ['first_name', 'last_name', 'email', 'date_created'] #..now! (or default=now)
+    fields = ['first_name', 'last_name', 'email', 'date_created', 'chef_to_user_id'] #..now! (or default=now)
+    def get_success_url(self):
+        return '/cooklog/chef/' + str(self.object.chef_id) + '/'
+
 
 class ChefUpdate(UpdateView):
     model = Chef
@@ -128,7 +131,11 @@ class ChefUpdate(UpdateView):
 class DishCreate(CreateView):
     form_class = NewDishForm
     template_name = 'new_dish_form.html'
-    success_url = '/cooklog/dishes/'
+    #success_url = '/cooklog/dishes/'
+    def get_success_url(self):
+        return '/cooklog/dish/' + str(self.object.dish_id) + '/'
+
+
     #model = Dish
     #fields = ['dish_name', 'recipe_id', 'dish_method', 'dish_rating',
 #          'dish_comments', 'ingredient_id', 'date_created']
