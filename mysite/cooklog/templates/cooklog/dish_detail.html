@@ -7,10 +7,12 @@
 
 <h3><a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id }}'s</a> {{ object.dish_name }}</h3>
 
+{% if object.dish_rating %}
 {% load static %}
 {% for i in "x"|rjust:object.dish_rating %}
 <img src="{% static "emoji/img/star.png" %}" alt="star" height="30"/>
 {% endfor %}
+{% endif %}
 </p>
 
 <i>(... <a href="../../recipe/{{object.recipe_id_id}}/">{{ object.recipe_id }}</a> which is a {{recipe.recipe_type}} recipe first uploaded by <a href="../../chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id}}</a>)</i>
