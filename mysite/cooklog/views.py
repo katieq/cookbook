@@ -9,6 +9,7 @@ from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
 from cooklog.forms import UploadImageForm, NewDishForm, NewLikeForm, NewCommentForm, CommentDeleteForm
+from cooklog.forms import UpdateDishForm
 from django import forms
 from django.contrib.auth.models import User
 
@@ -60,9 +61,9 @@ class HomePageView(TemplateView):
     template_name = "home.html"
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        context['latest_dishs'] = Dish.objects.order_by("-date_created").all()[:5]
-        context['latest_photos'] = Dish_Photo.objects.filter(dish_id = context['latest_dishs'])
-        context['latest_recipes'] = Recipe.objects.filter(dish = context['latest_dishs'])
+        context['latest_dishs'] = Dish.objects.filter(dish_status = 1).order_by("-date_created").all()[:10]
+        #context['latest_photos'] = Dish_Photo.objects.filter(dish_id = context['latest_dishs'])
+        #context['latest_recipes'] = Recipe.objects.filter(dish = context['latest_dishs'])
         return context
 
 class RecipeDetailView(DetailView):
@@ -81,7 +82,7 @@ class DishDetailView(DetailView):
         context = super(DishDetailView,
                         self).get_context_data(**kwargs)
         context['recipe'] = Recipe.objects.get(recipe_id = self.object.recipe_id_id)
-        context['photos'] = Dish_Photo.objects.filter(dish_id = self.object.dish_id)
+        #context['photos'] = Dish_Photo.objects.filter(dish_id = self.object.dish_id)
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
         context['likes'] = Likes.objects.filter(dish_id = self.object.dish_id)
         return context
@@ -90,10 +91,10 @@ class ChefDetailView(DetailView):
     model = Chef
     def get_context_data(self, **kwargs):
         context = super(ChefDetailView, self).get_context_data(**kwargs)
-        context['latest_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).order_by("-date_created").all()[:3]
-        context['latest_photos'] = Dish_Photo.objects.filter(dish_id = context['latest_dishes'])
+        context['latest_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[:5]
         context['best_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).order_by("-dish_rating").all()[:3]
-        context['best_photos'] = Dish_Photo.objects.filter(dish_id = context['best_dishes'])
+        context['all_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[6:]
+        context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).order_by("-date_created").all()
         return context
 
 class IngredientDetailView(DetailView):
@@ -133,10 +134,18 @@ class DishCreate(CreateView):
 #          'dish_comments', 'ingredient_id', 'date_created']
 
 class DishUpdate(UpdateView):
-    model = Dish
-    fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled',
-              'dish_source', 'dish_method', 'dish_rating',
-              'dish_comments', 'ingredient_id', 'date_created']
+    #model = Dish
+    template_name = 'update_dish_form.html'
+    form_class = UpdateDishForm
+    def get_queryset(self):
+        return Dish.objects.filter(dish_id=self.kwargs.get("pk", None))
+        #fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled',
+        #      'date_created', 'dish_source', 'dish_method', 'dish_rating',
+        #      'dish_comments', 'ingredient_id', 'dish_image', 'photo_comment']
+    def get_success_url(self):
+        return '/cooklog/dish/' + str(self.object.dish_id) + '/'
+
+
 
 class IngredientCreate(CreateView):
     model = Ingredient

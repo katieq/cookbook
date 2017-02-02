@@ -1,25 +1,34 @@
-<h1>{{ object.headline }}</h1>
-<p>{{ object.content }}</p>
-<p>Recipe name: {{ object.recipe_name }}</p>
-<p>Chef: <a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id }}</a></p>
-<p>Recipe type: {{ object.recipe_type }}</p>
-<p>Recipe source: {{ object.recipe_source }}</p>
-<p>Date created: {{ object.date_created|date }}</p>
+{% extends 'cooklog/__base.html' %}
 
-{% comment %}
-<p>Date today: {{ now|date }}</p>
-{% endcomment %}
+{% block body_block %}
 
-<ul>
+<p><a href="/cooklog/recipe/add/{{object.recipe_id}}/">Edit recipe </a></p>
+<h2>{{ object.recipe_name }}</h2>
+
+<p><i>(A {{object.recipe_type}}, first uploaded by <a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id }}</a> on {{ object.date_created|date }})</i><p>
+
+{% if object.recipe_source %}
+<h3>Source: </h3>
+<p>{{ object.recipe_source }}</p>
+{% endif %}
+
+<h3>Dishes: </h3>
+
     {% for dish in dishes %}
-    <li>Dish for this recipe: <a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a> (Rating: {{dish.dish_rating}}/5) from {{ dish.date_created|date}}</li>
+<li><i>{{ dish.date_created|date:"D, M d"}}:</i> <a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+        {% load static %}
+        {% for i in "x"|rjust:dish.dish_rating %}
+        <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
+        {% endfor %}
+    
+    {% if dish.dish_image %}
+    <p><ul><ul><ul><img src="/media/{{ dish.dish_image }}" height="120"/></ul></ul></ul></p>
+    {% else %}
+    
+    {% endif %}
+    </li>
     {% empty %}
     <p>No dishes yet: <a href="../../dish/add/">Add dish!</a></p>
     {% endfor %}
-    <p> Any photos will show below.. (oh dear.. for now, only the first dish's photos! + todo.. shift to inline with dish) </p>
-    {% for photo in photos %}
-    <img src="/media/{{ photo.dish_image }}" height="200"/>
-    {% empty %}
-    <p> No photos yet for this recipe </p>
-    {% endfor %}
-<ul>
+
+{% endblock %}

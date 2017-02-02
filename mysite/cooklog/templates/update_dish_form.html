@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Edit Dish</title>
+    </head>
+    <body>
+        <h2>Edit this dish of yours:</h2>
+        
+        {% if form.errors %}
+        <p style="color: red;">
+        Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+        {% endif %}
+        
+        <form action="" method="post" enctype="multipart/form-data">
+            <table>
+                {{ form.as_table }}
+            </table>
+            {% csrf_token %}
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

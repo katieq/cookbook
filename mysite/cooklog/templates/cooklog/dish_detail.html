@@ -2,32 +2,35 @@
 
 {% block body_block %}
 
-<h1>{{ object.headline }}</h1>
-<p>{{ object.content }}</p>
-<p>Dish name: {{ object.dish_name }}</p>
-<p>Chef name: <a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id }}</a></p>
-<p>Recipe: <a href="../../recipe/{{object.recipe_id_id}}/">{{ object.recipe_id }}</a> which is an instance of {{recipe.recipe_type}} by <a href="../../chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id}}</a></p>
-<p>Method: {{ object.dish_method }}</p>
-<p>Rating: {{ object.dish_rating }}</p>
-<p>Comments: {{ object.dish_comments }}</p>
+<p><a href="/cooklog/dish/add/{{object.dish_id}}/">Edit dish </a></p>
+<p><i> {{ object.date_created|date:"D, M d" }} </i><p>
 
-<p>Ingredients:
-{% for ingredient in object.ingredient_id.all %}
-    <li><a href="../../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a></li>
-{% endfor %}</p>
+<h3><a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id }}'s</a> {{ object.dish_name }}</h3>
 
-<p>Date created: {{ object.date_created|date }}</p>
+{% load static %}
+{% for i in "x"|rjust:object.dish_rating %}
+<img src="{% static "emoji/img/star.png" %}" alt="star" height="30"/>
+{% endfor %}
+</p>
 
-{% if photos %}
-    {% for photo in photos %}
-        <img src="/media/{{ photo.dish_image }}" height="200"/>
-        <p> {{ photo.photo_comment }} </p>
-    {% endfor %}
+<i>(... <a href="../../recipe/{{object.recipe_id_id}}/">{{ object.recipe_id }}</a> which is a {{recipe.recipe_type}} recipe first uploaded by <a href="../../chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id}}</a>)</i>
+
+<h4> Photos: </h4>
+{% if object.dish_image %}
+<img src="/media/{{ object.dish_image }}" height="200"/>
+<p> {{ object.photo_comment }} </p>
 {% else %}
-    <p> No photos yet .. <a href="/cooklog/upload/">upload one here. </a> </p>
+<p> No photos yet, <a href="/cooklog/dish/add/{{object.dish_id}}">upload here. </a> </p>
 {% endif %}
 
-<h3> Comments: </h3>
+<h4>Method: </h4>
+<p> {{ object.dish_method }}</p>
+{% if object.dish_comments %}
+<h4> Chef comments: </h4>
+<p> {{ object.dish_comments }}</p>
+{% endif %}
+
+<h4> Comments: <i>  ...  <a href="{% url 'comment_add' %}?next={{object.dish_id}}">Add comment</a></i></h4>
 {% if chef_comments %}
 {% for chef_comment in chef_comments %}
 <p> {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment }}
@@ -37,20 +40,22 @@
 <p> No one has commented yet! </p>
 {% endif %}
 
-<p><a href="{% url 'comment_add' %}?next={{object.dish_id}}">Add comment</a></p>
-
+<h4> Likes: <i>  ...  <a href="{% url 'like_add' %}?next={{object.dish_id}}">Like it.</a></i></h4>
 {% if likes %}
 {% load static %}
 <p><img src="{% static "emoji/img/yum.png" %}" alt="yum" height="30"/>
-Dish has {{ likes|length }} yums (likes)!
+{{ likes|length }} person liked it!
 {% for like in likes %}
-{{like.chef_id}},
+<i><a href="../../chef/{{like.chef_id_id}}/">{{like.chef_id}}</a></i>,
 {% endfor %}
 </p>
 {% else %}
 <p> No one likes it! (yet..) </p>
 {% endif %}
 
-<a href="{% url 'like_add' %}?next={{object.dish_id}}">Like it.</a>
+<h4> Ingredients: </h4>
+{% for ingredient in object.ingredient_id.all %}
+<li><a href="../../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a></li>
+{% endfor %}
 
 {% endblock %}

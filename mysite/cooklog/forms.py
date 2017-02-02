@@ -23,22 +23,55 @@ class NewDishForm(forms.ModelForm):
     #              'dish_comments', 'ingredient_id', 'date_created']
     #long_desc = forms.CharField(widget=forms.Textarea)
     #short_desc = forms.CharField(widget=forms.Textarea)
+    dish_name = forms.CharField(widget=forms.Textarea)
     dish_method = forms.CharField(widget=forms.Textarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
+    photo_comment = forms.CharField(widget=forms.Textarea)
     ingredient_id = forms.ModelMultipleChoiceField(queryset=Ingredient.objects.all(),
                                                    widget=forms.SelectMultiple) # or CheckboxSelectMultiple
     class Meta:
         model = Dish
         fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled',
-                  'dish_source', 'dish_method', 'dish_rating',
-                  'dish_comments', 'ingredient_id', 'date_created']
+                  'date_created', 'dish_source', 'dish_method', 'dish_rating',
+                  'dish_comments', 'dish_image','photo_comment', 'ingredient_id']
     
     def __init__(self, *args, **kwargs):
         super(NewDishForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
-        self.fields['dish_method'].widget.attrs['cols'] = 40
-        self.fields['dish_method'].widget.attrs['rows'] = 10
-        self.fields['dish_comments'].widget.attrs['cols'] = 40
-        self.fields['dish_comments'].widget.attrs['rows'] = 10
+        self.fields['dish_name'].widget.attrs['rows'] = 1
+        self.fields['dish_name'].widget.attrs['cols'] = 80
+        self.fields['dish_method'].widget.attrs['cols'] = 80
+        self.fields['dish_method'].widget.attrs['rows'] = 5
+        self.fields['dish_comments'].widget.attrs['cols'] = 80
+        self.fields['dish_comments'].widget.attrs['rows'] = 5
+        self.fields['photo_comment'].widget.attrs['rows'] = 1
+        self.fields['photo_comment'].widget.attrs['cols'] = 80
+        self.fields['ingredient_id'].widget.attrs['size']= 30
+        for key in self.fields:
+            self.fields[key].required = False
+
+class UpdateDishForm(forms.ModelForm):
+    dish_name = forms.CharField(widget=forms.Textarea)
+    dish_method = forms.CharField(widget=forms.Textarea)
+    dish_comments = forms.CharField(widget=forms.Textarea)
+    photo_comment = forms.CharField(widget=forms.Textarea)
+    ingredient_id = forms.ModelMultipleChoiceField(queryset=Ingredient.objects.all(),
+                                                   widget=forms.SelectMultiple) # or CheckboxSelectMultiple
+    class Meta:
+        model = Dish
+        fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled', 'date_created',
+                    'dish_source', 'dish_method', 'dish_rating','dish_comments',
+                  'dish_image', 'photo_comment', 'ingredient_id']
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateDishForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['dish_name'].widget.attrs['rows'] = 1
+        self.fields['dish_name'].widget.attrs['cols'] = 80
+        self.fields['dish_method'].widget.attrs['cols'] = 80
+        self.fields['dish_method'].widget.attrs['rows'] = 5
+        self.fields['dish_comments'].widget.attrs['cols'] = 80
+        self.fields['dish_comments'].widget.attrs['rows'] = 5
+        self.fields['photo_comment'].widget.attrs['rows'] = 1
+        self.fields['photo_comment'].widget.attrs['cols'] = 80
         self.fields['ingredient_id'].widget.attrs['size']= 30
         for key in self.fields:
             self.fields[key].required = False

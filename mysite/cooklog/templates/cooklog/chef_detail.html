@@ -1,69 +1,97 @@
-<h1>{{ object.headline }}</h1>
-<p>{{ object.content }}</p>
-<p>Chef name: {{ object.first_name }} {{ object.last_name }}</p>
-<p>Email: {{ object.email }}</p>
-<p>Date created: {{ object.date_created|date }}</p>
+{% extends 'cooklog/__base.html' %}
 
-<h4> {{ object.first_name}}'s best rated dishes: </h4>
+{% block body_block %}
 
-{% for dish in best_dishes %}
-<div>
-    <ul><p><a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</p>
-        {% for photo in best_photos %}
-        {% if photo.dish_id_id == dish.dish_id %}
-        <ul><ul><img src="/media/{{ photo.dish_image }}" height="100" /></ul></ul>
-        {% endif %}
-        {% endfor %}
-    </a></ul>
-    
-    <ul><ul><p>
-        <li> Recipe: <a href="../../recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a></li>
-        {% comment %}
-        This was used initially to get, in a very messy way, the chef of the recipe. Omit for now.
-        {% for recipe in latest_recipes %}
-        {% if recipe.recipe_id == dish.recipe_id_id %}
-        Chef: <a href="chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id }}</a>
-        {% endif %}
-        {% endfor %}
-        {% endcomment %}
-        <li> Rating: {{ dish.dish_rating }} / 5 </li>
-        <li> {{ dish.date_created|date }} </li>
-        <li> Chef: <a href="../../chef/{{dish.chef_id_id}}/">{{ dish.chef_id }}</a></li>
-    </ul></ul>
-    </p>
-</div>
-{% empty %}
-<li>No dishes yet.</li>
-{% endfor %}
+<h2> {{object.first_name}}'s feed </h2>
+<i>({{ object.email }} | cooklogger since {{ object.date_created|date }})</i>
 
-<h4> {{ object.first_name}}'s latest dishes: </h4>
+<h3> {{ object.first_name}}'s latest few dishes: </h3>
 
 {% for dish in latest_dishes %}
 <div>
-    <ul><p><a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</p>
-        {% for photo in latest_photos %}
-        {% if photo.dish_id_id == dish.dish_id %}
-        <ul><ul><img src="/media/{{ photo.dish_image }}" height="100" /></ul></ul>
-        {% endif %}
+    <p>
+        <i>{{ dish.date_created|date:"D, M d" }}:</i>
+        <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+        {% load static %}
+        {% if dish.dish_rating %}
+        {% for i in "x"|rjust:dish.dish_rating %}
+        <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
         {% endfor %}
-    </a></ul>
-    
-    <ul><ul><p>
-        <li> Recipe: <a href="../../recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a></li>
-        {% comment %}
-        This was used initially to get, in a very messy way, the chef of the recipe. Omit for now.
-        {% for recipe in latest_recipes %}
-        {% if recipe.recipe_id == dish.recipe_id_id %}
-        Chef: <a href="chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id }}</a>
         {% endif %}
-        {% endfor %}
-        {% endcomment %}
-        <li> Rating: {{ dish.dish_rating }} / 5 </li>
-        <li> {{ dish.date_created|date }} </li>
-        <li> Chef: <a href="../../chef/{{dish.chef_id_id}}/">{{ dish.chef_id }}</a></li>
-    </ul></ul>
+        <i>( ... a <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)</i>
     </p>
+    {% if dish.dish_image %}
+    <ul><ul><ul><ul><a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" height="100" /></a></ul></ul></ul></ul>
+    {% endif %}
+    </a>
 </div>
 {% empty %}
 <li>No dishes yet.</li>
 {% endfor %}
+
+<h3> {{ object.first_name}}'s best rated dishes: </h3>
+
+{% for dish in best_dishes %}
+<div>
+    <p>
+        <i>{{ dish.date_created|date:"D, M d" }}:</i>
+        <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+        {% load static %}
+        {% if dish.dish_rating %}
+        {% for i in "x"|rjust:dish.dish_rating %}
+        <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
+        {% endfor %}
+        {% endif %}
+        <i>( ... a <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)</i>
+    </p>
+    {% if dish.dish_image %}
+    <ul><ul><ul><ul><a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" height="100" /></a></ul></ul></ul></ul>
+    {% endif %}
+    </a>
+</div>
+{% empty %}
+<li>No dishes yet.</li>
+{% endfor %}
+
+<h3> All {{ object.first_name}}'s previous dishes: </h3>
+
+{% for dish in all_dishes %}
+<div>
+    <p>
+        <i>{{ dish.date_created|date:"D, M d" }}:</i>
+        <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+        {% load static %}
+        {% if dish.dish_rating %}
+        {% for i in "x"|rjust:dish.dish_rating %}
+        <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
+        {% endfor %}
+        {% endif %}
+        <i>( ... a <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)</i>
+    </p>
+    {% if dish.dish_image %}
+    <ul><ul><ul><ul><a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" height="100" /></a></ul></ul></ul></ul>
+    {% endif %}
+    </a>
+</div>
+{% empty %}
+<li>No dishes yet.</li>
+{% endfor %}
+
+<h3> {{ object.first_name}}'s scheduled dishes: </h3>
+
+Plan to cook ...
+{% for dish in todo_dishes %}
+<div>
+    <p> ...
+    <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+    <i>( ... a <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)</i>
+    on {{ dish.date_scheduled|date:"D, M d" }}</p>
+</div>
+{% empty %}
+<li>No dishes yet.</li>
+{% endfor %}
+
+
+
+
+{% endblock %}

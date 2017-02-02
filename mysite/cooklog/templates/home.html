@@ -1,34 +1,25 @@
 {% extends 'cooklog/__base.html' %}
 
 {% block body_block %}
-<h2>cook's book</h2>
-
+<h2>latest feeds:</h2>
 
 {% for dish in latest_dishs %}
     <div>
-    <p><a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</p>
-    {% for photo in latest_photos %}
-    {% if photo.dish_id_id == dish.dish_id %}
-    <ul><ul><img src="/media/{{ photo.dish_image }}" height="100" /></ul></ul>
-    {% endif %}
+    <p>
+        <i>{{ dish.date_created|date:"D, M d" }} <a href="chef/{{dish.chef_id_id}}/">{{ dish.chef_id }}</a>:</i>
+    <a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+    {% load static %}
+    {% if dish.dish_rating %}
+    {% for i in "x"|rjust:dish.dish_rating %}
+        <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
     {% endfor %}
-    </a>
-    
-    <ul><ul><p>
-        <li> Recipe: <a href="recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }} </a> (Chef=...)</li>
-        {% comment %}
-        
-        {% for recipe in latest_recipes %}
-        {% if recipe.recipe_id == dish.recipe_id_id %}
-        Chef: <a href="chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id }}</a>
-        {% endif %}
-        {% endfor %}
-        {% endcomment %}
-        <li> Rating: {{ dish.dish_rating }} / 5 </li>
-        <li> {{ dish.date_created|date }} </li>
-        <li> Chef: <a href="chef/{{dish.chef_id_id}}/">{{ dish.chef_id }}</a></li>
-    </ul></ul>
+    {% endif %}
+    <i>( ... a <a href="recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)</i>
     </p>
+    {% if dish.dish_image %}
+    <ul><ul><ul><ul><a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" height="100" /></a></ul></ul></ul></ul>
+    {% endif %}
+    </a>
     </div>
 {% empty %}
     <li>No dishes yet.</li>

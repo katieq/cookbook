@@ -1,36 +1,27 @@
-{% comment %}
-Pasted from here. But I don't have plenty of these things.. so I removed them.
-And it "breaks" the title of home, and the side column isn't on the side.
-{% endcomment %}
-
 <!DOCTYPE html>
 
 <html>
     <head>
-        <h2>cookbook - {% block title %}Log what you cook!{% endblock %}</h2>
+        <h2>cook-book | <a href="/cooklog/">Home</a></h2>
     </head>
     
     <body>
         <div>
             {% if user.is_authenticated %}
-            <p>Welcome, <b>{{ user.username }}</b>. (Not {{ user.username }}? <a href="login/">Log in</a> as someone else.)</p>
+            <p>Welcome, <b>{{ user.username }}</b>. (Not {{ user.username }}? <a href="/cooklog/login/">Log in</a> as someone else.) |
             {% else %}
-            <p>Welcome, Please <a href="login/">log in</a> or <a href="register/">register</a>.</p>
+            <p>Welcome, Please <a href="/cooklog/login/">log in</a> or <a href="/cooklog/register/">register</a>. |
             {% endif %}
             
-            <ul>
-                
-                {% if user.is_authenticated %}
-                    <li><a href="/cooklog/chef/{{user.id}}">My page</a></li>
-                    <li><a href="/cooklog/logout/">Logout</a></li>
-                    <li><a href="/cooklog/dishes/">Put other links here</a></li>
-                {% else %}
-                    <li><a href="/cooklog/register/">Register Here</a></li>
-                    <li><a href="/cooklog/login/">Login</a></li>
-                {% endif %}
-                
-                    <li><a href="/cooklog/">Feed</a></li>
-            </ul>
+            {% if user.is_authenticated %}
+                <a href="/cooklog/chef/{{user.id}}">My page (Katie's for now!)</a> |
+                <a href="/cooklog/logout/">Logout</a> |
+                <a href="/cooklog/dishes/">Put other links here</a> |
+            {% else %}
+                <a href="/cooklog/register/">Register Here</a> |
+                <a href="/cooklog/login/">Login</a> |
+            {% endif %}
+            
         </div>
 
         <hr />

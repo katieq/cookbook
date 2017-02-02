@@ -75,13 +75,15 @@ class Dish(models.Model):
     dish_comments = models.CharField("Dish comments", max_length=800,
                                      null=True, blank=True) # my own comments about how I liked it..
     ingredient_id = models.ManyToManyField(Ingredient)
+    dish_image = models.ImageField(upload_to="dish_photos", null = True, blank = True)
+    photo_comment = models.CharField("Photo comment", max_length=200, null = True, blank = True)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
     def __str__(self):
         return self.dish_name
     def get_absolute_url(self):
         return reverse('dish-detail', kwargs={'pk': self.pk})
 
-
+# From now on: this will only be *backup duplicate* and maybe soon *removed*
 class Dish_Photo(models.Model):
     dish_photo_id = models.AutoField(primary_key=True)
     dish_id = models.ManyToManyField(Dish) #models.ForeignKey(Dish, on_delete=models.CASCADE)
