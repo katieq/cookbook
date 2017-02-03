@@ -7,6 +7,7 @@
 
 <h3><a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id }}'s</a> {{ object.dish_name }}</h3>
 
+<div class="dish">
 {% if object.dish_rating %}
 {% load static %}
 {% for i in "x"|rjust:object.dish_rating %}
@@ -59,5 +60,5 @@
 {% for ingredient in object.ingredient_id.all %}
 <li><a href="../../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a></li>
 {% endfor %}
-
+</div>
 {% endblock %}

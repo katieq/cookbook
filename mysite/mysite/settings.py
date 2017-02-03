@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cooklog.apps.CooklogConfig',
+    'django.contrib.humanize',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -1,0 +1,76 @@
+h2 a {
+    color: #874C62;
+}
+
+body {
+    padding-left: 15px;
+    background-color: #FFFEEE;
+    color: #874C62;
+    font-family: 'Merriweather', serif;
+}
+
+a:link {
+    color: #C98474;
+    font-family: 'Merriweather', serif;
+}
+
+a:visited {
+    color: #C98474;
+    font-family:  'Merriweather', serif;
+}
+
+.page-header {
+    background-color: #A7D2CB;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #C98474;
+    font-size: 36pt;
+    text-decoration: none;
+    font-family:  'Merriweather', serif;
+}
+
+.content {
+    margin-left: 40px;
+}
+
+h1, h2, h3 {
+    font-family:  'Merriweather', serif;
+    color: #874C62;
+}
+
+h4 {
+    font-family:  'Merriweather', serif;
+    color: #C98474;
+}
+
+
+.date {
+    color: #F2D388;
+}
+
+.save {
+    float: right;
+}
+
+.post-form textarea, .post-form input {
+    width: 100%;
+}
+
+.top-menu, .top-menu:hover, .top-menu:visited {
+    color: #1B1209;
+    float: right;
+    font-size: 10pt;
+    margin-right: 15px;
+}
+
+.dish {
+    margin-bottom: 70px;
+    colof: #C98474;
+}
+
+.dish h1 a, .dish h1 a:visited {
+    color: #C98474;
+}

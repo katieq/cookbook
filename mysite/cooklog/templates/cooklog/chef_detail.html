@@ -1,4 +1,5 @@
 {% extends 'cooklog/__base.html' %}
+{% load humanize %}
 
 {% block body_block %}
 
@@ -10,7 +11,7 @@
 {% for dish in latest_dishes %}
 <div>
     <p>
-        <i>{{ dish.date_created|timesince }} ago:</i>
+        <i>{{ dish.date_created|date:"D, M d" }}:</i>
         <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
         {% load static %}
         {% if dish.dish_rating %}
@@ -34,7 +35,7 @@
 {% for dish in best_dishes %}
 <div>
     <p>
-        <i>{{ dish.date_created|timesince }} ago:</i>
+        <i>{{ dish.date_created|date:"D, M d" }}:</i>
         <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
         {% load static %}
         {% if dish.dish_rating %}
@@ -82,10 +83,9 @@
 Plan to cook ...
 {% for dish in todo_dishes %}
 <div>
-    <p> ...
+    <i>{{ dish.date_scheduled|date:"D, M d" }}:</i>
     <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
-    <i>( ... a <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)</i>
-    on {{ dish.date_scheduled|date:"D, M d" }} in {{ dish.date_created|timesince }}</p>
+    <i>( ... a <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)</i>, {{ dish.date_created|naturaltime }}
 </div>
 {% empty %}
 <li>No dishes yet.</li>

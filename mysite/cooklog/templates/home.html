@@ -4,7 +4,7 @@
 <h2>latest feeds:</h2>
 
 {% for dish in latest_dishs %}
-    <div>
+    <div class="dish">
     <p>
         <i>{{ dish.date_created|timesince }} ago <a href="chef/{{dish.chef_id_id}}/">{{ dish.chef_id }}</a>:</i>
     <a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>

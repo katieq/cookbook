@@ -1,28 +1,37 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 
 <html>
     <head>
-        <h2>cook-book | <a href="/cooklog/">Home</a> | <a href="/cooklog/recipe/add/">New Recipe</a> | <a href="/cooklog/dish/add/">New Dish</a> | <a href="/cooklog/ingredient/add/">New Ingredient</a></h2>
-    </head>
-    
-    <body>
-        <div>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/cooklog.css' %}">
+        
+        <div class="page-header">
+            <h2>cook-book | <a href="/cooklog/">home</a> | {new: <a href="/cooklog/recipe/add/"> recipe</a> | <a href="/cooklog/dish/add/">dish</a> | <a href="/cooklog/ingredient/add/">ingredient</a>}</h2>
+        </div>
+        <div class="top-menu">
             {% if user.is_authenticated %}
             <p>Welcome, <b>{{ user.username }}</b>. (Not {{ user.username }}? <a href="/cooklog/login/">Log in</a> as someone else.) |
             {% else %}
             <p>Welcome, Please <a href="/cooklog/login/">log in</a> or <a href="/cooklog/register/">register</a>. |
             {% endif %}
-            
+        
             {% if user.is_authenticated %}
-                <a href="/cooklog/chef/{{user.id}}">My page (Katie's for now!)</a> |
-                <a href="/cooklog/logout/">Logout</a> |
-                <a href="/cooklog/dishes/">Put other links here</a> |
+            <a href="/cooklog/chef/{{user.id}}">My page (Katie's for now!)</a> |
+            <a href="/cooklog/logout/">Logout</a> |
+            <a href="/cooklog/dishes/">Put other links here</a> |
             {% else %}
-                <a href="/cooklog/register/">Register Here</a> |
-                <a href="/cooklog/login/">Login</a> |
+            <a href="/cooklog/register/">Register Here</a> |
+            <a href="/cooklog/login/">Login</a> |
             {% endif %}
             
         </div>
+    </head>
+    
+    <body>
+        
 
         <hr />
         
