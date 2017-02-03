@@ -41,14 +41,19 @@ h1, h2, h3 {
     color: #874C62;
 }
 
+h3 {
+    font-family: 'Merriweather', serif;
+    color: #008080;
+}
+
 h4 {
     font-family:  'Merriweather', serif;
-    color: #C98474;
+    color: #008080;
 }
 
 
 .date {
-    color: #F2D388;
+    color: #A7D2CB;
 }
 
 .save {
@@ -67,8 +72,8 @@ h4 {
 }
 
 .dish {
-    margin-bottom: 70px;
-    colof: #C98474;
+    margin-bottom: 4px;
+    color: #874C62;
 }
 
 .dish h1 a, .dish h1 a:visited {

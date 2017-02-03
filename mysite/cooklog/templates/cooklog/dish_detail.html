@@ -20,7 +20,7 @@
 
 <h4> Photos: </h4>
 {% if object.dish_image %}
-<img src="/media/{{ object.dish_image }}" height="200"/>
+<img src="/media/{{ object.dish_image }}" height="200" style="border: #F2D388 4px solid;"/>
 <p> {{ object.photo_comment }} </p>
 {% else %}
 <p> No photos yet, <a href="/cooklog/dish/add/{{object.dish_id}}">upload here. </a> </p>

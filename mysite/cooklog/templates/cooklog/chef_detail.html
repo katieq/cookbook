@@ -9,8 +9,8 @@
 <h3> {{ object.first_name}}'s latest few dishes: </h3>
 
 {% for dish in latest_dishes %}
-<div>
-    <p>
+<div class="dish">
+
         <i>{{ dish.date_created|date:"D, M d" }}:</i>
         <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
         {% load static %}
@@ -20,11 +20,11 @@
         {% endfor %}
         {% endif %}
         <i>( ... a <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)</i>
-    </p>
+
     {% if dish.dish_image %}
-    <ul><ul><ul><ul><a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" height="100" /></a></ul></ul></ul></ul>
+    <ul><ul><ul><ul><a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" height="100"
+        style="border: #F2D388 4px solid;" /></a></ul></ul></ul></ul>
     {% endif %}
-    </a>
 </div>
 {% empty %}
 <li>No dishes yet.</li>
@@ -33,22 +33,21 @@
 <h3> {{ object.first_name}}'s best rated dishes: </h3>
 
 {% for dish in best_dishes %}
-<div>
-    <p>
-        <i>{{ dish.date_created|date:"D, M d" }}:</i>
-        <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
-        {% load static %}
-        {% if dish.dish_rating %}
-        {% for i in "x"|rjust:dish.dish_rating %}
+<div class="dish">
+
+    <i>{{ dish.date_created|date:"D, M d" }}:</i>
+    <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+    {% load static %}
+    {% if dish.dish_rating %}
+    {% for i in "x"|rjust:dish.dish_rating %}
         <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
-        {% endfor %}
-        {% endif %}
-        <i>( ... a <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)</i>
-    </p>
-    {% if dish.dish_image %}
-    <ul><ul><ul><ul><a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" height="100" /></a></ul></ul></ul></ul>
+    {% endfor %}
     {% endif %}
-    </a>
+    <i>( ... a <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)</i>
+
+    {% if dish.dish_image %}
+    <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" height="100" style="border: #F2D388 4px solid;"/></a>
+    {% endif %}
 </div>
 {% empty %}
 <li>No dishes yet.</li>
@@ -57,7 +56,7 @@
 <h3> All {{ object.first_name}}'s previous dishes: </h3>
 
 {% for dish in all_dishes %}
-<div>
+<div class="dish">
     <p>
         <i>{{ dish.date_created|date:"D, M d" }}:</i>
         <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
@@ -70,9 +69,8 @@
         <i>( ... a <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)</i>
     </p>
     {% if dish.dish_image %}
-    <ul><ul><ul><ul><a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" height="100" /></a></ul></ul></ul></ul>
+    <ul><ul><ul><ul><a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" height="100" style="border: #F2D388 4px solid;"/></a></ul></ul></ul></ul>
     {% endif %}
-    </a>
 </div>
 {% empty %}
 <li>No dishes yet.</li>
