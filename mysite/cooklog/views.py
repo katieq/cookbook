@@ -71,8 +71,8 @@ class RecipeDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(RecipeDetailView,
                         self).get_context_data(**kwargs)
-        context['dishes'] = Dish.objects.filter(recipe_id = self.object.recipe_id).order_by("-date_created")
-        context['photos'] = Dish_Photo.objects.filter(dish_id = context['dishes']) # hm, only returns for first one?!
+        context['dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).order_by("-date_created")
+        #context['photos'] = Dish_Photo.objects.filter(dish_id = context['dishes']) # hm, only returns for first one?!
         #context['now'] = timezone.now()
         return context
 

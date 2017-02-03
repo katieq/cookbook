@@ -15,14 +15,16 @@
 <h3>Dishes: </h3>
 
     {% for dish in dishes %}
-<li><i>{{ dish.date_created|date:"D, M d"}}:</i> <a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+        <li><i>{{ dish.date_created|date:"D, M d"}}:</i> <a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+            {% if dish.dish_rating %}
         {% load static %}
         {% for i in "x"|rjust:dish.dish_rating %}
         <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
         {% endfor %}
+        {% endif %}
     
     {% if dish.dish_image %}
-    <p><ul><ul><ul><img src="/media/{{ dish.dish_image }}" height="120"/></ul></ul></ul></p>
+    <p><ul><ul><ul><img src="/media/{{ dish.dish_image }}" height="120" style="border: #F2D388 4px solid;"/></ul></ul></ul></p>
     {% else %}
     
     {% endif %}
