@@ -6,7 +6,7 @@
 <h2> {{object.first_name}}'s feed </h2>
 <i>({{ object.email }} | cooklogger since {{ object.date_created|date }})</i>
 
-<h3> {{ object.first_name}}'s latest few dishes: </h3>
+<h4> {{ object.first_name}}'s latest few dishes: </h4>
 
 {% for dish in latest_dishes %}
 <div class="dish">
@@ -30,7 +30,7 @@
 <li>No dishes yet.</li>
 {% endfor %}
 
-<h3> {{ object.first_name}}'s best rated dishes: </h3>
+<h4> {{ object.first_name}}'s best rated dishes: </h4>
 
 {% for dish in best_dishes %}
 <div class="dish">
@@ -53,7 +53,7 @@
 <li>No dishes yet.</li>
 {% endfor %}
 
-<h3> All {{ object.first_name}}'s previous dishes: </h3>
+<h4> All {{ object.first_name}}'s previous dishes: </h4>
 
 {% for dish in all_dishes %}
 <div class="dish">
@@ -76,7 +76,7 @@
 <li>No dishes yet.</li>
 {% endfor %}
 
-<h3> {{ object.first_name}}'s scheduled dishes: </h3>
+<h4> {{ object.first_name}}'s scheduled dishes: </h4>
 
 Plan to cook ...
 {% for dish in todo_dishes %}

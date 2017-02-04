@@ -9,8 +9,23 @@
         <link rel="stylesheet" href="{% static 'css/cooklog.css' %}">
         
         <div class="page-header">
-            <h2>cook-book | <a href="/cooklog/">home</a> | {new: <a href="/cooklog/recipe/add/"> recipe</a> | <a href="/cooklog/dish/add/">dish</a> | <a href="/cooklog/ingredient/add/">ingredient</a>}</h2>
+            <h3>
+            COQUO | <a href="/cooklog/">home</a> |
+                {new: <a href="/cooklog/recipe/add/"> recipe</a> |
+                <a href="/cooklog/dish/add/">dish</a> |
+                <a href="/cooklog/ingredient/add/">ingredient</a>} |
+                <a href="/cooklog/chefs/">all chefs</a> |
+                {% if user.is_authenticated %}
+                <a href="/cooklog/chef/{{user.id}}">{{ user.username }}'s page</a> |
+                <a href="/cooklog/logout/">logout</a>
+                {% else %}
+                <a href="/cooklog/login/">login</a> |
+                <a href="/cooklog/register/">register</a>
+                {% endif %}
+            </h3>
+             
         </div>
+        {% comment %}
         <div class="top-menu">
             {% if user.is_authenticated %}
             <p>Welcome, <b>{{ user.username }}</b>. (Not {{ user.username }}? <a href="/cooklog/login/">Log in</a> as someone else.) |
@@ -28,6 +43,7 @@
             {% endif %}
             
         </div>
+        {% endcomment %}
     </head>
     
     <body>
@@ -41,4 +57,13 @@
         
 
     </body>
+    
+    <footer>
+        
+        <div>
+            COQUO by katieq
+        </div>
+        
+        
+    </footer>
 </html>
