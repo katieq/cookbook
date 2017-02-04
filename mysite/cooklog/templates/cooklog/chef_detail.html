@@ -21,17 +21,17 @@
         
         {% if dish.dish_image %}
         <div class="crop">
-            <a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
         </div>
         {% else %}
         <div class="crop-placeholder">
-            <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
         </div>
         {% endif %}
     </div>
     <div class="dish-mini-inner">
         <div class="dish-mini-inner-name">
-            <a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+            <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
         </div>
         <div class="dish-mini-inner-rating">
             {% if dish.dish_rating %}
@@ -41,7 +41,7 @@
             {% endif %}
         </div>
         <div class="dish-mini-inner-recipe">
-            <a href="recipe/{{dish.recipe_id_id}}/">master recipe</a>
+            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
         </div>
     </div>
 
@@ -80,17 +80,17 @@
             
             {% if dish.dish_image %}
             <div class="crop">
-                <a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
             </div>
             {% else %}
             <div class="crop-placeholder">
-                <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
             </div>
             {% endif %}
         </div>
         <div class="dish-mini-inner">
             <div class="dish-mini-inner-name">
-                <a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+                <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
             </div>
             <div class="dish-mini-inner-rating">
                 {% if dish.dish_rating %}
@@ -100,7 +100,7 @@
                 {% endif %}
             </div>
             <div class="dish-mini-inner-recipe">
-                <a href="recipe/{{dish.recipe_id_id}}/">master recipe</a>
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
             </div>
         </div>
 {% comment %}
@@ -137,17 +137,17 @@
             
             {% if dish.dish_image %}
             <div class="crop">
-                <a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
             </div>
             {% else %}
             <div class="crop-placeholder">
-                <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
             </div>
             {% endif %}
         </div>
         <div class="dish-mini-inner">
             <div class="dish-mini-inner-name">
-                <a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+                <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
             </div>
             <div class="dish-mini-inner-rating">
                 {% if dish.dish_rating %}
@@ -157,7 +157,7 @@
                 {% endif %}
             </div>
             <div class="dish-mini-inner-recipe">
-                <a href="recipe/{{dish.recipe_id_id}}/">master recipe</a>
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
             </div>
         </div>
     {% comment %}
@@ -195,17 +195,17 @@
             
             {% if dish.dish_image %}
             <div class="crop">
-                <a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
             </div>
             {% else %}
             <div class="crop-placeholder">
-                <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
             </div>
             {% endif %}
         </div>
         <div class="dish-mini-inner">
             <div class="dish-mini-inner-name">
-                <a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+                <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
             </div>
             <div class="dish-mini-inner-rating">
                 {% if dish.dish_rating %}
@@ -215,7 +215,7 @@
                 {% endif %}
             </div>
             <div class="dish-mini-inner-recipe">
-                <a href="recipe/{{dish.recipe_id_id}}/">master recipe</a>
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
             </div>
         </div>
         
