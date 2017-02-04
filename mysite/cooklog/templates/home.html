@@ -1,24 +1,46 @@
 {% extends 'cooklog/__base.html' %}
-
+{% load static %}
 {% block body_block %}
-<h2>latest feeds:</h2>
+<div class="header-home">
+    <h3> lastest feeds </h3>
+</div>
 
 {% for dish in latest_dishs %}
-    <div class="dish">
-    <p>
-    <i>{{ dish.date_created|timesince }} ago <a href="chef/{{dish.chef_id_id}}/">{{ dish.chef_id }}</a>:</i>
-    <a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
-    {% load static %}
-    {% if dish.dish_rating %}
-    {% for i in "x"|rjust:dish.dish_rating %}
-        <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
-    {% endfor %}
-    {% endif %}
-    <i>( ... a <a href="recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a> dish)  </i>
-    </p>
-    {% if dish.dish_image %}
-    <ul><ul><ul><ul><a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" height="100" style="border: #F2D388 4px solid;"/></a></ul></ul></ul></ul>
-    {% endif %}
+    <div class="dish-mini">
+        <div class="dish-mini-date">
+        {{ dish.date_created|date:"D"|upper }}
+        </div>
+        <div class="dish-mini-chef">
+        <a href="chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}</a>
+        </div>
+        <div class="dish-mini-image">
+            
+            {% if dish.dish_image %}
+            <div class="crop">
+                <a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+            </div>
+            {% else %}
+            <div class="crop-placeholder">
+                <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="dish-mini-inner">
+            <div class="dish-mini-inner-name">
+            <a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+            </div>
+            <div class="dish-mini-inner-rating">
+            {% if dish.dish_rating %}
+            {% for i in "x"|rjust:dish.dish_rating %}
+                <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
+                {% endfor %}
+            {% endif %}
+            </div>
+            <div class="dish-mini-inner-recipe">
+            <a href="recipe/{{dish.recipe_id_id}}/">master recipe</a>
+            </div>
+        </div>
+        
     
     </div>
 {% empty %}

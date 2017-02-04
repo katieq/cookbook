@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 
 <html>
     <head>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'css/cooklog.css' %}">
+        <link rel="stylesheet"  type='text/css' href="/static/css/cooklog.css?{% now "U" %}">
         
         <div class="page-header">
             <h3>
@@ -48,8 +48,9 @@
     
     <body>
         
-
+        {% comment %}
         <hr />
+        {% endcomment %}
         
         <div>
             {% block body_block %}{% endblock %}
@@ -59,11 +60,9 @@
     </body>
     
     <footer>
-        
-        <div>
-            COQUO by katieq
+        <div class="main-footer">
+            <h5> COQUO | A cooking-log by katieq! </h5>
         </div>
-        
-        
     </footer>
+        
 </html>

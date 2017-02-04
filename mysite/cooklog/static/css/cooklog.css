@@ -3,15 +3,23 @@ h2 a {
 }
 
 body {
-    padding-left: 15px;
+    padding-left: 0px;
     background-color: #FFFFFF; /*FFFEEE;*/
     color: #874C62;
     font-family: 'Merriweather', serif;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
 }
 
 footer {
     background-color: #A7D2CB;
+    padding-bottom: 0px;
+    font-family: 'Merriweather', serif;
+    padding: 10px 5px 10px 10px;
+}
+
+h5 {
+    color: #874C62; /*#F2D388;*/
+    font-size: 18px;
 }
 
 a:link {
@@ -37,12 +45,99 @@ a:visited {
     font-family:  'Merriweather', serif;
 }
 
+.header-home {
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+
+.dish-mini {
+    padding-left: 40px;
+    min-height: 110px;
+}
+
+.dish-mini-date {
+    float: left;
+    font-size: 12px;
+    color: #C98474;
+}
+
+.dish-mini-chef {
+    float: left;
+    padding: 0 30px;
+    width: 140px;
+}
+
+.dish-mini-chef a {
+    font-size: 16px;
+    color: #874C62;
+}
+
+.dish-mini-inner {
+    font-size: 13px;
+    padding: 0 30px;
+    width: 350px;
+    margin: 0px 0;
+    float: left;
+}
+
+.dish-mini-inner-name {
+    float: top;
+    padding-top: 0px;
+    font-size: 16px;
+}
+
+.dish-mini-inner-name a {
+    color: #874C62;
+}
+
+.dish-mini-inner-rating {
+    float: top;
+    padding-top: 5px;
+}
+.dish-mini-inner-recipe {
+    float: top;
+    padding-top: 5px;
+    font-size: 12px;
+    color: #C98474
+}
+.dish-mini-inner-recipe a {
+    color: #C98474;
+}
+
+.dish-mini-image {
+    font-size: 13px;
+    padding: 0 0px;
+    margin: 0px 0;
+    float: left;
+    width: 120px;
+}
+
+.crop img {
+    height: 90px;
+    width: 120px;
+    object-fit: cover;
+    border: 4px solid #F2D388;
+}
+
+.crop-placeholder img {
+    height: 90px;
+    width: 120px;
+    object-fit: cover;
+    border: 4px solid #F2D388;
+    filter: grayscale(100%);
+}
+
+
+
+
 
 .content {
     margin-left: 40px;
 }
 
 h1, h2 {
+    padding-left: 10px;
     font-family:  'Merriweather', serif;
     color: #874C62;
 }
