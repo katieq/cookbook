@@ -28,8 +28,8 @@
 
 {% for dish in dishes %}
 <div class="dish-mini">
-    <div class="dish-mini-date">
-        {{ dish.date_created|date:"D"|upper }}
+    <div class="dish-mini-date-long">
+        {{ dish.date_created|date:"D, M-d"|upper }}
     </div>
     <div class="dish-mini-chef">
         <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}</a>

@@ -1,10 +1,18 @@
-<html>
-    <head>
-        <title>Dish Entry</title>
-    </head>
-    <body>
-        <h2>Enter or edit dish:</h2>
-        <h3><a href="../../recipe/add/">.. Or create new recipe here!</a> </h3>
+{% extends 'cooklog/__base.html' %}
+<head>
+    <title>Dish Entry</title>
+</head>
+
+{% block body_block %}
+
+<div class="dish-entry">
+    <div class="page-title">
+        Enter or edit dish:
+    </div>
+    <div class="page-subtitle">
+        <a href="../../recipe/add/">...Or create new recipe</a>
+    </div>
+    <div class="dish-entry-form">
         
         {% if form.errors %}
         <p style="color: red;">
@@ -18,6 +26,7 @@
             </table>
             {% csrf_token %}
             <input type="submit" value="Submit">
-                </form>
-    </body>
-</html>
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'cooklog/__base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block body_block %}
+
+<div class="page-title">
+    {{object.first_name}}'s feed
+</div>
+
+<div class="page-menu">
+    <li><a href="/cooklog/chef/{{object.chef_id}}/">[feed view]</a></li>
+    <li><a href="/cooklog/chef/todo/{{object.chef_id}}/">[to-do list]</a></li>
+</div>
+
+<div class="page-subtitle">
+    all dishes:
+</div>
+
+{% for dish in dishes %}
+<div class="dish-brief">
+    <div class="dish-mini-date-long">
+        {{ dish.date_created|date:"D, M-d"|upper }}
+    </div>
+    <div class="dish-brief-inner">
+        <div class="dish-brief-inner-rating">
+            {% if dish.dish_rating %}
+            {% for i in "x"|rjust:dish.dish_rating %}
+            <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="dish-brief-inner-edit">
+            <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
+        </div>
+        <div class="dish-brief-inner-recipe">
+            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">[master recipe]</a>
+        </div>
+        <div class="dish-brief-inner-name">
+            <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+        </div>
+    </div>
+</div>
+{% empty %}
+<div class="dish-empty">
+No dishes yet.
+</div>
+{% endfor %}
+
+
+{% endblock %}

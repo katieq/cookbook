@@ -17,7 +17,7 @@ from django.contrib import admin
 from cooklog import views
 from cooklog.views import ChefList, RecipeList, DishList, IngredientList
 from cooklog.views import HomePageView, RecipeDetailView, DishDetailView, ChefDetailView, IngredientDetailView
-from cooklog.views import ChefScheduleView
+from cooklog.views import ChefScheduleView, ChefBriefView
 from cooklog.views import RecipeCreate, RecipeUpdate, RecipeDelete
 from cooklog.views import ChefCreate, ChefUpdate
 from cooklog.views import DishCreate, DishUpdate
@@ -45,6 +45,7 @@ urlpatterns = [
                url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
                url(r'^chef/(?P<pk>\d+)/$', ChefDetailView.as_view(), name='chef_detail'),
                url(r'^chef/todo/(?P<pk>\d+)/$', ChefScheduleView.as_view(template_name='cooklog/chef_todo.html'), name='chef_todo'),
+               url(r'^chef/brief/(?P<pk>\d+)/$', ChefBriefView.as_view(template_name='cooklog/chef_brief.html'), name='chef_brief'),
                url(r'^dish/(?P<pk>\d+)/$', DishDetailView.as_view(), name='dish_detail'),
                url(r'^ingredient/(?P<pk>\d+)/$', IngredientDetailView.as_view(), name='ingredient_detail'),
                url(r'^recipe/add/$', RecipeCreate.as_view(), name='recipe_add'),
