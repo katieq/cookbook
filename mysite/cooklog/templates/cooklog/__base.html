@@ -19,7 +19,8 @@
                 <a href="/cooklog/ingredient/add/">ingredient</a>} |
                 <a href="/cooklog/chefs/">all chefs</a> |
                 {% if user.is_authenticated %}
-                <a href="/cooklog/chef/{{user.id}}">{{ user.username }}'s page</a> |
+                <a href="/cooklog/chef/{{user.id}}">{{ user.username }}'s feed</a> |
+                <a href="/cooklog/chef/todo/{{user.id}}">{{ user.username }}'s todo</a> |
                 <a href="/cooklog/logout/">logout</a>
                 {% else %}
                 <a href="/cooklog/login/">login</a> |

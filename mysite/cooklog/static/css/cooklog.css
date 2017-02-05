@@ -62,6 +62,10 @@ a:visited {
     color: #C98474;
 }
 
+.page-menu {
+    float: left;
+    margin-left: 560px;
+}
 
 /*
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
@@ -104,6 +108,20 @@ a:visited {
     width: 50px;
 }
 
+.dish-mini-date-long {
+    float: left;
+    font-size: 12px;
+    color: #C98474;
+    width: 100px;
+}
+
+.dish-mini-days-until {
+    float: left;
+    font-size: 12px;
+    color: #C98474;
+    width: 80px;
+}
+
 .dish-mini-chef {
     float: left;
     padding: 0 30px;
@@ -140,11 +158,18 @@ a:visited {
 .dish-mini-inner-recipe {
     float: top;
     padding-top: 5px;
+    padding-bottom: 5px;
     font-size: 12px;
     color: #C98474
 }
 .dish-mini-inner-recipe a {
     color: #C98474;
+}
+.dish-mini-inner-method {
+    float: top;
+    padding-top: 10px;
+    font-size: 12px;
+    color: #C98474
 }
 
 .dish-mini-image {
@@ -153,6 +178,9 @@ a:visited {
     margin: 0px 0;
     float: left;
     width: 120px;
+}
+.dish-mini-edit {
+    font-size: 12px;
 }
 
 .crop img {
@@ -188,6 +216,14 @@ a:visited {
     padding-bottom: 10px;
 }
 
+.dish-full-method {
+    width: 600px;
+}
+
+.dish-full-chef-comments {
+    width: 600px;
+}
+
 .dish-full-subtitle {
     font-size: 16px;
     color: #008080;
@@ -195,6 +231,14 @@ a:visited {
     margin-left: -10px;
     padding-bottom: 20px;
     font-family:  'Merriweather', serif;
+}
+
+.dish-full-days-until {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.dish-full-query-status {
+    padding-bottom: 20px;
 }
 
 .dish-empty {

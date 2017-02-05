@@ -1,0 +1,44 @@
+{% extends 'cooklog/__base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block body_block %}
+
+<div class="page-title">
+    <a href="../../{{object.chef_id}}/"> {{object.first_name}}</a>'s to-do list
+</div>
+
+{% for dish in todo_dishes %}
+<div>
+    <div class="dish-mini">
+        {% comment %}
+        <div class="dish-mini-date-long">
+            {{ dish.date_scheduled|date:"D, M-d" }}
+        </div>
+        {% endcomment %}
+        <div class="dish-mini-days-until">
+            {{ dish.date_scheduled|date:"D, M-d"|naturalday }}
+        </div>
+
+        <div class="dish-mini-inner">
+            <div class="dish-mini-inner-name">
+                <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+            </div>
+            <div class="dish-mini-inner-recipe">
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
+            </div>
+            <div class="dish-mini-method">
+                {{ dish.dish_method }}
+            </div>
+        </div>
+        <div class="dish-mini-edit">
+            <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
+        </div>
+</div>
+{% empty %}
+<div class="dish-empty">
+    No dishes yet.
+</div>
+{% endfor %}
+
+{% endblock %}

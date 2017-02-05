@@ -8,6 +8,10 @@
     {{object.first_name}}'s feed
 </div>
 
+<div class="page-menu">
+    <a href="/cooklog/chef/todo/{{object.chef_id}}/">[to-do list]</a>
+</div>
+
 <div class="page-subtitle">
     latest dishes:
 </div>
@@ -43,6 +47,9 @@
         <div class="dish-mini-inner-recipe">
             <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
         </div>
+    </div>
+    <div class="dish-mini-edit">
+        <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
     </div>
 
 {% comment %}
@@ -105,6 +112,9 @@ No dishes yet.
                 <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
             </div>
         </div>
+        <div class="dish-mini-edit">
+            <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
+        </div>
 {% comment %}
     <i>{{ dish.date_created|date:"D, M d" }}:</i>
     <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
@@ -164,6 +174,9 @@ No dishes yet.
                 <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
             </div>
         </div>
+        <div class="dish-mini-edit">
+            <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
+        </div>
     {% comment %}
     <p>
         <i>{{ dish.date_created|date:"D, M d" }}:</i>
@@ -188,7 +201,7 @@ No dishes yet.
 {% endfor %}
 
 <div class="page-subtitle">
-    scheduled dishes: (planned cooking) [TODO UPDATE THIS FOR TO-DO SPECIFIC!]
+    <a href="/cooklog/chef/todo/{{object.chef_id}}/"> scheduled dishes: </a>
 </div>
 
 {% for dish in todo_dishes %}
@@ -223,6 +236,9 @@ No dishes yet.
             <div class="dish-mini-inner-recipe">
                 <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
             </div>
+        </div>
+        <div class="dish-mini-edit">
+            <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
         </div>
         
     {% comment %}

@@ -97,6 +97,13 @@ class ChefDetailView(DetailView):
         context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).order_by("-date_created").all()
         return context
 
+class ChefScheduleView(DetailView):
+    model = Chef
+    def get_context_data(self, **kwargs):
+        context = super(ChefScheduleView, self).get_context_data(**kwargs)
+        context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).order_by("-date_created").all()
+        return context
+
 class IngredientDetailView(DetailView):
     model = Ingredient
     def get_context_data(self, **kwargs):
