@@ -1,36 +1,71 @@
 {% extends 'cooklog/__base.html' %}
+{% load static %}
 
 {% block body_block %}
 
-<p><a href="/cooklog/recipe/add/{{object.recipe_id}}/">Edit recipe </a></p>
-<h2>{{ object.recipe_name }}</h2>
-
-<p><i>(A {{object.recipe_type}}, first uploaded by <a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id }}</a> on {{ object.date_created|date }})</i><p>
+<div class="page-title">
+    {{ object.recipe_name }}
+</div>
+<div class="page-text">
+    <a href="/cooklog/recipe/add/{{object.recipe_id}}/">Edit recipe </a>
+</div>
+<div class="page-text">
+    A {{object.recipe_type}}, first uploaded by <a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id }}</a>
+</div>
 
 {% if object.recipe_source %}
-<h3>Source: </h3>
-<p>{{ object.recipe_source }}</p>
+<div class="page-subtitle">
+    Source:
+</div>
+<div class="page-text">
+{{ object.recipe_source }}
+</div>
 {% endif %}
 
-<h3>Dishes: </h3>
+<div class="page-subtitle">
+    Dishes:
+</div>
 
-    {% for dish in dishes %}
-        <li><i>{{ dish.date_created|date:"D, M d"}}:</i> <a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
-            {% if dish.dish_rating %}
-        {% load static %}
-        {% for i in "x"|rjust:dish.dish_rating %}
-        <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
-        {% endfor %}
+{% for dish in dishes %}
+<div class="dish-mini">
+    <div class="dish-mini-date">
+        {{ dish.date_created|date:"D"|upper }}
+    </div>
+    <div class="dish-mini-chef">
+        <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}</a>
+    </div>
+    <div class="dish-mini-image">
+        
+        {% if dish.dish_image %}
+        <div class="crop">
+            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+        </div>
+        {% else %}
+        <div class="crop-placeholder">
+            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+        </div>
         {% endif %}
+    </div>
+    <div class="dish-mini-inner">
+        <div class="dish-mini-inner-name">
+            <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+        </div>
+        <div class="dish-mini-inner-rating">
+            {% if dish.dish_rating %}
+            {% for i in "x"|rjust:dish.dish_rating %}
+            <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="dish-mini-inner-recipe">
+            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
+        </div>
+    </div>
     
-    {% if dish.dish_image %}
-    <p><ul><ul><ul><img src="/media/{{ dish.dish_image }}" height="120" style="border: #F2D388 4px solid;"/></ul></ul></ul></p>
-    {% else %}
     
-    {% endif %}
-    </li>
-    {% empty %}
+</div>
+{% empty %}
     <p>No dishes yet: <a href="../../dish/add/">Add dish!</a></p>
-    {% endfor %}
+{% endfor %}
 
 {% endblock %}

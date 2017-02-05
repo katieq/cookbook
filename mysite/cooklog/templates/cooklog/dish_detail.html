@@ -1,64 +1,106 @@
 {% extends 'cooklog/__base.html' %}
-
+{% load static %}
 {% block body_block %}
 
-<p><a href="/cooklog/dish/add/{{object.dish_id}}/">Edit dish </a></p>
-<p><i> {{ object.date_created|date:"D, M d" }} </i><p>
-
-<h3><a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id }}'s</a> {{ object.dish_name }}</h3>
-
-<div class="dish">
-{% if object.dish_rating %}
-{% load static %}
-{% for i in "x"|rjust:object.dish_rating %}
-<img src="{% static "emoji/img/star.png" %}" alt="star" height="30"/>
-{% endfor %}
-{% endif %}
-</p>
-
-<i>(... <a href="../../recipe/{{object.recipe_id_id}}/">{{ object.recipe_id }}</a> which is a {{recipe.recipe_type}} recipe first uploaded by <a href="../../chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id}}</a>)</i>
-
-<h4> Photos: </h4>
-{% if object.dish_image %}
-<img src="/media/{{ object.dish_image }}" height="200" style="border: #F2D388 4px solid;"/>
-<p> {{ object.photo_comment }} </p>
-{% else %}
-<p> No photos yet, <a href="/cooklog/dish/add/{{object.dish_id}}">upload here. </a> </p>
-{% endif %}
-
-<h4>Method: </h4>
-<p> {{ object.dish_method }}</p>
-{% if object.dish_comments %}
-<h4> Chef comments: </h4>
-<p> {{ object.dish_comments }}</p>
-{% endif %}
-
-<h4> Comments: <i>  ...  <a href="{% url 'comment_add' %}?next={{object.dish_id}}">Add comment</a></i></h4>
-{% if chef_comments %}
-{% for chef_comment in chef_comments %}
-<p> {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment }}
-<a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/?next={{object.dish_id}}">delete</a></p>
-{% endfor %}
-{% else %}
-<p> No one has commented yet! </p>
-{% endif %}
-
-<h4> Likes: <i>  ...  <a href="{% url 'like_add' %}?next={{object.dish_id}}">Like it.</a></i></h4>
-{% if likes %}
-{% load static %}
-<p><img src="{% static "emoji/img/yum.png" %}" alt="yum" height="30"/>
-{{ likes|length }} person liked it!
-{% for like in likes %}
-<i><a href="../../chef/{{like.chef_id_id}}/">{{like.chef_id}}</a></i>,
-{% endfor %}
-</p>
-{% else %}
-<p> No one likes it! (yet..) </p>
-{% endif %}
-
-<h4> Ingredients: </h4>
-{% for ingredient in object.ingredient_id.all %}
-<li><a href="../../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a></li>
-{% endfor %}
+<div class="page-text">
+<a href="/cooklog/dish/add/{{object.dish_id}}/">Edit dish </a>
 </div>
-{% endblock %}
+<div class="page-text">
+{{ object.date_created|date:"D, M d" }}
+</div>
+
+<div class="page-title">
+<a href="../../chef/{{object.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}'s</a> {{ object.dish_name }}
+</div>
+
+<div class="dish-full">
+    
+    <div class="dish-full-stars">
+        {% if object.dish_rating %}
+        {% for i in "x"|rjust:object.dish_rating %}
+        <img src="{% static "emoji/img/star.png" %}" alt="star" height="30"/>
+        {% endfor %}
+        {% endif %}
+    </div>
+    
+    <div class="dish-full-recipe">
+        Recipe: <a href="../../recipe/{{object.recipe_id_id}}/">{{ object.recipe_id }}</a>, a {{recipe.recipe_type}} first uploaded by <a href="../../chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id}}</a>
+    </div>
+
+    <div class="dish-full-subtitle">
+        Photos:
+    </div>
+    <div class="dish-full-image">
+        {% if object.dish_image %}
+        <img src="/media/{{ object.dish_image }}" height="200" style="border: #F2D388 4px solid;"/>
+        <p> {{ object.photo_comment }} </p>
+        {% else %}
+        No photos yet, <a href="/cooklog/dish/add/{{object.dish_id}}">upload here. </a>
+        {% endif %}
+    </div>
+
+    <div class="dish-full-subtitle">
+        Method:
+    </div>
+    <div class="dish-full-method">
+        {{ object.dish_method }}
+    </div>
+    
+    {% if object.dish_comments %}
+    <div class="dish-full-subtitle">
+        Chef comments:
+    </div>
+    <div class="dish-full-chef-comments">
+        {{ object.dish_comments }}
+        </div>
+    {% endif %}
+
+    <div class="dish-full-subtitle">
+        Comments:
+    </div>
+
+    {% if chef_comments %}
+    {% for chef_comment in chef_comments %}
+    <div class="dish-full-comments">
+        {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment }}
+    <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/?next={{object.dish_id}}">[delete]</a>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="dish-full-comments">
+        No one has commented yet!
+    </div>
+    {% endif %}
+    <a href="{% url 'comment_add' %}?next={{object.dish_id}}">Add comment</a>
+
+    <div class="dish-full-subtitle">
+        Likes:
+    </div>
+    {% if likes %}
+    <div class="dish-full-likes">
+        <img src="{% static "emoji/img/yum.png" %}" alt="yum" height="30"/>
+        {{ likes|length }} person liked it!
+        {% for like in likes %}
+        <i><a href="../../chef/{{like.chef_id_id}}/">{{like.chef_id}}</a></i>,
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="dish-full-lies">
+        No one likes it! (yet..)
+    </div>
+    {% endif %}
+    <a href="{% url 'like_add' %}?next={{object.dish_id}}">Like it.</a>
+
+    <div class="dish-full-subtitle">
+        Ingredients:
+    </div>
+
+    {% for ingredient in object.ingredient_id.all %}
+    <div class="dish-full-ingredients">
+    <a href="../../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a>
+    </div>
+    {% empty %}
+    No ingredients listed.
+    {% endfor %}
+    </div>
+    {% endblock %}

@@ -74,6 +74,7 @@ a:visited {
 
 .page-title {
     padding-left: 20px;
+    padding-top: 10px;
     padding-bottom: 5px;
     font-family: 'Merriweather', serif;
     color: #874C62;
@@ -169,6 +170,37 @@ a:visited {
     filter: grayscale(100%);
 }
 
+.page-text {
+    font-size: 14px;
+    padding-left: 40px;
+    padding-bottom: 0px;
+    color: #000000;
+    padding-top: 10px;
+}
+
+.dish-full {
+    padding-left: 40px;
+    padding-bottom: 40px;
+}
+
+.dish-full-stars {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.dish-full-subtitle {
+    font-size: 16px;
+    color: #008080;
+    padding-top: 30px;
+    margin-left: -10px;
+    padding-bottom: 20px;
+    font-family:  'Merriweather', serif;
+}
+
+.dish-empty {
+    padding-left: 40px;
+    padding-bottom: 20px;
+}
 
 
 
