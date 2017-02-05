@@ -13,7 +13,8 @@
 <a href="../../chef/{{object.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}'s</a> {{ object.dish_name }}
 </div>
 
-{% if object.dish_status == 1 %}
+
+{% ifequal object.dish_status "1" %}
 <div class="dish-full">
     
     <div class="dish-full-stars">
@@ -162,6 +163,6 @@
 
 
 
-{% endif %}
+{% endifequal %}
 
 {% endblock %}
