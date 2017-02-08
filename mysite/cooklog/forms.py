@@ -27,8 +27,8 @@ class NewDishForm(forms.ModelForm):
     dish_method = forms.CharField(widget=forms.Textarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
     photo_comment = forms.CharField(widget=forms.Textarea)
-    ingredient_id = forms.ModelMultipleChoiceField(queryset=Ingredient.objects.all(),
-                                                   widget=forms.SelectMultiple) # or CheckboxSelectMultiple
+    ingredient_id = forms.ModelMultipleChoiceField(queryset=Ingredient.objects.all(), widget=forms.SelectMultiple) # or CheckboxSelectMultiple
+    #date_created = forms.DateField(widget=forms.DateTimeInput(attrs={'class': 'datetime-input'}))
     class Meta:
         model = Dish
         fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled',

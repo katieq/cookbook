@@ -167,11 +167,11 @@ a:visited {
 .dish-mini-inner-recipe a {
     color: #C98474;
 }
-.dish-mini-inner-method {
+.dish-mini-inner-method { /* used elsewhere than chef to-do??*/
     float: top;
-    padding-top: 10px;
+    padding-top: 0px;
     font-size: 12px;
-    color: #C98474
+    color: #000000; /* or 008080? */
 }
 
 .dish-mini-image {
