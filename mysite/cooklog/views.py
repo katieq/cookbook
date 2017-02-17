@@ -85,6 +85,7 @@ class DishDetailView(DetailView):
         #context['photos'] = Dish_Photo.objects.filter(dish_id = self.object.dish_id)
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
         context['likes'] = Likes.objects.filter(dish_id = self.object.dish_id)
+        context['user_likes'] = Likes.objects.filter(dish_id = self.object.dish_id, chef_id = self.request.user.id)
         return context
 
 class ChefDetailView(DetailView):
@@ -93,7 +94,7 @@ class ChefDetailView(DetailView):
         context = super(ChefDetailView, self).get_context_data(**kwargs)
         context['latest_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[:5]
         context['best_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).order_by("-dish_rating").all()[:3]
-        context['all_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[6:]
+        context['more_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[6:10]
         context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).order_by("-date_created").all()
         return context
 
@@ -146,6 +147,8 @@ class DishCreate(CreateView):
     form_class = NewDishForm
     template_name = 'new_dish_form.html'
     #success_url = '/cooklog/dishes/'
+    def get_initial(self):
+        return {'chef_id' : self.request.GET.get('u') }
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 
@@ -188,11 +191,11 @@ class UploadImageView(CreateView):
     success_url = '/cooklog/dishes/' # ideally it would be that dish!!
 
 class NewCommentView(CreateView):
-    form_class = NewCommentForm
+    form_class = NewCommentForm #(initial={'chef_id': 3}) #user = request.user) #, initial={'chef_id': user.id})
     template_name = 'new_comment_form.html'
     #success_url = '/cooklog/dishes/'  # ideally goes to that dish!
     def get_initial(self):
-        return {'dish_id' : self.request.GET.get('next') }
+        return {'dish_id' : self.request.GET.get('next') , 'chef_id' : self.request.GET.get('u') }
     def get_form_kwargs(self, **kwargs):
         kwargs = super(NewCommentView, self).get_form_kwargs()
         redirect = self.request.GET.get('next')   # these 3 "next" necessary for next charfield to be next=..
@@ -223,7 +226,7 @@ class NewLikeView(CreateView):
     template_name = 'new_like_form.html'
     #success_url = '/cooklog/dishes/' # ideally goes to that dish!
     def get_initial(self):
-        return {'dish_id' : self.request.GET.get('next') }
+        return {'dish_id' : self.request.GET.get('next') , 'chef_id' : self.request.GET.get('u')}
     def get_form_kwargs(self, **kwargs):
         kwargs = super(NewLikeView, self).get_form_kwargs()
         redirect = self.request.GET.get('next')
@@ -247,6 +250,7 @@ class NewLikeView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(NewLikeView, self).get_context_data(**kwargs)
         context['dish'] = Dish.objects.get(dish_id = self.request.GET.get('next'))
+        #context['u'] = User.objects.get(id = self.request.GET.get('u'))
         return context
 
 

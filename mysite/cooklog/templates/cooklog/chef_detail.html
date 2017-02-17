@@ -10,7 +10,7 @@
 
 <div class="page-menu">
     <li><a href="/cooklog/chef/todo/{{object.chef_id}}/">[to-do list]</a></li>
-    <li><a href="/cooklog/chef/brief/{{object.chef_id}}/">[compact view]</a></li>
+    <li><a href="/cooklog/chef/brief/{{object.chef_id}}/">[compact all-dish view]</a></li>
 </div>
 
 <div class="page-subtitle">
@@ -139,10 +139,10 @@ No dishes yet.
 {% endfor %}
 
 <div class="page-subtitle">
-    All {{ object.first_name}}'s previous dishes:
+    More of {{ object.first_name}}'s previous dishes:
 </div>
 
-{% for dish in all_dishes %}
+{% for dish in more_dishes %}
 <div class="dish">
     <div class="dish-mini">
         <div class="dish-mini-date">

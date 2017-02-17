@@ -15,8 +15,8 @@
             <div class="page-header-menu">
                 <a href="/cooklog/">home</a> |
                 {new: <a href="/cooklog/recipe/add/"> recipe</a> |
-                <a href="/cooklog/dish/add/">dish</a> |
-                <a href="/cooklog/ingredient/add/">ingredient</a>} |
+                <a href="/cooklog/dish/add/?u={{user.id}}">dish</a> |
+                <a href="/cooklog/ingredient/add/>ingredient</a>} |
                 <a href="/cooklog/chefs/">all chefs</a> |
                 {% if user.is_authenticated %}
                 <a href="/cooklog/chef/{{user.id}}">{{ user.username }}'s feed</a> |

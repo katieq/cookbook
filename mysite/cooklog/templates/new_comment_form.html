@@ -3,8 +3,10 @@
         <title>New comment</title>
     </head>
     <body>
+        {% comment %}
         <h3>Make a comment about ...</h3>
         <ul><h2> {{ dish.dish_name }} </h2></ul>
+        {% endcomment %}
         
         {% if form.errors %}
         <p style="color: red;">
@@ -17,7 +19,7 @@
                 {{ form.as_table }}
             </table>
             {% csrf_token %}
-            <input type="submit" value="Upload">
+            <input type="submit" value="Comment">
         </form>
     </body>
 </html>

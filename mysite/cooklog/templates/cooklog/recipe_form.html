@@ -1,9 +1,15 @@
-<html>
-    <head>
-        <title>Recipe Entry</title>
-    </head>
-    <body>
-        <h1>Enter or edit recipe:</h1>
+{% extends 'cooklog/__base.html' %}
+
+<head>
+    <title>Recipe Entry</title>
+</head>
+{% block body_block %}
+
+<div class="dish-entry">
+    <div class="page-title">
+        Enter or edit recipe:
+    </div>
+    <div class="dish-entry-form">
         
         {% if form.errors %}
         <p style="color: red;">
@@ -17,6 +23,8 @@
             </table>
             {% csrf_token %}
             <input type="submit" value="Submit">
-                </form>
-    </body>
-</html>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

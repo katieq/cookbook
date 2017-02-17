@@ -3,22 +3,23 @@
         <title>New like form:</title>
     </head>
     <body>
+        {% comment %}
         <h3>Say you like ...</h3>
         <ul><h2> {{ dish.dish_name }} </h2></ul>
-        
-        
+            
         {% if form.errors %}
         <p style="color: red;">
         Please correct the error{{ form.errors|pluralize }} below.
         </p>
         {% endif %}
+        {% endcomment %}
         
         <form action="" method="post" enctype="multipart/form-data">
             <table>
                 {{ form.as_table }}
             </table>
             {% csrf_token %}
-            <input type="submit" value="Upload">
+            <input type="submit" value="Like it!">
         </form>
     </body>
 </html>

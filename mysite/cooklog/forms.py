@@ -37,6 +37,7 @@ class NewDishForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(NewDishForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['chef_id'].widget = forms.HiddenInput()
         self.fields['dish_name'].widget.attrs['rows'] = 1
         self.fields['dish_name'].widget.attrs['cols'] = 80
         self.fields['dish_method'].widget.attrs['cols'] = 80
@@ -85,6 +86,7 @@ class NewLikeForm(forms.ModelForm):
         super(NewLikeForm, self).__init__(*args, **kwargs)
         self.fields['dish_id'].widget = forms.HiddenInput()
         self.fields['next'].widget = forms.HiddenInput()
+        self.fields['chef_id'].widget = forms.HiddenInput()
         for key in self.fields:
             self.fields[key].required = False
 
@@ -98,6 +100,7 @@ class NewCommentForm(forms.ModelForm):
         super(NewCommentForm, self).__init__(*args, **kwargs)
         self.fields['dish_id'].widget = forms.HiddenInput()
         self.fields['next'].widget = forms.HiddenInput()
+        self.fields['chef_id'].widget = forms.HiddenInput()
         for key in self.fields:
             self.fields[key].required = False
 

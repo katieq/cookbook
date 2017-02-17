@@ -1,9 +1,15 @@
-<html>
-    <head>
-        <title>Edit Dish</title>
-    </head>
-    <body>
-        <h2>Edit this dish of yours:</h2>
+{% extends 'cooklog/__base.html' %}
+
+<head>
+    <title>Edit Dish</title>
+</head>
+{% block body_block %}
+
+<div class="dish-entry">
+    <div class="page-title">
+        Edit your dish:
+    </div>
+    <div class="dish-entry-form">
         
         {% if form.errors %}
         <p style="color: red;">
@@ -18,5 +24,7 @@
             {% csrf_token %}
             <input type="submit" value="Submit">
         </form>
-    </body>
-</html>
+    </div>
+</div>
+{% endblock %}
+

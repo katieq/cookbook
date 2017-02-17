@@ -2,12 +2,18 @@
 Currently used for editing, not new dish (that is new_dish_form.html in folder above).
 {% endcomment %}
 
-<html>
-    <head>
-        <title>Dish Entry</title>
-    </head>
-    <body>
-        <h2>Edit dish:</h2>
+{% extends 'cooklog/__base.html' %}
+
+<head>
+    <title>Dish Entry</title>
+</head>
+
+{% block body_block %}
+<div class="dish-entry">
+    <div class="page-title">
+        Edit dish:
+    </div>
+    <div class="dish-entry-form">
         
         {% if form.errors %}
         <p style="color: red;">
@@ -21,6 +27,8 @@ Currently used for editing, not new dish (that is new_dish_form.html in folder a
             </table>
             {% csrf_token %}
             <input type="submit" value="Submit">
-                </form>
-    </body>
-</html>
+        </form>
+</div>
+</div>
+
+{% endblock %}
