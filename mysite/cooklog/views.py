@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish_Comments, Likes
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
-from cooklog.forms import UploadImageForm, NewDishForm, NewLikeForm, NewCommentForm, CommentDeleteForm
+from cooklog.forms import UploadImageForm, NewDishForm, NewLikeForm, NewCommentForm, CommentDeleteForm, NewRecipeForm
 from cooklog.forms import UpdateDishForm
 from django import forms
 from django.contrib.auth.models import User
@@ -120,9 +120,15 @@ class IngredientDetailView(DetailView):
         return context
 
 class RecipeCreate(CreateView):
-    model = Recipe
-    fields = ['recipe_name', 'recipe_source', 'recipe_type', 'chef_id', 'date_created']
-    success_url = "/cooklog/recipes/" # todo maybe later to that recipe's page? (itd be maximum recipe_id?)
+    #model = Recipe
+    #fields = ['recipe_name', 'recipe_source', 'recipe_type', 'chef_id', 'date_created']
+    #success_url = "/cooklog/recipes/"
+    form_class = NewRecipeForm
+    template_name = 'cooklog/recipe_form.html'
+    def get_initial(self):
+        return {'chef_id' : self.request.GET.get('u') }
+    def get_success_url(self):
+        return '/cooklog/recipe/' + str(self.object.recipe_id) + '/'
 
 class RecipeUpdate(UpdateView):
     model = Recipe

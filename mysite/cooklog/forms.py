@@ -1,5 +1,5 @@
 from django import forms
-from cooklog.models import Dish_Photo, Dish, Ingredient, Chef_Dish_Comments, Likes
+from cooklog.models import Dish_Photo, Dish, Recipe, Ingredient, Chef_Dish_Comments, Likes
 
 #class ChefEntryForm(forms.Form):
 #    first_name = forms.CharField()
@@ -74,6 +74,16 @@ class UpdateDishForm(forms.ModelForm):
         self.fields['photo_comment'].widget.attrs['rows'] = 1
         self.fields['photo_comment'].widget.attrs['cols'] = 80
         self.fields['ingredient_id'].widget.attrs['size']= 30
+        for key in self.fields:
+            self.fields[key].required = False
+
+class NewRecipeForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ['recipe_name', 'recipe_source', 'recipe_type', 'chef_id','date_created']
+    def __init__(self, *args, **kwargs):
+        super(NewRecipeForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['chef_id'].widget = forms.HiddenInput()
         for key in self.fields:
             self.fields[key].required = False
 
