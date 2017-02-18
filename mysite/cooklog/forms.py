@@ -16,7 +16,31 @@ class UploadImageForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = False
 
-class NewDishForm(forms.ModelForm):
+class NewDishShortForm(forms.ModelForm):
+    dish_name = forms.CharField(widget=forms.Textarea)
+    dish_method = forms.CharField(widget=forms.Textarea)
+    dish_comments = forms.CharField(widget=forms.Textarea)
+    class Meta:
+        model = Dish
+        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
+                  'date_created', 'dish_method',
+                  'dish_comments', 'dish_rating', 'dish_image']
+    
+    def __init__(self, *args, **kwargs):
+        super(NewDishShortForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['chef_id'].widget = forms.HiddenInput()
+        self.fields['dish_status'].widget = forms.HiddenInput()
+        self.fields['date_created'].widget = forms.HiddenInput()
+        self.fields['dish_name'].widget.attrs['rows'] = 1
+        self.fields['dish_name'].widget.attrs['cols'] = 80
+        self.fields['dish_method'].widget.attrs['cols'] = 80
+        self.fields['dish_method'].widget.attrs['rows'] = 5
+        self.fields['dish_comments'].widget.attrs['cols'] = 80
+        self.fields['dish_comments'].widget.attrs['rows'] = 5
+        for key in self.fields:
+            self.fields[key].required = False
+
+class NewDishLongForm(forms.ModelForm):
     #class Meta:
     #    model = Dish
     #    fields = ['dish_name', 'recipe_id', 'dish_method', 'dish_rating',
@@ -31,12 +55,12 @@ class NewDishForm(forms.ModelForm):
     #date_created = forms.DateField(widget=forms.DateTimeInput(attrs={'class': 'datetime-input'}))
     class Meta:
         model = Dish
-        fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled',
+        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status', 'date_scheduled',
                   'date_created', 'dish_source', 'dish_method', 'dish_rating',
                   'dish_comments', 'dish_image','photo_comment', 'ingredient_id']
     
     def __init__(self, *args, **kwargs):
-        super(NewDishForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        super(NewDishLongForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
         self.fields['chef_id'].widget = forms.HiddenInput()
         self.fields['dish_name'].widget.attrs['rows'] = 1
         self.fields['dish_name'].widget.attrs['cols'] = 80

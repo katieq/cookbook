@@ -26,7 +26,7 @@
     </div>
     
     <div class="dish-full-recipe">
-        Recipe: <a href="../../recipe/{{object.recipe_id_id}}/">{{ object.recipe_id }}</a>, a {{recipe.recipe_type}} first uploaded by <a href="../../chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id}}</a>
+        Recipe: <a href="../../recipe/{{object.recipe_id_id}}/">{{ object.recipe_id }}</a>, a {{recipe.recipe_type}} (first uploaded by <a href="../../chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id.first_name }} {{ recipe.chef_id.last_name.0}}</a>)
     </div>
 
     <div class="dish-full-subtitle">

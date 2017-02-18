@@ -11,9 +11,13 @@
     <div class="page-title">
         Enter or edit dish:
     </div>
-    <div class="page-subtitle">
-        <a href="../../recipe/add/?u={{user.id}}">...Or create new recipe</a>
+    <div class="page-text">
+        <a href="../../recipe/add/?u={{user.id}}">new recipe</a> |
+        {new dish:
+        <a href="../../dish/add/?u={{user.id}}">short-form</a> |
+        <a href="../../dish/add-full/?u={{user.id}}">long-form</a> }
     </div>
+
     <div class="dish-entry-form">
         
         {% if form.errors %}
@@ -30,5 +34,7 @@
             <input type="submit" value="Submit">
         </form>
     </div>
+    
+    
 
 {% endblock %}

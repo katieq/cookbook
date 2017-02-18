@@ -10,7 +10,7 @@
     <a href="/cooklog/recipe/add/{{object.recipe_id}}/">Edit recipe </a>
 </div>
 <div class="page-text">
-    A {{object.recipe_type}}, first uploaded by <a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id }}</a>
+    A {{object.recipe_type}} (first uploaded by <a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id.first_name }} {{ object.chef_id.last_name.0}}</a>)
 </div>
 
 {% if object.recipe_source %}
