@@ -31,11 +31,19 @@ class NewDishShortForm(forms.ModelForm):
         self.fields['chef_id'].widget = forms.HiddenInput()
         self.fields['dish_status'].widget = forms.HiddenInput()
         self.fields['date_created'].widget = forms.HiddenInput()
+        
+        self.fields['recipe_id'].label = "Recipe"
+        self.fields['dish_name'].label = "Dish name"
+        self.fields['dish_method'].label = "Method"
+        self.fields['dish_comments'].label = "Your comments"
+        self.fields['dish_rating'].label = "Rating (/5)"
+        self.fields['dish_image'].label = "Photo"
+        
         self.fields['dish_name'].widget.attrs['rows'] = 1
-        self.fields['dish_name'].widget.attrs['cols'] = 80
-        self.fields['dish_method'].widget.attrs['cols'] = 80
+        self.fields['dish_name'].widget.attrs['cols'] = 50
+        self.fields['dish_method'].widget.attrs['cols'] = 50
         self.fields['dish_method'].widget.attrs['rows'] = 5
-        self.fields['dish_comments'].widget.attrs['cols'] = 80
+        self.fields['dish_comments'].widget.attrs['cols'] = 50
         self.fields['dish_comments'].widget.attrs['rows'] = 5
         for key in self.fields:
             self.fields[key].required = False
@@ -62,6 +70,14 @@ class NewDishLongForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(NewDishLongForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
         self.fields['chef_id'].widget = forms.HiddenInput()
+        
+        self.fields['recipe_id'].label = "Recipe"
+        self.fields['dish_name'].label = "Dish name"
+        self.fields['dish_method'].label = "Method"
+        self.fields['dish_comments'].label = "Your comments"
+        self.fields['dish_rating'].label = "Rating (/5)"
+        self.fields['dish_image'].label = "Photo"
+        
         self.fields['dish_name'].widget.attrs['rows'] = 1
         self.fields['dish_name'].widget.attrs['cols'] = 80
         self.fields['dish_method'].widget.attrs['cols'] = 80
