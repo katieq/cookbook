@@ -48,6 +48,32 @@ class NewDishShortForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = False
 
+class NewDishTodoForm(forms.ModelForm):
+    dish_name = forms.CharField(widget=forms.Textarea)
+    dish_comments = forms.CharField(widget=forms.Textarea)
+    class Meta:
+        model = Dish
+        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
+                  'date_created', 'date_scheduled', 'dish_comments']
+    
+    def __init__(self, *args, **kwargs):
+        super(NewDishTodoForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['chef_id'].widget = forms.HiddenInput()
+        self.fields['dish_status'].widget = forms.HiddenInput()
+        self.fields['date_created'].widget = forms.HiddenInput()
+        
+        self.fields['recipe_id'].label = "Recipe"
+        self.fields['dish_name'].label = "Dish name"
+        self.fields['dish_comments'].label = "Comments"
+        self.fields['date_scheduled'].label = "When"
+        
+        self.fields['dish_name'].widget.attrs['rows'] = 1
+        self.fields['dish_name'].widget.attrs['cols'] = 50
+        self.fields['dish_comments'].widget.attrs['cols'] = 50
+        self.fields['dish_comments'].widget.attrs['rows'] = 5
+        for key in self.fields:
+            self.fields[key].required = False
+
 class NewDishLongForm(forms.ModelForm):
     #class Meta:
     #    model = Dish

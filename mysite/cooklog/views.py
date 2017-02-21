@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish_Comments, Likes
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
-from cooklog.forms import UploadImageForm, NewDishShortForm, NewDishLongForm, NewLikeForm, NewCommentForm, CommentDeleteForm, NewRecipeForm
+from cooklog.forms import UploadImageForm, NewDishShortForm, NewDishTodoForm, NewDishLongForm, NewLikeForm, NewCommentForm, CommentDeleteForm, NewRecipeForm
 from cooklog.forms import UpdateDishForm
 from django import forms
 from django.contrib.auth.models import User
@@ -126,7 +126,7 @@ class RecipeCreate(CreateView):
     form_class = NewRecipeForm
     template_name = 'cooklog/recipe_form.html'
     def get_initial(self):
-        return {'chef_id' : self.request.GET.get('u') }
+        return {'chef_id' : self.request.user.id } #self.request.GET.get('u') }
     def get_success_url(self):
         return '/cooklog/recipe/' + str(self.object.recipe_id) + '/'
 
@@ -154,7 +154,16 @@ class DishCreate(CreateView):
     template_name = 'new_dish_form.html'
     #success_url = '/cooklog/dishes/'
     def get_initial(self):
-        return {'chef_id' : self.request.GET.get('u') }
+        return {'chef_id' : self.request.user.id } #self.request.GET.get('u') }
+    def get_success_url(self):
+        return '/cooklog/dish/' + str(self.object.dish_id) + '/'
+
+class DishTodoCreate(CreateView):
+    form_class = NewDishTodoForm
+    template_name = 'new_dish_form.html'
+    #success_url = '/cooklog/dishes/'
+    def get_initial(self):
+        return {'chef_id' : self.request.user.id, 'dish_status': 2 } #self.request.GET.get('u') }
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 
@@ -163,7 +172,7 @@ class DishLongCreate(CreateView):
     template_name = 'new_dish_form.html'
     #success_url = '/cooklog/dishes/'
     def get_initial(self):
-        return {'chef_id' : self.request.GET.get('u') }
+        return {'chef_id' : self.request.user.id } #self.request.GET.get('u') }
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 
@@ -210,7 +219,7 @@ class NewCommentView(CreateView):
     template_name = 'new_comment_form.html'
     #success_url = '/cooklog/dishes/'  # ideally goes to that dish!
     def get_initial(self):
-        return {'dish_id' : self.request.GET.get('next') , 'chef_id' : self.request.GET.get('u') }
+        return {'dish_id' : self.request.GET.get('next') , 'chef_id' : self.request.user.id } #self.request.GET.get('u') }
     def get_form_kwargs(self, **kwargs):
         kwargs = super(NewCommentView, self).get_form_kwargs()
         redirect = self.request.GET.get('next')   # these 3 "next" necessary for next charfield to be next=..
@@ -241,7 +250,7 @@ class NewLikeView(CreateView):
     template_name = 'new_like_form.html'
     #success_url = '/cooklog/dishes/' # ideally goes to that dish!
     def get_initial(self):
-        return {'dish_id' : self.request.GET.get('next') , 'chef_id' : self.request.GET.get('u')}
+        return {'dish_id' : self.request.GET.get('next') , 'chef_id' : self.request.user.id } #self.request.GET.get('u')}
     def get_form_kwargs(self, **kwargs):
         kwargs = super(NewLikeView, self).get_form_kwargs()
         redirect = self.request.GET.get('next')

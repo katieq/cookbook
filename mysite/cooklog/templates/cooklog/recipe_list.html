@@ -1,9 +1,11 @@
+{% extends 'cooklog/__base.html' %}
 
-{% block content %}
+{% block body_block %}
 <h2>Recipes</h2>
+##    todo: filter and sort by recipe_type! ##
 <ul>
     {% for recipe in all_recipes %}
-    <li><a href="../recipe/{{recipe.recipe_id}}/">{{ recipe.recipe_name }}</a></li>
+    <li><a href="../recipe/{{recipe.recipe_id}}/">{{ recipe.recipe_name }}</a> ({{recipe.recipe_type}})</li>
     {% endfor %}
 </ul>
 {% endblock %}

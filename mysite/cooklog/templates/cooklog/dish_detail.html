@@ -73,7 +73,7 @@
         No one has commented yet!
     </div>
     {% endif %}
-    <a href="{% url 'comment_add' %}?next={{object.dish_id}}&u={{user.id}}">Add comment</a>
+    <a href="{% url 'comment_add' %}?next={{object.dish_id}}">Add comment</a>
 
     <div class="dish-full-subtitle">
         Likes:
@@ -94,7 +94,7 @@
     {% if user_likes %}
     You've liked it already.
     {% else %}
-    <a href="{% url 'like_add' %}?next={{object.dish_id}}&u={{user.id}}">Like it.</a>
+    <a href="{% url 'like_add' %}?next={{object.dish_id}}">Like it.</a>
     {% endif %}
 
     <div class="dish-full-subtitle">

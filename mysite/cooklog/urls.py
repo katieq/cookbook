@@ -20,7 +20,7 @@ from cooklog.views import HomePageView, RecipeDetailView, DishDetailView, ChefDe
 from cooklog.views import ChefScheduleView, ChefBriefView
 from cooklog.views import RecipeCreate, RecipeUpdate, RecipeDelete
 from cooklog.views import ChefCreate, ChefUpdate
-from cooklog.views import DishCreate, DishLongCreate, DishUpdate
+from cooklog.views import DishCreate, DishTodoCreate, DishLongCreate, DishUpdate
 from cooklog.views import IngredientCreate, IngredientUpdate #, IngredientDelete
 from django.contrib.auth import views as auth_views
 from django.views.generic.edit import CreateView
@@ -54,6 +54,7 @@ urlpatterns = [
                url(r'^chef/add/$', ChefCreate.as_view(), name='chef_add'),
                url(r'^chef/add/(?P<pk>[0-9]+)/$', ChefUpdate.as_view(), name='chef_update'),
                url(r'^dish/add/$', DishCreate.as_view(), name='dish_add'),
+               url(r'^dish/add-todo/$', DishTodoCreate.as_view(), name='dish_add_todo'),
                url(r'^dish/add-full/$', DishLongCreate.as_view(), name='dish_add_long'),
                url(r'^dish/add/(?P<pk>[0-9]+)/$', DishUpdate.as_view(), name='dish_update'),
                url(r'^ingredient/add/$', IngredientCreate.as_view(), name='ingredient_add'),
