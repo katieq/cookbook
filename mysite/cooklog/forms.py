@@ -16,6 +16,35 @@ class UploadImageForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = False
 
+class NewDishQuickForm(forms.ModelForm):
+    dish_name = forms.CharField(widget=forms.Textarea)
+    dish_comments = forms.CharField(widget=forms.Textarea)
+    class Meta:
+        model = Dish
+        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
+                  'date_created',
+                  'dish_comments', 'dish_rating', 'dish_image']
+    
+    def __init__(self, *args, **kwargs):
+        super(NewDishQuickForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['chef_id'].widget = forms.HiddenInput()
+        self.fields['dish_status'].widget = forms.HiddenInput()
+        self.fields['date_created'].widget = forms.HiddenInput()
+        self.fields['recipe_id'].widget = forms.HiddenInput() # Default to 1 = "None"
+        
+        self.fields['dish_name'].label = "Dish name"
+        self.fields['dish_comments'].label = "Any comments"
+        self.fields['dish_rating'].label = "Rating (/5)"
+        self.fields['dish_image'].label = "Upload photo"
+        
+        self.fields['dish_name'].widget.attrs['rows'] = 2
+        self.fields['dish_name'].widget.attrs['cols'] = 50
+        self.fields['dish_comments'].widget.attrs['cols'] = 50
+        self.fields['dish_comments'].widget.attrs['rows'] = 2
+        for key in self.fields:
+            self.fields[key].required = False
+
+
 class NewDishShortForm(forms.ModelForm):
     dish_name = forms.CharField(widget=forms.Textarea)
     dish_method = forms.CharField(widget=forms.Textarea)

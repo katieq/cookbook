@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish_Comments, Likes
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
-from cooklog.forms import UploadImageForm, NewDishShortForm, NewDishTodoForm, NewDishLongForm, NewLikeForm, NewCommentForm, CommentDeleteForm, NewRecipeForm
+from cooklog.forms import UploadImageForm, NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewLikeForm, NewCommentForm, CommentDeleteForm, NewRecipeForm
 from cooklog.forms import UpdateDishForm
 from django import forms
 from django.contrib.auth.models import User
@@ -155,6 +155,14 @@ class DishCreate(CreateView):
     #success_url = '/cooklog/dishes/'
     def get_initial(self):
         return {'chef_id' : self.request.user.id } #self.request.GET.get('u') }
+    def get_success_url(self):
+        return '/cooklog/dish/' + str(self.object.dish_id) + '/'
+
+class DishQuickCreate(CreateView):
+    form_class = NewDishQuickForm
+    template_name = 'new_dish_form.html'
+    def get_initial(self):
+        return {'chef_id' : self.request.user.id, 'recipe_id': 1 } # default: None.
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 

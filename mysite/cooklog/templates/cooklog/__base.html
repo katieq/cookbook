@@ -13,20 +13,33 @@
                 <a href="/cooklog/">C O Q U O</a>
             </div>
             <div class="page-header-menu">
-                <a href="/cooklog/">home</a> |
-                {new: <a href="/cooklog/recipe/add/"> recipe</a> |
-                <a href="/cooklog/dish/add/">dish(done)</a> |
-                <a href="/cooklog/dish/add-todo/">dish(to-do)</a> |
-                <a href="/cooklog/ingredient/add/">ingredient</a> }
-                <a href="/cooklog/chefs/">all chefs</a> |
-                {% if user.is_authenticated %}
-                <a href="/cooklog/chef/{{user.id}}">my page</a> |
-                <a href="/cooklog/chef/todo/{{user.id}}">my to-do</a> |
-                <a href="/cooklog/logout/">logout[{{ user.username }}]</a>
-                {% else %}
-                <a href="/cooklog/login/">login</a> |
-                <a href="/cooklog/register/">register</a>
+                {
+                <div class="dropdown">
+                    <button class="dropbtn"><a href="/cooklog/dish/new/"> new </a></button>
+                    <div class="dropdown-content">
+                        <a href="/cooklog/dish/new/">Dish(quick)</a>
+                        <a href="/cooklog/dish/add/">Dish(short)</a>
+                        <a href="/cooklog/dish/add-full/">Dish(long)</a>
+                        <a href="/cooklog/dish/add-todo/">Dish(to-do)</a>
+                        <a href="/cooklog/recipe/add/">Recipe</a>
+                        <a href="/cooklog/ingredient/add/">Ingredient</a>
+                    </div>
+                </div> |
+                <div class="dropdown">
+                    {% if user.is_authenticated %}
+                    <button class="dropbtn"><a href="/cooklog/chef/{{user.id}}">my feed</a></button>
+                    <div class="dropdown-content">
+                        <a href="/cooklog/chef/todo/{{user.id}}">My to-do</a>
+                        <a href="/cooklog/logout/">Logout[{{ user.username }}]</a>
+                    </div>
+                    {% else %}
+                    <button class="dropbtn">User</button>
+                        <a href="/cooklog/login/">Login</a>
+                        <a href="/cooklog/register/">Register</a>
+                    </div>
                 {% endif %}
+                </div>
+                }
             </div>
              
         </div>
