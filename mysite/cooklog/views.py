@@ -93,7 +93,7 @@ class ChefDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ChefDetailView, self).get_context_data(**kwargs)
         context['latest_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[:5]
-        context['best_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).order_by("-dish_rating").all()[:3]
+        context['best_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).order_by("-dish_rating","-date_created").all()[:3]
         context['more_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[6:10]
         context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).order_by("-date_created").all()
         return context
