@@ -6,6 +6,36 @@
 </div>
 
 {% for dish in latest_dishs %}
+
+{% comment %}
+<div class="dish-mini">
+<div class="dish-mini-image">
+    
+    {% if dish.dish_image %}
+    <div class="crop">
+        <a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+    </div>
+    {% else %}
+    <div class="crop-placeholder">
+        <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+    </div>
+    {% endif %}
+</div>
+<div class="dish-mini-inner">
+<div class="dish-mini-inner-name">
+    <a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+</div>
+<div class="dish-mini-inner-rating">
+    {% if dish.dish_rating %}
+    {% for i in "x"|rjust:dish.dish_rating %}
+    <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
+    {% endfor %}
+    {% endif %}
+</div>
+</div>
+</div>
+{% endcomment %}
+
     <div class="dish-mini">
         <div class="dish-mini-date">
         {{ dish.date_created|date:"D"|upper }}
@@ -45,6 +75,7 @@
         </div>
     
     </div>
+
 {% empty %}
     <li>No dishes yet.</li>
 {% endfor %}
