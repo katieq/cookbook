@@ -8,10 +8,12 @@
     {{object.first_name}}'s feed
 </div>
 
+{% comment %}
 <div class="page-menu">
     <li><a href="/cooklog/chef/todo/{{object.chef_id}}/">[to-do list]</a></li>
     <li><a href="/cooklog/chef/brief/{{object.chef_id}}/">[compact all-dish view]</a></li>
 </div>
+{% endcomment %}
 
 <div class="page-subtitle">
     latest dishes:
@@ -20,7 +22,7 @@
 {% for dish in latest_dishes %}
 <div class="dish-mini">
     <div class="dish-mini-date">
-        {{ dish.date_created|date:"D"|upper }}
+        {{ dish.date_created|date:"D, M d"|upper }}
     </div>
     <div class="dish-mini-image">
         
@@ -46,12 +48,15 @@
             {% endif %}
         </div>
         <div class="dish-mini-inner-recipe">
-            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
+            <a href="recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+            <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
         </div>
     </div>
+    {% comment %}
     <div class="dish-mini-edit">
         <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
     </div>
+    {% endcomment %}
 
 {% comment %}
         <i>{{ dish.date_created|date:"D, M d" }}:</i>
@@ -84,7 +89,7 @@ No dishes yet.
 <div class="dish">
     <div class="dish-mini">
         <div class="dish-mini-date">
-            {{ dish.date_created|date:"D"|upper }}
+            {{ dish.date_created|date:"D, M d"|upper }}
         </div>
         <div class="dish-mini-image">
             
@@ -110,12 +115,16 @@ No dishes yet.
                 {% endif %}
             </div>
             <div class="dish-mini-inner-recipe">
-                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
+                <a href="recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
+                
             </div>
         </div>
+        {% comment %}
         <div class="dish-mini-edit">
             <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
         </div>
+        {% endcomment %}
 {% comment %}
     <i>{{ dish.date_created|date:"D, M d" }}:</i>
     <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
@@ -146,7 +155,7 @@ No dishes yet.
 <div class="dish">
     <div class="dish-mini">
         <div class="dish-mini-date">
-            {{ dish.date_created|date:"D"|upper }}
+            {{ dish.date_created|date:"D, M d"|upper }}
         </div>
         <div class="dish-mini-image">
             
@@ -172,12 +181,15 @@ No dishes yet.
                 {% endif %}
             </div>
             <div class="dish-mini-inner-recipe">
-                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
+                <a href="recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
             </div>
         </div>
+        {% comment %}
         <div class="dish-mini-edit">
             <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
         </div>
+        {% endcomment %}
     {% comment %}
     <p>
         <i>{{ dish.date_created|date:"D, M d" }}:</i>
@@ -209,7 +221,7 @@ No dishes yet.
 <div>
     <div class="dish-mini">
         <div class="dish-mini-date">
-            {{ dish.date_created|date:"D"|upper }}
+            {{ dish.date_created|date:"D, M d"|upper }}
         </div>
         <div class="dish-mini-image">
             
@@ -235,12 +247,15 @@ No dishes yet.
                 {% endif %}
             </div>
             <div class="dish-mini-inner-recipe">
-                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">master recipe</a>
+                <a href="recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
             </div>
         </div>
+        {% comment %}
         <div class="dish-mini-edit">
             <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
         </div>
+        {% endcomment %}
         
     {% comment %}
     <i>{{ dish.date_scheduled|date:"D, M d" }}:</i>

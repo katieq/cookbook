@@ -12,6 +12,7 @@ from cooklog.forms import UploadImageForm, NewDishShortForm, NewDishQuickForm, N
 from cooklog.forms import UpdateDishForm
 from django import forms
 from django.contrib.auth.models import User
+from datetime import datetime
 
 
 # Create your views here.
@@ -102,7 +103,8 @@ class ChefScheduleView(DetailView):
     model = Chef
     def get_context_data(self, **kwargs):
         context = super(ChefScheduleView, self).get_context_data(**kwargs)
-        context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).order_by("date_scheduled").all()
+        context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).filter(date_scheduled__gte=datetime.now()).order_by("date_scheduled").all()
+        context['archive_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).filter(date_scheduled__lt=datetime.now()).order_by("date_scheduled").all()
         return context
 
 class ChefBriefView(DetailView):

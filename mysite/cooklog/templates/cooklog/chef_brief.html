@@ -8,10 +8,12 @@
     {{object.first_name}}'s feed
 </div>
 
+{% comment %}
 <div class="page-menu">
     <li><a href="/cooklog/chef/{{object.chef_id}}/">[feed view]</a></li>
     <li><a href="/cooklog/chef/todo/{{object.chef_id}}/">[to-do list]</a></li>
 </div>
+{% endcomment %}
 
 <div class="page-subtitle">
     all dishes:
@@ -31,10 +33,10 @@
             {% endif %}
         </div>
         <div class="dish-brief-inner-edit">
-            <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
+            <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
         </div>
         <div class="dish-brief-inner-recipe">
-            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">[master recipe]</a>
+            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
         </div>
         <div class="dish-brief-inner-name">
             <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
