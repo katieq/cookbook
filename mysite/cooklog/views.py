@@ -36,9 +36,11 @@ def search(request): # this still works for searching dish names!
         elif len(q) > 40:
             errors.append('Please enter at most 40 characters.')
         else:
-            dishs = Dish.objects.filter(dish_name__icontains=q)
+            dishes = Dish.objects.filter(dish_name__icontains=q).order_by("date_created").all()
+            recipes = Recipe.objects.filter(recipe_name__icontains=q).order_by("date_created").all()
+            chefs = Chef.objects.filter(first_name__icontains=q).all()
             return render(request, 'search_results.html',
-                          {'dishs': dishs, 'query': q})
+                          {'dishes': dishes, 'recipes': recipes, 'chefs': chefs, 'query': q})
     return render(request, 'search_form.html', {'errors': errors})
 
 class ChefList(ListView):
@@ -63,6 +65,7 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
         context['latest_dishs'] = Dish.objects.filter(dish_status = 1).order_by("-date_created").all()[:10]
+        #context['latest_dish_likes'] = Likes.objects.filter(dish_id = context['latest_dishs'])
         #context['latest_photos'] = Dish_Photo.objects.filter(dish_id = context['latest_dishs'])
         #context['latest_recipes'] = Recipe.objects.filter(dish = context['latest_dishs'])
         return context

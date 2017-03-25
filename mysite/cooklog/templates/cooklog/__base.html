@@ -39,9 +39,15 @@
                         <a href="/cooklog/login/">Login</a>
                         <a href="/cooklog/register/">Register</a>
                     </div>
-                {% endif %}
+                    {% endif %}
                 </div>
                 }
+            </div>
+            <div class="page-header-menu" style="float:left; margin-left: 50px">
+                <form action="{% url 'search_results' %}" method="get">
+                    <input type="text" name="q" style="width: 120px; font-size: 14px;"/>
+                    <button type="submit" style="width: 60px; font-size: 14px;"/>search</button>
+                </form>
             </div>
              
         </div>

@@ -49,7 +49,12 @@
         </div>
         <div class="dish-mini-inner-recipe">
             <a href="recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+            {% ifequal user.id dish.chef_id_id %}
             <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
+            {% endifequal %}
+            {% ifnotequal user.id dish.chef_id_id %}
+            <a href="/cooklog/like/?next={{dish.dish_id}}"><img src="{% static "emoji/img/yum.png" %}" alt="yum" height="18"/></a>
+            {% endifnotequal %}
         </div>
     </div>
     {% comment %}
@@ -116,7 +121,12 @@ No dishes yet.
             </div>
             <div class="dish-mini-inner-recipe">
                 <a href="recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+                {% ifequal user.id dish.chef_id_id %}
                 <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
+                {% endifequal %}
+                {% ifnotequal user.id dish.chef_id_id %}
+                <a href="/cooklog/like/?next={{dish.dish_id}}"><img src="{% static "emoji/img/yum.png" %}" alt="yum" height="18"/></a>
+                {% endifnotequal %}
                 
             </div>
         </div>
@@ -182,7 +192,12 @@ No dishes yet.
             </div>
             <div class="dish-mini-inner-recipe">
                 <a href="recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+                {% ifequal user.id dish.chef_id_id %}
                 <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
+                {% endifequal %}
+                {% ifnotequal user.id dish.chef_id_id %}
+                <a href="/cooklog/like/?next={{dish.dish_id}}"><img src="{% static "emoji/img/yum.png" %}" alt="yum" height="18"/></a>
+                {% endifnotequal %}
             </div>
         </div>
         {% comment %}
@@ -248,7 +263,12 @@ No dishes yet.
             </div>
             <div class="dish-mini-inner-recipe">
                 <a href="recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+                {% ifequal user.id dish.chef_id_id %}
                 <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
+                {% endifequal %}
+                {% ifnotequal user.id dish.chef_id_id %}
+                <a href="/cooklog/like/?next={{dish.dish_id}}"><img src="{% static "emoji/img/yum.png" %}" alt="yum" height="18"/></a>
+                {% endifnotequal %}
             </div>
         </div>
         {% comment %}

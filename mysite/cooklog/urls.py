@@ -36,7 +36,7 @@ urlpatterns = [
                                                      success_url='/cooklog/login')),
                
                url(r'^search-form/$', views.search_form),
-               url(r'^search/$', views.search),
+               url(r'^search/$', views.search, name='search_results'),
                url(r'^chefs/$', ChefList.as_view()),
                url(r'^recipes/$', RecipeList.as_view()),
                url(r'^dishes/$', DishList.as_view()),

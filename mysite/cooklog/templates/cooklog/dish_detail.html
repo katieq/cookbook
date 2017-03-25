@@ -2,9 +2,11 @@
 {% load static %}
 {% block body_block %}
 
+{% ifequal user.id dish.chef_id_id %}
 <div class="page-text">
 <a href="/cooklog/dish/add/{{object.dish_id}}/">Edit dish </a>
 </div>
+{% endifequal %}
 <div class="page-text">
 {{ object.date_created|date:"D, M d" }}
 </div>
