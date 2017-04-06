@@ -8,12 +8,13 @@ from django.core.urlresolvers import reverse_lazy
 from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish_Comments, Likes
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
-from cooklog.forms import UploadImageForm, NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewLikeForm, NewCommentForm, CommentDeleteForm, NewRecipeForm
+from cooklog.forms import UploadImageForm, NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, NewLikeForm
 from cooklog.forms import UpdateDishForm
 from django import forms
+from django.db.models import Count
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from datetime import datetime
-
 
 # Create your views here.
 def display_meta(request):
@@ -65,9 +66,9 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
         context['latest_dishs'] = Dish.objects.filter(dish_status = 1).order_by("-date_created").all()[:10]
-        #context['latest_dish_likes'] = Likes.objects.filter(dish_id = context['latest_dishs'])
-        #context['latest_photos'] = Dish_Photo.objects.filter(dish_id = context['latest_dishs'])
-        #context['latest_recipes'] = Recipe.objects.filter(dish = context['latest_dishs'])
+        #context['latest_dish_likes'] = Likes.objects.filter(dish_id__in = context['latest_dishs'])
+            #context['latest_dish_like_counts'] = Likes.objects.filter(dish_id__in=context['latest_dishs']).values('dish_id').annotate(count = Count('dish_id'))
+        context['latest_dish_user_likes'] = Likes.objects.filter(dish_id__in=context['latest_dishs'], chef_id = self.request.user.id)
         return context
 
 class RecipeDetailView(DetailView):

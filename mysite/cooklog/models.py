@@ -75,7 +75,7 @@ class Dish(models.Model):
     dish_comments = models.CharField("Dish comments", max_length=800,
                                      null=True, blank=True) # my own comments about how I liked it..
     ingredient_id = models.ManyToManyField(Ingredient)
-    #like_chef_id = models.ManyToManyField(Chef) # tie to dish, instead of its own Likes model.
+    ##can't have two fields to Chef? like_chef_id = models.ManyToManyField(Chef) # tie to dish, instead of its own Likes model.
     dish_image = models.ImageField(upload_to="dish_photos", null = True, blank = True)
     photo_comment = models.CharField("Photo comment", max_length=200, null = True, blank = True)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)

@@ -40,18 +40,19 @@ a:visited {
 }
 
 .page-header-title a {
-    font-size: 28px;
+    font-size: 36px;
     color: #874C62;
-    padding-left: 30px;
+    padding-left: 20px;
     font-family:  'Merriweather', serif;
     float: left;
-    width: 180px;
+    width: 280px;
 }
 
 .page-header-menu {
     font-size: 28px;
     color: #C98474;
     float: center;
+    width: 280px;
 }
 .page-header-menu a {
     color: #874C62;
@@ -146,7 +147,7 @@ a:visited {
 .dish-mini-inner {
     font-size: 13px;
     padding: 0 30px;
-    width: 350px;
+    width: 450px;
     margin: 0px 0;
     float: left;
 }

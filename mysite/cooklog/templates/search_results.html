@@ -42,9 +42,11 @@
 </div>
 {% endfor %}
 
+{% if recipes %}
 <div class="page-subtitle">
     Found {{ recipes|length }} recipe{{ recipes|pluralize }} matching search:
 </div>
+{% endif %}
 
 {% for recipe in recipes %}
 <div class="dish-brief">
