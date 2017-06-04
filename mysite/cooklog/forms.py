@@ -121,7 +121,7 @@ class NewDishLongForm(forms.ModelForm):
     ingredient_id = forms.ModelMultipleChoiceField(queryset=Ingredient.objects.all(), widget=forms.SelectMultiple) # or CheckboxSelectMultiple
     #date_created = forms.DateField(widget=forms.DateTimeInput(attrs={'class': 'datetime-input'}))
     #date_scheduled = forms.DateField(widget = SelectDateWidget(empty_label="Nothing"),initial=datetime.now())
-    date_created = forms.DateField(widget = SelectDateWidget(empty_label="Nothing"),initial=datetime.now())
+    date_created = forms.DateField(widget = SelectDateWidget(empty_label="Nothing",years=range(2015, 2027)),initial=datetime.now())
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status', 'date_scheduled',
@@ -156,7 +156,7 @@ class UpdateDishForm(forms.ModelForm):
     dish_method = forms.CharField(widget=forms.Textarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
     photo_comment = forms.CharField(widget=forms.Textarea)
-    date_created = forms.DateField(widget = SelectDateWidget(empty_label="Nothing"),initial=datetime.now())
+    date_created = forms.DateField(widget = SelectDateWidget(empty_label="Nothing",years=range(2015, 2027)),initial=datetime.now())
     ingredient_id = forms.ModelMultipleChoiceField(queryset=Ingredient.objects.all(),
                                                    widget=forms.SelectMultiple) # or CheckboxSelectMultiple
     class Meta:
