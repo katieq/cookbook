@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.views.static import serve
 
 from mysite.views import hello, current_datetime, hours_ahead
+#from cooklog.views import RecipeAutocomplete
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),

@@ -1,8 +1,10 @@
+#from dal import autocomplete
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.extras.widgets import SelectDateWidget
 from cooklog.models import Dish_Photo, Dish, Recipe, Ingredient, Chef_Dish_Comments, Likes
 from datetime import datetime
+
 #from mentions.forms import MentionTextarea
 
 #class ChefEntryForm(forms.Form):
@@ -53,11 +55,16 @@ class NewDishShortForm(forms.ModelForm):
     dish_name = forms.CharField(widget=forms.Textarea)
     dish_method = forms.CharField(widget=forms.Textarea) #MentionTextarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
+        #recipe_id = forms.ModelChoiceField(queryset=Recipe.objects.all(),
+        #                               widget=autocomplete.ModelSelect2(url='recipe-autocomplete'))
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
                   'date_created', 'dish_method',
                   'dish_comments', 'dish_rating', 'dish_image']
+            #widgets = {
+            #'recipe_id': autocomplete.ModelSelect2(url='recipe-autocomplete')
+            #}
     
     def __init__(self, *args, **kwargs):
         super(NewDishShortForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor

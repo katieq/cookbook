@@ -25,7 +25,7 @@ from cooklog.views import IngredientCreate, IngredientUpdate #, IngredientDelete
 from django.contrib.auth import views as auth_views
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
-from cooklog.views import my_image, UploadImageView, NewLikeView, NewCommentView, CommentDeleteView
+from cooklog.views import my_image, UploadImageView, NewLikeView, NewCommentView, CommentDeleteView #, RecipeAutocomplete
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
@@ -65,5 +65,6 @@ urlpatterns = [
                url(r'^like/$', NewLikeView.as_view(), name='like_add'),
                url(r'^comment/$', NewCommentView.as_view(), name='comment_add'),
                url(r'^comment/delete/(?P<pk>[0-9]+)/$', CommentDeleteView.as_view(), name='comment_delete'),
+               #url(r'^recipe-autocomplete/$',RecipeAutocomplete.as_view(),name='recipe-autocomplete'),
                #url(r'^mentions/', include('mentions.urls')),
 ]
