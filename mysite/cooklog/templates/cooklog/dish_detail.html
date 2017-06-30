@@ -42,6 +42,15 @@
         No photos yet, <a href="/cooklog/dish/add/{{object.dish_id}}">upload here. </a>
         {% endif %}
     </div>
+    
+    {% if object.dish_source %}
+    <div class="dish-full-subtitle">
+        Source:
+    </div>
+    <div class="dish-full-method">
+        {{ object.dish_source }}
+    </div>
+    {% endif %}
 
     <div class="dish-full-subtitle">
         Method:
@@ -127,12 +136,30 @@
         Recipe: <a href="../../recipe/{{object.recipe_id_id}}/">{{ object.recipe_id }}</a>, a {{recipe.recipe_type}} first uploaded by <a href="../../chef/{{recipe.chef_id_id}}/">{{ recipe.chef_id}}</a>
     </div>
     
+    {% if object.dish_source %}
+    <div class="dish-full-subtitle">
+        Source:
+    </div>
+    <div class="dish-full-method">
+        {{ object.dish_source }}
+    </div>
+    {% endif %}
+    
     <div class="dish-full-subtitle">
         Method:
     </div>
     <div class="dish-full-method">
         {{ object.dish_method }}
     </div>
+    
+    {% if object.dish_comments %}
+    <div class="dish-full-subtitle">
+        Chef comments:
+    </div>
+    <div class="dish-full-chef-comments">
+        {{ object.dish_comments }}
+    </div>
+    {% endif %}
     
     <div class="dish-full-subtitle">
         Comments:

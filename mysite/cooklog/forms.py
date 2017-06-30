@@ -3,6 +3,7 @@ from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.extras.widgets import SelectDateWidget
 from cooklog.models import Dish_Photo, Dish, Recipe, Ingredient, Chef_Dish_Comments, Likes
 from datetime import datetime
+#from mentions.forms import MentionTextarea
 
 #class ChefEntryForm(forms.Form):
 #    first_name = forms.CharField()
@@ -50,7 +51,7 @@ class NewDishQuickForm(forms.ModelForm):
 
 class NewDishShortForm(forms.ModelForm):
     dish_name = forms.CharField(widget=forms.Textarea)
-    dish_method = forms.CharField(widget=forms.Textarea)
+    dish_method = forms.CharField(widget=forms.Textarea) #MentionTextarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
     class Meta:
         model = Dish

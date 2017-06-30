@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'cooklog.apps.CooklogConfig',
     'django.contrib.humanize',
+                  #'mentions',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,4 +111,16 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 # Media root and url, kq added Jan-11-2017 (aiming for location as mysite/cooklog/media/..)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# Mentions module (github instructions)
+MENTIONS_PROVIDERS = {
+    'default': [
+                'accounts.mentions.UserProvider'
+                ]
+}
+
+
+
+
+
 
