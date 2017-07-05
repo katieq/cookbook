@@ -1,0 +1,50 @@
+{% extends 'cooklog/__base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block body_block %}
+
+<div class="page-title">
+    <a href="/cooklog/chef/{{object.chef_id}}/">{{ object.first_name }} {{ object.last_name.0}}</a>'s dishes
+</div>
+
+<div class="page-menu">
+    [
+    <a href="/cooklog/chef/todo/{{object.chef_id}}/">to-do list</a> |
+    <a href="/cooklog/chef/brief/{{object.chef_id}}/">compact view</a> |
+    <a href="/cooklog/chef/album/{{object.chef_id}}/">album view</a> ]
+</div>
+
+{% for dish in dishes %}
+    <div class="dish-album">
+    
+    
+        {{ dish.date_created|date:"D M.d"|lower }} |
+        <div class="album-stars">
+            {% if dish.dish_rating %}
+            {% for i in "x"|rjust:dish.dish_rating %}
+            <img src="{% static "emoji/img/star.png" %}" alt="star" height="10"/>
+            {% endfor %}
+            {% endif %}
+        </div>
+        
+        {% if dish.dish_image %}
+        <div class="album-photo">
+            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+        </div>
+        {% else %}
+        <div class="album-img-placeholder">
+            <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+        </div>
+        {% endif %}
+    
+    
+        
+        <div class="album-dish-name">
+            <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+        </div>
+    </div>
+
+{% endfor %}
+
+{% endblock %}

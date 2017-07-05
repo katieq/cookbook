@@ -107,6 +107,40 @@ class Chef_Dish_Comments(models.Model):   # avoided ever just comment, since res
 
 
 
+## TO BRING IN (i.e. update) ONCE I LOOK UP HOW TO UPDATE MODELS:
+#class IngredientType(models.Model):
+#    ingredient_type_id = models.AutoField(primary_key = True)
+#    ingredient_type_name = models.CharField("Ingredient type name", max_length=30)
+#    date_created = models.DateTimeField("Date created", default = datetime.datetime.now)
+#
+#class Ingredient(models.Model):
+#    ingredient_id = models.AutoField(primary_key=True)
+#    ingredient_name = models.CharField("Ingredient name", max_length=30)
+#    ingredient_type_id = models.ForeignKey(IngredientType, on_delete=models.CASCADE)
+#    ingredient_type_detail = models.CharField("Ingredient type detail", max_length = 30)
+#    maker_id = models.ForeignKey(Maker, on_delete=models.CASCADE, null = True, blank = True)) #<- optional!!! or have a Maker=NA
+#    ingredient_image = models.ImageField(upload_to="ingredient_photos", null = True, blank = True)
+#    ingredient_url = models.CharField(... or is there a url field??
+#    date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
+#    def __str__(self):
+#        return self.ingredient_name
+#    def get_absolute_url(self):
+#        return reverse('ingredient-detail', kwargs={'pk': self.pk})
+#
+#class Maker(models.Model):
+#    maker_id = models.AutoField(primary_key = True)
+#    maker_name = models.CharField("Maker name", max_length=30)
+#    maker_type = models.CharField("Maker type", max_length=30) # e.g. farm
+#    maker_url =  models.CharField() # or is there a url field?
+#    maker_image = models.ImageField(upload_to="maker_photos", null = True, blank = True)
+#    date_created = models.DateTimeField("Date created", default = datetime.datetime.now)
+## END SECTION
+
+
+
+
+
+
 
 
 #class Recipe_Ingredients(models.Model):

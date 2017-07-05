@@ -1,0 +1,24 @@
+{% extends 'cooklog/__base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block body_block %}
+
+<div class="page-title">
+    {{object.first_name}}'s recent cooking summary
+</div>
+
+<p> todo: in views.py: filter also on date_created__gte 7 days ago AND count-by recipe_id (or later recipe_type!) </p>
+
+<div class="page-subtitle">
+    dish summary:
+</div>
+
+{% for dish in dish_count %}
+<p> {{ dish.dish_name }} </p>
+{% empty %}
+<p> is empty </p>
+{% endfor %}
+
+
+{% endblock %}

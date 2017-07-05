@@ -118,6 +118,21 @@ class ChefBriefView(DetailView):
         context['dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()
         return context
 
+class ChefAlbumView(DetailView):
+    model = Chef
+    def get_context_data(self, **kwargs):
+        context = super(ChefAlbumView, self).get_context_data(**kwargs)
+        context['dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[:15]
+        return context
+
+class HomeAlbumView(TemplateView):
+    template_name = "home_album.html"
+    def get_context_data(self, **kwargs):
+        context = super(HomeAlbumView, self).get_context_data(**kwargs)
+        context['dishes'] = Dish.objects.filter(dish_status = 1).order_by("-date_created").all()[:30]
+        return context
+
+
 class IngredientDetailView(DetailView):
     model = Ingredient
     def get_context_data(self, **kwargs):
@@ -207,6 +222,14 @@ class DishUpdate(UpdateView):
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 
+
+class ChefWeekCountView(DetailView):
+    model = Chef
+    def get_context_data(self, **kwargs):
+        context = super(ChefWeekCountView, self).get_context_data(**kwargs)
+        context['dish_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__lte=datetime.now())
+            #need this: .filter(date_created__gt=datetime.now(-7))
+        return context
 
 
 class IngredientCreate(CreateView):

@@ -60,65 +60,69 @@
     </div>
     
     {% if object.dish_comments %}
-    <div class="dish-full-subtitle">
-        Chef comments:
-    </div>
-    <div class="dish-full-chef-comments">
-        {{ object.dish_comments }}
+        <div class="dish-full-subtitle">
+            Comments/Review:
+        </div>
+        <div class="dish-full-chef-comments">
+            {{ object.dish_comments }}
         </div>
     {% endif %}
 
-    <div class="dish-full-subtitle">
-        Comments:
-    </div>
-
-    {% if chef_comments %}
-    {% for chef_comment in chef_comments %}
-    <div class="dish-full-comments">
-        {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment }}
-    <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/?next={{object.dish_id}}">[delete]</a>
-    </div>
-    {% endfor %}
-    {% else %}
-    <div class="dish-full-comments">
-        No one has commented yet!
-    </div>
-    {% endif %}
-    <a href="{% url 'comment_add' %}?next={{object.dish_id}}">Add comment</a>
-
-    <div class="dish-full-subtitle">
-        Likes:
-    </div>
-    {% if likes %}
-    <div class="dish-full-likes">
-        <img src="{% static "emoji/img/yum.png" %}" alt="yum" height="30"/>
-        {{ likes|length }} person liked it!
-        {% for like in likes %}
-        <i><a href="../../chef/{{like.chef_id_id}}/">{{like.chef_id}}</a></i>,
+    <div class="dish-social-comments-and-likes">
+    
+        {% if chef_comments %}
+        {% for chef_comment in chef_comments %}
+        <div class="dish-full-comments">
+            {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment }}
+            
+            <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/?next={{object.dish_id}}">[delete]</a>
+            
+        </div>
         {% endfor %}
+        {% else %}
+        <div class="dish-full-no-comments">
+            No one has commented yet!
+        </div>
+        {% endif %}
+        <div class="dish-button-add-comment">
+            <a href="{% url 'comment_add' %}?next={{object.dish_id}}">+comment</a>
+        </div>
+
+        {% if likes %}
+        <div class="dish-full-likes">
+            <img src="{% static "emoji/img/yum.png" %}" alt="yum" height="30"/>
+            {{ likes|length }} person liked it!
+            {% for like in likes %}
+            <i><a href="../../chef/{{like.chef_id_id}}/">{{like.chef_id.first_name}}</a></i>,
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="dish-full-no-likes">
+            No one likes it! (yet..)
+        </div>
+        {% endif %}
+        {% if user_likes %}
+            <div class="dish-full-no-likes">
+                You've liked it already.
+            </div>
+        {% else %}
+        <div class="dish-button-add-like">
+            <a href="{% url 'like_add' %}?next={{object.dish_id}}">+like</a>
+        </div>
+        {% endif %}
     </div>
-    {% else %}
-    <div class="dish-full-lies">
-        No one likes it! (yet..)
-    </div>
-    {% endif %}
-    {% if user_likes %}
-    You've liked it already.
-    {% else %}
-    <a href="{% url 'like_add' %}?next={{object.dish_id}}">Like it.</a>
-    {% endif %}
 
     <div class="dish-full-subtitle">
         Ingredients:
     </div>
 
-    {% for ingredient in object.ingredient_id.all %}
     <div class="dish-full-ingredients">
-    <a href="../../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a>
+        {% for ingredient in object.ingredient_id.all %}
+            <a href="../../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a>,
+        {% empty %}
+            No ingredients listed.
+        {% endfor %}
     </div>
-    {% empty %}
-    No ingredients listed.
-    {% endfor %}
     </div>
 
 {% else %}
@@ -154,7 +158,7 @@
     
     {% if object.dish_comments %}
     <div class="dish-full-subtitle">
-        Chef comments:
+        Comments/Review:
     </div>
     <div class="dish-full-chef-comments">
         {{ object.dish_comments }}

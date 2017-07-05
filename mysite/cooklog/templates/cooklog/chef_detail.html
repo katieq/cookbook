@@ -8,12 +8,14 @@
     {{object.first_name}}'s feed
 </div>
 
-{% comment %}
+
 <div class="page-menu">
-    <li><a href="/cooklog/chef/todo/{{object.chef_id}}/">[to-do list]</a></li>
-    <li><a href="/cooklog/chef/brief/{{object.chef_id}}/">[compact all-dish view]</a></li>
+    [
+    <a href="/cooklog/chef/todo/{{object.chef_id}}/">to-do list</a> |
+    <a href="/cooklog/chef/brief/{{object.chef_id}}/">compact view</a> |
+    <a href="/cooklog/chef/album/{{object.chef_id}}/">album view</a> ]
 </div>
-{% endcomment %}
+
 
 <div class="page-subtitle">
     latest dishes:
