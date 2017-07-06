@@ -55,7 +55,7 @@ class NewDishShortForm(forms.ModelForm):
     dish_comments = forms.CharField(widget=forms.Textarea)
     class Meta:
         model = Dish
-        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
+        fields = ['recipe_id', 'dish_name', 'dishtype_id', 'chef_id', 'dish_status',
                   'date_created', 'dish_method',
                   'dish_comments', 'dish_rating', 'dish_image']
     
@@ -87,7 +87,7 @@ class NewDishTodoForm(forms.ModelForm):
     date_scheduled = forms.DateField(widget = SelectDateWidget(empty_label="Nothing"),initial=datetime.now())
     class Meta:
         model = Dish
-        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
+        fields = ['recipe_id', 'dish_name', 'dishtype_id', 'chef_id', 'dish_status',
                   'date_created', 'date_scheduled', 'dish_comments']
     
     def __init__(self, *args, **kwargs):
@@ -125,7 +125,7 @@ class NewDishLongForm(forms.ModelForm):
     date_created = forms.DateField(widget = SelectDateWidget(empty_label="Nothing",years=range(2015, 2027)),initial=datetime.now())
     class Meta:
         model = Dish
-        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status', 'date_scheduled',
+        fields = ['recipe_id', 'dish_name', 'dishtype_id', 'chef_id', 'dish_status', 'date_scheduled',
                   'date_created', 'dish_source', 'dish_method', 'dish_rating',
                   'dish_comments', 'dish_image','photo_comment', 'ingredient_id']
     
@@ -162,7 +162,7 @@ class UpdateDishForm(forms.ModelForm):
                                                    widget=forms.SelectMultiple) # or CheckboxSelectMultiple
     class Meta:
         model = Dish
-        fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled', 'date_created',
+        fields = ['dish_name', 'dishtype_id', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled', 'date_created',
                     'dish_source', 'dish_method', 'dish_rating','dish_comments',
                   'dish_image', 'photo_comment', 'ingredient_id']
 

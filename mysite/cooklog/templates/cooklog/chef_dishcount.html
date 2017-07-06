@@ -26,6 +26,12 @@
 <p> is empty </p>
 {% endfor %}
 
+{% for x in week_dishtype_count %}
+<p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} of the dish type with ID {{ x.dishtype_id }} </p>
+{% empty %}
+<p> is empty </p>
+{% endfor %}
+
 <div class="page-subtitle">
     dish summary for the last month:
 </div>
@@ -40,6 +46,12 @@
 
 {% for x in month_recipe_count %}
 <p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} of the recipe with ID {{x.recipe_id}} </p>
+{% empty %}
+<p> is empty </p>
+{% endfor %}
+
+{% for x in month_dishtype_count %}
+<p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} of the dish type with ID {{x.dishtype_id}} </p>
 {% empty %}
 <p> is empty </p>
 {% endfor %}
