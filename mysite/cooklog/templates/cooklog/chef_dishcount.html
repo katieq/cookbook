@@ -9,18 +9,36 @@
 </div>
 
 <div class="page-subtitle">
-    dish summary:
+    dish summary for the last week:
 </div>
 
-<p> In the last week, have cooked {{ recent_dish.count }} dish{{ recent_dish.count|pluralize:",es" }}.</p>
+<p> In the last week, have cooked {{ week_dish.count }} dish{{ week_dish.count|pluralize:",es" }}.</p>
 
-{% for x in rating_count %}
+{% for x in week_rating_count %}
 <p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} that got a rating of {{x.dish_rating}} </p>
 {% empty %}
 <p> is empty </p>
 {% endfor %}
 
-{% for x in recipe_count %}
+{% for x in week_recipe_count %}
+<p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} of the recipe with ID {{x.recipe_id}} </p>
+{% empty %}
+<p> is empty </p>
+{% endfor %}
+
+<div class="page-subtitle">
+    dish summary for the last month:
+</div>
+
+<p> In the last month, have cooked {{ month_dish.count }} dish{{ month_dish.count|pluralize:",es" }}.</p>
+
+{% for x in month_rating_count %}
+<p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} that got a rating of {{x.dish_rating}} </p>
+{% empty %}
+<p> is empty </p>
+{% endfor %}
+
+{% for x in month_recipe_count %}
 <p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} of the recipe with ID {{x.recipe_id}} </p>
 {% empty %}
 <p> is empty </p>

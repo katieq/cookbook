@@ -228,9 +228,13 @@ class ChefWeekCountView(DetailView):
     model = Chef
     def get_context_data(self, **kwargs):
         context = super(ChefWeekCountView, self).get_context_data(**kwargs)
-        context['recent_dish'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=8), datetime.now()])
-        context['rating_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=8), datetime.now()]).values('dish_rating').annotate(Count('dish_id'))
-        context['recipe_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=8), datetime.now()]).values('recipe_id').annotate(Count('dish_id'))
+        context['week_dish'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=8), datetime.now()])
+        context['week_rating_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=8), datetime.now()]).values('dish_rating').annotate(Count('dish_id'))
+        context['week_recipe_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=8), datetime.now()]).values('recipe_id').annotate(Count('dish_id'))
+        
+        context['month_dish'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=30), datetime.now()])
+        context['month_rating_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=30), datetime.now()]).values('dish_rating').annotate(Count('dish_id'))
+        context['month_recipe_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=30), datetime.now()]).values('recipe_id').annotate(Count('dish_id'))
         return context
 
 class IngredientCreate(CreateView):
