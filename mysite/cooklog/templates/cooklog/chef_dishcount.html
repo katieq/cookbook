@@ -8,17 +8,24 @@
     {{object.first_name}}'s recent cooking summary
 </div>
 
-<p> todo: in views.py: filter also on date_created__gte 7 days ago AND count-by recipe_id (or later recipe_type!) </p>
-
 <div class="page-subtitle">
     dish summary:
 </div>
 
-{% for dish in dish_count %}
-<p> {{ dish.dish_name }} </p>
+<p> In the last week, have cooked {{ recent_dish.count }} dish{{ recent_dish.count|pluralize:",es" }}.</p>
+
+{% for x in rating_count %}
+<p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} that got a rating of {{x.dish_rating}} </p>
 {% empty %}
 <p> is empty </p>
 {% endfor %}
+
+{% for x in recipe_count %}
+<p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} of the recipe with ID {{x.recipe_id}} </p>
+{% empty %}
+<p> is empty </p>
+{% endfor %}
+
 
 
 {% endblock %}
