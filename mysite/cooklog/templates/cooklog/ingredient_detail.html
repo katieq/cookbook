@@ -1,11 +1,35 @@
-<h1>{{ object.headline }}</h1>
-<p>{{ object.content }}</p>
-<p>Ingredient name: {{ object.ingredient_name }}</p>
-<p>Type: {{ object.ingredient_type }}</p>
-<p>Date created: {{ object.date_created|date }}</p>
-<p> Dishes: </p>
-{% for dish in dishes %}
-<li><a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a></li>
-{% empty %}
-<p> No dishes yet. <li><a href="../../dish/add/">Make one! <p>
-{% endfor %}
+{% extends 'cooklog/__base.html' %}
+{% load static %}
+{% block body_block %}
+
+<div class="page-title">
+    Ingredient name: {{ object.ingredient_name }}
+</div>
+
+<div class="dish-full">
+    
+    <a href="/cooklog/ingredient/add/{{object.ingredient_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/> Edit ingredient</a>
+
+
+    <p> Type: {{ object.ingredient_type }} </p>
+    <p> Date created: {{ object.date_created|date }} </p>
+    
+    <div class="dish-full-image">
+        {% if object.ingredient_image %}
+        <img src="/media/{{ object.ingredient_image }}" height="200" style="border: #F2D388 4px solid;"/>
+        {% else %}
+        No photos yet, <a href="/cooklog/ingredient/add/{{object.ingredient_id}}">upload here. </a>
+        {% endif %}
+    </div>
+    <p> </p>
+ 
+    Dishes with this ingredient:
+ 
+    {% for dish in dishes %}
+    <li><a href="../../dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a></li>
+    {% empty %}
+    <p> No dishes yet. <li><a href="../../dish/add/">Make one! <p>
+    {% endfor %}
+</div>
+
+{% endblock %}

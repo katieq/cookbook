@@ -12,15 +12,15 @@ from datetime import datetime
 #    last_name = forms.CharField()
 #    email_address = forms.EmailField(required=False)
 
-class UploadImageForm(forms.ModelForm):
-    class Meta:
-        model = Dish_Photo
-        fields = ['dish_id', 'dish_image', 'photo_comment', 'date_created']
-    def __init__(self, *args, **kwargs):
-        super(UploadImageForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
-        self.fields['dish_id'].widget.attrs['size']= 20
-        for key in self.fields:
-            self.fields[key].required = False
+#class UploadImageForm(forms.ModelForm):
+#    class Meta:
+#        model = Dish_Photo
+#        fields = ['dish_id', 'dish_image', 'photo_comment', 'date_created']
+#    def __init__(self, *args, **kwargs):
+#        super(UploadImageForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+#        self.fields['dish_id'].widget.attrs['size']= 20
+#        for key in self.fields:
+#            self.fields[key].required = False
 
 class NewDishQuickForm(forms.ModelForm):
     dish_name = forms.CharField(widget=forms.Textarea)
@@ -90,7 +90,7 @@ class NewDishTodoForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'dishtype_id', 'chef_id', 'dish_status',
-                  'date_created', 'date_scheduled', 'dish_comments']
+                  'date_created', 'date_scheduled', 'dish_source', 'dish_comments']
     
     def __init__(self, *args, **kwargs):
         super(NewDishTodoForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor

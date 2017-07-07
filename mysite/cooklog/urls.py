@@ -17,7 +17,8 @@ from django.contrib import admin
 from cooklog import views
 from cooklog.views import ChefList, RecipeList, DishList, IngredientList
 from cooklog.views import HomePageView, RecipeDetailView, DishDetailView, ChefDetailView, IngredientDetailView
-from cooklog.views import ChefScheduleView, ChefWeekScheduleView, ChefBriefView, ChefAlbumView, ChefWeekCountView, HomeAlbumView
+from cooklog.views import ChefScheduleView, ChefWeekScheduleView, ChefBriefView
+from cooklog.views import ChefAlbumView, ChefWeekCountView, HomeAlbumView, IngredientAlbumView
 from cooklog.views import RecipeCreate, RecipeUpdate, RecipeDelete
 from cooklog.views import ChefCreate, ChefUpdate
 from cooklog.views import DishCreate, DishQuickCreate, DishTodoCreate, DishLongCreate, DishUpdate #, DishWeekTodoCreate
@@ -25,7 +26,7 @@ from cooklog.views import IngredientCreate, IngredientUpdate #, IngredientDelete
 from django.contrib.auth import views as auth_views
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
-from cooklog.views import my_image, UploadImageView, NewLikeView, NewCommentView, CommentDeleteView
+from cooklog.views import my_image, NewLikeView, NewCommentView, CommentDeleteView # UploadImageView,
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
@@ -43,6 +44,7 @@ urlpatterns = [
                url(r'^ingredients/$', IngredientList.as_view()),
                url(r'^$', HomePageView.as_view(), name='home'),
                url(r'^album/$', HomeAlbumView.as_view(), name='home_album'),
+               url(r'^ingredients/album/$', IngredientAlbumView.as_view(), name='ingredient_album'),
                url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
                url(r'^chef/(?P<pk>\d+)/$', ChefDetailView.as_view(), name='chef_detail'),
                url(r'^chef/todo/(?P<pk>\d+)/$', ChefScheduleView.as_view(template_name='cooklog/chef_todo.html'), name='chef_todo'),
@@ -66,7 +68,7 @@ urlpatterns = [
                url(r'^ingredient/add/$', IngredientCreate.as_view(), name='ingredient_add'),
                url(r'^ingredient/add/(?P<pk>[0-9]+)/$', IngredientUpdate.as_view(), name='ingredient_update'),
                url(r'^my_image/$', my_image),
-               url(r'^upload/$', UploadImageView.as_view(), name='photo_upload'),
+               #url(r'^upload/$', UploadImageView.as_view(), name='photo_upload'),
                url(r'^like/$', NewLikeView.as_view(), name='like_add'),
                url(r'^comment/$', NewCommentView.as_view(), name='comment_add'),
                url(r'^comment/delete/(?P<pk>[0-9]+)/$', CommentDeleteView.as_view(), name='comment_delete'),

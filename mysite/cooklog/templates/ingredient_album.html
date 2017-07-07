@@ -1,0 +1,30 @@
+{% extends 'cooklog/__base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block body_block %}
+
+{% for ingredient in ingredients %}
+<div class="ingredient-album">
+    
+    
+    <div class="album-ingredient-name">
+        <a href="/cooklog/ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a>
+    </div>
+    
+    {% if ingredient.ingredient_image %}
+        <div class="album-photo-ingredients">
+        <a href="/cooklog/ingredient/{{ingredient.ingredient_id}}/"><img src="/media/{{ ingredient.ingredient_image }}" /></a>
+        </div>
+    {% else %}
+        <div class="album-img-ingredients-placeholder">
+        <a href="/cooklog/ingredient/{{ingredient.ingredient_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+        </div>
+    {% endif %}
+    
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

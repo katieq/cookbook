@@ -261,6 +261,14 @@ a:visited {
     display: inline-block
 }
 
+.ingredient-album {
+    width = 120px;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    display: inline-block
+}
 
 .album-photo img {
     height: 180px;
@@ -277,6 +285,21 @@ a:visited {
     filter: grayscale(100%);
 }
 
+.album-photo-ingredients img {
+    height: 90px;
+    width: 120px;
+    object-fit: cover;
+    border: 2px solid #F2D388;
+}
+
+.album-img-ingredients-placeholder img {
+    height: 90px;
+    width: 120px;
+    object-fit: cover;
+    border: 2px solid #F2D388;
+    filter: grayscale(100%);
+}
+
 .album-stars {
     padding-left: 0px;
     width: 100px;
@@ -288,6 +311,14 @@ a:visited {
     width: 240px;
     height: 60px;
     vertical-align: top;
+}
+
+.album-ingredient-name {
+    display: inline-block;
+    width: 150px;
+    height: 20px;
+    vertical-align: bottom;
+    font-size: 14px;
 }
 
 .crop img {

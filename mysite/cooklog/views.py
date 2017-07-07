@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish_Comments, Likes
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
-from cooklog.forms import UploadImageForm, NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, NewLikeForm
+from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, NewLikeForm # UploadImageForm,
 from cooklog.forms import UpdateDishForm #, NewDishWeekTodoForm
 from django import forms
 from django.forms.formsets import formset_factory
@@ -150,6 +150,13 @@ class IngredientDetailView(DetailView):
         context['dishes'] = Dish.objects.filter(ingredient_id = self.object.ingredient_id)
         return context
 
+class IngredientAlbumView(TemplateView):
+    template_name = "ingredient_album.html"
+    def get_context_data(self, **kwargs):
+        context = super(IngredientAlbumView, self).get_context_data(**kwargs)
+        context['ingredients'] = Ingredient.objects.order_by("ingredient_name").all()[:30]
+        return context
+
 class RecipeCreate(CreateView):
     #model = Recipe
     #fields = ['recipe_name', 'recipe_source', 'recipe_type', 'chef_id', 'date_created']
@@ -260,22 +267,36 @@ class ChefWeekCountView(DetailView):
 
 class IngredientCreate(CreateView):
     model = Ingredient
-    fields = ['ingredient_name', 'ingredient_type', 'date_created']
-    success_url = '/cooklog/ingredients/' # maybe later to that ingredient's page?
+    template_name = 'new_ingredient_form.html'
+    fields = ['ingredient_name', 'ingredient_type_id', 'ingredient_type_detail',
+              'maker_id','ingredient_url','ingredient_image',
+              'date_created']
+    def get_queryset(self):
+        return Ingredient.objects.filter(ingredient_id=self.kwargs.get("pk", None))
+    def get_success_url(self):
+        return '/cooklog/ingredient/' + str(self.object.ingredient_id) + '/'
+#success_url = '/cooklog/ingredients/' # maybe later to that ingredient's page?
 
 class IngredientUpdate(UpdateView):
     model = Ingredient
-    fields = ['ingredient_name', 'ingredient_type', 'date_created']
+    template_name = 'update_ingredient_form.html'
+    fields = ['ingredient_name', 'ingredient_type_id', 'ingredient_type_detail',
+              'maker_id','ingredient_url','ingredient_image',
+              'date_created']
+    def get_queryset(self):
+        return Ingredient.objects.filter(ingredient_id=self.kwargs.get("pk", None))
+    def get_success_url(self):
+        return '/cooklog/ingredient/' + str(self.object.ingredient_id) + '/'
 
 def my_image(request):
     image_data = open("/Users/katiequinn/Documents/parkrun_barcode.png", "rb").read()
     return HttpResponse(image_data, content_type="image/png")
 
 
-class UploadImageView(CreateView):
-    form_class = UploadImageForm
-    template_name = 'upload.html'
-    success_url = '/cooklog/dishes/' # ideally it would be that dish!!
+#class UploadImageView(CreateView):
+#    form_class = UploadImageForm
+#    template_name = 'upload.html'
+#    success_url = '/cooklog/dishes/' # ideally it would be that dish!!
 
 class NewCommentView(CreateView):
     form_class = NewCommentForm #(initial={'chef_id': 3}) #user = request.user) #, initial={'chef_id': user.id})
