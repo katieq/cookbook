@@ -8,10 +8,11 @@
     Search results for "{{query}}":
 </div>
 
+{% if dishes %}
 <div class="page-subtitle">
     Found {{ dishes|length }} dish{{ dishes|pluralize }}:
 </div>
-
+{% endif %}
 {% for dish in dishes %}
 <div class="dish-brief">
     <div class="dish-mini-date-extra-long">
@@ -71,7 +72,7 @@
 {% for chef in chefs %}
 <div class="dish-brief">
     <div class="dish-brief-inner">
-        <div class="dish-brief-inner-name" style="margin-left:280px;">
+        <div class="dish-brief-inner-name" style="margin-left:20px;">
             <a href="../chef/{{chef.chef_id}}/">{{ chef.first_name }} {{ chef.last_name.0}}</a>
         </div>
     </div>
@@ -79,6 +80,20 @@
 {% empty %}
 <div class="page-subtitle">
     No chefs matched your search.
+</div>
+{% endfor %}
+
+{% for ingredient in ingredients %}
+<div class="dish-brief">
+    <div class="dish-brief-inner">
+        <div class="dish-brief-inner-name" style="margin-left:20px;">
+            <a href="../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a>
+        </div>
+    </div>
+</div>
+{% empty %}
+<div class="page-subtitle">
+    No ingredients matched your search.
 </div>
 {% endfor %}
 

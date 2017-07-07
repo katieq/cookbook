@@ -43,8 +43,10 @@ def search(request): # this still works for searching dish names!
             dishes = Dish.objects.filter(dish_name__icontains=q).order_by("date_created").all()
             recipes = Recipe.objects.filter(recipe_name__icontains=q).order_by("date_created").all()
             chefs = Chef.objects.filter(first_name__icontains=q).all()
+            ingredients = Ingredient.objects.filter(ingredient_name__icontains=q).all()
             return render(request, 'search_results.html',
-                          {'dishes': dishes, 'recipes': recipes, 'chefs': chefs, 'query': q})
+                          {'dishes': dishes, 'recipes': recipes, 'chefs': chefs,
+                          'ingredients': ingredients, 'query': q})
     return render(request, 'search_form.html', {'errors': errors})
 
 class ChefList(ListView):
