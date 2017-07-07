@@ -9,13 +9,15 @@ from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
 from cooklog.forms import UploadImageForm, NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, NewLikeForm
-from cooklog.forms import UpdateDishForm
+from cooklog.forms import UpdateDishForm #, NewDishWeekTodoForm
 from django import forms
+from django.forms.formsets import formset_factory
 from django.db.models import Count
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from datetime import timedelta
+
 
 # Create your views here.
 def display_meta(request):
@@ -112,6 +114,13 @@ class ChefScheduleView(DetailView):
         context['archive_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).filter(date_scheduled__lt=datetime.now()).order_by("date_scheduled").all()
         return context
 
+class ChefWeekScheduleView(DetailView):
+    model = Chef
+    def get_context_data(self, **kwargs):
+        context = super(ChefWeekScheduleView, self).get_context_data(**kwargs)
+        context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).filter(date_scheduled__range=[datetime.now(),datetime.now()+timedelta(days=7)]).order_by("date_scheduled").all()
+        return context
+
 class ChefBriefView(DetailView):
     model = Chef
     def get_context_data(self, **kwargs):
@@ -197,6 +206,16 @@ class DishTodoCreate(CreateView):
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 
+#class DishWeekTodoCreate(CreateView):
+#    form_class = NewDishWeekTodoForm
+#    template_name = 'new_dishweek_form.html'
+#    #success_url = '/cooklog/dishes/'
+#    def get_initial(self):
+#        return {'chef_id' : self.request.user.id, 'dish_status': 2 } #self.request.GET.get('u') }
+#    def get_success_url(self):
+#        return '/cooklog/dish/' + str(self.object.dish_id) + '/'
+
+
 class DishLongCreate(CreateView):
     form_class = NewDishLongForm
     template_name = 'new_dish_form.html'
@@ -228,10 +247,10 @@ class ChefWeekCountView(DetailView):
     model = Chef
     def get_context_data(self, **kwargs):
         context = super(ChefWeekCountView, self).get_context_data(**kwargs)
-        context['week_dish'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=8), datetime.now()])
-        context['week_rating_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=8), datetime.now()]).values('dish_rating').annotate(Count('dish_id'))
-        context['week_recipe_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=8), datetime.now()]).values('recipe_id').annotate(Count('dish_id'))
-        context['week_dishtype_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=8), datetime.now()]).values('dishtype_id').annotate(Count('dish_id'))
+        context['week_dish'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=7), datetime.now()])
+        context['week_rating_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=7), datetime.now()]).values('dish_rating').annotate(Count('dish_id'))
+        context['week_recipe_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=7), datetime.now()]).values('recipe_id').annotate(Count('dish_id'))
+        context['week_dishtype_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=7), datetime.now()]).values('dishtype_id').annotate(Count('dish_id'))
         
         context['month_dish'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=30), datetime.now()])
         context['month_rating_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=30), datetime.now()]).values('dish_rating').annotate(Count('dish_id'))

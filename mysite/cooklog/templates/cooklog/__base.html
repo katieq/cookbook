@@ -43,9 +43,10 @@
                     {% endif %}
                 </div> |
                 <div class="dropdown">
-                    <button class="dropbtn"><a href="/cooklog/dish/new/"> plan </a></button>
+                    <button class="dropbtn"><a href="/cooklog/chef/weektodo/{{user.id}}"> plan </a></button>
                     <div class="dropdown-content">
-                        <a href="/cooklog/dish/add-todo/">Dish(to-do)</a>
+                        <a href="/cooklog/chef/weektodo/{{user.id}}">My week plan</a>
+                        <a href="/cooklog/dish/add-todo/">New dish(to-do)</a>
                     </div>
                 </div>
                 }

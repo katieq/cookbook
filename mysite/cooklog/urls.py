@@ -17,10 +17,10 @@ from django.contrib import admin
 from cooklog import views
 from cooklog.views import ChefList, RecipeList, DishList, IngredientList
 from cooklog.views import HomePageView, RecipeDetailView, DishDetailView, ChefDetailView, IngredientDetailView
-from cooklog.views import ChefScheduleView, ChefBriefView, ChefAlbumView, ChefWeekCountView, HomeAlbumView
+from cooklog.views import ChefScheduleView, ChefWeekScheduleView, ChefBriefView, ChefAlbumView, ChefWeekCountView, HomeAlbumView
 from cooklog.views import RecipeCreate, RecipeUpdate, RecipeDelete
 from cooklog.views import ChefCreate, ChefUpdate
-from cooklog.views import DishCreate, DishQuickCreate, DishTodoCreate, DishLongCreate, DishUpdate
+from cooklog.views import DishCreate, DishQuickCreate, DishTodoCreate, DishLongCreate, DishUpdate #, DishWeekTodoCreate
 from cooklog.views import IngredientCreate, IngredientUpdate #, IngredientDelete
 from django.contrib.auth import views as auth_views
 from django.views.generic.edit import CreateView
@@ -46,6 +46,7 @@ urlpatterns = [
                url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
                url(r'^chef/(?P<pk>\d+)/$', ChefDetailView.as_view(), name='chef_detail'),
                url(r'^chef/todo/(?P<pk>\d+)/$', ChefScheduleView.as_view(template_name='cooklog/chef_todo.html'), name='chef_todo'),
+               url(r'^chef/weektodo/(?P<pk>\d+)/$', ChefWeekScheduleView.as_view(template_name='cooklog/chef_weektodo.html'), name='chef_weektodo'),
                url(r'^chef/brief/(?P<pk>\d+)/$', ChefBriefView.as_view(template_name='cooklog/chef_brief.html'), name='chef_brief'),
                url(r'^chef/album/(?P<pk>\d+)/$', ChefAlbumView.as_view(template_name='cooklog/chef_album.html'), name='chef_album'),
                url(r'^chef/dishcount/(?P<pk>\d+)/$', ChefWeekCountView.as_view(template_name='cooklog/chef_dishcount.html'), name='chef_dishcount'),
@@ -59,6 +60,7 @@ urlpatterns = [
                url(r'^dish/new/$', DishQuickCreate.as_view(), name='dish_quick_add'),
                url(r'^dish/add/$', DishCreate.as_view(), name='dish_add'),
                url(r'^dish/add-todo/$', DishTodoCreate.as_view(), name='dish_add_todo'),
+               # url(r'^dish/add-weektodo/$', DishWeekTodoCreate.as_view(), name='dish_add_weektodo'),
                url(r'^dish/add-full/$', DishLongCreate.as_view(), name='dish_add_long'),
                url(r'^dish/add/(?P<pk>[0-9]+)/$', DishUpdate.as_view(), name='dish_update'),
                url(r'^ingredient/add/$', IngredientCreate.as_view(), name='ingredient_add'),

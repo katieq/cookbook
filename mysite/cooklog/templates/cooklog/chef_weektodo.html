@@ -1,0 +1,77 @@
+{% extends 'cooklog/__base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block body_block %}
+
+<div class="page-title">
+    <a href="../../{{object.chef_id}}/"> {{object.first_name}}</a>'s to-do list for next 7 days
+</div>
+
+<div class="page-subtitle">
+    ( Today is {% now "F-j" %} )
+</div>
+
+{% for dish in todo_dishes %}
+    <div class="dish-brief">
+        <div class="dish-mini-date-long">
+            {{ dish.date_scheduled|date:"D, M-d"|upper }}
+        </div>
+        <div class="dish-brief-inner">
+            <div class="dish-brief-inner-recipe">
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+            </div>
+            <div class="dish-brief-inner-edit">
+                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
+            </div>
+            <div class="dish-brief-inner-name">
+                <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+            </div>
+            <div class="dish-brief-inner-name">
+                {{ dish.dish_source }}</a>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <div class="dish-empty">
+        No dishes scheduled this week.
+    </div>
+{% endfor %}
+
+<p> </p>
+
+<div class="page-subtitle">
+    <a href="/cooklog/dish/add-todo/">Add new dish(to-do) <img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
+</div>
+
+
+{% endblock %}
+
+{% comment %}
+{% for dish in todo_dishes %}
+<div>
+    <div class="dish-mini">
+        
+        <div class="dish-mini-days-until">
+            {{ dish.date_scheduled|date:"D, M-d"|naturaltime }}
+        </div>
+        
+        <div class="dish-mini-inner">
+            <div class="dish-mini-inner-name">
+                <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+            </div>
+            <div class="dish-mini-inner-recipe">
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
+            </div>
+            <div class="dish-mini-inner-method">
+                {{ dish.dish_method }}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="dish-empty">
+        No dishes yet.
+    </div>
+    {% endfor %}
+    {% endcomment %}
