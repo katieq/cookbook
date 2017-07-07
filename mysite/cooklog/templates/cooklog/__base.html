@@ -15,7 +15,7 @@
             <div class="page-header-menu" style="float:left;">
                 {
                 <div class="dropdown">
-                    <button class="dropbtn"><a href="/cooklog/dish/new/"> new </a></button>
+                    <button class="dropbtn"><a href="/cooklog/dish/new/">new</a></button>
                     <div class="dropdown-content">
                         <a href="/cooklog/dish/new/">Dish(quick)</a>
                         <a href="/cooklog/dish/add/">Dish(short)</a>
@@ -27,7 +27,7 @@
                 </div> |
                 <div class="dropdown">
                     {% if user.is_authenticated %}
-                    <button class="dropbtn"><a href="/cooklog/chef/{{user.id}}">my feed</a></button>
+                    <button class="dropbtn"><a href="/cooklog/chef/{{user.id}}">me</a></button>
                     <div class="dropdown-content">
                         <a href="/cooklog/chef/todo/{{user.id}}">My to-do</a>
                         <a href="/cooklog/chef/brief/{{user.id}}">Compact</a>
@@ -51,7 +51,7 @@
                 </div>
                 }
             </div>
-            <div class="page-header-menu" style="float:left; margin-left: 50px">
+            <div class="page-header-menu-search">
                 <form action="{% url 'search_results' %}" method="get">
                     <input type="text" name="q" style="width: 120px; font-size: 14px;"/>
                     <button type="submit" style="width: 60px; font-size: 14px;"/>search</button>

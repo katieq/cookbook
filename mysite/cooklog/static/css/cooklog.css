@@ -45,17 +45,25 @@ a:visited {
     padding-left: 20px;
     font-family:  'Merriweather', serif;
     float: left;
-    width: 230px;
+    width: 220px;
 }
 
 .page-header-menu {
     font-size: 28px;
     color: #C98474;
     float: center;
-    width: 360px;
+    width: 280px;
 }
 .page-header-menu a {
     color: #874C62;
+}
+
+.page-header-menu-search {
+    font-size: 28px;
+    color: #C98474;
+    float: left;
+    width: 200px;
+    margin-left: 20px;
 }
 
 .page-footer {
