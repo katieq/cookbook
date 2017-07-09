@@ -96,6 +96,7 @@ class DishDetailView(DetailView):
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
         context['likes'] = Likes.objects.filter(dish_id = self.object.dish_id)
         context['user_likes'] = Likes.objects.filter(dish_id = self.object.dish_id, chef_id = self.request.user.id)
+        context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).order_by("-date_created")
         return context
 
 class ChefDetailView(DetailView):
