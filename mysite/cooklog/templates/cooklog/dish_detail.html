@@ -1,5 +1,7 @@
+
 {% extends 'cooklog/__base.html' %}
 {% load static %}
+
 {% block body_block %}
 
 {% ifequal user.id dish.chef_id_id %}
@@ -197,7 +199,6 @@
 </div>
 
 {% endifequal %}
-
 
 {% for dish in recipe_dishes %}
 <div class="dish-album">
