@@ -150,7 +150,7 @@ class NewDishLongForm(forms.ModelForm):
         self.fields['dish_comments'].widget.attrs['rows'] = 5
         self.fields['photo_comment'].widget.attrs['rows'] = 1
         self.fields['photo_comment'].widget.attrs['cols'] = 80
-        self.fields['ingredient_id'].widget.attrs['size']= 30
+        self.fields['ingredient_id'].widget.attrs['size']= 10
         for key in self.fields:
             self.fields[key].required = False
 
@@ -178,7 +178,7 @@ class UpdateDishForm(forms.ModelForm):
         self.fields['dish_comments'].widget.attrs['rows'] = 5
         self.fields['photo_comment'].widget.attrs['rows'] = 1
         self.fields['photo_comment'].widget.attrs['cols'] = 80
-        self.fields['ingredient_id'].widget.attrs['size']= 30
+        self.fields['ingredient_id'].widget.attrs['size']= 10
         for key in self.fields:
             self.fields[key].required = False
 

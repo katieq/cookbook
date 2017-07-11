@@ -96,7 +96,7 @@ class DishDetailView(DetailView):
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
         context['likes'] = Likes.objects.filter(dish_id = self.object.dish_id)
         context['user_likes'] = Likes.objects.filter(dish_id = self.object.dish_id, chef_id = self.request.user.id)
-        context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).order_by("-date_created")
+        context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).exclude(dish_id = self.object.dish_id).order_by("-date_created")
         return context
 
 class ChefDetailView(DetailView):
@@ -121,7 +121,7 @@ class ChefWeekScheduleView(DetailView):
     model = Chef
     def get_context_data(self, **kwargs):
         context = super(ChefWeekScheduleView, self).get_context_data(**kwargs)
-        context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).filter(date_scheduled__range=[datetime.now(),datetime.now()+timedelta(days=7)]).order_by("date_scheduled").all()
+        context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).filter(date_scheduled__range=[datetime.now(),datetime.now()+timedelta(days=6)]).order_by("date_scheduled").all()
         return context
 
 class ChefBriefView(DetailView):
