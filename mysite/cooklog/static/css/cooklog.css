@@ -5,7 +5,7 @@ h2 a {
 body {
     padding-left: 0px;
     background-color: #FFFFFF; /*FFFEEE;*/
-    color: #EC1C4B;
+    color: #000000;
     font-family: 'Merriweather', serif;
     padding-bottom: 0px;
 }
@@ -18,7 +18,7 @@ footer {
 }
 
 h5 {
-    color: #EC1C4B; /*#F2D388;*/
+    color: #000000; /*#F2D388;*/
     font-size: 18px;
 }
 
@@ -169,7 +169,7 @@ a:visited {
 }
 
 .dish-mini-inner-name a {
-    color: #EC1C4B;
+    color: #000000;
 }
 
 .dish-mini-inner-rating {
