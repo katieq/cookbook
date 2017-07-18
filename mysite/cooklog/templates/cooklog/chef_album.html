@@ -18,8 +18,9 @@
 {% for dish in dishes %}
     <div class="dish-album">
     
-    
-        {{ dish.date_created|date:"D M.d"|lower }} |
+        <div class="album-date">
+            {{ dish.date_created|date:"D M.d"|lower }}
+        </div> |
         <div class="album-stars">
             {% if dish.dish_rating %}
             {% for i in "x"|rjust:dish.dish_rating %}

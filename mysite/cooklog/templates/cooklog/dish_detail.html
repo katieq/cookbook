@@ -4,19 +4,18 @@
 
 {% block body_block %}
 
-{% ifequal user.id dish.chef_id_id %}
-<div class="page-text">
-<a href="/cooklog/dish/add/{{object.dish_id}}/">Edit dish </a>
-</div>
-{% endifequal %}
-<div class="page-text">
-{{ object.date_created|date:"D, M d" }}
-</div>
-
 <div class="page-title">
 <a href="../../chef/{{object.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}'s</a> {{ object.dish_name }}
 </div>
 
+{% ifequal user.id dish.chef_id_id %}
+<div class="page-text">
+    <a href="/cooklog/dish/add/{{object.dish_id}}/">Edit dish </a>
+</div>
+{% endifequal %}
+<div class="page-text">
+    {{ object.date_created|date:"D, M d" }}
+</div>
 
 {% ifequal object.dish_status "1" %}
 <div class="dish-full">
@@ -34,11 +33,13 @@
     </div>
 
     <div class="dish-full-subtitle">
-        Photos:
+        Photo:
     </div>
-    <div class="dish-full-image">
+    <div class="dish-full-image-holder">
         {% if object.dish_image %}
-        <img src="/media/{{ object.dish_image }}" height="200" style="border: #F2D388 4px solid;"/>
+        <div class="dish-full-image">
+        <img src="/media/{{ object.dish_image }}" />
+        </div>
         <p> {{ object.photo_comment }} </p>
         {% else %}
         No photos yet, <a href="/cooklog/dish/add/{{object.dish_id}}">upload here. </a>

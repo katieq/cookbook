@@ -16,9 +16,12 @@
 {% for dish in dishes %}
 <div class="dish-album">
     
-    
-    {{ dish.date_created|date:"D M.d"|lower }} |
-    <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }}</a> |
+    <div class="album-date">
+    {{ dish.date_created|date:"D M.d"|lower }}
+    </div> |
+    <div class="album-dish-chef-name">
+    <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }}</a>
+    </div> |
     <div class="album-stars">
         {% if dish.dish_rating %}
         {% for i in "x"|rjust:dish.dish_rating %}
@@ -37,9 +40,6 @@
         <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
         </div>
     {% endif %}
-
-    
-    
     
     <div class="album-dish-name">
         <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
