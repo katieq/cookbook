@@ -11,7 +11,7 @@ body {
 }
 
 footer {
-    background-color: #99D1B7;
+    background-color: #ADD8E6; /*#99D1B7;*/
     padding-bottom: 0px;
     font-family: 'Merriweather', serif;
     padding: 10px 5px 10px 10px;
@@ -34,7 +34,7 @@ a:visited {
 
 
 .page-header {
-    background-color: #99D1B7;
+    background-color: #ADD8E6; /*#99D1B7;*/
     margin-top: 0;
     padding: 10px 10px 10px 10px;
     height: 60px;
@@ -99,7 +99,7 @@ a:visited {
 
 .page-subtitle {
     font-size: 16px;
-    color: #99D1B7;
+    color: #ADD8E6; /*#99D1B7;*/
     padding-top: 20px;
     padding-left: 30px;
     padding-bottom: 20px;
@@ -388,7 +388,7 @@ a:visited {
 
 .dish-full-subtitle {
     font-size: 12px;
-    color: #99D1B7;
+    color: #ADD8E6; /*#99D1B7;*/
     padding-top: 12px;
     margin-left: -10px;
     padding-bottom: 5px;
@@ -482,7 +482,7 @@ h3 {
 
 h4 {
     font-family:  'Merriweather', serif;
-    color: #99D1B7;
+    color: #ADD8E6; /*#99D1B7;*/
 }
 
 
@@ -522,7 +522,7 @@ h4 {
 
 /* Dropdown Button */
 .dropbtn {
-    background-color: #99D1B7;
+    background-color: #ADD8E6; /*#99D1B7;*/
     color: white;
     padding: 2px;
     font-size: 28px;
