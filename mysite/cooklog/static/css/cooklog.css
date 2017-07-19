@@ -279,7 +279,7 @@ a:visited {
 }
 
 .dish-full-image img {
-    height: 200;
+    height: 300px;
     object-fit: cover;
     border: #FFF6B9 4px solid;
 }
