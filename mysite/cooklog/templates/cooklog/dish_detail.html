@@ -23,7 +23,7 @@
     <div class="dish-full-stars">
         {% if object.dish_rating %}
         {% for i in "x"|rjust:object.dish_rating %}
-        <img src="{% static "emoji/img/star.png" %}" alt="star" height="30"/>
+        <i class="fa fa-star"></i>
         {% endfor %}
         {% endif %}
     </div>

@@ -25,7 +25,10 @@
     <div class="album-stars">
         {% if dish.dish_rating %}
         {% for i in "x"|rjust:dish.dish_rating %}
+        <i class="fa fa-star"></i>
+        {% comment %}
             <img src="{% static "emoji/img/star.png" %}" alt="star" height="10"/>
+            {% endcomment %}
         {% endfor %}
         {% endif %}
     </div>
