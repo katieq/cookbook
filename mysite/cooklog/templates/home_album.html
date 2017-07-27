@@ -5,7 +5,7 @@
 {% block body_block %}
 
 <div class="page-title">
-    latest feeds
+    
 </div>
 
 <div class="page-menu">
@@ -37,7 +37,7 @@
         </div>
     {% else %}
         <div class="album-img-placeholder">
-        <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+        <a href="/cooklog/dish/{{dish.dish_id}}/"><img class="fa fa-plus"></a>
         </div>
     {% endif %}
     

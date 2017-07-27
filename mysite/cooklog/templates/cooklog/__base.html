@@ -1,17 +1,88 @@
 <!DOCTYPE html>
 {% load static %}
 
+
+
 <html>
-    <head>
+    <title>COOQUO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+            
+            
+    
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto" rel="stylesheet">
         <link rel="stylesheet"  type='text/css' href="/static/css/cooklog.css?{% now "U" %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
+
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card-2" style="width:80px; background-color: #ADD8E6;" id="mySidebar">
+    <button class="w3-bar-item w3-button w3-hide-large" onclick="w3_close()"> &times;</button>
+    <a href="/cooklog/album/" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a>
+    
+    {% if user.is_authenticated %}
+    <button class="w3-button w3-block w3-left-align" onclick="myAccFunc2()">
+        <i class="fa fa-user"></i> <i class="fa fa-caret-down"></i></button>
+    <div id="demoAcc2" class="w3-hide w3-white w3-card-2">
+        <a href="/cooklog/chef/brief/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-server">[compact]</i></a>
+        <a href="/cooklog/chef/album/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-photo">[album]</i></a>
+        <a href="/cooklog/chef/dishcount/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-bar-chart-o">[stats]</i></a>
+        <a href="/cooklog/logout/" class="w3-bar-item w3-button"><i class="fa fa-user-times">[logout]</i></a>
+    </div>
+    {% else %}
+    <a href="/cooklog/login/" class="w3-bar-item w3-button"><i class="fa fa-user-o"></i></a>
+    {% endif %}
+    
+    
+    <button class="w3-button w3-block w3-left-align" onclick="myAccFunc1()">
+        <i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></button>
+    <div id="demoAcc1" class="w3-hide w3-white w3-card-2">
+        <a href="/cooklog/dish/new/" class="w3-bar-item w3-button"><i class="fa fa-cutlery">[quick]</i></a>
+        <a href="/cooklog/dish/add/" class="w3-bar-item w3-button"><i class="fa fa-cutlery">[short]</i></a>
+        <a href="/cooklog/dish/add-full/" class="w3-bar-item w3-button"><i class="fa fa-cutlery">[long]</i></a>
+        <a href="/cooklog/dish/add-todo/" class="w3-bar-item w3-button"><i class="fa fa-calendar-plus-o">[plan]</i></a>
+        <a href="/cooklog/recipe/add/" class="w3-bar-item w3-button"><i class="fa fa-book">[recipe]</i></a>
+        <a href="/cooklog/ingredient/add/" class="w3-bar-item w3-button"><i class="fa fa-shopping-cart">[ingr]</i></a>
+    </div>
+    
+
+    
+    <button class="w3-button w3-block w3-left-align" onclick="myAccFunc3()">
+        <i class="fa fa-calendar"></i> <i class="fa fa-caret-down"></i></button>
+    <div id="demoAcc3" class="w3-hide w3-white w3-card-2">
+        <a href="/cooklog/dish/add-todo/" class="w3-bar-item w3-button"><i class="fa fa-calendar-plus-o">[new]</i></a>
+        <a href="/cooklog/chef/weektodo/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-calendar">[week]</i></a>
+        <a href="/cooklog/chef/todo/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-calendar">[all]</i></a>
+    </div>
+    
+    <button class="w3-button w3-block w3-left-align" onclick="myAccFunc4()">
+        <i class="fa fa-search"></i> <i class="fa fa-caret-down"></i></button>
+    <div id="demoAcc4" class="w3-hide w3-white w3-card-2">
+        <form action="{% url 'search_results' %}" method="get">
+        <input type="text" name="q" style="width: 60px; font-size: 14px; margin-left: 10px;"/>
+        <button type="submit" class="w3-bar-item w3-button"> <i class="fa fa-search"></i></button>
+        </form>
+    </div>
+
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-bell-o"></i></a>
+    
+    
+</div>
+
+<div class="w3-main" style="margin-left:60px">
+    
+    <div class="w3">
+<head>
         <div class="page-header">
+            <div class="page-header-menu-button" style="float: left; white-space: nowrap;">
+                <button class="w3-button w3-xlarge" onclick="w3_open()">&#9776;</button>
+            </div>
             <div class="page-header-title">
                 <a href="/cooklog/">COOQUO</a>
             </div>
+            
+            {% comment %}
             <div class="page-header-menu" style="float:left;">
                 {
                 <div class="dropdown">
@@ -58,6 +129,7 @@
                     <button type="submit" style="width: 60px; font-size: 14px;"/>search</button>
                 </form>
             </div>
+            {% endcomment %}
              
         </div>
     </head>
@@ -68,7 +140,7 @@
         <hr />
         {% endcomment %}
         
-        <div>
+        <div class="page-body">
             {% block body_block %}{% endblock %}
         </div>
         
@@ -77,8 +149,66 @@
     
     <footer>
         <div class="page-footer">
-            cooko | C O O K L O O K | C O Q U O | cookt | cookit | cooko | katieq's cooking log.
+            cooko | cooklook | coquo | cookquo | cookbook | cookt | cookit | katieq's cooking log.
         </div>
     </footer>
-        
+    </div>
+</div>
+    
+    
+    
+    <script>
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+        }
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+    }
+    function myAccFunc1() {
+        var x = document.getElementById("demoAcc1");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            x.previousElementSibling.className += " w3-white";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+            x.previousElementSibling.className =
+            x.previousElementSibling.className.replace(" w3-white", "");
+        }
+    }
+    function myAccFunc2() {
+        var x = document.getElementById("demoAcc2");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            x.previousElementSibling.className += " w3-white";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+            x.previousElementSibling.className =
+            x.previousElementSibling.className.replace(" w3-white", "");
+        }
+    }
+    function myAccFunc3() {
+        var x = document.getElementById("demoAcc3");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            x.previousElementSibling.className += " w3-white";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+            x.previousElementSibling.className =
+            x.previousElementSibling.className.replace(" w3-white", "");
+        }
+    }
+    function myAccFunc4() {
+        var x = document.getElementById("demoAcc4");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            x.previousElementSibling.className += " w3-white";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+            x.previousElementSibling.className =
+            x.previousElementSibling.className.replace(" w3-white", "");
+        }
+    }
+
+    </script>
+    
 </html>
