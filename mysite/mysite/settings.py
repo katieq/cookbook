@@ -40,8 +40,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'cooklog.apps.CooklogConfig',
     'django.contrib.humanize',
+    'cooklog.templatetags.app_extras',
+                  #'taggit',
                   #'mentions',
 )
+
+#TAGGIT_CASE_INSENSITIVE = True
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -112,12 +116,12 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Mentions module (github instructions)
-MENTIONS_PROVIDERS = {
-    'default': [
-                'accounts.mentions.UserProvider'
-                ]
-}
+## Mentions module (github instructions)
+#MENTIONS_PROVIDERS = {
+#    'default': [
+#                'accounts.mentions.UserProvider'
+#                ]
+#}
 
 
 

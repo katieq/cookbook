@@ -1,6 +1,7 @@
 
 {% extends 'cooklog/__base.html' %}
 {% load static %}
+{% load app_extras %}
 
 {% block body_block %}
 
@@ -60,6 +61,7 @@
     </div>
     <div class="dish-full-method">
         {{ object.dish_method }}
+        {{object.dish_method|safe|hashtag_links}}
     </div>
     
     {% if object.dish_comments %}
@@ -70,6 +72,15 @@
             {{ object.dish_comments }}
         </div>
     {% endif %}
+    
+    {% comment %}
+    <div class="dish-full-subtitle">
+        Tags:
+    </div>
+    {% for tag in object.tags.all %}
+    <li> <a href="/cooklog/search/?q={{tag.name}}">{{ tag.name }}</a> </li>
+    {% endfor %}
+    {% endcomment %}
 
     <div class="dish-social-comments-and-likes">
     
