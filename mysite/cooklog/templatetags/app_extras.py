@@ -6,9 +6,9 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 def create_hashtag_link(tag):
-    url = "/tags/{}/".format(tag)
+    url = "/cooklog/search/?q={}".format(tag)
     # or: url = reverse("hashtag", args=(tag,))
-    return '<a href="{}">#{}</a>'.format(url, tag)
+    return '<a href="{}">{}</a>'.format(url, tag)
 
 
 @register.filter(name='hashtag_links')

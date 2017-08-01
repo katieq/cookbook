@@ -260,7 +260,7 @@ a:visited {
 .dish-album {
     width = 200px;
     margin-top: 5px;
-    margin-left: 10px;
+    margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 5px;
     display: inline-block
@@ -334,7 +334,7 @@ a:visited {
 .album-dish-name {
     display: inline-block;
     width: 240px;
-    height: 40px;
+    height: 50px;
     vertical-align: top;
 }
 .album-dish-name a{
@@ -391,6 +391,11 @@ a:visited {
 
 .dish-full-method {
     width: 600px;
+}
+
+.dish-full-method a {
+    font-style: bold;
+    color: #F79273;
 }
 
 .dish-full-chef-comments {

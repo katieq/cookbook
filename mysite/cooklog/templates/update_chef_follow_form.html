@@ -1,0 +1,35 @@
+{% extends 'cooklog/__base.html' %}
+
+
+<head>
+    <title>Follow chefs</title>
+</head>
+
+{% block body_block %}
+
+<div class="dish-entry">
+
+<div class="page-subtitle">
+        Pick chefs to follow:
+    </div>
+
+
+    <div class="dish-entry-form">
+        
+        {% if form.errors %}
+        <p style="color: red;">
+        Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+        {% endif %}
+        
+        <form action="" method="post">
+            <table>
+                {{ form.as_table }}
+            </table>
+            {% csrf_token %}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    
+
+{% endblock %}

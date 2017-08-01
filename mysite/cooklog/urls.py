@@ -20,7 +20,7 @@ from cooklog.views import HomePageView, RecipeDetailView, DishDetailView, ChefDe
 from cooklog.views import ChefScheduleView, ChefWeekScheduleView, ChefBriefView
 from cooklog.views import ChefAlbumView, ChefWeekCountView, HomeAlbumView, IngredientAlbumView
 from cooklog.views import RecipeCreate, RecipeUpdate, RecipeDelete
-from cooklog.views import ChefCreate, ChefUpdate
+from cooklog.views import ChefCreate, ChefUpdate, ChefFollowsUpdate
 from cooklog.views import DishCreate, DishQuickCreate, DishTodoCreate, DishLongCreate, DishUpdate #, DishWeekTodoCreate
 from cooklog.views import IngredientCreate, IngredientUpdate #, IngredientDelete
 from django.contrib.auth import views as auth_views
@@ -59,6 +59,7 @@ urlpatterns = [
                url(r'^recipe/delete/(?P<pk>[0-9]+)/$', RecipeDelete.as_view(), name='recipe_delete'),
                url(r'^chef/add/$', ChefCreate.as_view(), name='chef_add'),
                url(r'^chef/add/(?P<pk>[0-9]+)/$', ChefUpdate.as_view(), name='chef_update'),
+               url(r'^cheffollow/add/(?P<pk>[0-9]+)/$', ChefFollowsUpdate.as_view(), name='chef_follow_update'),
                url(r'^dish/new/$', DishQuickCreate.as_view(), name='dish_quick_add'),
                url(r'^dish/add/$', DishCreate.as_view(), name='dish_add'),
                url(r'^dish/add-todo/$', DishTodoCreate.as_view(), name='dish_add_todo'),

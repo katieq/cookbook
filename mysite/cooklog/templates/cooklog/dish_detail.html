@@ -6,7 +6,7 @@
 {% block body_block %}
 
 <div class="page-title">
-<a href="../../chef/{{object.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}'s</a> {{ object.dish_name }}
+<a href="../../chef/{{object.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}'s</a> {{ object.dish_name|safe|hashtag_links }}
 </div>
 
 {% ifequal user.id dish.chef_id_id %}
@@ -41,7 +41,7 @@
         <div class="dish-full-image">
         <img src="/media/{{ object.dish_image }}" />
         </div>
-        <p> {{ object.photo_comment }} </p>
+        <p> {{ object.photo_comment|safe|hashtag_links }} </p>
         {% else %}
         No photos yet, <a href="/cooklog/dish/add/{{object.dish_id}}">upload here. </a>
         {% endif %}
@@ -52,7 +52,7 @@
         Source:
     </div>
     <div class="dish-full-method">
-        {{ object.dish_source }}
+        <a href="{{object.dish_source}}">{{ object.dish_source }}</a>
     </div>
     {% endif %}
 
@@ -60,7 +60,6 @@
         Method:
     </div>
     <div class="dish-full-method">
-        {{ object.dish_method }}
         {{object.dish_method|safe|hashtag_links}}
     </div>
     
@@ -69,7 +68,7 @@
             Comments/Review:
         </div>
         <div class="dish-full-chef-comments">
-            {{ object.dish_comments }}
+            {{ object.dish_comments|safe|hashtag_links }}
         </div>
     {% endif %}
     
@@ -87,7 +86,7 @@
         {% if chef_comments %}
         {% for chef_comment in chef_comments %}
         <div class="dish-full-comments">
-            {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment }}
+            {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment|safe|hashtag_links }}
             
             <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/?next={{object.dish_id}}">[delete]</a>
             
@@ -167,7 +166,7 @@
         Method:
     </div>
     <div class="dish-full-method">
-        {{ object.dish_method }}
+        {{ object.dish_method|safe|hashtag_links }}
     </div>
     
     {% if object.dish_comments %}
@@ -175,7 +174,7 @@
         Comments/Review:
     </div>
     <div class="dish-full-chef-comments">
-        {{ object.dish_comments }}
+        {{ object.dish_comments|safe|hashtag_links }}
     </div>
     {% endif %}
     
@@ -186,7 +185,7 @@
     {% if chef_comments %}
     {% for chef_comment in chef_comments %}
     <div class="dish-full-comments">
-        {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment }}
+        {{chef_comment.chef_id}} <i> says </i> {{ chef_comment.chef_dish_comment|safe|hashtag_links }}
         <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/?next={{object.dish_id}}">[delete]</a>
     </div>
     {% endfor %}
@@ -215,7 +214,6 @@
 {% for dish in recipe_dishes %}
 <div class="dish-album">
     
-    
     {{ dish.date_created|date:"D M.d"|lower }} |
     <div class="album-stars">
         {% if dish.dish_rating %}
@@ -235,10 +233,8 @@
     </div>
     {% endif %}
     
-    
-    
     <div class="album-dish-name">
-        <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+        <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name|safe|hashtag_links }}</a>
     </div>
 </div>
 

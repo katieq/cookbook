@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.extras.widgets import SelectDateWidget
-from cooklog.models import Dish_Photo, Dish, Recipe, Ingredient, Chef_Dish_Comments, Likes
+from cooklog.models import Dish_Photo, Dish, Recipe, Ingredient, Chef_Dish_Comments, Likes, ChefFollows
 from datetime import datetime
 # from django.forms import inlineformset_factory
 
@@ -191,6 +191,18 @@ class NewRecipeForm(forms.ModelForm):
         self.fields['chef_id'].widget = forms.HiddenInput()
         for key in self.fields:
             self.fields[key].required = False
+
+class UpdateChefFollowsForm(forms.ModelForm):
+    class Meta:
+        model = ChefFollows
+        fields = ['follower_id', 'chef_id', 'date_created']
+    def __init__(self, *args, **kwargs):
+        super(UpdateChefFollowsForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['follower_id'].widget = forms.HiddenInput()
+        for key in self.fields:
+            self.fields[key].required = False
+
+
 
 class NewLikeForm(forms.ModelForm):
     next = forms.CharField(required=False)

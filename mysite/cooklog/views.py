@@ -5,10 +5,10 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish_Comments, Likes
+from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish_Comments, Likes, ChefFollows
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
-from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, NewLikeForm # UploadImageForm,
+from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, NewLikeForm, UpdateChefFollowsForm # UploadImageForm,
 from cooklog.forms import UpdateDishForm #, NewDishWeekTodoForm
 from django import forms
 from django.forms.formsets import formset_factory
@@ -40,7 +40,7 @@ def search(request): # this still works for searching dish names!
         elif len(q) > 40:
             errors.append('Please enter at most 40 characters.')
         else:
-            dishes = Dish.objects.filter(dish_name__icontains=q).order_by("date_created").all()
+            dishes = Dish.objects.filter(dish_method__icontains=q).order_by("date_created").all()
             recipes = Recipe.objects.filter(recipe_name__icontains=q).order_by("date_created").all()
             chefs = Chef.objects.filter(first_name__icontains=q).all()
             ingredients = Ingredient.objects.filter(ingredient_name__icontains=q).all()
@@ -70,10 +70,15 @@ class HomePageView(TemplateView):
     template_name = "home.html"
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        context['latest_dishs'] = Dish.objects.filter(dish_status = 1).order_by("-date_created").all()[:10]
+        
+        context['followed_chefs'] = ChefFollows.objects.filter(follower_id = self.request.user.id).all()
+        context['chefs'] = Chef.objects.filter(chef_id__in=context['followed_chefs']).all()
+        context['latest_dishs'] = Dish.objects.filter(dish_status=1, chef_id__in=context['chefs']).order_by("-date_created").all()[:10]
+        #context['latest_dishs'] = Dish.objects.filter(dish_status=1).order_by("-date_created").all()[:10]
+
         #context['latest_dish_likes'] = Likes.objects.filter(dish_id__in = context['latest_dishs'])
-            #context['latest_dish_like_counts'] = Likes.objects.filter(dish_id__in=context['latest_dishs']).values('dish_id').annotate(count = Count('dish_id'))
-        context['latest_dish_user_likes'] = Likes.objects.filter(dish_id__in=context['latest_dishs'], chef_id = self.request.user.id)
+        #context['latest_dish_like_counts'] = Likes.objects.filter(dish_id__in=context['latest_dishs']).values('dish_id').annotate(count = Count('dish_id'))
+        context['latest_dish_user_likes'] = Likes.objects.filter(dish_id__in=context['latest_dishs'], chef_id = self.request.user.id) # <- this gets the likes that *I*(logged in user) gave .. later also get counts of total likes!
         return context
 
 class RecipeDetailView(DetailView):
@@ -184,6 +189,18 @@ class ChefCreate(CreateView):
     fields = ['first_name', 'last_name', 'email', 'date_created', 'chef_to_user_id'] #..now! (or default=now)
     def get_success_url(self):
         return '/cooklog/chef/' + str(self.object.chef_id) + '/'
+
+class ChefFollowsUpdate(UpdateView):
+    form_class = UpdateChefFollowsForm
+    template_name = 'update_chef_follow_form.html'
+    def get_queryset(self):
+        return ChefFollows.objects.filter(follower_id=self.kwargs.get("pk", None))
+    #def get_initial(self):
+    #    return {'follower_id' : self.request.user.id }
+    #model = ChefFollows
+    #fields = ['follower_id', 'chef_id']
+    def get_success_url(self):
+        return '/cooklog/album/' # not: chef/' + str(self.request.user.id) + '/'
 
 
 class ChefUpdate(UpdateView):

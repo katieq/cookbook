@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
+from annoying.fields import AutoOneToOneField
 
 #from taggit.managers import TaggableManager
 
@@ -20,12 +21,21 @@ class Chef(models.Model):
     last_name = models.CharField("Last name", max_length=30)
     bio = models.TextField(max_length = 500, blank = True, null = True)
     birth_date = models.DateField(null = True, blank = True)
+    #follower_id = models.ManyToManyField(User,  blank=True)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
     def __str__(self):
         return u'%s %s' % (self.first_name, self.last_name)
     def get_absolute_url(self):
         return reverse('chef-detail', kwargs={'pk': self.pk})
 
+class ChefFollows(models.Model):
+    # chef_follow_id = models.AutoField(primary_key=True)
+    follower_id = AutoOneToOneField('auth.user') #models.ForeignKey(User, on_delete=models.CASCADE)
+    # chef_id = models.ForeignKey(Chef, on_delete=models.CASCADE)
+    chef_id = models.ManyToManyField(Chef, related_name='followed_by')
+    date_created = models.DateTimeField("Date created", default = datetime.datetime.now)
+    def __str__(self):
+        return self.follower_id.username
 
 #@receiver(post_save, sender=User)
 #def create_user_chef(sender, instance, created, **kwargs):

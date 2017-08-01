@@ -5,67 +5,71 @@
 {% block body_block %}
 
 <div class="page-title">
-    Search results for "{{query}}":
+    Searched {{query}} ...
 </div>
 
 {% if dishes %}
 <div class="page-subtitle">
-    Found {{ dishes|length }} dish{{ dishes|pluralize }}:
+    Dish{{ dishes|pluralize }} ({{ dishes|length }}):
 </div>
 {% endif %}
 {% for dish in dishes %}
-<div class="dish-brief">
-    <div class="dish-mini-date-extra-long">
-        {{ dish.date_created|date:"D, M-d-Y"|upper }}
+<div class="dish-album">
+    
+    <div class="album-date">
+        {{ dish.date_created|date:"D M.d"|lower }}
+    </div> |
+    <div class="album-dish-chef-name">
+        <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }}</a>
+    </div> |
+    <div class="album-stars">
+        {% if dish.dish_rating %}
+        {% for i in "x"|rjust:dish.dish_rating %}
+        <i class="fa fa-star"></i>
+        {% comment %}
+        <img src="{% static "emoji/img/star.png" %}" alt="star" height="10"/>
+        {% endcomment %}
+        {% endfor %}
+        {% endif %}
     </div>
-    <div class="dish-brief-inner">
-        <div class="dish-brief-inner-rating">
-            {% if dish.dish_rating %}
-            {% for i in "x"|rjust:dish.dish_rating %}
-            <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
-            {% endfor %}
-            {% endif %}
-        </div>
-        <div class="dish-brief-inner-edit">
-            <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
-        </div>
-        <div class="dish-brief-inner-recipe">
-            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
-        </div>
-        <div class="dish-brief-inner-name">
-            <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
-        </div>
+    
+    
+    {% if dish.dish_image %}
+    <div class="album-photo">
+        <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+    </div>
+    {% else %}
+    <div class="album-img-placeholder">
+        <a href="/cooklog/dish/{{dish.dish_id}}/"><img class="fa fa-plus"></a>
+    </div>
+    {% endif %}
+    
+    <div class="album-dish-name">
+        <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
     </div>
 </div>
-{% empty %}
-<div class="page-subtitle">
-    No dishes matched your search.
-</div>
+
 {% endfor %}
 
 {% if recipes %}
 <div class="page-subtitle">
-    Found {{ recipes|length }} recipe{{ recipes|pluralize }} matching search:
+    Recipe{{ recipes|pluralize }} ({{ recipes|length }}):
 </div>
 {% endif %}
 
 {% for recipe in recipes %}
 <div class="dish-brief">
     <div class="dish-brief-inner">
-        <div class="dish-brief-inner-name" style="margin-left:280px;">
+        <div class="dish-brief-inner-name" style="margin-left:20px;">
             <a href="../recipe/{{recipe.recipe_id}}/">{{ recipe.recipe_name }}</a> ({{recipe.recipe_type}})
         </div>
     </div>
-</div>
-{% empty %}
-<div class="page-subtitle">
-    No recipes matched your search.
 </div>
 {% endfor %}
 
 {% if chefs %}
 <div class="page-subtitle">
-    Found {{ chefs|length }} chef{{ chefs|pluralize }} matching search:
+    Chef{{ chefs|pluralize }} ({{ chefs|length }}):
 </div>
 {% endif %}
 
@@ -77,24 +81,36 @@
         </div>
     </div>
 </div>
-{% empty %}
+{% endfor %}
+
+{% if ingredients %}
 <div class="page-subtitle">
-    No chefs matched your search.
+    Ingredient{{ ingredients|pluralize }} ({{ ingredients|length }}):
+</div>
+{% endif %}
+
+{% for ingredient in ingredients %}
+<div class="ingredient-album">
+    
+    
+    <div class="album-ingredient-name">
+        <a href="/cooklog/ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a>
+    </div>
+    
+    {% if ingredient.ingredient_image %}
+    <div class="album-photo-ingredients">
+        <a href="/cooklog/ingredient/{{ingredient.ingredient_id}}/"><img src="/media/{{ ingredient.ingredient_image }}" /></a>
+    </div>
+    {% else %}
+    <div class="album-img-ingredients-placeholder">
+        <a href="/cooklog/ingredient/{{ingredient.ingredient_id}}/"><img class="fa fa-plus"></a>
+    </div>
+    {% comment %}
+    <img src="{% static "emoji/img/yum.png" %}"/>
+    {% endcomment %}
+    {% endif %}
 </div>
 {% endfor %}
 
-{% for ingredient in ingredients %}
-<div class="dish-brief">
-    <div class="dish-brief-inner">
-        <div class="dish-brief-inner-name" style="margin-left:20px;">
-            <a href="../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a>
-        </div>
-    </div>
-</div>
-{% empty %}
-<div class="page-subtitle">
-    No ingredients matched your search.
-</div>
-{% endfor %}
 
 {% endblock %}

@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'cooklog.apps.CooklogConfig',
     'django.contrib.humanize',
     'cooklog.templatetags.app_extras',
+    'annoying',
                   #'taggit',
                   #'mentions',
 )

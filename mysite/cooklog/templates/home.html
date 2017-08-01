@@ -13,6 +13,12 @@
     <a href="/cooklog/recipes/">recipe list</a>]
 </div>
 
+{% comment %}
+{% for chef in chefs %}
+<p> this user {{chef.follower_id }} follows this chef {{ chef.chef_id }} </p>
+{% endfor %}
+{% endcomment %}
+
 {% for dish in latest_dishs %}
 
 {% comment %}
