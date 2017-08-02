@@ -14,8 +14,8 @@ from annoying.fields import AutoOneToOneField
 
 class Chef(models.Model):
     chef_id = models.AutoField(primary_key=True)
-    chef_to_user_id = models.ForeignKey(User) # could be OneToOneField, but annoying to start. I'm fine if One User Has Two Chef acounts.
-    # OneToOneField(User, on_delete=models.CASCADE, primary_key=True) # <- but created other problems.
+    chef_to_user_id = models.ForeignKey(User) # could be OneToOneField, but annoying to start. I'm fine if One User Has Two Chef acounts. ... tried: OneToOneField(User, on_delete=models.CASCADE, primary_key=True) # <- but created other problems.
+    # chef_id = AutoOneToOneField('auth.user')
     email = models.CharField("Email address", max_length=50)
     first_name = models.CharField("First name", max_length=30)
     last_name = models.CharField("Last name", max_length=30)
