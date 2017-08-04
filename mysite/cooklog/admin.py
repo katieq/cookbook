@@ -27,7 +27,7 @@ admin.site.register(Recipe, RecipeAdmin)
 
 class DishAdmin(admin.ModelAdmin):
     search_fields = ('dish_name', 'dish_method') # method kinda enables ingredient searching
-    list_display = ('dish_name', 'date_created')
+    list_display = ('dish_name', 'recipe_id', 'date_created')
     list_filter = ('date_created',)
     filter_horizontal = ('ingredient_id',)
 

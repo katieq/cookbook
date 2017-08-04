@@ -71,6 +71,8 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
         
+        context['recipe_match'] = Recipe.objects.filter(recipe_name__contains='Chicken')
+        
         context['followed_chefs'] = ChefFollows.objects.filter(follower_id = self.request.user.id).all()
         context['chefs'] = Chef.objects.filter(chef_id__in=context['followed_chefs']).all()
         context['latest_dishs'] = Dish.objects.filter(dish_status=1, chef_id__in=context['chefs']).order_by("-date_created").all()[:10]
@@ -96,6 +98,9 @@ class DishDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DishDetailView,
                         self).get_context_data(**kwargs)
+                        
+                        #context['recipe_match'] = Recipe.objects.filter(recipe_name__contains=self.object.dish_name[1])
+                        
         context['recipe'] = Recipe.objects.get(recipe_id = self.object.recipe_id_id)
         #context['photos'] = Dish_Photo.objects.filter(dish_id = self.object.dish_id)
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
