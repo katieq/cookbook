@@ -124,7 +124,7 @@ class Ingredient(models.Model):
 class Dish(models.Model):
     dish_id = models.AutoField(primary_key=True)
     chef_id = models.ForeignKey(Chef, default=1, on_delete=models.CASCADE) # I wonder..if cook together, ManytoMany Chef!?
-    recipe_id = models.ForeignKey(Recipe)
+    recipe_id = models.ForeignKey(Recipe, default=1)
     extra_recipe_id = models.ManyToManyField(Recipe, blank = True, related_name="extra_recipe_dish") # changed from ForeignKey with on_delete=models.CASCADE; allow blank for now, perhaps change later.
     STATUS_CHOICES = ((u'1', u'Done'),
                       (u'2', u'To-do-soon'),
@@ -142,6 +142,7 @@ class Dish(models.Model):
                                      null=True, blank=True) # my own comments about how I liked it..
     ingredient_id = models.ManyToManyField(Ingredient,  blank=True)
     ##can't have two fields to Chef? like_chef_id = models.ManyToManyField(Chef) # tie to dish, instead of its own Likes model. AGH! I think you can! but just needs related_name! thus can remove the "likes" model..??
+    like_chef_id = models.ManyToManyField(Chef, blank = True, related_name="chef_like")
     dish_image = models.ImageField(upload_to="dish_photos", null = True, blank = True)
     photo_comment = models.CharField("Photo comment", max_length=200, null = True, blank = True)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
@@ -161,10 +162,10 @@ class Dish(models.Model):
 ##def __str__(self):
 ##return self.dish_id
 
-class Likes(models.Model):
-    like_id = models.AutoField(primary_key=True)
-    dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE)
-    chef_id = models.ForeignKey(Chef, on_delete=models.CASCADE)
+#class Likes(models.Model):
+#    like_id = models.AutoField(primary_key=True)
+#    dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE)
+#    chef_id = models.ForeignKey(Chef, on_delete=models.CASCADE)
 
 class Chef_Dish_Comments(models.Model):   # avoided ever just comment, since reserved word perhaps?
     chef_dish_comment_id = models.AutoField(primary_key=True)

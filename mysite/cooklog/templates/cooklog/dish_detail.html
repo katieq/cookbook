@@ -109,6 +109,18 @@ Testing out a search function:
             <a href="{% url 'comment_add' %}?next={{object.dish_id}}">+comment</a>
         </div>
 
+<p> {{ object.like_chef_id.count }} likes (for in-dish-model likes): </p>
+{% for chef_like in object.like_chef_id.all %}
+<li><a href="../../chef/{{chef_like.first_name}}/">{{chef_like.first_name}}</a></li>
+{% endfor %}
+<p> BUG: Yet to solve: these chef_like links don't work. </p>
+
+{% if user_chef_like.count %}
+<p> you've liked it! </p>
+{% else %}
+<p> you haven't liked it (yet) </p>
+{% endif %}
+
         {% if likes %}
         <div class="dish-full-likes">
             <img src="{% static "emoji/img/yum.png" %}" alt="yum" height="30"/>

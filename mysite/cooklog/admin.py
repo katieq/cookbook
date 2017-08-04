@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Chef, Recipe, Ingredient, Dish, Chef_Dish_Comments, Likes, RecipeCategory, IngredientType, Maker, ChefFollows
+from .models import Chef, Recipe, Ingredient, Dish, Chef_Dish_Comments, RecipeCategory, IngredientType, Maker, ChefFollows
 
 class RecipeInline(admin.TabularInline):
     model = Recipe
@@ -51,7 +51,6 @@ admin.site.register(Maker, MakerAdmin)
 #admin.site.register(Dish_Photo)
 admin.site.register(RecipeCategory)
 admin.site.register(Chef_Dish_Comments)
-admin.site.register(Likes)
 admin.site.register(ChefFollows)
 
 

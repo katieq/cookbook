@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, Likes, ChefFollows #Dish_Photo,
+from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows #Dish_Photo, #Likes,
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
 from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, NewLikeForm, UpdateChefFollowsForm # UploadImageForm,
@@ -21,6 +21,7 @@ from django.db.models import Q
 from functools import reduce
 #from nltk.corpus import stopwords # <- used for "search match" of existing recipe name to dish name,
 from stop_words import get_stop_words
+import string
 
 # Create your views here.
 def display_meta(request):
@@ -74,16 +75,16 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
         
-        context['recipe_match'] = Recipe.objects.filter(recipe_name__contains='Chicken')
-        
+        # just to test:
         context['followed_chefs'] = ChefFollows.objects.filter(follower_id = self.request.user.id).all()
         context['chefs'] = Chef.objects.filter(chef_id__in=context['followed_chefs']).all()
+
         context['latest_dishs'] = Dish.objects.filter(dish_status=1, chef_id__in=context['chefs']).order_by("-date_created").all()[:10]
         #context['latest_dishs'] = Dish.objects.filter(dish_status=1).order_by("-date_created").all()[:10]
 
         #context['latest_dish_likes'] = Likes.objects.filter(dish_id__in = context['latest_dishs'])
         #context['latest_dish_like_counts'] = Likes.objects.filter(dish_id__in=context['latest_dishs']).values('dish_id').annotate(count = Count('dish_id'))
-        context['latest_dish_user_likes'] = Likes.objects.filter(dish_id__in=context['latest_dishs'], chef_id = self.request.user.id) # <- this gets the likes that *I*(logged in user) gave .. later also get counts of total likes!
+        #context['latest_dish_user_likes'] = Likes.objects.filter(dish_id__in=context['latest_dishs'], chef_id = self.request.user.id) # <- this gets the likes that *I*(logged in user) gave .. later: also get counts of total likes!
         return context
 
 class RecipeDetailView(DetailView):
@@ -101,7 +102,9 @@ class DishDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DishDetailView, self).get_context_data(**kwargs)
 
-        go_words = [word for word in self.object.dish_name.lower().split() if word not in get_stop_words('en')]
+        exclude = set(string.punctuation)
+        s = ''.join(ch for ch in self.object.dish_name if ch not in exclude)
+        go_words = [word for word in s.lower().split() if word not in get_stop_words('en')]
             #+ [word for word in self.object.dish_method.lower().split() if word not in get_stop_words('en')]
         
         context['recipe_matcher'] = go_words #self.object.dish_name.split() # <- temporary!
@@ -109,12 +112,13 @@ class DishDetailView(DetailView):
         #context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
         context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
         
-        
         context['recipe'] = Recipe.objects.get(recipe_id = self.object.recipe_id_id)
+        context['user_chef_like'] = Dish.objects.filter(dish_id = self.object.dish_id, like_chef_id = self.request.user.id)
+        
         #context['photos'] = Dish_Photo.objects.filter(dish_id = self.object.dish_id)
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
-        context['likes'] = Likes.objects.filter(dish_id = self.object.dish_id)
-        context['user_likes'] = Likes.objects.filter(dish_id = self.object.dish_id, chef_id = self.request.user.id)
+        #context['likes'] = Likes.objects.filter(dish_id = self.object.dish_id)
+        #context['user_likes'] = Likes.objects.filter(dish_id = self.object.dish_id, chef_id = self.request.user.id)
         context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).exclude(dish_id = self.object.dish_id).order_by("-date_created")
         return context
 
