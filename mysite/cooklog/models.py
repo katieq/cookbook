@@ -123,8 +123,8 @@ class Ingredient(models.Model):
 
 class Dish(models.Model):
     dish_id = models.AutoField(primary_key=True)
-    chef_id = models.ForeignKey(Chef, default=1, on_delete=models.CASCADE)
-    recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    chef_id = models.ForeignKey(Chef, default=1, on_delete=models.CASCADE) # I wonder..if cook together, ManytoMany Chef!?
+    recipe_id = models.ManyToManyField(Recipe, blank = True) # changed from ForeignKey with on_delete=models.CASCADE; allow blank for now, perhaps change later.
     STATUS_CHOICES = ((u'1', u'Done'),
                       (u'2', u'To-do-soon'),
                       (u'3', u'To-do-someday'),)

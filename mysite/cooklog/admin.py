@@ -18,7 +18,7 @@ class DishInline(admin.TabularInline):
     extra = 3
 
 class RecipeAdmin(admin.ModelAdmin):
-    inlines = [DishInline]
+    # inlines = [DishInline] # <- Removed because Dish->Recipe is now ManyToMany
     search_fields = ('recipe_name', 'recipe_type')
     list_display = ('recipe_name', 'date_created')
     list_filter = ('date_created',)
