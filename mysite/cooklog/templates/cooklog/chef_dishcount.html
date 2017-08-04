@@ -12,24 +12,27 @@
     dish summary for the last week:
 </div>
 
-<p> In the last week, have cooked {{ week_dish.count }} dish{{ week_dish.count|pluralize:",es" }}.</p>
+<p> In the last week, have cooked {{ week_dish.count }} dish{{ week_dish.count|pluralize:",es" }} ...</p>
 
+<p> Dish rating summary: </p>
 {% for x in week_rating_count %}
-<p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} that got a rating of {{x.dish_rating}} </p>
+<p> ... {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} with {{x.dish_rating}} stars. </p>
 {% empty %}
-<p> is empty </p>
+<p> (no dishes) </p>
 {% endfor %}
 
+<p> Recipe summary: </p>
 {% for x in week_recipe_count %}
-<p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} of the recipe with ID {{x.recipe_id}} </p>
+<p> ... {{ x.recipe_id__count }} dish{{ x.recipe_id__count|pluralize:",es"}} of the recipe with ID {{x.recipe_id}} </p>
 {% empty %}
-<p> is empty </p>
+<p> (no dishes) </p>
 {% endfor %}
 
+<p> Dish type summary: </p>
 {% for x in week_dishtype_count %}
-<p> You cooked {{ x.dish_id__count }} dish{{ x.dish_id__count|pluralize:",es"}} of the dish type with ID {{ x.dishtype_id }} </p>
+<p> ... {{ x.dishtype_id__count }} dish{{ x.dishtype_id__count|pluralize:",es"}} of type ID {{ x.dishtype_id }}  </p>
 {% empty %}
-<p> is empty </p>
+<p> (no dishes) </p>
 {% endfor %}
 
 <div class="page-subtitle">

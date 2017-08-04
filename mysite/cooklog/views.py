@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from cooklog.models import Dish, Chef, Recipe, Ingredient, Dish_Photo, Chef_Dish_Comments, Likes, ChefFollows
+from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, Likes, ChefFollows #Dish_Photo,
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
 from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, NewLikeForm, UpdateChefFollowsForm # UploadImageForm,
@@ -178,7 +178,7 @@ class RecipeCreate(CreateView):
 
 class RecipeUpdate(UpdateView):
     model = Recipe
-    fields = ['recipe_name', 'recipe_source', 'recipe_type', 'chef_id', 'date_created']
+    fields = ['recipe_name', 'recipecategory_id', 'recipe_source', 'recipe_type', 'chef_id', 'date_created']
 
 class RecipeDelete(DeleteView):
     model = Recipe
@@ -276,13 +276,13 @@ class ChefWeekCountView(DetailView):
         context = super(ChefWeekCountView, self).get_context_data(**kwargs)
         context['week_dish'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=7), datetime.now()])
         context['week_rating_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=7), datetime.now()]).values('dish_rating').annotate(Count('dish_id'))
-        context['week_recipe_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=7), datetime.now()]).values('recipe_id').annotate(Count('dish_id'))
-        context['week_dishtype_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=7), datetime.now()]).values('dishtype_id').annotate(Count('dish_id'))
-        
+        context['week_recipe_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=7), datetime.now()]).values('recipe_id').annotate(Count('recipe_id'))
+#        context['week_dishtype_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=7), datetime.now()]).values('dishtype_id').annotate(Count('dishtype_id'))
+
         context['month_dish'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=30), datetime.now()])
         context['month_rating_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=30), datetime.now()]).values('dish_rating').annotate(Count('dish_id'))
         context['month_recipe_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=30), datetime.now()]).values('recipe_id').annotate(Count('dish_id'))
-        context['month_dishtype_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=30), datetime.now()]).values('dishtype_id').annotate(Count('dish_id'))
+#        context['month_dishtype_count'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).filter(date_created__range=[datetime.now()-timedelta(days=30), datetime.now()]).values('dishtype_id').annotate(Count('dish_id'))
         return context
 
 class IngredientCreate(CreateView):
