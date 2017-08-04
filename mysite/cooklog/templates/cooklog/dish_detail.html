@@ -9,13 +9,19 @@
 <a href="../../chef/{{object.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}'s</a> {{ object.dish_name }}
 </div>
 
-<p> Matched on having any of: {{ recipe_matcher }} </p>
+<div class="dev">
+    <p> Matched on having any of: {{ recipe_matcher }} </p>
 
-Testing out a search function:
-{% for recipe in recipe_match %}
-<p> {{ recipe.recipe_name }} </p>
-{% endfor %}
-
+    Testing out a search function:
+    Choose an existing recipe...
+    {% for recipe in recipe_match %}
+        <div class="button-recipe-choose">
+            <a href="/cooklog/dish/recipe_choose/{{object.dish_id}}/?next={{recipe.recipe_id}}">{{ recipe.recipe_name }}</a>
+        </div>
+    {% endfor %}
+    ... or <a href="/cooklog/recipe/add/?next={{object.dish_id}}">make a new one</a> for this dish!
+    <p>(So far, it just let's you make a new one. TODO: This dish gets automatically assigned to that new recipe.)</p>
+</div>
 
 {% ifequal user.id dish.chef_id_id %}
 <div class="page-text">

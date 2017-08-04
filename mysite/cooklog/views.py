@@ -8,7 +8,8 @@ from django.core.urlresolvers import reverse_lazy
 from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows #Dish_Photo, #Likes,
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
-from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, UpdateChefFollowsForm # UploadImageForm, NewLikeForm, 
+from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, UpdateChefFollowsForm # UploadImageForm, NewLikeForm,
+from cooklog.forms import RecipeChooseForm
 from cooklog.forms import UpdateDishForm #, NewDishWeekTodoForm
 from django import forms
 from django.forms.formsets import formset_factory
@@ -409,6 +410,28 @@ class CommentDeleteView(DeleteView):
         # Assuming there is a ForeignKey from Comment to Dish in your model
         #dish_id = self.object.dish_id
         return '/cooklog/dish/' + str(self.request.GET.get('next')) + '/'
+
+
+class RecipeChooseView(UpdateView): # <- "built" based on NewCommentView
+    model = Dish
+    form_class = RecipeChooseForm
+    template_name = 'recipe_choose_form.html'
+    #fields = ['dish_name', 'recipe_id']
+    def get_queryset(self):
+        return Dish.objects.filter(dish_id=self.kwargs.get("pk", None))
+    def get_success_url(self):
+        return '/cooklog/dish/' + str(self.object.dish_id) + '/'
+    def get_initial(self):
+        return {'recipe_id' : self.request.GET.get('next') }
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super(RecipeChooseView, self).get_form_kwargs()
+        redirect = self.request.GET.get('next')   # these 3 "next" necessary for next charfield to be next=..
+        if redirect:
+            if 'initial' in kwargs.keys():
+                kwargs['initial'].update({'next': redirect})
+            else:
+                kwargs['initial'] = {'next': redirect}
+        return kwargs
 
 
 

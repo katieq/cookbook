@@ -244,3 +244,19 @@ class CommentDeleteForm(forms.ModelForm):
             self.fields[key].required = False
 
 
+
+class RecipeChooseForm(forms.ModelForm):
+    next = forms.CharField(required=False)
+    class Meta:
+        model = Dish
+        exclude = tuple()
+        fields = ['dish_id', 'recipe_id']
+    def __init__(self, *args, **kwargs):
+        super(RecipeChooseForm, self).__init__(*args, **kwargs)
+        self.fields['recipe_id'].widget = forms.HiddenInput()
+        self.fields['next'].widget = forms.HiddenInput()
+        for key in self.fields:
+            self.fields[key].required = False
+
+
+

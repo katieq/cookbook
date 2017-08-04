@@ -13,15 +13,13 @@
     <a href="/cooklog/recipes/">recipe list</a>]
 </div>
 
-Testing out a search function:
-{% for recipe in recipe_match %}
-<p> {{ recipe.recipe_name }} </p>
-{% endfor %}
 
 {% comment %}
+<div class="dev">
 {% for chef in chefs %}
 <p> this user {{chef.follower_id }} follows this chef {{ chef.chef_id }} </p>
 {% endfor %}
+</div>
 {% endcomment %}
 
 {% for dish in latest_dishs %}

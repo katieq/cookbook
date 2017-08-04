@@ -113,6 +113,15 @@ a:visited {
 }
 
 
+.dev {
+    font-size: 10px;
+    color: #000000;
+    border: 1px solid;
+    width: 25%;
+    padding-left: 3px;
+    padding-top: 3px;
+}
+
 
 .dish-mini {
     padding-left: 40px;
