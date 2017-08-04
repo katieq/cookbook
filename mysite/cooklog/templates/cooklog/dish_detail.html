@@ -6,8 +6,16 @@
 {% block body_block %}
 
 <div class="page-title">
-<a href="../../chef/{{object.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}'s</a> {{ object.dish_name|safe|hashtag_links }}
+<a href="../../chef/{{object.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}'s</a> {{ object.dish_name }}
 </div>
+
+<p> Matched on having any of: {{ recipe_matcher }} </p>
+
+Testing out a search function:
+{% for recipe in recipe_match %}
+<p> {{ recipe.recipe_name }} </p>
+{% endfor %}
+
 
 {% ifequal user.id dish.chef_id_id %}
 <div class="page-text">
@@ -41,7 +49,7 @@
         <div class="dish-full-image">
         <img src="/media/{{ object.dish_image }}" />
         </div>
-        <p> {{ object.photo_comment|safe|hashtag_links }} </p>
+        <p> {{ object.photo_comment}} </p>
         {% else %}
         No photos yet, <a href="/cooklog/dish/add/{{object.dish_id}}">upload here. </a>
         {% endif %}

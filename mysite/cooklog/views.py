@@ -17,7 +17,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from datetime import timedelta
-
+from django.db.models import Q
+from functools import reduce
+#from nltk.corpus import stopwords # <- used for "search match" of existing recipe name to dish name,
+from stop_words import get_stop_words
 
 # Create your views here.
 def display_meta(request):
@@ -96,11 +99,15 @@ class RecipeDetailView(DetailView):
 class DishDetailView(DetailView):
     model = Dish
     def get_context_data(self, **kwargs):
-        context = super(DishDetailView,
-                        self).get_context_data(**kwargs)
-                        
-                        #context['recipe_match'] = Recipe.objects.filter(recipe_name__contains=self.object.dish_name[1])
-                        
+        context = super(DishDetailView, self).get_context_data(**kwargs)
+
+        go_words = [word for word in self.object.dish_name.split() if word not in get_stop_words('en')] + [word for word in self.object.dish_method.split() if word not in get_stop_words('en')]
+        
+        context['recipe_matcher'] = go_words #self.object.dish_name.split() # <- temporary!
+        #context['recipe_match'] = Recipe.objects.filter(recipe_name__contains=self.object.dish_name.split())
+        context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
+        
+        
         context['recipe'] = Recipe.objects.get(recipe_id = self.object.recipe_id_id)
         #context['photos'] = Dish_Photo.objects.filter(dish_id = self.object.dish_id)
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
