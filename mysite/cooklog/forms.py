@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.extras.widgets import SelectDateWidget
-from cooklog.models import Dish, Recipe, Ingredient, Chef_Dish_Comments, Likes, ChefFollows
+from cooklog.models import Dish, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows ##Likes,
 from datetime import datetime
 # from django.forms import inlineformset_factory
 
@@ -204,18 +204,18 @@ class UpdateChefFollowsForm(forms.ModelForm):
 
 
 
-class NewLikeForm(forms.ModelForm):
-    next = forms.CharField(required=False)
-    class Meta:
-        model = Likes
-        fields = ['dish_id', 'chef_id']
-    def __init__(self, *args, **kwargs):
-        super(NewLikeForm, self).__init__(*args, **kwargs)
-        self.fields['dish_id'].widget = forms.HiddenInput()
-        self.fields['next'].widget = forms.HiddenInput()
-        self.fields['chef_id'].widget = forms.HiddenInput()
-        for key in self.fields:
-            self.fields[key].required = False
+#class NewLikeForm(forms.ModelForm):
+#    next = forms.CharField(required=False)
+#    class Meta:
+#        model = Likes
+#        fields = ['dish_id', 'chef_id']
+#    def __init__(self, *args, **kwargs):
+#        super(NewLikeForm, self).__init__(*args, **kwargs)
+#        self.fields['dish_id'].widget = forms.HiddenInput()
+#        self.fields['next'].widget = forms.HiddenInput()
+#        self.fields['chef_id'].widget = forms.HiddenInput()
+#        for key in self.fields:
+#            self.fields[key].required = False
 
 class NewCommentForm(forms.ModelForm):
     next = forms.CharField(required=False)

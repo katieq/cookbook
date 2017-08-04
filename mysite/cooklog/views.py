@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows #Dish_Photo, #Likes,
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
-from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, NewLikeForm, UpdateChefFollowsForm # UploadImageForm,
+from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, UpdateChefFollowsForm # UploadImageForm, NewLikeForm, 
 from cooklog.forms import UpdateDishForm #, NewDishWeekTodoForm
 from django import forms
 from django.forms.formsets import formset_factory
@@ -367,37 +367,37 @@ class NewCommentView(CreateView):
         context['dish'] = Dish.objects.get(dish_id = self.request.GET.get('next'))
         return context
 
-class NewLikeView(CreateView):
-    form_class = NewLikeForm
-    template_name = 'new_like_form.html'
-    #success_url = '/cooklog/dishes/' # ideally goes to that dish!
-    def get_initial(self):
-        return {'dish_id' : self.request.GET.get('next') , 'chef_id' : self.request.user.id } #self.request.GET.get('u')}
-    def get_form_kwargs(self, **kwargs):
-        kwargs = super(NewLikeView, self).get_form_kwargs()
-        redirect = self.request.GET.get('next')
-        if redirect:
-            if 'initial' in kwargs.keys():
-                kwargs['initial'].update({'next': redirect})
-            else:
-                kwargs['initial'] = {'next': redirect}
-        return kwargs
-    def form_invalid(self, form):
-        import pdb;pdb.set_trace()  # debug example
-        # inspect the errors by typing the variable form.errors
-        # in your command line debugger. See the pdb package for
-        # more useful keystrokes
-        return super(NewLikeView, self).form_invalid(form)
-    def form_valid(self, form):
-        redirect = form.cleaned_data.get('next')   # this necessary as next after submit
-        if redirect:
-            self.success_url = '/cooklog/dish/' + redirect + '/' # hardcodes url, oh well.
-        return super(NewLikeView, self).form_valid(form)
-    def get_context_data(self, **kwargs):
-        context = super(NewLikeView, self).get_context_data(**kwargs)
-        context['dish'] = Dish.objects.get(dish_id = self.request.GET.get('next'))
-        #context['u'] = User.objects.get(id = self.request.GET.get('u'))
-        return context
+#class NewLikeView(CreateView):
+#    form_class = NewLikeForm
+#    template_name = 'new_like_form.html'
+#    #success_url = '/cooklog/dishes/' # ideally goes to that dish!
+#    def get_initial(self):
+#        return {'dish_id' : self.request.GET.get('next') , 'chef_id' : self.request.user.id } #self.request.GET.get('u')}
+#    def get_form_kwargs(self, **kwargs):
+#        kwargs = super(NewLikeView, self).get_form_kwargs()
+#        redirect = self.request.GET.get('next')
+#        if redirect:
+#            if 'initial' in kwargs.keys():
+#                kwargs['initial'].update({'next': redirect})
+#            else:
+#                kwargs['initial'] = {'next': redirect}
+#        return kwargs
+#    def form_invalid(self, form):
+#        import pdb;pdb.set_trace()  # debug example
+#        # inspect the errors by typing the variable form.errors
+#        # in your command line debugger. See the pdb package for
+#        # more useful keystrokes
+#        return super(NewLikeView, self).form_invalid(form)
+#    def form_valid(self, form):
+#        redirect = form.cleaned_data.get('next')   # this necessary as next after submit
+#        if redirect:
+#            self.success_url = '/cooklog/dish/' + redirect + '/' # hardcodes url, oh well.
+#        return super(NewLikeView, self).form_valid(form)
+#    def get_context_data(self, **kwargs):
+#        context = super(NewLikeView, self).get_context_data(**kwargs)
+#        context['dish'] = Dish.objects.get(dish_id = self.request.GET.get('next'))
+#        #context['u'] = User.objects.get(id = self.request.GET.get('u'))
+#        return context
 
 
 class CommentDeleteView(DeleteView):

@@ -121,6 +121,7 @@ Testing out a search function:
 <p> you haven't liked it (yet) </p>
 {% endif %}
 
+{% comment %}
         {% if likes %}
         <div class="dish-full-likes">
             <img src="{% static "emoji/img/yum.png" %}" alt="yum" height="30"/>
@@ -143,6 +144,7 @@ Testing out a search function:
             <a href="{% url 'like_add' %}?next={{object.dish_id}}">+like</a>
         </div>
         {% endif %}
+        {% endcomment %}
     </div>
 
     <div class="dish-full-subtitle">
