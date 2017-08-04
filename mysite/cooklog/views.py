@@ -101,10 +101,12 @@ class DishDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DishDetailView, self).get_context_data(**kwargs)
 
-        go_words = [word for word in self.object.dish_name.split() if word not in get_stop_words('en')] + [word for word in self.object.dish_method.split() if word not in get_stop_words('en')]
+        go_words = [word for word in self.object.dish_name.lower().split() if word not in get_stop_words('en')]
+            #+ [word for word in self.object.dish_method.lower().split() if word not in get_stop_words('en')]
         
         context['recipe_matcher'] = go_words #self.object.dish_name.split() # <- temporary!
         #context['recipe_match'] = Recipe.objects.filter(recipe_name__contains=self.object.dish_name.split())
+        #context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
         context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
         
         
