@@ -357,6 +357,14 @@ a:visited {
     display: inline;
 }
 
+.album-recipe-icon {
+    display: inline;
+}
+
+.album-recipe-icon img{
+    margin-bottom: 2px;
+}
+
 .album-ingredient-name {
     display: inline-block;
     width: 150px;

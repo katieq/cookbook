@@ -87,7 +87,11 @@
             {% endif %}
             </div>
             <div class="dish-mini-inner-recipe">
-                <a href="recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+                {% ifequal dish.recipe_id_id 1 %}
+                    <a href="dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
+                {% else %}
+                    <a href="recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
+                {% endifequal %}
                 {% ifequal user.id dish.chef_id_id %}
                     <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
                 {% endifequal %}
