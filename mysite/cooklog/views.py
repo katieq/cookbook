@@ -45,7 +45,8 @@ def search(request): # this still works for searching dish names!
         elif len(q) > 40:
             errors.append('Please enter at most 40 characters.')
         else:
-            dishes = Dish.objects.filter(dish_method__icontains=q).order_by("date_created").all()
+            #dishes = Dish.objects.filter(dish_method__icontains=q).order_by("date_created").all()
+            dishes = Dish.objects.filter(Q(dish_method__icontains=q) | Q(dish_name__icontains=q)).order_by("date_created").all()
             recipes = Recipe.objects.filter(recipe_name__icontains=q).order_by("date_created").all()
             chefs = Chef.objects.filter(first_name__icontains=q).all()
             ingredients = Ingredient.objects.filter(ingredient_name__icontains=q).all()
@@ -193,7 +194,11 @@ class RecipeCreate(CreateView):
     def get_initial(self):
         return {'chef_id' : self.request.user.id } #self.request.GET.get('u') }
     def get_success_url(self):
-        return '/cooklog/recipe/' + str(self.object.recipe_id) + '/'
+        if self.request.GET.get('next'):
+            return '/cooklog/dish/recipe_choose/' + self.request.GET.get('next') + '/?next=' + str(self.object.recipe_id)
+        else:
+            return '/cooklog/recipe/' + str(self.object.recipe_id) + '/'
+
 
 class RecipeUpdate(UpdateView):
     model = Recipe
