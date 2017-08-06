@@ -54,6 +54,59 @@
 {% endcomment %}
 
     <div class="dish-mini">
+        <div class="dish-mini-image-column">
+        {% if dish.dish_image %}
+        <div class="crop-image">
+            <a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+        </div>
+        {% else %}
+        <div class="crop-placeholder">
+            <a href="/cooklog/dish/{{dish.dish_id}}/"><img class="fa fa-plus"></a>
+            {% comment %}
+            <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+            {% endcomment %}
+        </div>
+        {% endif %}
+        </div>
+        
+        <div class="dish-mini-text-column">
+            <div class="dish-mini-date-inline">
+                {{ dish.date_created|date:"D M.d"|lower }}
+            </div> |
+            <div class="dish-mini-dish-chef-name">
+                <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }}</a>
+            </div> |
+            <div class="dish-mini-recipe-icon">
+                {% ifequal user.id dish.chef_id_id %}
+                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a>
+                {% endifequal %}
+            </div> |
+            <div class="dish-mini-recipe-icon">
+                {% ifequal dish.recipe_id_id 1 %}
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
+                {% else %}
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" height="14"/></a>
+                {% endifequal %}
+            </div> |
+            <div class="dish-mini-stars">
+                {% if dish.dish_rating %}
+                {% for i in "x"|rjust:dish.dish_rating %}
+                <i class="fa fa-star"></i>
+                {% comment %}
+                <img src="{% static "emoji/img/star.png" %}" alt="star" height="10"/>
+                {% endcomment %}
+                {% endfor %}
+                {% endif %}
+            </div>
+            
+            <div class="dish-mini-dish-name">
+                <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+            </div>
+            
+            ((TODO put likes and comments here))
+            
+        {% comment %}
+
         <div class="dish-mini-date">
         {{ dish.date_created|date:"D, M d"|upper }}
         </div>
@@ -62,18 +115,7 @@
         </div>
         <div class="dish-mini-image">
             
-            {% if dish.dish_image %}
-            <div class="crop">
-                <a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
-            </div>
-            {% else %}
-            <div class="crop-placeholder">
-                <a href="/cooklog/dish/{{dish.dish_id}}/"><img class="fa fa-plus"></a>
-                {% comment %}
-                <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
-                {% endcomment %}
-            </div>
-            {% endif %}
+            
         </div>
         <div class="dish-mini-inner">
             <div class="dish-mini-inner-name">
@@ -95,24 +137,6 @@
                 {% ifequal user.id dish.chef_id_id %}
                     <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
                 {% endifequal %}
-                {% comment %}
-                {% ifnotequal user.id dish.chef_id_id %}
-                    <a href="/cooklog/like/?next={{dish.dish_id}}"><img src="{% static "emoji/img/yum.png" %}" alt="yum" height="18"/></a>
-                {% endifnotequal %}
-                {% endcomment %}
-                
-                {% comment %}
-                {% for like_count in latest_dish_like_counts %}
-                    {% ifequal like_count.dish_id dish.dish_id %}
-                        {{like_count.count}} likes
-                    {% endifequal %}
-                {% endfor %}
-                {% for like in latest_dish_likes %}
-                    {% ifequal like.dish_id_id dish.dish_id %}
-                        {{like.chef_id.first_name}}
-                    {% endifequal %}
-                {% endfor %}
-                {% endcomment %}
                 
                 {% for user_likes in latest_dish_user_likes %}
                     {% ifequal dish.dish_id user_likes.dish_id_id %}
@@ -121,18 +145,11 @@
                 {% endfor %}
                 
 
-
-                {% comment %}
-                <a href="recipe/{{dish.recipe_id_id}}/">master recipe: {{dish.recipe_id}}</a>
-                {% endcomment %}
             </div>
         </div>
-        {% comment %}
-        <div class="dish-mini-edit">
-            <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="5"/></a>
-        </div>
         {% endcomment %}
-    
+        </div>
+        
     </div>
 
 {% empty %}

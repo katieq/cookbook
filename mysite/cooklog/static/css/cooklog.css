@@ -5,7 +5,7 @@ h2 a {
 body {
     margin-left: 0px;
     padding-left: 0px;
-    background-color: #FFFFFF; /*FFFEEE;*/
+    background-color: #fef8f3; /*#d3d3d3;*/ /*FFFEEE;*/
     color: #B1654B;
     font-family: 'Merriweather', serif;
     padding-bottom: 0px;
@@ -124,9 +124,62 @@ a:visited {
 
 
 .dish-mini {
-    padding-left: 40px;
+    padding-left: 0px;
+    margin-left: 10px;
     min-height: 110px;
+    /*border: 4px solid #FDC08E;*/
+    background: #f6fbfc;
+    margin-bottom: 10px;
+    width: 60%; /* mobile should be 100%!*/
 }
+
+.dish-mini-image-column {
+    display: inline-block;
+    width: 30%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.dish-mini-text-column {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.dish-mini-stars {
+    font-size: 12px;
+    padding-left: 0px;
+    width: 75px;
+    display: inline-block
+}
+.dish-mini-date-inline {
+    color: #FDC08E;
+    display: inline;
+}
+.dish-mini-dish-name {
+    width: 300px;
+    height: 50px;
+    vertical-align: top;
+}
+.dish-mini-dish-name a{
+    color: #B1654B;
+}
+.dish-mini-dish-chef-name a{
+    color: #F79273;
+}
+.dish-mini-dish-chef-name {
+    display: inline;
+}
+
+.dish-mini-recipe-icon {
+    display: inline;
+}
+
+.dish-mini-recipe-icon img{
+    margin-bottom: 2px;
+}
+
+
 
 .dish-mini-date {
     float: left;
@@ -380,11 +433,19 @@ a:visited {
     border: 4px solid #FDC08E;
 }
 
-.crop-placeholder img {
-    height: 90px;
-    width: 120px;
+.crop-image img {
+    height: 180px;
+    width: 240px;
     object-fit: cover;
-    border: 4px solid #FDC08E;
+    border: 3px solid #FDC08E;
+}
+
+.crop-placeholder img {
+    height: 180px;
+    width: 240px;
+    object-fit: cover;
+    border: 3px solid #FDC08E;
+    margin-bottom: 2px;
     filter: grayscale(100%);
 }
 
