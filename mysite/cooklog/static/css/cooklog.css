@@ -5,7 +5,7 @@ h2 a {
 body {
     margin-left: 0px;
     padding-left: 0px;
-    background-color: #fef8f3; /*#d3d3d3;*/ /*FFFEEE;*/
+    background-color: #f1f3f4; /*#d3d3d3;*/ /*FFFEEE;*/
     color: #B1654B;
     font-family: 'Merriweather', serif;
     padding-bottom: 0px;
@@ -181,7 +181,7 @@ a:visited {
 
 .dish-mini-social-comments-and-likes {
     font-size: 10px;
-    background: #fef8f3;
+    background: #f1f3f4;
 }
 
 

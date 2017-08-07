@@ -228,7 +228,7 @@ class ChefFollowsUpdate(UpdateView):
     #model = ChefFollows
     #fields = ['follower_id', 'chef_id']
     def get_success_url(self):
-        return '/cooklog/album/' # not: chef/' + str(self.request.user.id) + '/'
+        return '/cooklog/' # not: chef/' + str(self.request.user.id) + '/'
 
 
 class ChefUpdate(UpdateView):
