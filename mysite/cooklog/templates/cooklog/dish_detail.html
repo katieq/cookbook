@@ -33,6 +33,7 @@
     <a href="/cooklog/dish/add/{{object.dish_id}}/">Edit dish </a>
 </div>
 {% endifequal %}
+
 <div class="page-text">
     {{ object.date_created|date:"D, M d" }}
 </div>
@@ -62,7 +63,7 @@
         </div>
         <p> {{ object.photo_comment}} </p>
         {% else %}
-        No photos yet, <a href="/cooklog/dish/add/{{object.dish_id}}">upload here. </a>
+        No photos yet, <a href="/cooklog/dish/add/{{object.dish_id}}">upload here [todo make photo-only upload page]. </a>
         {% endif %}
     </div>
     
@@ -117,45 +118,24 @@
         </div>
         {% endif %}
         <div class="dish-button-add-comment">
-            <a href="{% url 'comment_add' %}?next={{object.dish_id}}">+comment</a>
+            <a href="{% url 'comment_add' %}?next={{object.dish_id}}">[add comment]</a>
         </div>
-
-<p> {{ object.like_chef_id.count }} likes (for in-dish-model likes): </p>
-{% for chef_like in object.like_chef_id.all %}
-<li><a href="../../chef/{{chef_like.first_name}}/">{{chef_like.first_name}}</a></li>
-{% endfor %}
-<p> BUG: Yet to solve: these chef_like links don't work. </p>
-
-{% if user_chef_like.count %}
-<p> you've liked it! </p>
-{% else %}
-<p> you haven't liked it (yet) </p>
-{% endif %}
-
-{% comment %}
-        {% if likes %}
-        <div class="dish-full-likes">
-            <img src="{% static "emoji/img/yum.png" %}" alt="yum" height="30"/>
-            {{ likes|length }} person liked it!
-            {% for like in likes %}
-            <i><a href="../../chef/{{like.chef_id_id}}/">{{like.chef_id.first_name}}</a></i>,
+        
+        <div class="dish-likes">
+            Likes: {{ object.like_chef_id.count }}
+            {% ifequal object.like_chef_id.count 0 %}
+            {% else %}
+            (
+            {% for chef_like in object.like_chef_id.all %}
+            <a href="/cooklog/chef/{{chef_like.chef_id}}/">{{chef_like.first_name}}</a>,
             {% endfor %}
+            )
+            {% endifequal %}
+            {% if user_chef_like.count %}
+            {% else %}
+            <a href="/cooklog/like/{{dish.dish_id}}/">[like it]</a>
+            {% endif %}
         </div>
-        {% else %}
-        <div class="dish-full-no-likes">
-            No one likes it! (yet..)
-        </div>
-        {% endif %}
-        {% if user_likes %}
-            <div class="dish-full-no-likes">
-                You've liked it already.
-            </div>
-        {% else %}
-        <div class="dish-button-add-like">
-            <a href="{% url 'like_add' %}?next={{object.dish_id}}">+like</a>
-        </div>
-        {% endif %}
-        {% endcomment %}
     </div>
 
     <div class="dish-full-subtitle">

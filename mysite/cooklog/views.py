@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows #Dish_Photo, #Likes,
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
-from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, UpdateChefFollowsForm # UploadImageForm, NewLikeForm,
+from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, UpdateChefFollowsForm, NewLikeForm # UploadImageForm,
 from cooklog.forms import RecipeChooseForm
 from cooklog.forms import UpdateDishForm #, NewDishWeekTodoForm
 from django import forms
@@ -82,6 +82,8 @@ class HomePageView(TemplateView):
         context['chefs'] = Chef.objects.filter(chef_id__in=context['followed_chefs']).all()
 
         context['latest_dishs'] = Dish.objects.filter(dish_status=1, chef_id__in=context['chefs']).order_by("-date_created").all()[:10]
+        
+        context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['latest_dishs'])
         #context['latest_dishs'] = Dish.objects.filter(dish_status=1).order_by("-date_created").all()[:10]
 
         #context['latest_dish_likes'] = Likes.objects.filter(dish_id__in = context['latest_dishs'])
@@ -132,6 +134,10 @@ class ChefDetailView(DetailView):
         context['best_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).order_by("-dish_rating","-date_created").all()[:3]
         context['more_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[6:10]
         context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).order_by("-date_scheduled").all()
+        context['latest_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['latest_dishes'])
+        context['best_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['best_dishes'])
+        context['more_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['more_dishes'])
+        context['todo_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['todo_dishes'])
         return context
 
 class ChefScheduleView(DetailView):
@@ -418,7 +424,11 @@ class CommentDeleteView(DeleteView):
     def get_success_url(self):
         # Assuming there is a ForeignKey from Comment to Dish in your model
         #dish_id = self.object.dish_id
-        return '/cooklog/dish/' + str(self.request.GET.get('next')) + '/'
+        if self.request.GET.get('next'):
+            return '/cooklog/dish/' + str(self.request.GET.get('next')) + '/'
+        else:
+            return '/cooklog/'
+
 
 
 class RecipeChooseView(UpdateView): # <- "built" based on NewCommentView
@@ -441,6 +451,24 @@ class RecipeChooseView(UpdateView): # <- "built" based on NewCommentView
             else:
                 kwargs['initial'] = {'next': redirect}
         return kwargs
+
+
+class NewLikeView(UpdateView): # <- "built" based on RecipeChooseView, but uses user..
+    model = Dish
+    form_class = NewLikeForm
+    template_name = 'new_like_form.html'
+    def get_queryset(self):
+        return Dish.objects.filter(dish_id=self.kwargs.get("pk", None))
+    def get_success_url(self):
+        if self.request.GET.get('next'):
+            if (str(self.request.GET.get('next'))=="0"):
+                return '/cooklog/'
+            else:
+                return '/cooklog/chef/' + str(self.request.GET.get('next')) + '/'
+        else:
+            return '/cooklog/dish/' + str(self.object.dish_id) + '/'
+    def get_initial(self):
+        return {'like_chef_id' : self.request.user.id }
 
 
 

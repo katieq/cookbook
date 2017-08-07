@@ -179,6 +179,10 @@ a:visited {
     margin-bottom: 2px;
 }
 
+.dish-mini-social-comments-and-likes {
+    font-size: 10px;
+    background: #fef8f3;
+}
 
 
 .dish-mini-date {
@@ -495,15 +499,16 @@ a:visited {
     margin-left: -20px;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 300px;
+    width: 500px;
     padding-bottom: 10px;
+    font-size: 12px;
 }
 
 .dish-full-comments {
     font-size: 12px;
     padding-left: 10px;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
 }
 
 .dish-full-no-comments {
@@ -513,10 +518,15 @@ a:visited {
     margin-top: 5px;
 }
 
+.dish-likes {
+    padding-left: 10px;
+}
+
 .dish-button-add-comment {
-    margin-left: 20px;
-    background: #FDC08E;
-    width: 80px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    width: 90px;
+    font-size: 10px;
 }
 
 .dish-button-add-like {

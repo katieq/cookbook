@@ -258,5 +258,19 @@ class RecipeChooseForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = False
 
+class NewLikeForm(forms.ModelForm):
+    dish_id = forms.CharField(widget=forms.Textarea)
+    like_chef_id = forms.CharField(widget=forms.Textarea)
+    class Meta:
+        model = Dish
+        exclude = tuple()
+        fields = ['dish_id', 'like_chef_id']
+    def __init__(self, *args, **kwargs):
+        super(NewLikeForm, self).__init__(*args, **kwargs)
+        self.fields['dish_id'].widget = forms.HiddenInput()
+        self.fields['like_chef_id'].widget = forms.HiddenInput()
+        for key in self.fields:
+            self.fields[key].required = False
+
 
 
