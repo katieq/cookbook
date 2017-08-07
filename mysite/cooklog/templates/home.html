@@ -14,36 +14,6 @@
 </div>
 
 {% for dish in latest_dishs %}
-
-{% comment %}
-<div class="dish-mini">
-<div class="dish-mini-image">
-    
-    {% if dish.dish_image %}
-    <div class="crop">
-        <a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
-    </div>
-    {% else %}
-    <div class="crop-placeholder">
-        <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
-    </div>
-    {% endif %}
-</div>
-<div class="dish-mini-inner">
-<div class="dish-mini-inner-name">
-    <a href="dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
-</div>
-<div class="dish-mini-inner-rating">
-    {% if dish.dish_rating %}
-    {% for i in "x"|rjust:dish.dish_rating %}
-    <img src="{% static "emoji/img/star.png" %}" alt="star" height="15"/>
-    {% endfor %}
-    {% endif %}
-</div>
-</div>
-</div>
-{% endcomment %}
-
     <div class="dish-mini">
         <div class="dish-mini-image-column">
         {% if dish.dish_image %}
@@ -69,9 +39,9 @@
             </div> |
             <div class="dish-mini-recipe-icon">
                 {% ifequal user.id dish.chef_id_id %}
-                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a>
+                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a> |
                 {% endifequal %}
-            </div> |
+            </div>
             <div class="dish-mini-recipe-icon">
                 {% ifequal dish.recipe_id_id 1 %}
                 <a href="/cooklog/dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
@@ -99,8 +69,10 @@
                 <div class="dish-mini-comments" >
                     {% for chef_comment in chef_comments %}
                     {% ifequal chef_comment.dish_id_id dish.dish_id %}
+                    <div class="dish-mini-single-comment" >
                         <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a> <i> says </i> {{ chef_comment.chef_dish_comment }}
                         <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/">[delete]</a>
+                    </div>
                         {% endifequal %}
                     {% endfor %}
                 </div>
