@@ -1,6 +1,6 @@
 import re
 from django import template
-from django.utils.html import escape
+from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
 register = template.Library()
@@ -15,4 +15,4 @@ def create_hashtag_link(tag):
 def hashtag_links(value):
     return mark_safe(
                      re.sub(r"#(\w+)", lambda m: create_hashtag_link(m.group(1)),
-                            escape(value)))
+                            conditional_escape(value)))

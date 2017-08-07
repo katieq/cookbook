@@ -1,5 +1,7 @@
 {% extends 'cooklog/__base.html' %}
 {% load static %}
+{% load app_extras %}
+
 {% block body_block %}
 <div class="page-title">
     lastest feeds
@@ -64,9 +66,18 @@
                 <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
             </div>
             
+            <div class="dish-mini-dish-method">
+                Method:
+                {{ dish.dish_method | safe | hashtag_links | truncatewords:10 }} <a href="/cooklog/dish/{{dish.dish_id}}/">   ... </a>
+            </div>
+            <div class="dish-mini-dish-comments">
+                <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }}</a>'s comments:
+                {{ dish.dish_comments | safe | hashtag_links | truncatewords:10 }} <a href="/cooklog/dish/{{dish.dish_id}}/"> ... </a>
+            </div>
+            
             <div class="dish-mini-social-comments-and-likes">
-                
                 <div class="dish-mini-comments" >
+                    Comments:
                     {% for chef_comment in chef_comments %}
                     {% ifequal chef_comment.dish_id_id dish.dish_id %}
                     <div class="dish-mini-single-comment" >
@@ -80,7 +91,8 @@
                 <div class="dish-mini-button-add-comment">
                     <a href="{% url 'comment_add' %}?next={{dish.dish_id}}">[add comment]</a>
                 </div>
-                
+            </div>
+            <div class="dish-mini-social-comments-and-likes">
                 <div class="dish-mini-likes">
                     Likes: {{ dish.like_chef_id.count }}
                     {% ifequal dish.like_chef_id.count 0 %}

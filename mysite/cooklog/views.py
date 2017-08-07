@@ -205,7 +205,7 @@ class RecipeCreate(CreateView):
 
 class RecipeUpdate(UpdateView):
     model = Recipe
-    fields = ['recipe_name', 'recipecategory_id', 'recipe_source', 'recipe_type', 'chef_id', 'date_created']
+    fields = ['recipe_name', 'recipecategory_id', 'recipe_source', 'recipe_method','recipe_comments', 'chef_id', 'date_created']
     def get_success_url(self):
         return '/cooklog/recipe/' + str(self.object.recipe_id) + '/'
 

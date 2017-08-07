@@ -64,7 +64,6 @@ class Recipe(models.Model):
     recipe_method = models.TextField("Recipe method", blank = True, null = True)
     recipe_comments = models.TextField("Recipe comments", blank = True, null = True)
     chef_id = models.ForeignKey(Chef, on_delete = models.SET_NULL, blank=True, null=True)
-    
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
     def __str__(self):
         return self.recipe_name

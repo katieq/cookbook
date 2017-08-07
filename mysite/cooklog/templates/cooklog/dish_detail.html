@@ -80,7 +80,7 @@
         Method:
     </div>
     <div class="dish-full-method">
-        {{object.dish_method|safe|hashtag_links}}
+        {{object.dish_method | safe | hashtag_links | linebreaks }}
     </div>
     
     {% if object.dish_comments %}
@@ -88,7 +88,7 @@
             Comments/Review:
         </div>
         <div class="dish-full-chef-comments">
-            {{ object.dish_comments|safe|hashtag_links }}
+            {{ object.dish_comments | safe | hashtag_links | linebreaks }}
         </div>
     {% endif %}
     

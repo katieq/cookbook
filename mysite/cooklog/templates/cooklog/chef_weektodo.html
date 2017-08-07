@@ -22,7 +22,7 @@
                 <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
             </div>
             <div class="dish-brief-inner-edit">
-                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
+                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a>
             </div>
             <div class="dish-brief-inner-name">
                 <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
@@ -41,7 +41,7 @@
 <p> </p>
 
 <div class="page-subtitle">
-    <a href="/cooklog/dish/add-todo/">Add new dish(to-do) <img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
+    <a href="/cooklog/dish/add-todo/">Add new dish(to-do) <i class="fa fa-pencil"></i></a>
 </div>
 
 
