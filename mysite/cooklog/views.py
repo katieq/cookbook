@@ -81,10 +81,10 @@ class HomePageView(TemplateView):
         context['followed_chefs'] = ChefFollows.objects.filter(follower_id = self.request.user.id).all()
         context['chefs'] = Chef.objects.filter(chef_id__in=context['followed_chefs']).all()
 
-        context['latest_dishs'] = Dish.objects.filter(dish_status=1, chef_id__in=context['chefs']).order_by("-date_created").all()[:10]
+        context['latest_dishs'] = Dish.objects.filter(dish_status=1).order_by("-date_created").all()[:10]
+        #context['latest_dishs'] = Dish.objects.filter(dish_status=1, chef_id__in=context['chefs']).order_by("-date_created").all()[:10]
         
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['latest_dishs'])
-        #context['latest_dishs'] = Dish.objects.filter(dish_status=1).order_by("-date_created").all()[:10]
 
         #context['latest_dish_likes'] = Likes.objects.filter(dish_id__in = context['latest_dishs'])
         #context['latest_dish_like_counts'] = Likes.objects.filter(dish_id__in=context['latest_dishs']).values('dish_id').annotate(count = Count('dish_id'))

@@ -14,13 +14,17 @@
 </div>
 
 
-{% comment %}
+
 <div class="dev">
+    {% for chef in followed_chefs.all %}
+    <p> this user {{chef.follower_id }} follows {{ chef.chef_id }} </p>
+    {% endfor %}
+
+
 {% for chef in chefs %}
 <p> this user {{chef.follower_id }} follows this chef {{ chef.chef_id }} </p>
 {% endfor %}
 </div>
-{% endcomment %}
 
 {% for dish in latest_dishs %}
 
