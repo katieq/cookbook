@@ -15,7 +15,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from cooklog import views
-from cooklog.views import ChefList, RecipeList, DishList, IngredientList
+from cooklog.views import ChefList, RecipeList, DishList, IngredientList, RecipeCategoryList
 from cooklog.views import HomePageView, RecipeDetailView, DishDetailView, ChefDetailView, IngredientDetailView
 from cooklog.views import ChefScheduleView, ChefWeekScheduleView, ChefBriefView
 from cooklog.views import ChefAlbumView, ChefWeekCountView, HomeAlbumView, IngredientAlbumView
@@ -27,7 +27,7 @@ from django.contrib.auth import views as auth_views
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from cooklog.views import my_image, NewCommentView, CommentDeleteView, NewLikeView # UploadImageView, ,
-from cooklog.views import RecipeChooseView
+from cooklog.views import RecipeChooseView, NewRecipeCategoryView
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
@@ -42,6 +42,7 @@ urlpatterns = [
                url(r'^chefs/$', ChefList.as_view()),
                url(r'^recipes/$', RecipeList.as_view()),
                url(r'^dishes/$', DishList.as_view()),
+               url(r'^recipecategories/$', RecipeCategoryList.as_view()),
                url(r'^ingredients/$', IngredientList.as_view()),
                url(r'^$', HomePageView.as_view(), name='home'),
                url(r'^album/$', HomeAlbumView.as_view(), name='home_album'),
@@ -75,5 +76,5 @@ urlpatterns = [
                url(r'^comment/$', NewCommentView.as_view(), name='comment_add'),
                url(r'^comment/delete/(?P<pk>[0-9]+)/$', CommentDeleteView.as_view(), name='comment_delete'),
                url(r'^dish/recipe_choose/(?P<pk>[0-9]+)/$', RecipeChooseView.as_view(), name='recipe_choose'),
-               #url(r'^mentions/', include('mentions.urls')),
+               url(r'^recipecategory/add/$', NewRecipeCategoryView.as_view(), name='new_recipe_category'),
 ]

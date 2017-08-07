@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows #Dish_Photo, #Likes,
+from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows, RecipeCategory #Dish_Photo
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
 from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, UpdateChefFollowsForm, NewLikeForm # UploadImageForm,
@@ -66,7 +66,10 @@ class RecipeList(ListView):
 class DishList(ListView):
     model = Dish
     context_object_name = 'all_dishes'
-    # ideally: send all photos in here too. maybe requires other than ListView
+
+class RecipeCategoryList(ListView):
+    model = RecipeCategory
+    context_object_name = 'all_recipe_categories'
 
 class IngredientList(ListView):
     model = Ingredient
@@ -455,7 +458,7 @@ class NewLikeView(UpdateView): # <- "built" based on RecipeChooseView, but uses 
         return Dish.objects.filter(dish_id=self.kwargs.get("pk", None))
     def get_success_url(self):
         if self.request.GET.get('next'):
-            if (str(self.request.GET.get('next'))=="0"):
+            if (str(self.request.GET.get('next'))=="0"):    # <- HM MAYBE this is incorrect way to do it?
                 return '/cooklog/'
             else:
                 return '/cooklog/chef/' + str(self.request.GET.get('next')) + '/'
@@ -464,6 +467,13 @@ class NewLikeView(UpdateView): # <- "built" based on RecipeChooseView, but uses 
     def get_initial(self):
         return {'like_chef_id' : self.request.user.id }
 
-
+class NewRecipeCategoryView(CreateView):
+    model = RecipeCategory
+    template_name = 'new_recipe_category_form.html'
+    fields = ['recipecategory_name', 'date_created']
+    def get_queryset(self):
+        return RecipeCategory.objects.filter(recipecategory_id=self.kwargs.get("pk", None))
+    def get_success_url(self):
+        return '/cooklog/recipecategories/'
 
 

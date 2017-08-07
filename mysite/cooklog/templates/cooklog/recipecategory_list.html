@@ -1,0 +1,18 @@
+{% extends 'cooklog/__base.html' %}
+
+{% block body_block %}
+
+
+<h3>Recipe categories</h3>
+##    todo: make better. and make recipeCategorydetail page... block showing "top recipes" in each! ##
+<p> </p>
+<p><a href="/cooklog/recipecategory/add/"> Add one! </a></p>
+
+
+<ul>
+    {% for recipe_category in all_recipe_categories %}
+    <li>{{ recipe_category.recipecategory_name }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

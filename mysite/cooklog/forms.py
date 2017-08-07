@@ -69,7 +69,7 @@ class NewDishShortForm(forms.ModelForm):
         
         self.fields['recipe_id'].label = "Recipe"
         self.fields['dish_name'].label = "Dish name"
-        self.fields['dish_method'].label = "Method"
+        self.fields['dish_method'].label = "Dish method (or changes from recipe)"
         self.fields['dish_comments'].label = "Your comments"
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Photo"
@@ -90,7 +90,7 @@ class NewDishTodoForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
-                  'date_created', 'date_scheduled', 'dish_source', 'dish_comments']
+                  'date_created', 'date_scheduled', 'dish_source', 'dish_comments', 'dish_method']
     
     def __init__(self, *args, **kwargs):
         super(NewDishTodoForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
@@ -102,6 +102,7 @@ class NewDishTodoForm(forms.ModelForm):
         self.fields['dish_name'].label = "Dish name"
         self.fields['dish_comments'].label = "Comments"
         self.fields['date_scheduled'].label = "When"
+        self.fields['dish_method'].label = "Dish method (or changes from recipe)"
         
         self.fields['dish_name'].widget.attrs['rows'] = 1
         self.fields['dish_name'].widget.attrs['cols'] = 50
@@ -137,7 +138,7 @@ class NewDishLongForm(forms.ModelForm):
         
         self.fields['recipe_id'].label = "Recipe"
         self.fields['dish_name'].label = "Dish name"
-        self.fields['dish_method'].label = "Method"
+        self.fields['dish_method'].label = "Dish method (or changes from recipe)"
         self.fields['dish_comments'].label = "Your comments"
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Photo"
@@ -185,7 +186,7 @@ class UpdateDishForm(forms.ModelForm):
 class NewRecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['recipe_name', 'recipecategory_id', 'recipe_source', 'recipe_type', 'chef_id','date_created']
+        fields = ['recipe_name', 'recipecategory_id', 'recipe_source', 'recipe_method', 'recipe_comments', 'chef_id','date_created']
     def __init__(self, *args, **kwargs):
         super(NewRecipeForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
         self.fields['chef_id'].widget = forms.HiddenInput()

@@ -19,7 +19,7 @@ class DishInline(admin.TabularInline):
 
 class RecipeAdmin(admin.ModelAdmin):
     # inlines = [DishInline] # <- Removed because Dish->Recipe is now ManyToMany
-    search_fields = ('recipe_name', 'recipe_type')
+    search_fields = ('recipe_name', 'recipecategory_id')
     list_display = ('recipe_name', 'date_created')
     list_filter = ('date_created',)
 

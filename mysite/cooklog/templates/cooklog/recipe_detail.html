@@ -13,14 +13,26 @@
     A {{object.recipe_type}} (first uploaded by <a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id.first_name }} {{ object.chef_id.last_name.0}}</a>)
 </div>
 
-{% if object.recipe_source %}
 <div class="page-subtitle">
     Source:
 </div>
 <div class="page-text">
 {{ object.recipe_source }}
 </div>
-{% endif %}
+
+<div class="page-subtitle">
+    Method:
+</div>
+<div class="page-text">
+    {{ object.recipe_method | linebreaks }}
+</div>
+
+<div class="page-subtitle">
+    Comments:
+</div>
+<div class="page-text">
+    {{ object.recipe_comments }}
+</div>
 
 <div class="page-subtitle">
     Dishes:

@@ -59,9 +59,12 @@ class Recipe(models.Model):
     recipe_id = models.AutoField(primary_key=True)
     recipecategory_id = models.ForeignKey(RecipeCategory, blank = True, null = True)
     recipe_name = models.CharField("Recipe name", max_length=200)
-    recipe_source = models.CharField("Recipe source", max_length=200)
-    recipe_type = models.CharField(max_length=30)
-    chef_id = models.ForeignKey(Chef) # removed on.delete=CASCADE, because if chef is deleted, I want to keep recipes
+    recipe_source = models.CharField("Recipe source", max_length=200, blank = True, null = True)
+    # recipe_type = models.CharField(max_length=30)
+    recipe_method = models.TextField("Recipe method", blank = True, null = True)
+    recipe_comments = models.TextField("Recipe comments", blank = True, null = True)
+    chef_id = models.ForeignKey(Chef, on_delete = models.SET_NULL, blank=True, null=True)
+    
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
     def __str__(self):
         return self.recipe_name

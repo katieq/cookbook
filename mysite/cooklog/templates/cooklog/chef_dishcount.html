@@ -22,18 +22,14 @@
 {% endfor %}
 
 <p> Recipe summary: </p>
-{% for x in week_recipe_count %}
-<p> ... {{ x.recipe_id__count }} dish{{ x.recipe_id__count|pluralize:",es"}} of the recipe with ID {{x.recipe_id}} </p>
+{% for item_x in week_recipe_count %}
+<p> ... {{ item_x.recipe_id__count }} dish{{ item_x.recipe_id__count|pluralize:",es"}} of the recipe with ID {{ item_x.recipe_name }} </p>
 {% empty %}
 <p> (no dishes) </p>
 {% endfor %}
 
 <p> Dish type summary: </p>
-{% for x in week_dishtype_count %}
-<p> ... {{ x.dishtype_id__count }} dish{{ x.dishtype_id__count|pluralize:",es"}} of type ID {{ x.dishtype_id }}  </p>
-{% empty %}
-<p> (no dishes) </p>
-{% endfor %}
+<p> todo </p>
 
 <div class="page-subtitle">
     dish summary for the last month:

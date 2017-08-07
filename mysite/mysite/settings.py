@@ -42,8 +42,8 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'cooklog.templatetags.app_extras',
     'annoying',
-                  #'taggit',
                   #'mentions',
+                  #'taggit',
 )
 
 #TAGGIT_CASE_INSENSITIVE = True
