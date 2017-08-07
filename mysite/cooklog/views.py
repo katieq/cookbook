@@ -76,19 +76,10 @@ class HomePageView(TemplateView):
     template_name = "home.html"
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        
-        # just to test:
-        context['followed_chefs'] = ChefFollows.objects.filter(follower_id = self.request.user.id).all()
-        context['chefs'] = Chef.objects.filter(chef_id__in=context['followed_chefs']).all()
-
-        context['latest_dishs'] = Dish.objects.filter(dish_status=1).order_by("-date_created").all()[:10]
-        #context['latest_dishs'] = Dish.objects.filter(dish_status=1, chef_id__in=context['chefs']).order_by("-date_created").all()[:10]
-        
+        context['latest_dishs'] = Dish.objects.filter(dish_status=1, \
+                                                      chef_id__followed_by = self.request.user.id). \
+            order_by("-date_created").all()[:10]
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['latest_dishs'])
-
-        #context['latest_dish_likes'] = Likes.objects.filter(dish_id__in = context['latest_dishs'])
-        #context['latest_dish_like_counts'] = Likes.objects.filter(dish_id__in=context['latest_dishs']).values('dish_id').annotate(count = Count('dish_id'))
-        #context['latest_dish_user_likes'] = Likes.objects.filter(dish_id__in=context['latest_dishs'], chef_id = self.request.user.id) # <- this gets the likes that *I*(logged in user) gave .. later: also get counts of total likes!
         return context
 
 class RecipeDetailView(DetailView):
@@ -173,7 +164,10 @@ class HomeAlbumView(TemplateView):
     template_name = "home_album.html"
     def get_context_data(self, **kwargs):
         context = super(HomeAlbumView, self).get_context_data(**kwargs)
-        context['dishes'] = Dish.objects.filter(dish_status = 1).order_by("-date_created").all()[:30]
+        #context['dishes'] = Dish.objects.filter(dish_status = 1).order_by("-date_created").all()[:30]
+        context['dishes'] = Dish.objects.filter(dish_status=1, \
+                                                      chef_id__followed_by = self.request.user.id). \
+            order_by("-date_created").all()[:30]
         return context
 
 

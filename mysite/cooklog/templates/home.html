@@ -13,22 +13,6 @@
     <a href="/cooklog/recipes/">recipe list</a>]
 </div>
 
-
-
-<div class="dev">
-    {% for chef in followed_chefs %}
-        <p> this user {{chef.follower_id }} follows {{ chef.chef_id.all }} </p>
-        {% for chef1 in chef.chef_id.all %}
-            that chef_id is {{ chef1.chef_id }}
-        {% endfor %}
-    {% endfor %}
-
-    .. apparently that is these users...
-    {% for chef in chefs %}
-    <p>  {{ chef.first_name }} with id {{ chef.chef_id }} but user_id {{ chef.chef_to_user_id }} </p>
-    {% endfor %}
-</div>
-
 {% for dish in latest_dishs %}
 
 {% comment %}
