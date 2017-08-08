@@ -6,16 +6,22 @@
 {% block body_block %}
 
 <div class="page-title">
-    {{object.first_name}}'s feed
+    {% ifequal user.id object.chef_id %}
+        My feed
+    {% else %}
+        {{object.first_name}}'s feed
+    {% endifequal %}
 </div>
 
 
+{% comment %}
 <div class="page-menu">
     [
     <a href="/cooklog/chef/todo/{{object.chef_id}}/">to-do list</a> |
     <a href="/cooklog/chef/brief/{{object.chef_id}}/">compact view</a> |
     <a href="/cooklog/chef/album/{{object.chef_id}}/">album view</a> ]
 </div>
+{% endcomment %}
 
 
 <div class="page-subtitle">
