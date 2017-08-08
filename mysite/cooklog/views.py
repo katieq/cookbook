@@ -101,7 +101,7 @@ class DishDetailView(DetailView):
         context = super(DishDetailView, self).get_context_data(**kwargs)
 
         exclude = set(string.punctuation)
-        s = ''.join(ch for ch in self.object.dish_name if ch not in exclude)
+        s = ''.join(ch for ch in self.object.dish_name.replace('-', ' ') if ch not in exclude)
         go_words = [word for word in s.lower().split() if word not in get_stop_words('en')]
             #+ [word for word in self.object.dish_method.lower().split() if word not in get_stop_words('en')]
         

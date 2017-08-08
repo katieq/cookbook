@@ -51,7 +51,10 @@
                 {% ifequal dish.recipe_id_id 1 %}
                 <a href="/cooklog/dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
                 {% else %}
-                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" height="14"/></a>
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><i class="fa fa-book"></i></a>
+                {% comment %}
+                <img src="{% static "emoji/img/chef.png" %}" height="14"/>
+                {% endcomment %}
                 {% endifequal %}
             </div> |
             <div class="dish-mini-stars">
