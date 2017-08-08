@@ -7,9 +7,9 @@
 
 <div class="page-title">
     {% ifequal user.id object.chef_id %}
-        My feed
+        My latest dishes
     {% else %}
-        {{object.first_name}}'s feed
+        {{object.first_name}}'s latest dishes
     {% endifequal %}
 </div>
 
@@ -23,10 +23,6 @@
 </div>
 {% endcomment %}
 
-
-<div class="page-subtitle">
-    latest dishes:
-</div>
 
 {% for dish in latest_dishes %}
 <div class="dish-mini">
@@ -167,8 +163,12 @@ No dishes yet.
 {% endfor %}
 
 
-<div class="page-subtitle">
-    best rated dishes:
+<div class="page-title">
+    {% ifequal user.id object.chef_id %}
+    My best rated dishes
+    {% else %}
+    {{object.first_name}}'s best rated dishes
+    {% endifequal %}
 </div>
 
 {% for dish in best_dishes %}
