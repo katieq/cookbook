@@ -77,33 +77,26 @@
             
             <div class="dish-mini-social-comments-and-likes">
                 <div class="dish-mini-comments" >
-                    Comments:
+                    <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"><i class="fa fa-comment" aria-hidden="true"></i></a>
                     {% for chef_comment in chef_comments %}
                     {% ifequal chef_comment.dish_id_id dish.dish_id %}
                     <div class="dish-mini-single-comment" >
                         <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a> <i> says </i> {{ chef_comment.chef_dish_comment }}
-                        <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/">[delete]</a>
+                        <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/">[<i class="fa fa-close" aria-hidden="true"></i>]</a>
                     </div>
                         {% endifequal %}
                     {% endfor %}
                 </div>
                 
                 <div class="dish-mini-button-add-comment">
-                    <a href="{% url 'comment_add' %}?next={{dish.dish_id}}">[add comment]</a>
                 </div>
             </div>
             <div class="dish-mini-social-comments-and-likes">
                 <div class="dish-mini-likes">
-                    Likes: {{ dish.like_chef_id.count }}
-                    {% ifequal dish.like_chef_id.count 0 %}
-                    {% else %}
-                    (
+                    <a href="/cooklog/like/{{dish.dish_id}}/?next=0"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a> ({{ dish.like_chef_id.count }}):
                     {% for chef_like in dish.like_chef_id.all %}
                     <a href="/cooklog/chef/{{chef_like.chef_id}}/">{{chef_like.first_name}}</a>,
                     {% endfor %}
-                    )
-                    {% endifequal %}
-                    <a href="/cooklog/like/{{dish.dish_id}}/?next=0">[like it]</a>
                 </div>
             </div>
             

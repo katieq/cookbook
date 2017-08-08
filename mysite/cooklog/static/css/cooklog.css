@@ -197,6 +197,9 @@ a:visited {
     background: #f6fbfc;
     margin-bottom: 2px;
 }
+.dish-mini-social-comments-and-likes a {
+    color: #F79273;
+}
 
 .dish-mini-single-comment {
     

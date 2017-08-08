@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Chef, Recipe, Ingredient, Dish, Chef_Dish_Comments, RecipeCategory, IngredientType, Maker, ChefFollows
+from .models import Chef, Recipe, Ingredient, Dish, Chef_Dish_Comments, RecipeCategory, IngredientType, Maker, ChefFollows, Bugs
 
 class RecipeInline(admin.TabularInline):
     model = Recipe
@@ -52,6 +52,11 @@ admin.site.register(Maker, MakerAdmin)
 admin.site.register(RecipeCategory)
 admin.site.register(Chef_Dish_Comments)
 admin.site.register(ChefFollows)
+
+class BugsAdmin(admin.ModelAdmin):
+    list_display = ('user_id','bug_comment','bug_status','date_created')
+
+admin.site.register(Bugs, BugsAdmin)
 
 
 

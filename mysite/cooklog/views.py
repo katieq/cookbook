@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows, RecipeCategory #Dish_Photo
+from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows, RecipeCategory, Bugs #Dish_Photo
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
 from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, UpdateChefFollowsForm, NewLikeForm # UploadImageForm,
@@ -476,4 +476,14 @@ class NewRecipeCategoryView(CreateView):
     def get_success_url(self):
         return '/cooklog/recipecategories/'
 
+class NewBugView(CreateView):
+    model = Bugs
+    template_name = 'new_bug_form.html'
+    fields = ['bug_comment']
+    def get_initial(self):
+        return {'user_id' : self.request.user.id }
+    def get_queryset(self):
+        return Bugs.objects.filter(bug_id=self.kwargs.get("pk", None))
+    def get_success_url(self):
+        return '/cooklog/'
 

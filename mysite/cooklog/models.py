@@ -174,7 +174,18 @@ class Chef_Dish_Comments(models.Model):   # avoided ever just comment, since res
     dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE)
     chef_id = models.ForeignKey(Chef, default=1, on_delete=models.CASCADE)
     chef_dish_comment = models.CharField("Chef dish comment", max_length = 800) # not sure what name should be?
+    date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
 
+class Bugs(models.Model):
+    bug_id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default = 1)
+    bug_comment = models.TextField("Site bug or feature request")
+    STATUS_CHOICES = ((u'1', u'Not started'),
+                      (u'2', u'Approved: on hold'),
+                      (u'3', u'Fixed'),
+                      (u'4', u'Denied/Ignored'))
+    bug_status = models.CharField("Bug status", max_length=1, choices=STATUS_CHOICES, default='1')
+    date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
 
 
 

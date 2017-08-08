@@ -27,7 +27,7 @@ from django.contrib.auth import views as auth_views
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from cooklog.views import my_image, NewCommentView, CommentDeleteView, NewLikeView # UploadImageView, ,
-from cooklog.views import RecipeChooseView, NewRecipeCategoryView
+from cooklog.views import RecipeChooseView, NewRecipeCategoryView, NewBugView
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
@@ -77,4 +77,5 @@ urlpatterns = [
                url(r'^comment/delete/(?P<pk>[0-9]+)/$', CommentDeleteView.as_view(), name='comment_delete'),
                url(r'^dish/recipe_choose/(?P<pk>[0-9]+)/$', RecipeChooseView.as_view(), name='recipe_choose'),
                url(r'^recipecategory/add/$', NewRecipeCategoryView.as_view(), name='new_recipe_category'),
+               url(r'^bug/add/$', NewBugView.as_view(), name='new_bug'),
 ]

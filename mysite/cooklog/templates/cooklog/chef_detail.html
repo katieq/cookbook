@@ -84,32 +84,26 @@
         </div>
         
         <div class="dish-mini-social-comments-and-likes">
+            <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"><i class="fa fa-comment" aria-hidden="true"></i></a>
             <div class="dish-mini-comments" >
                 {% for chef_comment in latest_chef_comments %}
                 {% ifequal chef_comment.dish_id_id dish.dish_id %}
                 <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a> <i> says </i> {{ chef_comment.chef_dish_comment }}
-                <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/">[delete]</a>
+                <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/">[<i class="fa fa-close" aria-hidden="true"></i>]</a>
                 {% endifequal %}
                 {% endfor %}
             </div>
             
             <div class="dish-mini-button-add-comment">
-                <a href="{% url 'comment_add' %}?next={{dish.dish_id}}">[add comment]</a>
             </div>
         </div>
         
         <div class="dish-mini-social-comments-and-likes">
             <div class="dish-mini-likes">
-                Likes: {{ dish.like_chef_id.count }}
-                {% ifequal dish.like_chef_id.count 0 %}
-                {% else %}
-                (
+                <a href="/cooklog/like/{{dish.dish_id}}/?next={{dish.chef_id_id}}"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a> ({{ dish.like_chef_id.count }}):
                 {% for chef_like in dish.like_chef_id.all %}
                 <a href="/cooklog/chef/{{chef_like.chef_id}}/">{{chef_like.first_name}}</a>,
                 {% endfor %}
-                )
-                {% endifequal %}
-                <a href="/cooklog/like/{{dish.dish_id}}/?next={{object.chef_id}}">[like it]</a>
             </div>
         </div>
         
@@ -215,34 +209,40 @@ No dishes yet.
             <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
         </div>
         
+        <div class="dish-mini-dish-method">
+            Method:
+            {{ dish.dish_method | safe | hashtag_links | truncatewords:10 }} <a href="/cooklog/dish/{{dish.dish_id}}/">   ... </a>
+        </div>
+        <div class="dish-mini-dish-comments">
+            <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }}</a>'s comments:
+            {{ dish.dish_comments | safe | hashtag_links | truncatewords:10 }} <a href="/cooklog/dish/{{dish.dish_id}}/"> ... </a>
+        </div>
+        
         <div class="dish-mini-social-comments-and-likes">
-            
+            <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"><i class="fa fa-comment" aria-hidden="true"></i></a>
             <div class="dish-mini-comments" >
-                {% for chef_comment in best_chef_comments %}
+                {% for chef_comment in latest_chef_comments %}
                 {% ifequal chef_comment.dish_id_id dish.dish_id %}
                 <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a> <i> says </i> {{ chef_comment.chef_dish_comment }}
-                <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/">[delete]</a>
+                <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/">[<i class="fa fa-close" aria-hidden="true"></i>]</a>
                 {% endifequal %}
                 {% endfor %}
             </div>
             
             <div class="dish-mini-button-add-comment">
-                <a href="{% url 'comment_add' %}?next={{dish.dish_id}}">[add comment]</a>
             </div>
-            
+        </div>
+        
+        <div class="dish-mini-social-comments-and-likes">
             <div class="dish-mini-likes">
-                Likes: {{ dish.like_chef_id.count }}
-                {% ifequal dish.like_chef_id.count 0 %}
-                {% else %}
-                (
+                <a href="/cooklog/like/{{dish.dish_id}}/?next={{dish.chef_id_id}}"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a> ({{ dish.like_chef_id.count }}):
                 {% for chef_like in dish.like_chef_id.all %}
                 <a href="/cooklog/chef/{{chef_like.chef_id}}/">{{chef_like.first_name}}</a>,
                 {% endfor %}
-                )
-                {% endifequal %}
-                <a href="/cooklog/like/{{dish.dish_id}}/?next={{object.chef_id}}">[like it]</a>
             </div>
         </div>
+        
+        
     </div>
 </div>
 {% empty %}
