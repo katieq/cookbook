@@ -45,6 +45,9 @@
                 {% endifequal %}
             </div>
             <div class="dish-mini-recipe-icon">
+                <a href="/cooklog/dish/add-todo/?next={{dish.recipe_id_id}}"><i class="fa fa-calendar-plus-o"></i></a> |
+            </div>
+            <div class="dish-mini-recipe-icon">
                 {% ifequal dish.recipe_id_id 1 %}
                 <a href="/cooklog/dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
                 {% else %}

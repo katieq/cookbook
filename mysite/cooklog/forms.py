@@ -86,11 +86,12 @@ class NewDishShortForm(forms.ModelForm):
 class NewDishTodoForm(forms.ModelForm):
     dish_name = forms.CharField(widget=forms.Textarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
+    dish_method = forms.CharField(widget=forms.Textarea)
     date_scheduled = forms.DateField(widget = SelectDateWidget(empty_label="Nothing"),initial=datetime.now())
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
-                  'date_created', 'date_scheduled', 'dish_source', 'dish_comments', 'dish_method']
+                  'date_created', 'date_scheduled', 'dish_source', 'dish_method', 'dish_comments']
     
     def __init__(self, *args, **kwargs):
         super(NewDishTodoForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
@@ -101,13 +102,16 @@ class NewDishTodoForm(forms.ModelForm):
         self.fields['recipe_id'].label = "Recipe"
         self.fields['dish_name'].label = "Dish name"
         self.fields['dish_comments'].label = "Comments"
-        self.fields['date_scheduled'].label = "When"
+        self.fields['date_scheduled'].label = "When to cook"
+        self.fields['dish_source'].label = "Recipe source (optional)"
         self.fields['dish_method'].label = "Dish method (or changes from recipe)"
         
         self.fields['dish_name'].widget.attrs['rows'] = 1
         self.fields['dish_name'].widget.attrs['cols'] = 50
         self.fields['dish_comments'].widget.attrs['cols'] = 50
         self.fields['dish_comments'].widget.attrs['rows'] = 5
+        self.fields['dish_method'].widget.attrs['cols'] = 50
+        self.fields['dish_method'].widget.attrs['rows'] = 5
         for key in self.fields:
             self.fields[key].required = False
 

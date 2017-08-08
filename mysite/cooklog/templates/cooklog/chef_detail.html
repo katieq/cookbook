@@ -49,9 +49,12 @@
         </div> |
         <div class="dish-mini-recipe-icon">
             {% ifequal user.id dish.chef_id_id %}
-            <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a>
+            <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a> |
             {% endifequal %}
-        </div> |
+        </div>
+        <div class="dish-mini-recipe-icon">
+            <a href="/cooklog/dish/add-todo/?next={{dish.recipe_id_id}}"><i class="fa fa-calendar-plus-o"></i></a> |
+        </div>
         <div class="dish-mini-recipe-icon">
             {% ifequal dish.recipe_id_id 1 %}
             <a href="/cooklog/dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
@@ -184,9 +187,12 @@ No dishes yet.
         </div> |
         <div class="dish-mini-recipe-icon">
             {% ifequal user.id dish.chef_id_id %}
-            <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a>
+            <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a> |
             {% endifequal %}
-        </div> |
+        </div>
+        <div class="dish-mini-recipe-icon">
+            <a href="/cooklog/dish/add-todo/?next={{dish.recipe_id_id}}"><i class="fa fa-calendar-plus-o"></i></a> |
+        </div>
         <div class="dish-mini-recipe-icon">
             {% ifequal dish.recipe_id_id 1 %}
             <a href="/cooklog/dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>

@@ -260,7 +260,7 @@ class DishTodoCreate(CreateView):
     template_name = 'new_dish_form.html'
     #success_url = '/cooklog/dishes/'
     def get_initial(self):
-        return {'chef_id' : self.request.user.id, 'dish_status': 2 } #self.request.GET.get('u') }
+        return {'chef_id' : self.request.user.id, 'dish_status': 2, 'recipe_id' : self.request.GET.get('next') } #self.request.GET.get('u') }
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 
