@@ -3,30 +3,28 @@
 {% load app_extras %}
 
 {% block body_block %}
+{% comment %}
 <div class="page-title">
     lastest feeds
 </div>
-
-<div class="page-menu">
-    [
-    <a href="/cooklog/album/">album view</a> |
-    <a href="/cooklog/ingredients/album/">ingredients album</a> |
-    <a href="/cooklog/ingredients/">ingredients list</a> |
-    <a href="/cooklog/recipes/">recipe list</a>]
-</div>
+{% endcomment %}
 
 {% for dish in latest_dishs %}
     <div class="dish-mini">
         <div class="dish-mini-image-column">
         {% if dish.dish_image %}
         <div class="crop-image">
-            <a href="dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
         </div>
         {% else %}
         <div class="crop-placeholder">
-            <a href="/cooklog/dish/{{dish.dish_id}}/"><img class="fa fa-plus"></a>
+            {% ifequal user.id dish.chef_id_id %}
+                <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img class="fa fa-plus"></a>
+            {% else %}
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><img class="fa fa-plus"></a>
+            {% endifequal %}
             {% comment %}
-            <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
+            <a href="dish/add-photo/{{dish.dish_id}}/?next=0"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
             {% endcomment %}
         </div>
         {% endif %}

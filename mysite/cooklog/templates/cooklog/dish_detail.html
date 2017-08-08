@@ -12,7 +12,7 @@
 
 {% ifequal dish.recipe_id_id 1 %}
 <div class="dev">
-    <p> Matched on having any of: {{ recipe_matcher }} </p>
+    <p> (Under development) Matched on having any of: {{ recipe_matcher }} </p>
 
     Testing out a search function:
     Choose an existing recipe...
@@ -58,12 +58,12 @@
     </div>
     <div class="dish-full-image-holder">
         {% if object.dish_image %}
-        <div class="dish-full-image">
-        <img src="/media/{{ object.dish_image }}" />
-        </div>
+            <div class="dish-full-image">
+                <img src="/media/{{ object.dish_image }}" />
+            </div>
         <p> {{ object.photo_comment}} </p>
         {% else %}
-        No photos yet, <a href="/cooklog/dish/add/{{object.dish_id}}">upload here [todo make photo-only upload page]. </a>
+        No photos yet, <a href="/cooklog/dish/add-photo/{{object.dish_id}}">upload here</a>
         {% endif %}
     </div>
     

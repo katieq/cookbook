@@ -16,12 +16,12 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from cooklog import views
 from cooklog.views import ChefList, RecipeList, DishList, IngredientList, RecipeCategoryList
-from cooklog.views import HomePageView, RecipeDetailView, DishDetailView, ChefDetailView, IngredientDetailView
+from cooklog.views import HomePageView, RecipeDetailView, DishDetailView, ChefDetailView, IngredientDetailView, RecipeCategoryDetailView
 from cooklog.views import ChefScheduleView, ChefWeekScheduleView, ChefBriefView
 from cooklog.views import ChefAlbumView, ChefWeekCountView, HomeAlbumView, IngredientAlbumView
 from cooklog.views import RecipeCreate, RecipeUpdate, RecipeDelete
 from cooklog.views import ChefCreate, ChefUpdate, ChefFollowsUpdate
-from cooklog.views import DishCreate, DishQuickCreate, DishTodoCreate, DishLongCreate, DishUpdate #, DishWeekTodoCreate
+from cooklog.views import DishCreate, DishQuickCreate, DishTodoCreate, DishLongCreate, DishUpdate, DishPhotoUpdate #, DishWeekTodoCreate
 from cooklog.views import IngredientCreate, IngredientUpdate #, IngredientDelete
 from django.contrib.auth import views as auth_views
 from django.views.generic.edit import CreateView
@@ -48,6 +48,7 @@ urlpatterns = [
                url(r'^album/$', HomeAlbumView.as_view(), name='home_album'),
                url(r'^ingredients/album/$', IngredientAlbumView.as_view(), name='ingredient_album'),
                url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
+               url(r'^recipecategory/(?P<pk>\d+)/$', RecipeCategoryDetailView.as_view(), name='recipecategory_detail'),
                url(r'^chef/(?P<pk>\d+)/$', ChefDetailView.as_view(), name='chef_detail'),
                url(r'^chef/todo/(?P<pk>\d+)/$', ChefScheduleView.as_view(template_name='cooklog/chef_todo.html'), name='chef_todo'),
                url(r'^chef/weektodo/(?P<pk>\d+)/$', ChefWeekScheduleView.as_view(template_name='cooklog/chef_weektodo.html'), name='chef_weektodo'),
@@ -68,6 +69,7 @@ urlpatterns = [
                # url(r'^dish/add-weektodo/$', DishWeekTodoCreate.as_view(), name='dish_add_weektodo'),
                url(r'^dish/add-full/$', DishLongCreate.as_view(), name='dish_add_long'),
                url(r'^dish/add/(?P<pk>[0-9]+)/$', DishUpdate.as_view(), name='dish_update'),
+               url(r'^dish/add-photo/(?P<pk>[0-9]+)/$', DishPhotoUpdate.as_view(), name='dish_photo_update'),
                url(r'^ingredient/add/$', IngredientCreate.as_view(), name='ingredient_add'),
                url(r'^ingredient/add/(?P<pk>[0-9]+)/$', IngredientUpdate.as_view(), name='ingredient_update'),
                url(r'^my_image/$', my_image),

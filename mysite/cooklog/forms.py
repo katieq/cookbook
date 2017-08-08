@@ -187,6 +187,16 @@ class UpdateDishForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = False
 
+class UpdateDishPhotoForm(forms.ModelForm):
+    class Meta:
+        model = Dish
+        fields = ['dish_name', 'dish_image'] #, 'photo_comment']
+    def __init__(self, *args, **kwargs):
+        super(UpdateDishPhotoForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        for key in self.fields:
+            self.fields[key].required = False
+
+
 class NewRecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe

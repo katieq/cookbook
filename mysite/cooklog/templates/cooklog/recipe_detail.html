@@ -68,13 +68,6 @@
             <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a> |
             {% endifequal %}
         </div>
-        <div class="dish-mini-recipe-icon">
-            {% ifequal dish.recipe_id_id 1 %}
-            <a href="/cooklog/dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
-            {% else %}
-            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" height="14"/></a>
-            {% endifequal %}
-        </div> |
         <div class="dish-mini-stars">
             {% if dish.dish_rating %}
             {% for i in "x"|rjust:dish.dish_rating %}

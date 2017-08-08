@@ -1,0 +1,27 @@
+{% extends 'cooklog/__base.html' %}
+{% load static %}
+{% load app_extras %}
+
+{% block body_block %}
+
+<div class="page-title">
+    {{ object.recipecategory_name }}
+</div>
+
+
+<div class="page-subtitle">
+    Recipes:
+</div>
+
+<ul>
+{% for recipe in recipes %}
+    <p><a href="/cooklog/recipe/{{recipe.recipe_id}}/">{{ recipe.recipe_name }}</a></p>
+{% empty %}
+    <div class="page-text">
+    No recipes yet
+    </div>
+{% endfor %}
+</ul>
+<a href="/cooklog/recipe/add/">Add recipe!</a>
+
+{% endblock %}

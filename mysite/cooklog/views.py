@@ -10,7 +10,7 @@ from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, C
 #from django.views.generic import CreateView
 from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, UpdateChefFollowsForm, NewLikeForm # UploadImageForm,
 from cooklog.forms import RecipeChooseForm
-from cooklog.forms import UpdateDishForm #, NewDishWeekTodoForm
+from cooklog.forms import UpdateDishForm, UpdateDishPhotoForm #, NewDishWeekTodoForm
 from django import forms
 from django.forms.formsets import formset_factory
 from django.db.models import Count
@@ -91,8 +91,13 @@ class RecipeDetailView(DetailView):
         context = super(RecipeDetailView,
                         self).get_context_data(**kwargs)
         context['dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).order_by("-date_created")
-        #context['photos'] = Dish_Photo.objects.filter(dish_id = context['dishes']) # hm, only returns for first one?!
-        #context['now'] = timezone.now()
+        return context
+
+class RecipeCategoryDetailView(DetailView):
+    model = RecipeCategory
+    def get_context_data(self, **kwargs):
+        context = super(RecipeCategoryDetailView, self).get_context_data(**kwargs)
+        context['recipes'] = Recipe.objects.filter(recipecategory_id = self.object.recipecategory_id).order_by("-date_created")
         return context
 
 class DishDetailView(DetailView):
@@ -300,6 +305,19 @@ class DishUpdate(UpdateView):
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 
+class DishPhotoUpdate(UpdateView):
+    template_name = 'update_dish_photo_form.html'
+    form_class = UpdateDishPhotoForm
+    def get_queryset(self):
+        return Dish.objects.filter(dish_id=self.kwargs.get("pk", None))
+    def get_success_url(self):
+        if self.request.GET.get('next'):
+            if (str(self.request.GET.get('next'))=="0"):
+                return '/cooklog/'
+            else:
+                return '/cooklog/chef/' + str(self.request.GET.get('next')) + '/'
+        else:
+            return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 
 class ChefWeekCountView(DetailView):
     model = Chef
