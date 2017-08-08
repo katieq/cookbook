@@ -82,7 +82,7 @@
 <div class="w3-main" style="margin-left:60px">
     
     <div class="w3">
-<head>
+    <head>
         <div class="page-header">
             <div class="page-header-menu-button" style="float: left; white-space: nowrap;">
                 <button class="w3-button w3-xlarge" onclick="w3_open()">&#9776;</button>
@@ -90,56 +90,6 @@
             <div class="page-header-title">
                 <a href="/cooklog/">COOKQUO</a>
             </div>
-            
-            {% comment %}
-            <div class="page-header-menu" style="float:left;">
-                {
-                <div class="dropdown">
-                    <button class="dropbtn"><a href="/cooklog/dish/new/">new</a></button>
-                    <div class="dropdown-content">
-                        <a href="/cooklog/dish/new/">Dish(quick)</a>
-                        <a href="/cooklog/dish/add/">Dish(short)</a>
-                        <a href="/cooklog/dish/add-full/">Dish(long)</a>
-                        <a href="/cooklog/dish/add-todo/">Dish(to-do)</a>
-                        <a href="/cooklog/recipe/add/">Recipe</a>
-                        <a href="/cooklog/ingredient/add/">Ingredient</a>
-                    </div>
-                </div> |
-                <div class="dropdown">
-                    {% if user.is_authenticated %}
-                    <button class="dropbtn"><a href="/cooklog/chef/{{user.id}}">me</a></button>
-                    <div class="dropdown-content">
-                        <a href="/cooklog/chef/todo/{{user.id}}">My to-do</a>
-                        <a href="/cooklog/chef/brief/{{user.id}}">Compact</a>
-                        <a href="/cooklog/chef/album/{{user.id}}">Album</a>
-                        <a href="/cooklog/chef/dishcount/{{user.id}}">Summary</a>
-                        <a href="/cooklog/logout/">Logout[{{ user.username }}]</a>
-                    </div>
-                    {% else %}
-                    <button class="dropbtn">user</button>
-                    <div class="dropdown-content">
-                        <a href="/cooklog/login/">Login</a>
-                        <a href="/cooklog/register/">Register</a>
-                    </div>
-                    {% endif %}
-                </div> |
-                <div class="dropdown">
-                    <button class="dropbtn"><a href="/cooklog/chef/weektodo/{{user.id}}"> plan </a></button>
-                    <div class="dropdown-content">
-                        <a href="/cooklog/chef/weektodo/{{user.id}}">My week plan</a>
-                        <a href="/cooklog/dish/add-todo/">New dish(to-do)</a>
-                    </div>
-                </div>
-                }
-            </div>
-            <div class="page-header-menu-search">
-                <form action="{% url 'search_results' %}" method="get">
-                    <input type="text" name="q" style="width: 120px; font-size: 14px;"/>
-                    <button type="submit" style="width: 60px; font-size: 14px;"/>search</button>
-                </form>
-            </div>
-            {% endcomment %}
-             
         </div>
     </head>
     

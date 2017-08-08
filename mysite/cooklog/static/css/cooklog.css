@@ -12,10 +12,7 @@ body {
 }
 
 footer {
-    background-color: #ADD8E6; /*#99D1B7;*/
-    padding-bottom: 0px;
-    font-family: 'Merriweather', serif;
-    padding: 10px 5px 10px 10px;
+
 }
 
 h5 {
@@ -74,8 +71,12 @@ a:visited {
 
 .page-footer {
     font-size: 14px;
-    padding-left: 30px;
+    padding-left: 10px;
     color: #F79273;
+    background-color: #ADD8E6; /*#99D1B7;*/
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: 'Merriweather', serif;
 }
 
 .page-menu {
@@ -133,8 +134,10 @@ a:visited {
     width: 60%; /* mobile should be 100%!*/
 }
 
+
 .dish-mini-image-column {
-    display: inline-block;
+    display: inline-table;
+    vertical-align: top;
     width: 30%;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -142,8 +145,11 @@ a:visited {
 }
 
 .dish-mini-text-column {
-    display: inline-block;
+    display: inline-table;
+    vertical-align: top;
+    margin-top: 10px;
     margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .dish-mini-stars {
@@ -159,7 +165,6 @@ a:visited {
 }
 .dish-mini-dish-name {
     width: 300px;
-    height: 50px;
     vertical-align: top;
 }
 .dish-mini-dish-name a{
@@ -184,24 +189,28 @@ a:visited {
     font-size: 10px;
     background: #f6fbfc;
     margin-bottom: 2px;
+    width: 280px;
 }
 
 .dish-mini-dish-comments {
     font-size: 10px;
     background: #f6fbfc;
     margin-bottom: 2px;
+    width: 280px;
 }
 
 .dish-mini-social-comments-and-likes {
     font-size: 10px;
     background: #f6fbfc;
     margin-bottom: 2px;
+    width: 280px;
 }
 .dish-mini-social-comments-and-likes a {
     color: #F79273;
 }
 
 .dish-mini-single-comment {
+    width: 275px;
     
 }
 
@@ -482,8 +491,8 @@ a:visited {
 }
 
 .dish-full {
-    padding-left: 40px;
-    padding-bottom: 40px;
+    margin-left: 40px;
+    margin-bottom: 40px;
 }
 
 .dish-full-stars {
