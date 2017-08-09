@@ -28,8 +28,6 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from cooklog.views import my_image, NewCommentView, CommentDeleteView, NewLikeView # UploadImageView, ,
 from cooklog.views import RecipeChooseView, NewRecipeCategoryView, NewBugView
-from cooklog.views import RecipeAutocomplete
-
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
@@ -82,5 +80,4 @@ urlpatterns = [
                url(r'^dish/recipe_choose/(?P<pk>[0-9]+)/$', RecipeChooseView.as_view(), name='recipe_choose'),
                url(r'^recipecategory/add/$', NewRecipeCategoryView.as_view(), name='new_recipe_category'),
                url(r'^bug/add/$', NewBugView.as_view(), name='new_bug'),
-               url(r'^recipe-autocomplete/$', RecipeAutocomplete.as_view(), name='recipe-autocomplete'),
 ]

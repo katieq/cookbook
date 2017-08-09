@@ -23,19 +23,6 @@ from functools import reduce
 #from nltk.corpus import stopwords # <- used for "search match" of existing recipe name to dish name,
 from stop_words import get_stop_words
 import string
-from dal import autocomplete
-
-
-class RecipeAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
-        if not self.request.user.is_authenticated():
-            return Recipe.objects.none()
-        qs = Recipe.objects.all()
-        if self.q:
-            qs = qs.filter(recipe_name__icontains=self.q)
-        return qs
-
 
 # Create your views here.
 def display_meta(request):

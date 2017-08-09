@@ -3,9 +3,6 @@ from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.extras.widgets import SelectDateWidget
 from cooklog.models import Dish, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows ##Likes,
 from datetime import datetime
-from dal import autocomplete
-
-
 # from django.forms import inlineformset_factory
 
 #from mentions.forms import MentionTextarea
@@ -55,6 +52,7 @@ class NewDishQuickForm(forms.ModelForm):
 
 
 class NewDishShortForm(forms.ModelForm):
+    dish_name = forms.CharField(widget=forms.Textarea)
     dish_method = forms.CharField(widget=forms.Textarea) #MentionTextarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
     class Meta:
@@ -62,9 +60,7 @@ class NewDishShortForm(forms.ModelForm):
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
                   'date_created', 'dish_method',
                   'dish_comments', 'dish_rating', 'dish_image']
-#        widgets = {
-#            'recipe_id': autocomplete.ModelSelect2(url='recipe-autocomplete'),
-#        }
+    
     def __init__(self, *args, **kwargs):
         super(NewDishShortForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
         self.fields['chef_id'].widget = forms.HiddenInput()
@@ -78,6 +74,8 @@ class NewDishShortForm(forms.ModelForm):
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Photo"
         
+        self.fields['dish_name'].widget.attrs['rows'] = 1
+        self.fields['dish_name'].widget.attrs['cols'] = 50
         self.fields['dish_method'].widget.attrs['cols'] = 50
         self.fields['dish_method'].widget.attrs['rows'] = 5
         self.fields['dish_comments'].widget.attrs['cols'] = 50
@@ -85,8 +83,8 @@ class NewDishShortForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = False
 
-
 class NewDishTodoForm(forms.ModelForm):
+    dish_name = forms.CharField(widget=forms.Textarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
     dish_method = forms.CharField(widget=forms.Textarea)
     date_scheduled = forms.DateField(widget = SelectDateWidget(empty_label="Nothing"),initial=datetime.now())
@@ -108,6 +106,8 @@ class NewDishTodoForm(forms.ModelForm):
         self.fields['dish_source'].label = "Recipe source (optional)"
         self.fields['dish_method'].label = "Dish method (or changes from recipe)"
         
+        self.fields['dish_name'].widget.attrs['rows'] = 1
+        self.fields['dish_name'].widget.attrs['cols'] = 50
         self.fields['dish_comments'].widget.attrs['cols'] = 50
         self.fields['dish_comments'].widget.attrs['rows'] = 5
         self.fields['dish_method'].widget.attrs['cols'] = 50
