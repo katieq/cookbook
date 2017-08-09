@@ -3,7 +3,7 @@ h2 a {
 }
 
 body {
-    background-color: #f8fbfd;
+    background-color: #e8f3f3; /*#eef7fa; /*#d3d3d3;*/ /*FFFEEE;*/
     color: #000000;
     font-family: 'Roboto';
 }
@@ -32,18 +32,17 @@ a:visited {
 
 .w3-sidebar {
     font-size: 18px;
-    color: #F79273;
+    color: #FF7200;
 }
 .w3-sidebar a {
-    color: #F79273;
+    color: #FF7200;
 }
 
 
 
 .page-header {
-    background-color: #add8e6; /*#99D1B7;*/
+    background-color: #218E8A; /*#99D1B7;*/
     margin-top: 0;
-    margin-left: -5px;
     padding: 0px 0px 0px 0px;
     height: 50px;
     float: left;
@@ -53,7 +52,7 @@ a:visited {
 .page-header-title a {
     font-size: 36px;
     font-weight: bold;
-    color: #B1654B; /*#ca2558;*/
+    color: #b4214e; /*#ca2558;*/
     font-family:  'Roboto';
 }
 
@@ -68,7 +67,7 @@ a:visited {
 }
 
 .page-header-menu-button {
-    color: #F79273;
+    color: #FF7200;
 }
 
 .page-header-menu-search {
@@ -81,7 +80,7 @@ a:visited {
 
 .page-footer {
     font-size: 10px;
-    color: #e75481;
+    color: #FF7200;
     background-color: #218E8A; /*#99D1B7;*/
     padding-bottom: 10px;
     padding-top: 10px;
@@ -109,7 +108,7 @@ a:visited {
     margin-left: 10px;
     margin-top: 0px;
     margin-bottom: 0px;
-    color: #F79273;
+    color: #FEB538;
     font-size: 18px;
 }
 
@@ -131,7 +130,7 @@ a:visited {
     width: 30%;
 }
 .dish-header-chef a {
-    color: #B1654B;
+    color: #4d0767;
     font-weight: bold;
     margin-left: 10px;
     font-size: 14px;
@@ -139,19 +138,19 @@ a:visited {
 
 .dish-header-center {
     font-size: 12px;
-    color: #F79273;
+    color: #E12A62;
     display: inline-block;
     width: 45%;
     margin-top: 2px;
 }
 
 .dish-header-right {
-    color: #FDC08E;
+    color: #FF7200;
     display: inline-block;
     width: 20%;
 }
 .dish-header-right a {
-    color: #FDC08E;
+    color: #FF7200;
     font-size: 14px;
 }
 
@@ -161,7 +160,7 @@ a:visited {
     font-weight: 700;
 }
 .dish-header-recipe-name a {
-    color: #B1654B;
+    color: #4d0767;
 }
 .dish-header-dish-name {
     margin-left: 10px;
@@ -169,7 +168,7 @@ a:visited {
     font-weight: 500;
 }
 .dish-header-dish-name a {
-    color: #B1654B;
+    color: #4d0767;
 }
 
 .dish-photo {
@@ -180,13 +179,13 @@ a:visited {
     width: 100%;
     height: 300px;
     object-fit: cover;
-    border: 5px solid #feda9d;
+    border: 5px solid #FEB538;
 }
 
 .dish-photo-placeholder img {
     width: 100%;
     object-fit: cover;
-    border: 5px solid #feda9d;
+    border: 5px solid #FEB538;
 }
 
 .dish-bottom {
@@ -205,13 +204,13 @@ a:visited {
     background: #ffffff;
 }
 .dish-likes-like {
-    color: #F79273;
+    color: #E12A62;
     font-size: 14px;
     display: inline-block;
     width: 30px;
 }
 .dish-likes-like a {
-    color: #F79273;
+    color: #E12A62;
     font-size: 14px;
 }
 .dish-likes-chef-list {
@@ -219,7 +218,7 @@ a:visited {
     display: inline-block;
 }
 .dish-likes-chef-list a {
-    color: #B1654B
+    color: #4d0767
 }
 .dish-comments {
     background: #ffffff;
@@ -234,7 +233,7 @@ a:visited {
     font-size: 14px;
 }
 .dish-comments-icon a{
-    color: #FDC08E;
+    color: #FF7200;
 }
 .dish-comments-wrapper {
     display: inline-block;
@@ -247,7 +246,7 @@ a:visited {
     width: 40px;
 }
 .dish-comments-name a{
-    color: #B1654B;
+    color: #4d0767;
 }
 .dish-comments-comment {
     display: inline-block;
@@ -260,22 +259,22 @@ a:visited {
     margin-bottom: 0px;
 }
 .detail-title {
-    color: #F79273;
+    color: #FEB538;
     font-size: 18px;
     display: inline-block;
     width: 500px;
 }
 .detail-title a{
-    color: #B1654B;
+    color: #4d0767;
     font-size: 18px;
 }
 .detail-head-right {
-    color: #FDC08E;
+    color: #FF7200;
     display: inline-block;
     width: 20%;
 }
 .detail-head-right a {
-    color: #FDC08E;
+    color: #FF7200;
     font-size: 14px;
 }
 .detail-text {
@@ -291,7 +290,7 @@ a:visited {
     margin-top: 5px;
 }
 .detail-text-section a{
-    color: #F79273;
+    color: #E12A62;
 }
 .detail-text-section-left {
     display: inline-block;
@@ -314,13 +313,13 @@ a:visited {
     max-width: 300px;
     height: 300px;
     object-fit: cover;
-    border: 5px solid #feda9d;
+    border: 5px solid #FEB538;
 }
 .detail-photo-placeholder img {
     width: 100%;
     max-width: 300px;
     object-fit: cover;
-    border: 5px solid #feda9d;
+    border: 5px solid #FEB538;
 }
 .detail-likes {
     margin-left: 10px;

@@ -35,9 +35,9 @@
         {% else %}
         <div class="crop-placeholder">
             {% ifequal user.id dish.chef_id_id %}
-            <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
+            <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img class="fa fa-plus"></a>
             {% else %}
-            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
+            <a href="/cooklog/dish/{{dish.dish_id}}/"><img class="fa fa-plus"></a>
             {% endifequal %}
             {% comment %}
             <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>
