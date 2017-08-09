@@ -24,7 +24,7 @@
     <div class="dish-header-chef" style="width: 100px;">
         <a href="/cooklog/chef/{{object.chef_id_id}}/">{{ object.chef_id.first_name }} {{object.chef_id.last_name.0}}</a>
     </div>
-    <div class="dish-header-center" style="width: 140px;">
+    <div class="dish-header-center" style="width: 180px;">
         {{ object.date_created|date:"D M.d"|lower }} &middot;
         {% if object.dish_rating %}
         {% for i in "x"|rjust:object.dish_rating %}
