@@ -76,6 +76,10 @@
     <a href="#" class="w3-bar-item w3-button"><i class="fa fa-bell-o"></i></a>
     <a href="/cooklog/bug/add/" class="w3-bar-item w3-button"><i class="fa fa-bug"></i><i class="fa fa-exclamation"></i></a>
     
+    <div class="footer-text" style="font-size: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px;">
+    ("cookquo" is a play on "coquo" = latin for "to cook")
+    </div>
+    
     
 </div>
 
@@ -94,22 +98,17 @@
     </head>
     
     <body>
-        
-        {% comment %}
-        <hr />
-        {% endcomment %}
-        
         <div class="page-body">
             {% block body_block %}{% endblock %}
         </div>
-        
-
     </body>
     
     <footer>
+        {% comment %}
         <div class="page-footer">
             ("cookquo" is a play on "coquo" = latin for "to cook") .. or cooko | cooklook | cookbook | ... a cooking log.
         </div>
+        {% endcomment %}
     </footer>
     </div>
 </div>

@@ -140,7 +140,7 @@ class Dish(models.Model):
                                    null=True, blank=True)
     dish_rating = models.IntegerField("Dish rating", validators=[MaxValueValidator(5), MinValueValidator(0)],
                                       null=True, blank=True)
-    dish_comments = models.CharField("Dish comments", max_length=800,
+    dish_comments = models.CharField("Dish review", max_length=800,
                                      null=True, blank=True) # my own comments about how I liked it..
     ingredient_id = models.ManyToManyField(Ingredient,  blank=True)
     ##can't have two fields to Chef? like_chef_id = models.ManyToManyField(Chef) # tie to dish, instead of its own Likes model. AGH! I think you can! but just needs related_name! thus can remove the "likes" model..??
@@ -179,7 +179,7 @@ class Chef_Dish_Comments(models.Model):   # avoided ever just comment, since res
 class Bugs(models.Model):
     bug_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default = 1)
-    bug_comment = models.TextField("Site bug or feature request")
+    bug_comment = models.TextField("Bug comment")
     STATUS_CHOICES = ((u'1', u'Not started'),
                       (u'2', u'Approved: on hold'),
                       (u'3', u'Fixed'),

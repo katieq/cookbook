@@ -90,7 +90,8 @@ class RecipeDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(RecipeDetailView,
                         self).get_context_data(**kwargs)
-        context['dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).order_by("-date_created")
+        if (self.object.recipe_id != 1):
+            context['dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).order_by("-date_created")
         return context
 
 class RecipeCategoryDetailView(DetailView):

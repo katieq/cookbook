@@ -122,7 +122,6 @@ class NewDishLongForm(forms.ModelForm):
     #              'dish_comments', 'ingredient_id', 'date_created']
     #long_desc = forms.CharField(widget=forms.Textarea)
     #short_desc = forms.CharField(widget=forms.Textarea)
-    dish_name = forms.CharField(widget=forms.Textarea)
     dish_method = forms.CharField(widget=forms.Textarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
     photo_comment = forms.CharField(widget=forms.Textarea)
@@ -147,8 +146,6 @@ class NewDishLongForm(forms.ModelForm):
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Photo"
         
-        self.fields['dish_name'].widget.attrs['rows'] = 1
-        self.fields['dish_name'].widget.attrs['cols'] = 80
         self.fields['dish_method'].widget.attrs['cols'] = 80
         self.fields['dish_method'].widget.attrs['rows'] = 5
         self.fields['dish_comments'].widget.attrs['cols'] = 80
@@ -214,6 +211,7 @@ class UpdateChefFollowsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UpdateChefFollowsForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
         self.fields['follower_id'].widget = forms.HiddenInput()
+        self.fields['chef_id'].widget.attrs['size']= 10
         for key in self.fields:
             self.fields[key].required = False
 

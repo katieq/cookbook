@@ -4,39 +4,52 @@
 
 {% block body_block %}
 
-<div class="page-title">
-    {{ object.recipe_name }}
-</div>
-<div class="page-text">
-    <a href="/cooklog/recipe/add/{{object.recipe_id}}/">Edit recipe </a>
-</div>
-<div class="page-text">
-    A {{object.recipe_type}} (first uploaded by <a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id.first_name }} {{ object.chef_id.last_name.0}}</a>)
-</div>
-
-<div class="page-subtitle">
-    Source:
-</div>
-<div class="page-text">
-{{ object.recipe_source }}
+<div class="detail-head">
+    <div class="detail-title">
+    Recipe: <a href="/cooklog/recipe/{{object.recipe_id}}/"> {{ object.recipe_name }} </a>
+    </div>
+    <div class="detail-head-right">
+        <a href="/cooklog/dish/add-todo/?next={{object.recipe_id_id}}"><i class="fa fa-calendar-plus-o"></i></a> &middot;
+        <a href="/cooklog/recipe/add/{{object.recipe_id}}/"><i class="fa fa-pencil"></i></a>
+    </div>
 </div>
 
-<div class="page-subtitle">
-    Method:
-</div>
-<div class="page-text">
-    {{ object.recipe_method | safe | hashtag_links | linebreaks  }}
+<div class="detail-text">
+    
+    <div class="detail-text-section">
+        A <a href="/cooklog/recipecategory/{{object.recipecategory_id_id}}/">{{object.recipecategory_id}}</a> (first uploaded by <a href="../../chef/{{object.chef_id_id}}/">{{ object.chef_id.first_name }} {{ object.chef_id.last_name.0}}</a>)
+    </div>
+    <div class="detail-text-section">
+        <div class="detail-text-section-left">
+            Source:
+        </div>
+        <div class="detail-text-section-right">
+            {{ object.recipe_source }}
+        </div>
+    </div>
+    <div class="detail-text-section">
+        <div class="detail-text-section-left">
+            Method:
+        </div>
+        <div class="detail-text-section-right">
+            {{ object.recipe_method | safe | hashtag_links | linebreaks  }}
+        </div>
+    </div>
+    <div class="detail-text-section">
+        <div class="detail-text-section-left">
+            Notes:
+        </div>
+        <div class="detail-text-section-right">
+            {{ object.recipe_comments | safe | hashtag_links | linebreaks  }}
+        </div>
+    </div>
 </div>
 
-<div class="page-subtitle">
-    Comments:
-</div>
-<div class="page-text">
-    {{ object.recipe_comments | safe | hashtag_links | linebreaks  }}
-</div>
 
-<div class="page-subtitle">
+<div class="detail-head">
+    <div class="detail-title">
     Dishes:
+    </div>
 </div>
 
 {% for dish in dishes %}

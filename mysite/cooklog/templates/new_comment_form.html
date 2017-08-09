@@ -1,8 +1,14 @@
+{% extends 'cooklog/__base.html' %}
+
+
 <html>
     <head>
         <title>New comment</title>
     </head>
-    <body>
+    
+    {% block body_block %}
+
+    <div class="form body" style="margin-left: 10px">
         {% comment %}
         <h3>Make a comment about ...</h3>
         <ul><h2> {{ dish.dish_name }} </h2></ul>
@@ -24,5 +30,9 @@
         
         <h6> Sorry this is on its own ugly page! It's on the list of things to solve.. </h6>
 
-    </body>
+    </div>
+    
+    {% endblock %}
+
+
 </html>

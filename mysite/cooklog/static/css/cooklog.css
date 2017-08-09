@@ -37,9 +37,7 @@ a:visited {
 .w3-sidebar a {
     color: #FF7200;
 }
-.page-body{
-    margin-left: 0px;
-}
+
 
 
 .page-header {
@@ -159,7 +157,7 @@ a:visited {
 .dish-header-recipe-name {
     margin-left: 10px;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
 }
 .dish-header-recipe-name a {
     color: #4d0767;
@@ -167,6 +165,7 @@ a:visited {
 .dish-header-dish-name {
     margin-left: 10px;
     font-size: 14px;
+    font-weight: 500;
 }
 .dish-header-dish-name a {
     color: #4d0767;
@@ -254,6 +253,82 @@ a:visited {
 }
 
 
+.detail-head {
+    margin-left: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.detail-title {
+    color: #FEB538;
+    font-size: 18px;
+    display: inline-block;
+    width: 300px;
+}
+.detail-title a{
+    color: #4d0767;
+    font-size: 18px;
+}
+.detail-head-right {
+    color: #FF7200;
+    display: inline-block;
+    width: 20%;
+}
+.detail-head-right a {
+    color: #FF7200;
+    font-size: 14px;
+}
+.detail-text {
+    background: #ffffff;
+    margin-left: 10px;
+    width: 100%;
+    max-width: 500px;
+    vertical-align: top;
+    margin-bottom: 10px;
+}
+.detail-text-section {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.detail-text-section a{
+    color: #E12A62;
+}
+.detail-text-section-left {
+    display: inline-block;
+    width: 60px;
+    vertical-align: top;
+}
+.detail-text-section-right {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 400px;
+}
+
+.detail-photo {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+.detail-photo-image img {
+    width: 100%;
+    max-width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border: 5px solid #FEB538;
+}
+.detail-photo-placeholder img {
+    width: 100%;
+    max-width: 300px;
+    object-fit: cover;
+    border: 5px solid #FEB538;
+}
+.detail-likes {
+    margin-left: 10px;
+}
+.detail-comments {
+    .margin-left: 10px;
+}
+
+
 
 
 
@@ -282,6 +357,7 @@ a:visited {
 
 
 .dish-mini {
+    margin-left: 10px;
     min-height: 110px;
     background: #ffffff;
     margin-bottom: 10px;
@@ -292,7 +368,7 @@ a:visited {
 .dish-mini-image-column {
     display: inline-table;
     vertical-align: top;
-    width: 30%;
+    max-width: 200px;
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
