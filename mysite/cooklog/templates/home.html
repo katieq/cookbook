@@ -45,9 +45,9 @@
             {% else %}
             <div class="dish-photo-placeholder">
                 {% ifequal user.id dish.chef_id_id %}
-                    <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img src="{% static "emoji/img/photo-placeholder-dish.png" %}"/></a>
+                    <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
                 {% else %}
-                    <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/photo-placeholder-dish.png" %}"/></a>
+                    <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
                 {% endifequal %}
             </div>
             {% endif %}
