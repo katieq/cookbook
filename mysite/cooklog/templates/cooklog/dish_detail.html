@@ -6,7 +6,11 @@
 {% block body_block %}
 
 <div class="page-title">
-<a href="../../chef/{{object.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}'s</a> {{ object.dish_name }}
+    {% ifequal dish.recipe_id_id 1 %}
+        <a href="../../chef/{{object.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}'s</a> {{ object.dish_name }}
+    {% else %}
+    <a href="../../chef/{{object.chef_id_id}}/">{{ dish.chef_id.first_name }} {{ dish.chef_id.last_name.0}}'s</a> <a href="../../recipe/{{object.recipe_id_id}}/">{{object.recipe_id }}</a> dish: {{ object.dish_name }}
+    {% endifequal %}
 </div>
 
 

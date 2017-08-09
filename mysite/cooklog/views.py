@@ -46,10 +46,10 @@ def search(request): # this still works for searching dish names!
             errors.append('Please enter at most 40 characters.')
         else:
             #dishes = Dish.objects.filter(dish_method__icontains=q).order_by("date_created").all()
-            dishes = Dish.objects.filter(Q(dish_method__icontains=q) | Q(dish_name__icontains=q)).order_by("date_created").all()
-            recipes = Recipe.objects.filter(recipe_name__icontains=q).order_by("date_created").all()
-            chefs = Chef.objects.filter(first_name__icontains=q).all()
-            ingredients = Ingredient.objects.filter(ingredient_name__icontains=q).all()
+            dishes = Dish.objects.filter(Q(dish_method__icontains=q) | Q(dish_name__icontains=q)).order_by("date_created").all()[:10]
+            recipes = Recipe.objects.filter(recipe_name__icontains=q).order_by("date_created").all()[:10]
+            chefs = Chef.objects.filter(first_name__icontains=q).all()[:10]
+            ingredients = Ingredient.objects.filter(ingredient_name__icontains=q).all()[:10]
             return render(request, 'search_results.html',
                           {'dishes': dishes, 'recipes': recipes, 'chefs': chefs,
                           'ingredients': ingredients, 'query': q})
@@ -81,7 +81,7 @@ class HomePageView(TemplateView):
         context = super(HomePageView, self).get_context_data(**kwargs)
         context['latest_dishs'] = Dish.objects.filter(dish_status=1, \
                                                       chef_id__followed_by = self.request.user.id). \
-            order_by("-date_created").all()[:10]
+            order_by("-date_created").all()[:15]
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['latest_dishs'])
         return context
 
@@ -122,7 +122,8 @@ class DishDetailView(DetailView):
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
         #context['likes'] = Likes.objects.filter(dish_id = self.object.dish_id)
         #context['user_likes'] = Likes.objects.filter(dish_id = self.object.dish_id, chef_id = self.request.user.id)
-        context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).exclude(dish_id = self.object.dish_id).order_by("-date_created")
+        if (self.object.recipe_id_id != 1):
+            context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).exclude(dish_id = self.object.dish_id).order_by("-date_created").all()[:10]
         return context
 
 class ChefDetailView(DetailView):

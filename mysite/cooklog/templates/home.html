@@ -8,12 +8,6 @@
     the feed
 </div>
 
-<div class="body">
-    Note: Apologies: If you wanted to look at the homepage on a desktop today..
-    It's undergoing reconfiguration for mobile, and then I'll fix desktop after.
-    All the other pages should look okay!
-</div>
-
 {% for dish in latest_dishs %}
     <div class="dish">
         
@@ -41,6 +35,9 @@
                 {% endifequal %}
             </div>
             
+            <div class="dish-header-recipe-name">
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a>:
+            </div>
             <div class="dish-header-dish-name">
                 <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
             </div>
@@ -85,27 +82,32 @@
             </div>
             
             <div class="dish-comments">
-                {% for chef_comment in chef_comments %}
-                {% ifequal chef_comment.dish_id_id dish.dish_id %}
-                <div class="dish-single-comment">
-                    <div class="dish-comments-name" >
-                        <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a>:
-                    </div>
-                    <div class="dish-comments-comment">
-                        {{ chef_comment.chef_dish_comment }}
-                        {% ifequal user.id chef_comment.chef_dish_comment_id %}
-                            <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/">[<i class="fa fa-close" aria-hidden="true"></i>]</a>
-                        {% endifequal %}
-                    </div>
+                <div class="dish-comments-icon">
+                    <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"><i class="fa fa-comment" aria-hidden="true"></i></a>
                 </div>
-                {% endifequal %}
-                {% endfor %}
-                <div class="dish-single-comment">
-                    <div class="dish-comments-name">
-                    {{ user.get_username }}:
+                <div class="dish-comments-wrapper">
+                    {% for chef_comment in chef_comments %}
+                    {% ifequal chef_comment.dish_id_id dish.dish_id %}
+                    <div class="dish-single-comment">
+                        <div class="dish-comments-name" >
+                            <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a>:
+                        </div>
+                        <div class="dish-comments-comment">
+                            {{ chef_comment.chef_dish_comment }}
+                            {% ifequal user.id chef_comment.chef_dish_comment_id %}
+                                <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/">[<i class="fa fa-close" aria-hidden="true"></i>]</a>
+                            {% endifequal %}
+                        </div>
                     </div>
-                    <div class="dish-comments-comment">
-                        <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"> ...  ...  <i class="fa fa-comment" aria-hidden="true"></i></a>
+                    {% endifequal %}
+                    {% endfor %}
+                    <div class="dish-single-comment">
+                        <div class="dish-comments-name">
+                        <a href="/cooklog/chef/{{user.id}}/">{{ user.get_username }}</a>:
+                        </div>
+                        <div class="dish-comments-comment" style="font-style: italic; font-size: 8px; color: #d3d3d3;">
+                            <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"> ... write a comment ... </a>
+                        </div>
                     </div>
                 </div>
             </div>
