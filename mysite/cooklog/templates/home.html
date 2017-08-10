@@ -8,7 +8,8 @@
     the feed
 </div>
 
-{% for dish in latest_dishs %}
+
+{% for dish in page_dishes %}
     <div class="dish">
         
         <div class="dish-photo-column">
@@ -59,7 +60,7 @@
             </div>
             
             <div class="dish-header-recipe-name">
-                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}</a>:
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}:</a>
             </div>
             <div class="dish-header-dish-name">
                 <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
@@ -223,7 +224,25 @@
     {% endcomment %}
 
 {% empty %}
-    <li>No dishes yet.</li>
+    <p>No dishes yet.</p>
+    <p><a href="/cooklog/cheffollow/add/{{user.id}}/">Try following some chefs!</a></p>
 {% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_dishes.has_previous %}
+        <a href="?page={{ page_dishes.previous_page_number }}">previous</a>
+        {% endif %}
+        
+        <span class="current">
+            Page {{ page_dishes.number }} of {{ page_dishes.paginator.num_pages }}.
+        </span>
+        
+        {% if page_dishes.has_next %}
+        <a href="?page={{ page_dishes.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
 {% endblock %}
 

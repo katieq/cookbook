@@ -23,6 +23,19 @@ from functools import reduce
 #from nltk.corpus import stopwords # <- used for "search match" of existing recipe name to dish name,
 from stop_words import get_stop_words
 import string
+from dal import autocomplete
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+class RecipeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated():
+            return Recipe.objects.none()
+        qs = Recipe.objects.all()
+        if self.q:
+            qs = qs.filter(recipe_name__icontains=self.q)
+        return qs
 
 # Create your views here.
 def display_meta(request):
@@ -77,13 +90,27 @@ class IngredientList(ListView):
 
 class HomePageView(TemplateView):
     template_name = "home.html"
+#    def get_context_data(self, **kwargs):
+#        context = super(HomePageView, self).get_context_data(**kwargs)
+#        context['latest_dishs'] = Dish.objects.filter(dish_status=1, \
+#                                                      chef_id__followed_by = self.request.user.id). \
+#            order_by("-date_created").all()[:15]
+#        context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['latest_dishs'])
+#        return context
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        context['latest_dishs'] = Dish.objects.filter(dish_status=1, \
-                                                      chef_id__followed_by = self.request.user.id). \
-            order_by("-date_created").all()[:15]
-        context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['latest_dishs'])
+        dish_list = Dish.objects.filter(dish_status=1, chef_id__followed_by = self.request.user.id).order_by("-date_created").all()
+        paginator = Paginator(dish_list, 20) # 20 per page
+        page = self.request.GET.get('page')
+        try:
+            context['page_dishes'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['page_dishes'] = paginator.page(1)
+        except EmptyPage:
+            context['page_dishes'] = paginator.page(paginator.num_pages)
+        context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['page_dishes'])
         return context
+
 
 class RecipeDetailView(DetailView):
     model = Recipe
@@ -167,7 +194,15 @@ class ChefAlbumView(DetailView):
     model = Chef
     def get_context_data(self, **kwargs):
         context = super(ChefAlbumView, self).get_context_data(**kwargs)
-        context['dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[:15]
+        dish_list = Dish.objects.filter(chef_id = self.object.chef_id, dish_status=1, chef_id__followed_by = self.request.user.id).order_by("-date_created").all()
+        paginator = Paginator(dish_list, 12) # 12 per page
+        page = self.request.GET.get('page')
+        try:
+            context['page_dishes'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['page_dishes'] = paginator.page(1)
+        except EmptyPage:
+            context['page_dishes'] = paginator.page(paginator.num_pages)
         return context
 
 class HomeAlbumView(TemplateView):

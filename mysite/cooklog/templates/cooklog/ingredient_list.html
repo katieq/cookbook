@@ -1,7 +1,10 @@
 {% extends 'cooklog/__base.html' %}
 
 {% block body_block %}
-<h2>Ingredients</h2>
+<div class="page-title">
+    Ingredients
+</div>
+
 <ul>
     {% for ingredient in all_ingredients %}
         <li><a href="../ingredient/{{ingredient.ingredient_id}}/">{{ ingredient.ingredient_name }}</a></li>

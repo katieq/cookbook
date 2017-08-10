@@ -8,14 +8,8 @@
     <a href="/cooklog/chef/{{object.chef_id}}/">{{ object.first_name }} {{ object.last_name.0}}</a>'s dishes
 </div>
 
-<div class="page-menu">
-    [
-    <a href="/cooklog/chef/todo/{{object.chef_id}}/">to-do list</a> |
-    <a href="/cooklog/chef/brief/{{object.chef_id}}/">compact view</a> |
-    <a href="/cooklog/chef/album/{{object.chef_id}}/">album view</a> ]
-</div>
 
-{% for dish in dishes %}
+{% for dish in page_dishes %}
     <div class="dish-album">
     
         <div class="album-date">
@@ -54,5 +48,21 @@
     </div>
 
 {% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_dishes.has_previous %}
+        <a href="?page={{ page_dishes.previous_page_number }}">previous</a>
+        {% endif %}
+        
+        <span class="current">
+            Page {{ page_dishes.number }} of {{ page_dishes.paginator.num_pages }}.
+        </span>
+        
+        {% if page_dishes.has_next %}
+        <a href="?page={{ page_dishes.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
 
 {% endblock %}

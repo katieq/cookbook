@@ -13,7 +13,9 @@
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto" rel="stylesheet">
     <link rel="stylesheet"  type='text/css' href="/static/css/cooklog.css?{% now "U" %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
+<!--    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />-->
+<!--    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>-->
 
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card-2" style="width:110px; background-color: #b4c7db;" id="mySidebar">
     <button class="w3-bar-item w3-button w3-hide-large" onclick="w3_close()"><i class="fa fa-times"></i></button>
@@ -46,7 +48,7 @@
     <button class="w3-button w3-block w3-left-align" onclick="myAccFunc1()">
         <i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></button>
     <div id="demoAcc1" class="w3-hide w3-white w3-card-2">
-        <a href="/cooklog/dish/add/" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Short</a>
+        <a href="/cooklog/dish/add/" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Dish</a>
         <a href="/cooklog/dish/add-todo/" class="w3-bar-item w3-button"><i class="fa fa-calendar-plus-o"></i> Plan</a>
         <a href="/cooklog/recipe/add/" class="w3-bar-item w3-button"><i class="fa fa-book"></i> Recipe</a>
         <a href="/cooklog/ingredient/add/" class="w3-bar-item w3-button"><i class="fa fa-cutlery"></i> Ingr</a>
@@ -101,6 +103,10 @@
         <div class="page-body">
             {% block body_block %}{% endblock %}
         </div>
+        
+<!--        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>-->
+<!--        <script src="{% static 'js/app.js' %}"></script>-->
+<!--        {% block javascript %}{% endblock %}-->
     </body>
     
     <footer>

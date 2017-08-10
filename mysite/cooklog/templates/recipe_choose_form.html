@@ -1,8 +1,15 @@
+{% extends 'cooklog/__base.html' %}
 <html>
     <head>
         <title>Choose recipe to match dish</title>
     </head>
+    
+    {% block body_block %}
     <body>
+        
+        <div class="page-title">
+            Match the dish to the recipe:
+        </div>
         
         {% if form.errors %}
         <p style="color: red;">
@@ -18,4 +25,6 @@
             <input type="submit" value="Choose">
         </form>
     </body>
+    
+    {% endblock %}
 </html>
