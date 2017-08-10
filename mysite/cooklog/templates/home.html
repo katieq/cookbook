@@ -11,6 +11,13 @@
 {% for dish in latest_dishs %}
     <div class="dish">
         
+        <div class="dish-photo-column">
+        </div>
+        <div class="dish-text-column">
+        </div>
+        <div class="dish-social-column">
+        </div>
+        
         <div class="dish-header">
             <div class="dish-header-chef">
                 <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }} {{dish.chef_id.last_name.0}}</a>
@@ -62,11 +69,11 @@
             </div>
             
             <div class="dish-method">
-                Method: {{ dish.dish_method | safe | hashtag_links | truncatewords:10 |slice:"-4" }} <a href="/cooklog/dish/{{dish.dish_id}}/">   ... </a>
+                Method: {{ dish.dish_method | safe | hashtag_links | truncatewords:20 }}
             </div>
             <div class="dish-review">
                 Review:
-                {{ dish.dish_comments | safe | hashtag_links | truncatewords:10 |slice:"-4" }} <a href="/cooklog/dish/{{dish.dish_id}}/"> ... </a>
+                {{ dish.dish_comments | safe | hashtag_links | truncatewords:20 }}
             </div>
             
             <div class="dish-likes">

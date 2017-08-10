@@ -130,8 +130,9 @@
 </div>
 {% empty %}
     <div class="page-text">
-    No dishes yet: <a href="../../dish/add/">Add dish!</a>
+    No dishes yet
     </div>
 {% endfor %}
+<a href="../../dish/add/?next={{object.recipe_id}}">Add dish!</a>
 
 {% endblock %}
