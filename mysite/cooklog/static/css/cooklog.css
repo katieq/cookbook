@@ -21,12 +21,12 @@ h5 {
 }
 
 a:link {
-    color: #000000;
+    color: #B1654B;;
     font-family: 'Roboto';
 }
 
 a:visited {
-    color: #000000;
+    color: #B1654B;
     font-family:  'Roboto';
 }
 
@@ -119,58 +119,71 @@ a:visited {
     background: #ffffff;
     margin-bottom: 20px;
     width: 100%;
-    max-width: 500px;
+    /*max-width: 500px;*/
     vertical-align: top;
 }
 
 .dish-photo-column {
     display: inline-table;
     vertical-align: top;
-    max-width: 200px;
-    margin-top: 10px;
+    width: 400px;
+    margin-top: 5px;
     margin-bottom: 10px;
     margin-left: 10px;
 }
 .dish-text-column {
     display: inline-table;
     vertical-align: top;
-    margin-top: 10px;
+    margin-top: 5px;
+    width: 400px;
     margin-left: 10px;
-    margin-bottom: 10px;
+/*    margin-bottom: 5px;*/
 }
 .dish-social-column {
     display: inline-table;
     vertical-align: top;
-    margin-top: 10px;
+    width: 300px;
+    margin-top: 5px;
     margin-left: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .dish-header {
     padding-top: 4px;
+    margin-left: 10px;
 }
 
 .dish-header-chef {
     display: inline-block;
-    width: 30%;
+    width: 60px;
 }
 .dish-header-chef a {
     color: #B1654B;
-    font-weight: bold;
-    margin-left: 10px;
-    font-size: 14px;
+    font-weight: 700;
+    font-size: 16px;
 }
 
-.dish-header-center {
+.dish-header-center-date {
     font-size: 12px;
     color: #F79273;
     display: inline-block;
-    width: 45%;
+    width: 100px;
     margin-top: 2px;
+    text-align: right;
+}
+.dish-header-center-rating {
+    font-size: 12px;
+    color: #F79273;
+    display: inline-block;
+/*    width: 25%;*/
+    width: 75px;
+    margin-top: 2px;
+    text-align: left;
 }
 
 .dish-header-right {
     color: #FDC08E;
+    text-align: left;
     display: inline-block;
     width: 20%;
 }
@@ -181,7 +194,7 @@ a:visited {
 
 .dish-header-recipe-name {
     margin-left: 10px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
 }
 .dish-header-recipe-name a {
@@ -189,7 +202,7 @@ a:visited {
 }
 .dish-header-dish-name {
     margin-left: 10px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
 }
 .dish-header-dish-name a {
@@ -197,7 +210,6 @@ a:visited {
 }
 
 .dish-photo {
-    
 }
 
 .dish-photo-image img {
@@ -221,18 +233,48 @@ a:visited {
 }
 .dish-method {
     margin-left: 10px;
+    color: #666666;
+/*    background: #e8eef4;*/
 }
 .dish-review {
     margin-left: 10px;
+    color: #666666;
+/*    background: #e8eef4;*/
+}
+.dish-method-label {
+    display: inline-block;
+    width: 40px;
+    vertical-align: top;
+    font-size: 10px;
+    padding-top: 4px;
+}
+.dish-review-label {
+    display: inline-block;
+    width: 40px;
+    vertical-align: top;
+    font-size: 10px;
+    padding-top: 4px;
+}
+.dish-method-text {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 340px;
+}
+.dish-review-text {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 340px;
 }
 .dish-likes {
-    background: #ffffff;
+    height: 25px;
+    background: #e8eef4;
 }
 .dish-likes-like {
-    color: #F79273;
+/*    color: #F79273;*/
     font-size: 14px;
     display: inline-block;
-    width: 30px;
+    width: 40px;
+    padding-left: 5px;
 }
 .dish-likes-like a {
     color: #F79273;
@@ -241,19 +283,22 @@ a:visited {
 .dish-likes-chef-list {
     font-size: 10px;
     display: inline-block;
+    color: #666666;
 }
 .dish-likes-chef-list a {
     color: #B1654B
 }
 .dish-comments {
-    background: #ffffff;
+/*    background: #e8eef4;*/
     padding-left: 10px;
     margin-bottom: 2px;
     font-size: 10px;
+    color: #666666;
 }
 .dish-comments-icon {
     display: inline-block;
-    width: 30px;
+    width: 40px;
+    padding-left: 5px;
     vertical-align: top;
     font-size: 14px;
 }
