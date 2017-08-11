@@ -25,8 +25,9 @@ from stop_words import get_stop_words
 import string
 from dal import autocomplete
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic.edit import FormMixin
 
-from django.views.decorators.http import require_POST
+#from django.views.decorators.http import require_POST
 #try:
 #    from django.utils import simplejson as json
 #except ImportError:
@@ -168,26 +169,61 @@ class DishUpdate(UpdateView):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 
 
-class DishDetailView(DetailView):
+#class DishDetailView(DetailView):
+#    model = Dish
+#    def get_context_data(self, **kwargs):
+#        context = super(DishDetailView, self).get_context_data(**kwargs)
+#        exclude = set(string.punctuation)
+#        s = ''.join(ch for ch in self.object.dish_name.replace('-', ' ') if ch not in exclude)
+#        go_words = [word for word in s.lower().split() if word not in get_stop_words('en')]
+#            #+ [word for word in self.object.dish_method.lower().split() if word not in get_stop_words('en')]
+#        
+#        context['recipe_matcher'] = go_words #self.object.dish_name.split() # <- temporary!
+#        #context['recipe_match'] = Recipe.objects.filter(recipe_name__contains=self.object.dish_name.split())
+#        #context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
+#        context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
+#        
+#        context['recipe'] = Recipe.objects.get(recipe_id = self.object.recipe_id_id)
+#        context['user_chef_like'] = Dish.objects.filter(dish_id = self.object.dish_id, like_chef_id = self.request.user.id)
+#        context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
+#        if (self.object.recipe_id_id != 1):
+#            context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).exclude(dish_id = self.object.dish_id).order_by("-date_created").all()[:10] # 10 most recent version of the recipe...
+#        return context
+
+
+class DishDetailView(FormMixin, DetailView):
     model = Dish
+    form_class = NewCommentForm
+    def get_success_url(self):
+        return '/cooklog/dish/' + str(self.object.dish_id) #reverse('cooklog/dish/', kwargs={'slug': self.object.slug})
     def get_context_data(self, **kwargs):
         context = super(DishDetailView, self).get_context_data(**kwargs)
+        
         exclude = set(string.punctuation)
         s = ''.join(ch for ch in self.object.dish_name.replace('-', ' ') if ch not in exclude)
         go_words = [word for word in s.lower().split() if word not in get_stop_words('en')]
-            #+ [word for word in self.object.dish_method.lower().split() if word not in get_stop_words('en')]
-        
-        context['recipe_matcher'] = go_words #self.object.dish_name.split() # <- temporary!
-        #context['recipe_match'] = Recipe.objects.filter(recipe_name__contains=self.object.dish_name.split())
-        #context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
+        context['recipe_matcher'] = go_words
         context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
+
+
+        context['add_comment_form'] = NewCommentForm(initial={'dish_id': self.object})
+        context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
         
         context['recipe'] = Recipe.objects.get(recipe_id = self.object.recipe_id_id)
-        context['user_chef_like'] = Dish.objects.filter(dish_id = self.object.dish_id, like_chef_id = self.request.user.id)
-        context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
         if (self.object.recipe_id_id != 1):
-            context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).exclude(dish_id = self.object.dish_id).order_by("-date_created").all()[:10]
+            context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).exclude(dish_id = self.object.dish_id).order_by("-date_created").all()[:10] # 10 most recent version of the recipe...
         return context
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+    def form_valid(self, form):
+        form.save()
+        return super(DishDetailView, self).form_valid(form)
+
 
 class ChefDetailView(DetailView):
     model = Chef
@@ -443,27 +479,9 @@ class NewCommentView(CreateView):
     template_name = 'new_comment_form.html'
     #success_url = '/cooklog/dishes/'  # ideally goes to that dish!
     def get_initial(self):
-        return {'dish_id' : self.request.GET.get('next') , 'chef_id' : self.request.user.id } #self.request.GET.get('u') }
-    def get_form_kwargs(self, **kwargs):
-        kwargs = super(NewCommentView, self).get_form_kwargs()
-        redirect = self.request.GET.get('next')   # these 3 "next" necessary for next charfield to be next=..
-        if redirect:
-            if 'initial' in kwargs.keys():
-                kwargs['initial'].update({'next': redirect})
-            else:
-                kwargs['initial'] = {'next': redirect}
-        return kwargs
-    def form_invalid(self, form):
-        import pdb;pdb.set_trace()  # debug example
-        # inspect the errors by typing the variable form.errors
-        # in your command line debugger. See the pdb package for
-        # more useful keystrokes
-        return super(NewCommentView, self).form_invalid(form)
-    def form_valid(self, form):
-        redirect = form.cleaned_data.get('next')   # this necessary as next after submit
-        if redirect:
-            self.success_url = '/cooklog/dish/' + redirect + '/' # hardcodes url, oh well.
-        return super(NewCommentView, self).form_valid(form)
+        return {'dish_id' : self.request.GET.get('next') , 'chef_id' : self.request.user.id }
+    def get_success_url(self):
+        return '/cooklog/dish/' + self.request.GET.get('next') + '/'
     def get_context_data(self, **kwargs):
         context = super(NewCommentView, self).get_context_data(**kwargs)
         context['dish'] = Dish.objects.get(dish_id = self.request.GET.get('next'))
@@ -528,16 +546,6 @@ class RecipeChooseView(UpdateView): # <- "built" based on NewCommentView
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
     def get_initial(self):
         return {'recipe_id' : self.request.GET.get('next') }
-    def get_form_kwargs(self, **kwargs):
-        kwargs = super(RecipeChooseView, self).get_form_kwargs()
-        redirect = self.request.GET.get('next')   # these 3 "next" necessary for next charfield to be next=..
-        if redirect:
-            if 'initial' in kwargs.keys():
-                kwargs['initial'].update({'next': redirect})
-            else:
-                kwargs['initial'] = {'next': redirect}
-        return kwargs
-
 
 class NewLikeView(UpdateView): # <- "built" based on RecipeChooseView, but uses user..
     model = Dish

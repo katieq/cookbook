@@ -21,17 +21,17 @@
     <div class="dish-mini-text-column">
         <div class="dish-mini-date-inline">
             {{ dish.date_created|date:"D M.d"|lower }}
-        </div> |
+        </div> &middot;
         <div class="dish-mini-dish-chef-name">
             <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }}</a>
-        </div> |
+        </div> &middot;
         <div class="dish-mini-recipe-icon">
             {% ifequal user.id dish.chef_id_id %}
-            <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a> |
+            <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a> &middot;
             {% endifequal %}
         </div>
         <div class="dish-mini-recipe-icon">
-            <a href="/cooklog/dish/add-todo/?next={{dish.recipe_id_id}}"><i class="fa fa-calendar-plus-o"></i></a> |
+            <a href="/cooklog/dish/add-todo/?next={{dish.recipe_id_id}}"><i class="fa fa-calendar-plus-o"></i></a> &middot;
         </div>
         <div class="dish-mini-recipe-icon">
             {% ifequal dish.recipe_id_id 1 %}
@@ -42,7 +42,7 @@
             <img src="{% static "emoji/img/chef.png" %}" height="14"/>
             {% endcomment %}
             {% endifequal %}
-        </div> |
+        </div> &middot;
         <div class="dish-mini-stars">
             {% if dish.dish_rating %}
             {% for i in "x"|rjust:dish.dish_rating %}

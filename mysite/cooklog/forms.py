@@ -42,7 +42,7 @@ class NewDishQuickForm(forms.ModelForm):
         self.fields['recipe_id'].widget = forms.HiddenInput() # Default to 1 = "None"
         
         self.fields['dish_name'].label = "Dish name"
-        self.fields['dish_comments'].label = "Any comments"
+        self.fields['dish_comments'].label = "Review/notes"
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Upload photo"
         
@@ -80,8 +80,8 @@ class NewDishShortForm(forms.ModelForm):
         
         self.fields['recipe_id'].label = "Recipe"
         self.fields['dish_name'].label = "Dish name"
-        self.fields['dish_method'].label = "Dish method (or changes from recipe)"
-        self.fields['dish_comments'].label = "Your comments"
+        self.fields['dish_method'].label = "Method (or changes from recipe)"
+        self.fields['dish_comments'].label = "Review/notes"
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Photo"
         
@@ -112,10 +112,10 @@ class NewDishTodoForm(forms.ModelForm):
         
         self.fields['recipe_id'].label = "Recipe"
         self.fields['dish_name'].label = "Dish name"
-        self.fields['dish_comments'].label = "Comments"
+        self.fields['dish_comments'].label = "Review/notes"
         self.fields['date_scheduled'].label = "When to cook"
         self.fields['dish_source'].label = "Recipe source (optional)"
-        self.fields['dish_method'].label = "Dish method (or changes from recipe)"
+        self.fields['dish_method'].label = "Method (or changes from recipe)"
         
         self.fields['dish_name'].widget.attrs['rows'] = 1
         self.fields['dish_name'].widget.attrs['cols'] = 50
@@ -152,8 +152,8 @@ class NewDishLongForm(forms.ModelForm):
         
         self.fields['recipe_id'].label = "Recipe"
         self.fields['dish_name'].label = "Dish name"
-        self.fields['dish_method'].label = "Dish method (or changes from recipe)"
-        self.fields['dish_comments'].label = "Your comments"
+        self.fields['dish_method'].label = "Method (or changes from recipe)"
+        self.fields['dish_comments'].label = "Review/notes"
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Photo"
         
@@ -242,7 +242,12 @@ class UpdateChefFollowsForm(forms.ModelForm):
 #            self.fields[key].required = False
 
 class NewCommentForm(forms.ModelForm):
-    next = forms.CharField(required=False)
+    chef_dish_comment = forms.CharField(label="",
+                             widget=forms.TextInput(attrs={'autofocus': 'autofocus',
+                                                    'autocomplete': 'off',
+                                                    'size': '15',
+                                                    'class': 'add-comment',
+                                                    }))
     class Meta:
         model = Chef_Dish_Comments
         exclude = tuple()
@@ -250,7 +255,6 @@ class NewCommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(NewCommentForm, self).__init__(*args, **kwargs)
         self.fields['dish_id'].widget = forms.HiddenInput()
-        self.fields['next'].widget = forms.HiddenInput()
         self.fields['chef_id'].widget = forms.HiddenInput()
         for key in self.fields:
             self.fields[key].required = False

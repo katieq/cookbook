@@ -50,7 +50,11 @@ admin.site.register(Maker, MakerAdmin)
 
 #admin.site.register(Dish_Photo)
 admin.site.register(RecipeCategory)
-admin.site.register(Chef_Dish_Comments)
+
+class ChefDishCommentsAdmin(admin.ModelAdmin):
+    list_display = ('dish_id', 'chef_id', 'date_created')
+admin.site.register(Chef_Dish_Comments, ChefDishCommentsAdmin)
+
 admin.site.register(ChefFollows)
 
 class BugsAdmin(admin.ModelAdmin):

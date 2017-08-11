@@ -148,13 +148,22 @@
                 <div class="dish-comments-name">
                     <a href="/cooklog/chef/{{user.id}}/">{{ user.get_username }}</a>:
                 </div>
-                <div class="dish-comments-comment" style="font-style: italic; font-size: 8px; color: #d3d3d3;">
-                    <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"> ... write a comment ... </a>
+<!--                <div class="dish-comments-comment" style="font-style: italic; font-size: 8px; color: #d3d3d3;">-->
+<!--                    <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"> ... write a comment ... </a>-->
+<!--                </div>-->
+                <div class="dish-comments-comment">
+                    <form method="post" action="{% url "comment_add" %}?next={{object.dish_id}}">
+                        {% csrf_token %}
+                        {{ add_comment_form }}
+                        
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 
 
