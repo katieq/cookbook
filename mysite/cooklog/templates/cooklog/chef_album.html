@@ -5,9 +5,22 @@
 {% block body_block %}
 
 <div class="page-title">
-    <a href="/cooklog/chef/{{object.chef_id}}/">{{ object.first_name }} {{ object.last_name.0}}</a>'s dishes
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_dishes.has_previous %}
+            <a href="?page={{ page_dishes.previous_page_number }}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+            {% endif %}
+            {% ifequal user.id object.chef_id %}
+            My latest dishes
+            {% else %}
+            {{object.first_name}}'s dishes
+            {% endifequal %}
+            {% if page_dishes.has_next %}
+            <a href="?page={{ page_dishes.next_page_number }}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+            {% endif %}
+        </span>
+    </div>
 </div>
-
 
 {% for dish in page_dishes %}
     <div class="dish-album">
@@ -19,7 +32,7 @@
             {% ifequal dish.recipe_id_id 1 %}
             <a href="/cooklog/dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
             {% else %}
-            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" height="14"/></a>
+            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><i class="fa fa-book"></i></a>
             {% endifequal %}
         </div> |
         <div class="album-stars">
@@ -36,7 +49,7 @@
         </div>
         {% else %}
         <div class="album-img-placeholder">
-            <a href="/cooklog/dish/{{dish.dish_id}}/"><img class="fa fa-plus"></a>
+            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>
         </div>
         {% endif %}
     
@@ -48,7 +61,7 @@
     </div>
 
 {% endfor %}
-
+<p></p>
 <div class="pagination">
     <span class="step-links">
         {% if page_dishes.has_previous %}

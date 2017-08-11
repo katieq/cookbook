@@ -81,5 +81,6 @@ urlpatterns = [
                url(r'^dish/recipe_choose/(?P<pk>[0-9]+)/$', RecipeChooseView.as_view(), name='recipe_choose'),
                url(r'^recipecategory/add/$', NewRecipeCategoryView.as_view(), name='new_recipe_category'),
                url(r'^bug/add/$', NewBugView.as_view(), name='new_bug'),
-               url(r'^recipe-autocomplete/$', RecipeAutocomplete.as_view(),name='recipe-autocomplete',)
+               url(r'^recipe-autocomplete/$', RecipeAutocomplete.as_view(),name='recipe-autocomplete'),
+               #url(r'^like/$', 'cooklog.views.like', name='like'),
 ]

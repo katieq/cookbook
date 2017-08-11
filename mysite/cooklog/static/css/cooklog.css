@@ -139,14 +139,14 @@ a:visited {
     margin-left: 10px;
 /*    margin-bottom: 5px;*/
 }
-.dish-social-column {
-    display: inline-table;
-    vertical-align: top;
-    width: 300px;
-    margin-top: 5px;
-    margin-left: 10px;
-    margin-bottom: 5px;
-}
+/*.dish-social-column {*/
+/*    display: inline-table;*/
+/*    vertical-align: top;*/
+/*    width: 300px;*/
+/*    margin-top: 5px;*/
+/*    margin-left: 10px;*/
+/*    margin-bottom: 5px;*/
+/*}*/
 
 .dish-header {
     padding-top: 4px;
@@ -193,7 +193,6 @@ a:visited {
 }
 
 .dish-header-recipe-name {
-    margin-left: 10px;
     font-size: 16px;
     font-weight: 700;
 }
@@ -201,7 +200,6 @@ a:visited {
     color: #B1654B;
 }
 .dish-header-dish-name {
-    margin-left: 10px;
     font-size: 15px;
     font-weight: 500;
 }
@@ -267,6 +265,7 @@ a:visited {
 }
 .dish-likes {
     height: 25px;
+    background-color: #e8eef4;
 }
 .dish-likes-like {
 /*    color: #F79273;*/
@@ -288,7 +287,7 @@ a:visited {
     color: #B1654B
 }
 .dish-comments {
-/*    background: #e8eef4;*/
+    background: #e8eef4;
     padding-left: 10px;
     margin-bottom: 2px;
     font-size: 10px;
@@ -449,6 +448,7 @@ a:visited {
     margin-top: 10px;
     margin-left: 10px;
     margin-bottom: 10px;
+    color: #666666;
 }
 
 .dish-mini-stars {
@@ -657,7 +657,8 @@ a:visited {
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 5px;
-    display: inline-block
+    display: inline-block;
+    color: #666666;
 }
 
 .album-date {
@@ -722,7 +723,8 @@ a:visited {
     font-size: 12px;
     padding-left: 0px;
     width: 100px;
-    display: inline-block
+    display: inline-block;
+    color: #F79273;
 }
 
 .album-dish-name {

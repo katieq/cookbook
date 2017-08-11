@@ -3,7 +3,7 @@
 {% block title %}New user registration:{% endblock %}
 
 {% block body_block %}
-<h2>Register</h2>
+<div class="page-title">Register</div>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

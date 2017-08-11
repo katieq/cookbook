@@ -1,0 +1,122 @@
+{% load static %}
+{% load app_extras %}
+
+<div class="dish">
+    
+    <div class="dish-photo-column">
+        <div class="dish-photo">
+            {% if dish.dish_image %}
+            <div class="dish-photo-image">
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+            </div>
+            {% else %}
+            <div class="dish-photo-placeholder">
+                {% ifequal user.id dish.chef_id_id %}
+                <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
+                {% else %}
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>
+                {% endifequal %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="dish-text-column">
+        <div class="dish-header">
+            <div class="dish-header-chef">
+                <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }} {{dish.chef_id.last_name.0}}</a>
+            </div>
+            <div class="dish-header-center-date" >
+                {{ dish.date_created|date:"D M.d"|lower }} &middot;
+            </div>
+            <div class="dish-header-center-rating" >
+                {% if dish.dish_rating %}
+                    {% for i in "x"|rjust:dish.dish_rating %}
+                        <i class="fa fa-star"></i>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="dish-header-right">
+                &middot; <a href="/cooklog/dish/add-todo/?next={{dish.recipe_id_id}}"><i class="fa fa-calendar-plus-o"></i></a> &middot;
+                {% ifequal dish.recipe_id_id 1 %}
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
+                {% else %}
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><i class="fa fa-book"></i></a>
+                {% endifequal %}
+                {% ifequal user.id dish.chef_id_id %}
+                &middot; <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a>
+                {% endifequal %}
+            </div>
+        
+            <div class="dish-header-recipe-name">
+                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}:</a>
+            </div>
+            <div class="dish-header-dish-name">
+                <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+            </div>
+        </div>
+        
+        <div class="dish-method">
+            <div class="dish-method-label">
+                Method:
+            </div>
+            <div class="dish-method-text">
+                {{ dish.dish_method | safe | hashtag_links | truncatewords:20 }}
+            </div>
+        </div>
+        <div class="dish-review">
+            <div class="dish-review-label">
+                Review:
+            </div>
+            <div class="dish-review-text">
+                {{ dish.dish_comments | safe | hashtag_links | truncatewords:20 }}
+            </div>
+        </div>
+
+        <div class="dish-likes">
+            <div class="dish-likes-like">
+                <a href="/cooklog/like/{{dish.dish_id}}/?next=0"><i class="fa fa-thumbs-up" aria-hidden="true"></i>   </a> {{ dish.like_chef_id.count }}
+            </div>
+            <div class="dish-likes-chef-list">
+                {% for chef_like in dish.like_chef_id.all %}
+                <a href="/cooklog/chef/{{chef_like.chef_id}}/">{{chef_like.first_name}}</a>,
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="dish-comments">
+            <div class="dish-comments-icon">
+                <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"><i class="fa fa-comment" aria-hidden="true"></i></a>
+            </div>
+            <div class="dish-comments-wrapper">
+                {% for chef_comment in chef_comments %}
+                {% ifequal chef_comment.dish_id_id dish.dish_id %}
+                <div class="dish-single-comment">
+                    <div class="dish-comments-name" >
+                        <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a>:
+                    </div>
+                    <div class="dish-comments-comment">
+                        {{ chef_comment.chef_dish_comment }}
+                        {% ifequal user.id chef_comment.chef_dish_comment_id %}
+                        <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/">[<i class="fa fa-close" aria-hidden="true"></i>]</a>
+                        {% endifequal %}
+                    </div>
+                </div>
+                {% endifequal %}
+                {% endfor %}
+                <div class="dish-single-comment">
+                    <div class="dish-comments-name">
+                        <a href="/cooklog/chef/{{user.id}}/">{{ user.get_username }}</a>:
+                    </div>
+                    <div class="dish-comments-comment" style="font-style: italic; font-size: 8px; color: #d3d3d3;">
+                        <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"> ... write a comment ... </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dish-bottom">
+    </div>
+</div>
+

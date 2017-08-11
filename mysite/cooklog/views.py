@@ -26,6 +26,33 @@ import string
 from dal import autocomplete
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.views.decorators.http import require_POST
+#try:
+#    from django.utils import simplejson as json
+#except ImportError:
+#    import json
+
+
+#@login_required
+#@require_POST
+#def like(request):
+#    if request.method == 'POST':
+#        user = request.user
+#        dish = Dish.objects.filter(dish_id = request.GET['d'])
+#        
+#        if dish.like_chef_id.filter(id=user.id).exists():
+#            # user has already liked this company
+#            # remove like/user
+#            dish.likes.remove(user)
+#            message = 'You disliked this'
+#        else:
+#            # add a new like for a company
+#            dish.like_chef_id.add(user)
+#            message = 'You liked this'
+#    ctx = {'likes_count': dish.likes.count(), 'message': message}
+#    # use mimetype instead of content_type if django < 5
+#    return HttpResponse(json.dumps(ctx), content_type='application/json')
+
 
 class RecipeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -100,7 +127,7 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
         dish_list = Dish.objects.filter(dish_status=1, chef_id__followed_by = self.request.user.id).order_by("-date_created").all()
-        paginator = Paginator(dish_list, 20) # 20 per page
+        paginator = Paginator(dish_list, 15) # 15 per page
         page = self.request.GET.get('page')
         try:
             context['page_dishes'] = paginator.page(page)
@@ -128,11 +155,23 @@ class RecipeCategoryDetailView(DetailView):
         context['recipes'] = Recipe.objects.filter(recipecategory_id = self.object.recipecategory_id).order_by("-date_created")
         return context
 
+class DishUpdate(UpdateView):
+    #model = Dish
+    template_name = 'update_dish_form.html'
+    form_class = UpdateDishForm
+    def get_queryset(self):
+        return Dish.objects.filter(dish_id=self.kwargs.get("pk", None))
+    #fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled',
+    #      'date_created', 'dish_source', 'dish_method', 'dish_rating',
+    #      'dish_comments', 'ingredient_id', 'dish_image', 'photo_comment']
+    def get_success_url(self):
+        return '/cooklog/dish/' + str(self.object.dish_id) + '/'
+
+
 class DishDetailView(DetailView):
     model = Dish
     def get_context_data(self, **kwargs):
         context = super(DishDetailView, self).get_context_data(**kwargs)
-
         exclude = set(string.punctuation)
         s = ''.join(ch for ch in self.object.dish_name.replace('-', ' ') if ch not in exclude)
         go_words = [word for word in s.lower().split() if word not in get_stop_words('en')]
@@ -145,11 +184,7 @@ class DishDetailView(DetailView):
         
         context['recipe'] = Recipe.objects.get(recipe_id = self.object.recipe_id_id)
         context['user_chef_like'] = Dish.objects.filter(dish_id = self.object.dish_id, like_chef_id = self.request.user.id)
-        
-        #context['photos'] = Dish_Photo.objects.filter(dish_id = self.object.dish_id)
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
-        #context['likes'] = Likes.objects.filter(dish_id = self.object.dish_id)
-        #context['user_likes'] = Likes.objects.filter(dish_id = self.object.dish_id, chef_id = self.request.user.id)
         if (self.object.recipe_id_id != 1):
             context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).exclude(dish_id = self.object.dish_id).order_by("-date_created").all()[:10]
         return context
@@ -158,15 +193,23 @@ class ChefDetailView(DetailView):
     model = Chef
     def get_context_data(self, **kwargs):
         context = super(ChefDetailView, self).get_context_data(**kwargs)
-        context['latest_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[:5]
-        context['best_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).order_by("-dish_rating","-date_created").all()[:3]
-        context['more_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 1).order_by("-date_created").all()[6:10]
-        context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id).filter(dish_status = 2).order_by("-date_scheduled").all()
-        context['latest_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['latest_dishes'])
+        dish_list = Dish.objects.filter(chef_id = self.object.chef_id, dish_status = 1, chef_id__followed_by = self.request.user.id).order_by("-date_created").all()
+        paginator = Paginator(dish_list, 6) # 6 per page
+        page = self.request.GET.get('page')
+        try:
+            context['page_dishes'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['page_dishes'] = paginator.page(1)
+        except EmptyPage:
+            context['page_dishes'] = paginator.page(paginator.num_pages)
+
+        context['best_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id, chef_id__followed_by = self.request.user.id).order_by("-dish_rating","-date_created").all()[:4]
+        context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id, dish_status = 2, chef_id__followed_by = self.request.user.id).order_by("-date_scheduled").all()
+        context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['page_dishes'])
         context['best_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['best_dishes'])
-        context['more_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['more_dishes'])
         context['todo_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['todo_dishes'])
         return context
+
 
 class ChefScheduleView(DetailView):
     model = Chef
@@ -209,10 +252,15 @@ class HomeAlbumView(TemplateView):
     template_name = "home_album.html"
     def get_context_data(self, **kwargs):
         context = super(HomeAlbumView, self).get_context_data(**kwargs)
-        #context['dishes'] = Dish.objects.filter(dish_status = 1).order_by("-date_created").all()[:30]
-        context['dishes'] = Dish.objects.filter(dish_status=1, \
-                                                      chef_id__followed_by = self.request.user.id). \
-            order_by("-date_created").all()[:30]
+        dish_list = Dish.objects.filter(dish_status=1,chef_id__followed_by = self.request.user.id).order_by("-date_created").all()
+        paginator = Paginator(dish_list, 12) # 12 per page
+        page = self.request.GET.get('page')
+        try:
+            context['page_dishes'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['page_dishes'] = paginator.page(1)
+        except EmptyPage:
+            context['page_dishes'] = paginator.page(paginator.num_pages)
         return context
 
 
@@ -325,23 +373,6 @@ class DishLongCreate(CreateView):
     #success_url = '/cooklog/dishes/'
     def get_initial(self):
         return {'chef_id' : self.request.user.id } #self.request.GET.get('u') }
-    def get_success_url(self):
-        return '/cooklog/dish/' + str(self.object.dish_id) + '/'
-
-
-    #model = Dish
-    #fields = ['dish_name', 'recipe_id', 'dish_method', 'dish_rating',
-#          'dish_comments', 'ingredient_id', 'date_created']
-
-class DishUpdate(UpdateView):
-    #model = Dish
-    template_name = 'update_dish_form.html'
-    form_class = UpdateDishForm
-    def get_queryset(self):
-        return Dish.objects.filter(dish_id=self.kwargs.get("pk", None))
-        #fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled',
-        #      'date_created', 'dish_source', 'dish_method', 'dish_rating',
-        #      'dish_comments', 'ingredient_id', 'dish_image', 'photo_comment']
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 

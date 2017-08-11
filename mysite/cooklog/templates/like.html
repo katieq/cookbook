@@ -1,0 +1,23 @@
+<!--Trying to follow https://stackoverflow.com/questions/14007453/my-own-like-button-django-ajax-how -->
+<!--but not sure how this template gets called- there is no reference to it-->
+<!--THIS IS NOT CURRENTLY IN USE-->
+
+<input type="button" id="like" name="{{ dish_id }}" value="Like" />
+
+<script>
+$('#like').click(function(){
+     $.ajax({
+            type: "POST",
+            url: "{% url 'like' %}",
+            data: {'dish': $(this).attr('name'), 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+            dataType: "json",
+            success: function(response) {
+            alert(response.message);
+            alert('Dish likes count is now ' + response.likes_count);
+            },
+            error: function(rs, e) {
+            alert(rs.responseText);
+            }
+            }); 
+     })
+</script>
