@@ -199,10 +199,12 @@ class UpdateDishPhotoForm(forms.ModelForm):
 class NewRecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['recipe_name', 'recipecategory_id', 'recipe_source', 'recipe_method', 'recipe_comments', 'chef_id','date_created']
+        fields = ['recipe_name', 'recipecategory_id', 'recipe_source', 'recipe_method',
+                  'recipe_comments', 'recipe_image', 'chef_id','date_created']
     def __init__(self, *args, **kwargs):
         super(NewRecipeForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
         self.fields['chef_id'].widget = forms.HiddenInput()
+        self.fields['recipe_image'].label = "Upload/take photo"
         for key in self.fields:
             self.fields[key].required = False
 

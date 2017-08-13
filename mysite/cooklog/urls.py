@@ -26,7 +26,7 @@ from cooklog.views import IngredientCreate, IngredientUpdate #, IngredientDelete
 from django.contrib.auth import views as auth_views
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
-from cooklog.views import my_image, NewCommentView, CommentDeleteView, NewLikeView # UploadImageView, ,
+from cooklog.views import NewCommentView, CommentDeleteView, NewLikeView # UploadImageView, ,
 from cooklog.views import RecipeChooseView, NewRecipeCategoryView, NewBugView
 from cooklog.views import RecipeAutocomplete
 
@@ -73,7 +73,7 @@ urlpatterns = [
                url(r'^dish/add-photo/(?P<pk>[0-9]+)/$', DishPhotoUpdate.as_view(), name='dish_photo_update'),
                url(r'^ingredient/add/$', IngredientCreate.as_view(), name='ingredient_add'),
                url(r'^ingredient/add/(?P<pk>[0-9]+)/$', IngredientUpdate.as_view(), name='ingredient_update'),
-               url(r'^my_image/$', my_image),
+               #url(r'^my_image/$', my_image),
                #url(r'^upload/$', UploadImageView.as_view(), name='photo_upload'),
                url(r'^like/(?P<pk>[0-9]+)/$', NewLikeView.as_view(), name='new_like'),
                url(r'^comment/$', NewCommentView.as_view(), name='comment_add'),

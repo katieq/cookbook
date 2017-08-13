@@ -14,6 +14,22 @@
     </div>
 </div>
 
+<div class="detail-photo">
+    {% if object.recipe_image %}
+    <div class="detail-photo-image">
+        <a href="/cooklog/recipe/{{object.recipe_id}}/"><img src="/media/recipe_photos/{{ object.recipe_image }}" /></a>
+    </div>
+    {% else %}
+    <div class="detail-photo-placeholder">
+        {% ifequal user.id object.chef_id_id %}
+        <a href="/cooklog/recipe/add/{{object.recipe_id}}/"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
+        {% else %}
+        <a href="/cooklog/recipe/{{object.recipe_id}}/"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>
+        {% endifequal %}
+    </div>
+    {% endif %}
+</div>
+
 <div class="detail-text">
     
     <div class="detail-text-section">

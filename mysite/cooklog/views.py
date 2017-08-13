@@ -331,7 +331,8 @@ class RecipeCreate(CreateView):
 
 class RecipeUpdate(UpdateView):
     model = Recipe
-    fields = ['recipe_name', 'recipecategory_id', 'recipe_source', 'recipe_method','recipe_comments', 'chef_id', 'date_created']
+    fields = ['recipe_name', 'recipecategory_id', 'recipe_source', 'recipe_method','recipe_comments',
+              'recipe_image', 'chef_id', 'date_created']
     def get_success_url(self):
         return '/cooklog/recipe/' + str(self.object.recipe_id) + '/'
 
@@ -367,7 +368,6 @@ class ChefUpdate(UpdateView):
 class DishCreate(CreateView):
     form_class = NewDishShortForm
     template_name = 'new_dish_form.html'
-    #success_url = '/cooklog/dishes/'
     def get_initial(self):
         if self.request.GET.get('next'):
             return {'chef_id' : self.request.user.id , 'recipe_id' : self.request.GET.get('next') }
@@ -464,9 +464,9 @@ class IngredientUpdate(UpdateView):
     def get_success_url(self):
         return '/cooklog/ingredient/' + str(self.object.ingredient_id) + '/'
 
-def my_image(request):
-    image_data = open("/Users/katiequinn/Documents/parkrun_barcode.png", "rb").read()
-    return HttpResponse(image_data, content_type="image/png")
+# def my_image(request):
+#     image_data = open("/Users/katiequinn/Documents/parkrun_barcode.png", "rb").read()
+#     return HttpResponse(image_data, content_type="image/png")
 
 
 #class UploadImageView(CreateView):
