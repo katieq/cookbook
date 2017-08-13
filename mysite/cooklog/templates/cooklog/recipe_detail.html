@@ -17,7 +17,7 @@
 <div class="detail-photo">
     {% if object.recipe_image %}
     <div class="detail-photo-image">
-        <a href="/cooklog/recipe/{{object.recipe_id}}/"><img src="/media/recipe_photos/{{ object.recipe_image }}" /></a>
+        <a href="/cooklog/recipe/{{object.recipe_id}}/"><img src="/media/{{ object.recipe_image }}" /></a>
     </div>
     {% else %}
     <div class="detail-photo-placeholder">

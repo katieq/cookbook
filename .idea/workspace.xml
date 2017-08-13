@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db9a15da-df43-4159-bccb-e6527cd9fa2e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/forms.py" afterPath="$PROJECT_DIR$/mysite/cooklog/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/dish_detail.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/dish_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/ingredient_form.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/ingredient_form.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/recipe_detail.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/recipe_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/urls.py" afterPath="$PROJECT_DIR$/mysite/cooklog/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/views.py" afterPath="$PROJECT_DIR$/mysite/cooklog/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/recipe_form.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/recipe_form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/new_dish_form.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/new_dish_form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/new_ingredient_form.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/new_ingredient_form.html" />
     </list>
     <ignored path="cooklog.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,7 +65,7 @@
         <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/recipe_detail.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="19" column="87" selection-start-line="19" selection-start-column="87" selection-end-line="19" selection-end-column="87" />
+              <caret line="19" column="72" selection-start-line="19" selection-start-column="72" selection-end-line="19" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -92,9 +92,13 @@
         <option value="$PROJECT_DIR$/mysite/cooklog/models.py" />
         <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/dish_detail.html" />
         <option value="$PROJECT_DIR$/mysite/cooklog/forms.py" />
-        <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/recipe_detail.html" />
         <option value="$PROJECT_DIR$/mysite/cooklog/views.py" />
         <option value="$PROJECT_DIR$/mysite/cooklog/urls.py" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/new_dish_form.html" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/new_ingredient_form.html" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/recipe_form.html" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/recipe_detail.html" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/ingredient_form.html" />
       </list>
     </option>
   </component>
@@ -219,6 +223,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cooklog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cooklog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mysite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cooklog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cooklog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -331,22 +361,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/recipe_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/new_ingredient_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/cooklog/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="478">
@@ -365,10 +379,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/update_dish_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="68" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/update_dish_photo_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/new_dish_form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-154">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="386">
+          <caret line="36" column="68" selection-start-line="36" selection-start-column="68" selection-end-line="36" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/new_ingredient_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="68" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/recipe_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="68" selection-start-line="28" selection-start-column="68" selection-end-line="28" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/ingredient_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
           <folding />
         </state>
       </provider>
@@ -376,7 +430,7 @@
     <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/recipe_detail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="19" column="87" selection-start-line="19" selection-start-column="87" selection-end-line="19" selection-end-column="87" />
+          <caret line="19" column="72" selection-start-line="19" selection-start-column="72" selection-end-line="19" selection-end-column="72" />
           <folding />
         </state>
       </provider>
