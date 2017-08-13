@@ -2,25 +2,25 @@
 {% load app_extras %}
 
 <div class="dish-mini">
-    <div class="dish-mini-image-column">
-        {% if dish.dish_image %}
-        <div class="crop-image">
-            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
-        </div>
-        {% else %}
-        <div class="crop-placeholder">
-            {% ifequal user.id dish.chef_id_id %}
-            <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
-            {% else %}
-            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>
-            {% endifequal %}
-        </div>
-        {% endif %}
-    </div>
-    
+<!--    <div class="dish-mini-image-column">-->
+<!--        {% if dish.dish_image %}-->
+<!--        <div class="crop-image">-->
+<!--            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>-->
+<!--        </div>-->
+<!--        {% else %}-->
+<!--        <div class="crop-placeholder">-->
+<!--            {% ifequal user.id dish.chef_id_id %}-->
+<!--            <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>-->
+<!--            {% else %}-->
+<!--            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>-->
+<!--            {% endifequal %}-->
+<!--        </div>-->
+<!--        {% endif %}-->
+<!--    </div>-->
+
     <div class="dish-mini-text-column">
         <div class="dish-mini-date-inline">
-            {{ dish.date_created|date:"D M.d"|lower }}
+            {{ dish.date_scheduled|date:"D M.d"|lower }}
         </div> &middot;
         <div class="dish-mini-dish-chef-name">
             <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }}</a>

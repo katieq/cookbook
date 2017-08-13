@@ -9,35 +9,7 @@
 </div>
 
 {% for dish in todo_dishes %}
-<div>
-    <div class="dish-mini">
-        {% comment %}
-        <div class="dish-mini-date-long">
-            {{ dish.date_scheduled|date:"D, M-d" }}
-        </div>
-        {% endcomment %}
-        <div class="dish-mini-days-until">
-            {{ dish.date_scheduled|date:"D, M-d"|naturaltime }}
-        </div>
-
-        <div class="dish-mini-inner">
-            <div class="dish-mini-inner-name">
-                <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
-            </div>
-            <div class="dish-mini-inner-recipe">
-                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
-                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
-            </div>
-            <div class="dish-mini-inner-method">
-                {{ dish.dish_method }}
-            </div>
-        </div>
-        {% comment %}
-        <div class="dish-mini-edit">
-            <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
-        </div>
-        {% endcomment %}
-</div>
+{% include "dish_mini_todo.html" %}
 {% empty %}
 <div class="dish-empty">
     No dishes yet.
@@ -49,28 +21,7 @@
 </div>
 
 {% for dish in archive_dishes %}
-<div>
-    <div class="dish-mini">
-                
-        
-        <div class="dish-mini-inner">
-            <div class="dish-mini-inner-name">
-                <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
-            </div>
-            <div class="dish-mini-inner-recipe">
-                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><img src="{% static "emoji/img/chef.png" %}" alt="master" height="18"/></a>
-                <a href="/cooklog/dish/add/{{dish.dish_id}}/"><img src="{% static "emoji/img/edit.png" %}" alt="edit" height="18"/></a>
-            </div>
-            <div class="dish-mini-inner-method">
-                {{ dish.dish_method }}
-            </div>
-        </div>
-        {% comment %}
-        <div class="dish-mini-edit">
-            <a href="/cooklog/dish/add/{{dish.dish_id}}/">[edit]</a>
-        </div>
-        {% endcomment %}
-    </div>
+{% include "dish_mini_todo.html" %}
     {% empty %}
     <div class="dish-empty">
         No dishes yet.

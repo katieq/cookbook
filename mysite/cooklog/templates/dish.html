@@ -97,8 +97,8 @@
                     </div>
                     <div class="dish-comments-comment">
                         {{ chef_comment.chef_dish_comment }}
-                        {% ifequal user.id chef_comment.chef_dish_comment_id %}
-                        <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/">[<i class="fa fa-close" aria-hidden="true"></i>]</a>
+                        {% ifequal user.id chef_comment.chef_id_id %}
+                        <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/"><i class="fa fa-close" aria-hidden="true"></i></a>
                         {% endifequal %}
                     </div>
                 </div>

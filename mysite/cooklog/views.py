@@ -378,7 +378,7 @@ class DishCreate(CreateView):
 
 class DishQuickCreate(CreateView):
     form_class = NewDishQuickForm
-    template_name = 'new_dish_form.html'
+    template_name = 'new_dish_quick_form.html'
     def get_initial(self):
         return {'chef_id' : self.request.user.id, 'recipe_id': 1 } # default: None.
     def get_success_url(self):

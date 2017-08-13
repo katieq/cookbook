@@ -169,10 +169,10 @@ class Dish(models.Model):
 #    dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE)
 #    chef_id = models.ForeignKey(Chef, on_delete=models.CASCADE)
 
-class Chef_Dish_Comments(models.Model):   # avoided ever just comment, since reserved word perhaps?
+class Chef_Dish_Comments(models.Model):
     chef_dish_comment_id = models.AutoField(primary_key=True)
-    dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE)
-    chef_id = models.ForeignKey(Chef, default=1, on_delete=models.CASCADE)
+    dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE) # TODO give reverse lookup name and use
+    chef_id = models.ForeignKey(Chef, default=1, on_delete=models.CASCADE) # TODO give reverse lookup name and use it
     chef_dish_comment = models.CharField("Chef dish comment", max_length = 800) # not sure what name should be?
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
 
