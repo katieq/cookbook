@@ -29,9 +29,7 @@ class Chef(models.Model):
         return reverse('chef-detail', kwargs={'pk': self.pk})
 
 class ChefFollows(models.Model):
-    # chef_follow_id = models.AutoField(primary_key=True)
     follower_id = AutoOneToOneField('auth.user') #models.ForeignKey(User, on_delete=models.CASCADE)
-    # chef_id = models.ForeignKey(Chef, on_delete=models.CASCADE)
     chef_id = models.ManyToManyField(Chef, related_name='followed_by')
     date_created = models.DateTimeField("Date created", default = datetime.datetime.now)
     def __str__(self):
@@ -63,7 +61,8 @@ class Recipe(models.Model):
     # recipe_type = models.CharField(max_length=30)
     recipe_method = models.TextField("Recipe method", blank = True, null = True)
     recipe_comments = models.TextField("Recipe comments", blank = True, null = True)
-    chef_id = models.ForeignKey(Chef, on_delete = models.SET_NULL, blank=True, null=True)
+    chef_id = models.ForeignKey(Chef, on_delete=models.SET_NULL, blank=True, null=True)
+    recipe_image = models.ImageField(upload_to="recipe_photos", null=True, blank=True)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
     def __str__(self):
         return self.recipe_name
@@ -125,25 +124,25 @@ class Ingredient(models.Model):
 
 class Dish(models.Model):
     dish_id = models.AutoField(primary_key=True)
-    chef_id = models.ForeignKey(Chef, default=1, on_delete=models.CASCADE) # I wonder..if cook together, ManytoMany Chef!?
-    recipe_id = models.ForeignKey(Recipe, on_delete=models.SET_DEFAULT, default=1)
+    chef_id = models.ForeignKey(Chef, default=1, on_delete=models.CASCADE, related_name="cooked_by_chef") # I wonder..if cook together, ManytoMany Chef!?
+    recipe_id = models.ForeignKey(Recipe, on_delete=models.SET_DEFAULT, default=1, related_name="instance_of_recipe")
     extra_recipe_id = models.ManyToManyField(Recipe, blank = True, related_name="extra_recipe_dish") # changed from ForeignKey with on_delete=models.CASCADE; allow blank for now, perhaps change later.
     STATUS_CHOICES = ((u'1', u'Done'),
                       (u'2', u'To-do-soon'),
                       (u'3', u'To-do-someday'),)
     dish_status = models.CharField("Dish status", max_length=1, choices=STATUS_CHOICES, default='1')
     date_scheduled = models.DateField("Date scheduled", null=True, blank=True)
-    dish_name = models.CharField("Dish name", max_length=200) # default recipe name??
+    dish_name = models.CharField("Dish name", max_length=200)
     #dishtype_id = models.ManyToManyField(DishType,  blank=True)
     dish_source = models.CharField("Recipe source", null=True, blank=True, max_length=200)
-    dish_method = models.CharField("Dish method", max_length=1000,
+    dish_method = models.TextField("Dish method",
                                    null=True, blank=True)
     dish_rating = models.IntegerField("Dish rating", validators=[MaxValueValidator(5), MinValueValidator(0)],
                                       null=True, blank=True)
-    dish_comments = models.CharField("Dish review", max_length=800,
+    dish_comments = models.TextField("Dish review",
                                      null=True, blank=True) # my own comments about how I liked it..
     ingredient_id = models.ManyToManyField(Ingredient,  blank=True)
-    ##can't have two fields to Chef? like_chef_id = models.ManyToManyField(Chef) # tie to dish, instead of its own Likes model. AGH! I think you can! but just needs related_name! thus can remove the "likes" model..??
+    #can't have two fields to Chef? like_chef_id = models.ManyToManyField(Chef) # tie to dish, instead of its own Likes model. AGH! I think you can! but just needs related_name! thus can remove the "likes" model..??
     like_chef_id = models.ManyToManyField(Chef, blank = True, related_name="chef_like")
     dish_image = models.ImageField(upload_to="dish_photos", null = True, blank = True)
     photo_comment = models.CharField("Photo comment", max_length=200, null = True, blank = True)
@@ -171,14 +170,14 @@ class Dish(models.Model):
 
 class Chef_Dish_Comments(models.Model):
     chef_dish_comment_id = models.AutoField(primary_key=True)
-    dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE) # TODO give reverse lookup name and use
-    chef_id = models.ForeignKey(Chef, default=1, on_delete=models.CASCADE) # TODO give reverse lookup name and use it
+    dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE, related_name="comment_about_dish")
+    chef_id = models.ForeignKey(Chef, default=1, on_delete=models.CASCADE, related_name="comment_by_chef")
     chef_dish_comment = models.CharField("Chef dish comment", max_length = 800) # not sure what name should be?
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
 
 class Bugs(models.Model):
     bug_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default = 1)
+    user_id = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default = 1, related_name="user_bug")
     bug_comment = models.TextField("Bug comment")
     STATUS_CHOICES = ((u'1', u'Not started'),
                       (u'2', u'Approved: on hold'),
