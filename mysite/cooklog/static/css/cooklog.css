@@ -44,7 +44,6 @@ a:visited {
 .page-header {
     background-color: #b4c7db; /*add8e6 #99D1B7;*/
     margin-top: 0;
-    margin-left: -10px;
     padding: 0px 0px 0px 0px;
     height: 40px;
     float: left;
@@ -121,6 +120,7 @@ a:visited {
     width: 100%;
     /*max-width: 500px;*/
     vertical-align: top;
+    margin-left: 10px;
 }
 
 .dish-photo-column {

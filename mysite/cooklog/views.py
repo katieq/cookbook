@@ -198,12 +198,14 @@ class DishDetailView(FormMixin, DetailView):
         return '/cooklog/dish/' + str(self.object.dish_id) #reverse('cooklog/dish/', kwargs={'slug': self.object.slug})
     def get_context_data(self, **kwargs):
         context = super(DishDetailView, self).get_context_data(**kwargs)
-        
+
+        # only if dish name not empty:
         exclude = set(string.punctuation)
         s = ''.join(ch for ch in self.object.dish_name.replace('-', ' ') if ch not in exclude)
         go_words = [word for word in s.lower().split() if word not in get_stop_words('en')]
-        context['recipe_matcher'] = go_words
-        context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
+        if len(go_words) > 0:
+            context['recipe_matcher'] = go_words
+            context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
 
 
         context['add_comment_form'] = NewCommentForm(initial={'dish_id': self.object})

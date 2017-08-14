@@ -20,15 +20,7 @@
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card-2" style="width:110px; background-color: #b4c7db;" id="mySidebar">
     <button class="w3-bar-item w3-button w3-hide-large" onclick="w3_close()"><i class="fa fa-times"></i></button>
     <a href="/cooklog/" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a>
-    
-    <button class="w3-button w3-block w3-left-align" onclick="myAccFunc5()">
-        <i class="fa fa-folder"></i> <i class="fa fa-caret-down"></i></button>
-    <div id="demoAcc5" class="w3-hide w3-white w3-card-2">
-        <a href="/cooklog/recipecategories/" class="w3-bar-item w3-button"><i class="fa fa-list-ul"></i> Categ.</a>
-        <a href="/cooklog/recipes/" class="w3-bar-item w3-button"><i class="fa fa-book"></i>Recipe</a>
-        <a href="/cooklog/ingredients/" class="w3-bar-item w3-button"><i class="fa fa-cutlery"></i> Ingr.</a>
-    </div>
-    
+
     {% if user.is_authenticated %}
     <button class="w3-button w3-block w3-left-align" onclick="myAccFunc2()">
         <i class="fa fa-user"></i> <i class="fa fa-caret-down"></i></button>
@@ -75,6 +67,15 @@
         </form>
     </div>
 
+    <button class="w3-button w3-block w3-left-align" onclick="myAccFunc5()">
+        <i class="fa fa-folder"></i> <i class="fa fa-caret-down"></i></button>
+    <div id="demoAcc5" class="w3-hide w3-white w3-card-2">
+        <a href="/cooklog/recipecategories/" class="w3-bar-item w3-button"><i class="fa fa-list-ul"></i> Categ.</a>
+        <a href="/cooklog/recipes/" class="w3-bar-item w3-button"><i class="fa fa-book"></i>Recipe</a>
+        <a href="/cooklog/ingredients/" class="w3-bar-item w3-button"><i class="fa fa-cutlery"></i> Ingr.</a>
+    </div>
+
+
     <a href="#" class="w3-bar-item w3-button"><i class="fa fa-bell-o"></i></a>
     <a href="/cooklog/bug/add/" class="w3-bar-item w3-button"><i class="fa fa-bug"></i><i class="fa fa-exclamation"></i></a>
     
@@ -85,12 +86,12 @@
     
 </div>
 
-<div class="w3-main" style="margin-left:120px">
+<div class="w3-main" style="margin-left:110px">
     
     <div class="w3">
     <head>
         <div class="page-header">
-            <div class="page-header-menu-button" style="float: left; white-space: nowrap; margin-left: 10px;">
+            <div class="page-header-menu-button" style="float: left; white-space: nowrap; ">
                 <button class="w3-button w3-large" style="margin-top: -3px;" onclick="w3_open()">&#9776;</button>
             </div>
             <div class="page-header-title">
