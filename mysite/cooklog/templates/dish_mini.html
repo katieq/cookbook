@@ -89,7 +89,7 @@
                         <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a>:
                     </div>
                     <div class="dish-mini-comments-comment">
-                        {{ chef_comment.chef_dish_comment }}
+                        {{ chef_comment.chef_dish_comment | truncatechars:40 }}
                         {% ifequal chef_comment.chef_id_id user.id %}
                         <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/"><i class="fa fa-close" aria-hidden="true"></i></a>
                         {% endifequal %}
