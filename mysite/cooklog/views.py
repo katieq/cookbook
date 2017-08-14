@@ -147,6 +147,7 @@ class RecipeDetailView(DetailView):
                         self).get_context_data(**kwargs)
         if (self.object.recipe_id != 1):
             context['dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).order_by("-date_created")
+            context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['dishes'])
         return context
 
 class RecipeCategoryDetailView(DetailView):

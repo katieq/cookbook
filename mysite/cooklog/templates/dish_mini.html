@@ -68,23 +68,32 @@
         </div>
         
         <div class="dish-mini-social-comments-and-likes">
-            <div class="dish-mini-likes">
+            <div class="dish-mini-likes-icon">
                 <a href="/cooklog/like/{{dish.dish_id}}/?next=0"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a> ({{ dish.like_chef_id.count }}):
+            </div>
+            <div class="dish-mini-likes">
                 {% for chef_like in dish.like_chef_id.all %}
                 <a href="/cooklog/chef/{{chef_like.chef_id}}/">{{chef_like.first_name}}</a>,
                 {% endfor %}
             </div>
         </div>
         <div class="dish-mini-social-comments-and-likes">
-            <div class="dish-mini-comments" >
+            <div class="dish-mini-comments-icon">
                 <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"><i class="fa fa-comment" aria-hidden="true"></i></a>
+            </div>
+            <div class="dish-mini-comments" >
                 {% for chef_comment in chef_comments %}
                 {% ifequal chef_comment.dish_id_id dish.dish_id %}
                 <div class="dish-mini-single-comment" >
-                    <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a> <i> says </i> {{ chef_comment.chef_dish_comment }}
-                    {% ifequal chef_comment.chef_id_id user.id %}
-                    <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/"><i class="fa fa-close" aria-hidden="true"></i></a>
-                    {% endifequal %}
+                    <div class="dish-mini-comments-name">
+                        <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a>:
+                    </div>
+                    <div class="dish-mini-comments-comment">
+                        {{ chef_comment.chef_dish_comment }}
+                        {% ifequal chef_comment.chef_id_id user.id %}
+                        <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/"><i class="fa fa-close" aria-hidden="true"></i></a>
+                        {% endifequal %}
+                    </div>
                 </div>
                 {% endifequal %}
                 {% endfor %}
