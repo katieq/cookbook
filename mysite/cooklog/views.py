@@ -360,11 +360,7 @@ class ChefFollowsUpdate(UpdateView):
     form_class = UpdateChefFollowsForm
     template_name = 'update_chef_follow_form.html'
     def get_queryset(self):
-        return ChefFollows.objects.filter(follower_id=self.kwargs.get("pk", None))
-    #def get_initial(self):
-    #    return {'follower_id' : self.request.user.id }
-    #model = ChefFollows
-    #fields = ['follower_id', 'chef_id']
+        return ChefFollows.objects.filter(follower_id=self.kwargs.get("pk", None)) # self.request.user.id should work too
     def get_success_url(self):
         return '/cooklog/' # not: chef/' + str(self.request.user.id) + '/'
 

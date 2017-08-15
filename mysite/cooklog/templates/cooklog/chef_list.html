@@ -4,7 +4,7 @@
 <h2>Chefs</h2>
 <ul>
     {% for chef in all_chefs %}
-    <li><a href="../chef/{{chef.chef_id}}/">{{ chef.first_name }}</a></li>
+    <li><a href="../chef/{{chef.chef_id}}/">{{ chef.first_name }}</a> {{chef.chef_to_user_id}}, {{chef.chef_id}}</li>
     {% endfor %}
 </ul>
 {% endblock %}

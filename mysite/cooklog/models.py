@@ -21,7 +21,7 @@ class Chef(models.Model):
     last_name = models.CharField("Last name", max_length=30)
     bio = models.TextField(max_length = 500, blank = True, null = True)
     birth_date = models.DateField(null = True, blank = True)
-    #follower_id = models.ManyToManyField(User,  blank=True)
+    #follower_id = models.ManyToManyField(User,  blank=True, related_name="followed_chefs")
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
     def __str__(self):
         return u'%s %s' % (self.first_name, self.last_name)
