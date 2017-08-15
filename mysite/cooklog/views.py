@@ -9,7 +9,7 @@ from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, C
 #from cooklog.forms import ChefEntryForm
 #from django.views.generic import CreateView
 from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, UpdateChefFollowsForm, NewLikeForm # UploadImageForm,
-from cooklog.forms import RecipeChooseForm
+from cooklog.forms import RecipeChooseForm, NewDishTodoQuickForm
 from cooklog.forms import UpdateDishForm, UpdateDishPhotoForm #, NewDishWeekTodoForm
 from django import forms
 from django.forms.formsets import formset_factory
@@ -327,7 +327,12 @@ class RecipeCreate(CreateView):
         return {'chef_id' : self.request.user.id } #self.request.GET.get('u') }
     def get_success_url(self):
         if self.request.GET.get('next'):
-            return '/cooklog/dish/recipe_choose/' + self.request.GET.get('next') + '/?next=' + str(self.object.recipe_id)
+            if self.request.GET.get('next')=="new":
+                return '/cooklog/dish/add/?next=' + str(self.object.recipe_id)
+            elif self.request.GET.get('next')=="newtodo":
+                return '/cooklog/dish/add-todo/?next=' + str(self.object.recipe_id)
+            else:
+                return '/cooklog/dish/recipe_choose/' + self.request.GET.get('next') + '/?next=' + str(self.object.recipe_id)
         else:
             return '/cooklog/recipe/' + str(self.object.recipe_id) + '/'
 
@@ -395,6 +400,15 @@ class DishTodoCreate(CreateView):
         return {'chef_id' : self.request.user.id, 'dish_status': 2, 'recipe_id' : self.request.GET.get('next') } #self.request.GET.get('u') }
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
+
+class DishTodoQuickCreate(CreateView):
+    form_class = NewDishTodoQuickForm
+    template_name = 'new_dish_todo_quick_form.html'
+    def get_initial(self):
+        return {'chef_id': self.request.user.id, 'recipe_id': 1, 'dish_status': 2}  # default recipe: None.
+    def get_success_url(self):
+        return '/cooklog/dish/' + str(self.object.dish_id) + '/'
+
 
 #class DishWeekTodoCreate(CreateView):
 #    form_class = NewDishWeekTodoForm
@@ -587,3 +601,12 @@ class NewBugView(CreateView):
     def get_success_url(self):
         return '/cooklog/'
 
+
+class NewEntryView(TemplateView):
+    template_name = 'new_entry.html'
+
+class NewEntryDoneView(TemplateView):
+    template_name = 'new_entry_done.html'
+
+class NewEntryTodoView(TemplateView):
+    template_name = 'new_entry_todo.html'

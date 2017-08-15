@@ -40,12 +40,12 @@
     <button class="w3-button w3-block w3-left-align" onclick="myAccFunc1()">
         <i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></button>
     <div id="demoAcc1" class="w3-hide w3-white w3-card-2">
-        <a href="/cooklog/dish/add/" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Dish</a>
-        <a href="/cooklog/dish/add-todo/" class="w3-bar-item w3-button"><i class="fa fa-calendar-plus-o"></i> Plan</a>
-        <a href="/cooklog/recipe/add/" class="w3-bar-item w3-button"><i class="fa fa-book"></i> Recipe</a>
-        <a href="/cooklog/ingredient/add/" class="w3-bar-item w3-button"><i class="fa fa-cutlery"></i> Ingr</a>
-        <a href="/cooklog/dish/new/" class="w3-bar-item w3-button">(<i class="fa fa-plus"></i> Quick)</a>
-        <a href="/cooklog/dish/add-full/" class="w3-bar-item w3-button">(<i class="fa fa-plus"></i> Long)</a>
+        <a href="/cooklog/new-done/" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Done</a>
+        <a href="/cooklog/new-todo/" class="w3-bar-item w3-button"><i class="fa fa-calendar-plus-o"></i> Plan</a>
+        <a href="/cooklog/recipe/add/" class="w3-bar-item w3-button" style="font-size: 16px;">(<i class="fa fa-book"></i> Recipe)</a>
+        <a href="/cooklog/ingredient/add/" class="w3-bar-item w3-button" style="font-size: 16px;">(<i class="fa fa-cutlery"></i> Ingrdn)</a>
+        <!--<a href="/cooklog/dish/new/" class="w3-bar-item w3-button">(<i class="fa fa-plus"></i> Quick)</a>-->
+        <!--<a href="/cooklog/dish/add-full/" class="w3-bar-item w3-button">(<i class="fa fa-plus"></i> Long)</a>-->
     </div>
     
 
@@ -53,7 +53,6 @@
     <button class="w3-button w3-block w3-left-align" onclick="myAccFunc3()">
         <i class="fa fa-calendar"></i> <i class="fa fa-caret-down"></i></button>
     <div id="demoAcc3" class="w3-hide w3-white w3-card-2">
-        <a href="/cooklog/dish/add-todo/" class="w3-bar-item w3-button"><i class="fa fa-calendar-plus-o"></i> New</a>
         <a href="/cooklog/chef/weektodo/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-calendar"></i> Week</a>
         <a href="/cooklog/chef/todo/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-calendar"></i> All</a>
     </div>
@@ -95,7 +94,7 @@
                 <button class="w3-button w3-large" style="margin-top: -3px;" onclick="w3_open()">&#9776;</button>
             </div>
             <div class="page-header-title">
-                <a href="/cooklog/">COOKQUO</a>
+                <a href="/cooklog/">COOKLOG</a>
             </div>
         </div>
     </head>

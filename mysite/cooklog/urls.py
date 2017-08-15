@@ -29,6 +29,7 @@ from django.contrib.auth.forms import UserCreationForm
 from cooklog.views import NewCommentView, CommentDeleteView, NewLikeView # UploadImageView, ,
 from cooklog.views import RecipeChooseView, NewRecipeCategoryView, NewBugView
 from cooklog.views import RecipeAutocomplete
+from cooklog.views import NewEntryView, NewEntryDoneView, NewEntryTodoView, DishTodoQuickCreate
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
@@ -66,6 +67,7 @@ urlpatterns = [
                url(r'^cheffollow/add/(?P<pk>[0-9]+)/$', ChefFollowsUpdate.as_view(), name='chef_follow_update'),
                url(r'^dish/new/$', DishQuickCreate.as_view(), name='dish_quick_add'),
                url(r'^dish/add/$', DishCreate.as_view(), name='dish_add'),
+               url(r'^dish/new-todo/$', DishTodoQuickCreate.as_view(), name='dish_quick_add_todo'),
                url(r'^dish/add-todo/$', DishTodoCreate.as_view(), name='dish_add_todo'),
                # url(r'^dish/add-weektodo/$', DishWeekTodoCreate.as_view(), name='dish_add_weektodo'),
                url(r'^dish/add-full/$', DishLongCreate.as_view(), name='dish_add_long'),
@@ -82,5 +84,8 @@ urlpatterns = [
                url(r'^recipecategory/add/$', NewRecipeCategoryView.as_view(), name='new_recipe_category'),
                url(r'^bug/add/$', NewBugView.as_view(), name='new_bug'),
                url(r'^recipe-autocomplete/$', RecipeAutocomplete.as_view(),name='recipe-autocomplete'),
+               url(r'^new/$', NewEntryView.as_view(), name='new_entry'),
+               url(r'^new-done/$', NewEntryDoneView.as_view(), name='new_entry_dish'),
+               url(r'^new-todo/$', NewEntryTodoView.as_view(), name='new_entry_todo'),
                #url(r'^like/$', 'cooklog.views.like', name='like'),
 ]

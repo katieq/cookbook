@@ -117,6 +117,27 @@ class NewDishTodoForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = False
 
+
+class NewDishTodoQuickForm(forms.ModelForm):
+    date_scheduled = forms.DateField(widget=SelectDateWidget(empty_label="Nothing"), initial=datetime.now())
+
+    class Meta:
+        model = Dish
+        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status', 'date_scheduled',]
+
+    def __init__(self, *args, **kwargs):
+        super(NewDishTodoQuickForm, self).__init__(*args, **kwargs)  # Call to ModelForm constructor
+        self.fields['chef_id'].widget = forms.HiddenInput()
+        self.fields['dish_status'].widget = forms.HiddenInput()
+        self.fields['recipe_id'].widget = forms.HiddenInput()
+
+        self.fields['dish_name'].label = "Dish name"
+        self.fields['date_scheduled'].label = "When to cook"
+
+        for key in self.fields:
+            self.fields[key].required = False
+
+
 class NewDishLongForm(forms.ModelForm):
     #class Meta:
     #    model = Dish

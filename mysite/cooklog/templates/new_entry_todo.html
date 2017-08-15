@@ -1,0 +1,16 @@
+{% extends 'cooklog/__base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block body_block %}
+
+<div class="page-text">
+    <p>To-do dish:</p>
+    <p>Do you want:</p>
+    <li><a href="/cooklog/dish/new-todo/">quick entry</a>,</li>
+    <li><a href="/cooklog/dish/add-todo/">recipe exists: pick it from dropdown</a>,</li>
+    <li><a href="/cooklog/recipe/add/?next=newtodo">create recipe</a>,</li>
+    <li><a href="/cooklog/dish/add-todo/">skip recipe for now and do it later</a> (todo: remove recipe from this)</li>
+
+</div>
+{% endblock %}

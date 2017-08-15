@@ -1,0 +1,38 @@
+{% extends 'cooklog/__base.html' %}
+{% load static %}
+
+
+<head>
+    <title>Dish Entry</title>
+</head>
+
+{% block body_block %}
+
+<div class="dish-entry">
+    {% comment %}
+    <div class="page-title">
+        Enter new dish:
+    </div>
+    {% endcomment %}
+
+    <div class="dish-entry-form">
+        
+        
+        {% if form.errors %}
+        <p style="color: red;">
+        Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+        {% endif %}
+        
+        <form action="" method="post" enctype="multipart/form-data">
+            <table>
+                {{ form.as_table }}
+            </table>
+            {% csrf_token %}
+            <input type="submit" value="UPLOAD">
+        </form>
+    </div>
+    
+
+{% endblock %}
+
