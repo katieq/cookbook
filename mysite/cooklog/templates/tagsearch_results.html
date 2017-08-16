@@ -1,0 +1,40 @@
+{% extends 'cooklog/__base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block body_block %}
+
+<div class="page-title">
+    Tags for {{q}} ...
+</div>
+
+{% if dishes %}
+<div class="page-subtitle">
+    Dish{{ dishes|pluralize }} ({{ dishes|length }}):
+</div>
+{% endif %}
+
+{% for dish in dishes %}
+{% include "dish_mini.html" %}
+
+{% endfor %}
+
+{% if recipes %}
+<div class="page-subtitle">
+    Recipe{{ recipes|pluralize }} ({{ recipes|length }}):
+</div>
+{% endif %}
+
+{% for recipe in recipes %}
+<div class="dish-brief">
+    <div class="dish-brief-inner">
+        <div class="dish-brief-inner-name" style="margin-left:20px;">
+            <a href="../recipe/{{recipe.recipe_id}}/">{{ recipe.recipe_name }}</a> ({{recipe.recipe_type}})
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+
+{% endblock %}

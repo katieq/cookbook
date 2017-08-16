@@ -47,15 +47,24 @@
                 &middot; <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a>
                 {% endifequal %}
             </div>
-        
+
+            {% if dish.recipe_id_id != 1 %}
             <div class="dish-header-recipe-name">
                 <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}:</a>
             </div>
+            {% endif %}
             <div class="dish-header-dish-name">
                 <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
             </div>
         </div>
-        
+
+        <div class="dish-tags">
+            {% for tag in dish.tags.names %}
+                <a href="/cooklog/tagsearch/?q={{tag}}">#{{ tag }}</a> &middot;
+            {% endfor %}
+        </div>
+
+        {% if dish.dish_method %}
         <div class="dish-method">
             <div class="dish-method-label">
                 Method:
@@ -64,6 +73,8 @@
                 {{ dish.dish_method | safe | hashtag_links | truncatewords:20 }}
             </div>
         </div>
+        {% endif %}
+        {% if dish.dish_comments %}
         <div class="dish-review">
             <div class="dish-review-label">
                 Review:
@@ -72,6 +83,7 @@
                 {{ dish.dish_comments | safe | hashtag_links | truncatewords:20 }}
             </div>
         </div>
+        {% endif %}
 
         <div class="dish-likes">
             <div class="dish-likes-like">

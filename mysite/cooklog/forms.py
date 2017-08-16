@@ -29,7 +29,7 @@ class NewDishQuickForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
-                  'date_created', 'dish_image']
+                  'date_created', 'dish_image', 'tags']
     
     def __init__(self, *args, **kwargs):
         super(NewDishQuickForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
@@ -54,7 +54,7 @@ class NewDishShortForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
-                  'date_created', 'dish_method',
+                  'date_created', 'tags', 'dish_method',
                   'dish_comments', 'dish_rating', 'dish_image']
 #        widgets = {
 #            'recipe_id': autocomplete.ModelSelect2(url='recipe-autocomplete',
@@ -93,7 +93,7 @@ class NewDishTodoForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
-                  'date_created', 'date_scheduled', 'dish_source', 'dish_method', 'dish_comments']
+                  'date_created', 'date_scheduled', 'tags', 'dish_source', 'dish_method', 'dish_comments']
     
     def __init__(self, *args, **kwargs):
         super(NewDishTodoForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
@@ -123,7 +123,7 @@ class NewDishTodoQuickForm(forms.ModelForm):
 
     class Meta:
         model = Dish
-        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status', 'date_scheduled',]
+        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status', 'date_scheduled', 'tags']
 
     def __init__(self, *args, **kwargs):
         super(NewDishTodoQuickForm, self).__init__(*args, **kwargs)  # Call to ModelForm constructor
@@ -155,7 +155,7 @@ class NewDishLongForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status', 'date_scheduled',
-                  'date_created', 'dish_source', 'dish_method', 'dish_rating',
+                  'date_created', 'tags', 'dish_source', 'dish_method', 'dish_rating',
                   'dish_comments', 'dish_image','photo_comment', 'ingredient_id']
     
     def __init__(self, *args, **kwargs):
@@ -189,7 +189,7 @@ class UpdateDishForm(forms.ModelForm):
                                                    widget=forms.SelectMultiple) # or CheckboxSelectMultiple
     class Meta:
         model = Dish
-        fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled', 'date_created',
+        fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled', 'date_created', 'tags',
                     'dish_source', 'dish_method', 'dish_rating','dish_comments',
                   'dish_image', 'photo_comment', 'ingredient_id']
 
@@ -220,7 +220,7 @@ class UpdateDishPhotoForm(forms.ModelForm):
 class NewRecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['recipe_name', 'recipecategory_id', 'recipe_source', 'recipe_method',
+        fields = ['recipe_name', 'recipecategory_id', 'tags', 'recipe_source', 'recipe_method',
                   'recipe_comments', 'recipe_image', 'chef_id','date_created']
     def __init__(self, *args, **kwargs):
         super(NewRecipeForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor

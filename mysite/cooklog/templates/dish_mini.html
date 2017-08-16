@@ -53,19 +53,35 @@
             {% endfor %}
             {% endif %}
         </div>
-        
+
+        {% if dish.recipe_id_id != 1 %}
+        <div class="dish-mini-dish-name">
+            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}:</a>
+        </div>
+        {% endif %}
+
         <div class="dish-mini-dish-name">
             <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
         </div>
-        
+
+        <div class="dish-mini-tags">
+            {% for tag in dish.tags.names %}
+                <a href="/cooklog/tagsearch/?q={{tag}}">#{{ tag }}</a> &middot;
+            {% endfor %}
+        </div>
+
+        {% if dish.dish_method %}
         <div class="dish-mini-dish-method">
             Method:
             {{ dish.dish_method | safe | hashtag_links | truncatewords:10 }} <a href="/cooklog/dish/{{dish.dish_id}}/">   ... </a>
         </div>
+        {% endif %}
+        {% if dish.dish_comments %}
         <div class="dish-mini-dish-comments">
             Review:
             {{ dish.dish_comments | safe | hashtag_links | truncatewords:10 }} <a href="/cooklog/dish/{{dish.dish_id}}/"> ... </a>
         </div>
+        {% endif %}
         
         <div class="dish-mini-social-comments-and-likes">
             <div class="dish-mini-likes-icon">

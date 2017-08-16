@@ -43,12 +43,12 @@ INSTALLED_APPS = (
     'cooklog.apps.CooklogConfig',
     'django.contrib.humanize',
     'cooklog.templatetags.app_extras',
-    'annoying',
+    #'annoying',
                   #'mentions',
-                  #'taggit',
+    'taggit',
 )
 
-#TAGGIT_CASE_INSENSITIVE = True
+TAGGIT_CASE_INSENSITIVE = True
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

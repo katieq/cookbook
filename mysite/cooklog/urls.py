@@ -87,5 +87,6 @@ urlpatterns = [
                url(r'^new/$', NewEntryView.as_view(), name='new_entry'),
                url(r'^new-done/$', NewEntryDoneView.as_view(), name='new_entry_dish'),
                url(r'^new-todo/$', NewEntryTodoView.as_view(), name='new_entry_todo'),
+               url(r'^tagsearch/$', views.tagsearch, name='tagsearch_results'),
                #url(r'^like/$', 'cooklog.views.like', name='like'),
 ]

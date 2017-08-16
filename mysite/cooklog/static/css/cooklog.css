@@ -239,6 +239,13 @@ a:visited {
     color: #666666;
 /*    background: #e8eef4;*/
 }
+.dish-tags {
+    margin-left: 10px;
+    color: #FDC08E;
+}
+.dish-tags a{
+    color: #F79273;
+}
 .dish-method-label {
     display: inline-block;
     width: 40px;
@@ -488,7 +495,14 @@ a:visited {
 .dish-mini-recipe-icon img{
     margin-bottom: 2px;
 }
-
+.dish-mini-tags {
+    font-size: 10px;
+    width: 280px;
+    color: #FDC08E;
+}
+.dish-mini-tags a{
+    color: #F79273;
+}
 .dish-mini-dish-method {
     font-size: 10px;
     background: #f6fbfc;

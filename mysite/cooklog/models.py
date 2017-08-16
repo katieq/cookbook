@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
 from annoying.fields import AutoOneToOneField
 
-#from taggit.managers import TaggableManager
+from taggit.managers import TaggableManager
 
 class Chef(models.Model):
     chef_id = models.AutoField(primary_key=True)
@@ -64,6 +64,7 @@ class Recipe(models.Model):
     chef_id = models.ForeignKey(Chef, on_delete=models.SET_NULL, blank=True, null=True)
     recipe_image = models.ImageField(upload_to="recipe_photos", null=True, blank=True)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
+    tags = TaggableManager(blank=True)
     def __str__(self):
         return self.recipe_name
     def get_absolute_url(self):
@@ -147,7 +148,7 @@ class Dish(models.Model):
     dish_image = models.ImageField(upload_to="dish_photos", null = True, blank = True)
     photo_comment = models.CharField("Photo comment", max_length=200, null = True, blank = True)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
-    # tags = TaggableManager()
+    tags = TaggableManager(blank=True)
     def __str__(self):
         return self.dish_name
     def get_absolute_url(self):

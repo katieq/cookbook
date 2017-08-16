@@ -87,14 +87,21 @@ def search(request): # this still works for searching dish names!
             errors.append('Please enter at most 40 characters.')
         else:
             #dishes = Dish.objects.filter(dish_method__icontains=q).order_by("date_created").all()
-            dishes = Dish.objects.filter(Q(dish_method__icontains=q) | Q(dish_name__icontains=q)).order_by("date_created").all()[:10]
-            recipes = Recipe.objects.filter(recipe_name__icontains=q).order_by("date_created").all()[:10]
+            dishes = Dish.objects.filter(Q(dish_method__icontains=q) | Q(dish_name__icontains=q)).order_by("-date_created").all()[:10]
+            recipes = Recipe.objects.filter(recipe_name__icontains=q).order_by("-date_created").all()[:10]
             chefs = Chef.objects.filter(first_name__icontains=q).all()[:10]
             ingredients = Ingredient.objects.filter(ingredient_name__icontains=q).all()[:10]
             return render(request, 'search_results.html',
                           {'dishes': dishes, 'recipes': recipes, 'chefs': chefs,
                           'ingredients': ingredients, 'query': q})
     return render(request, 'search_form.html', {'errors': errors})
+
+
+def tagsearch(request):
+    q = request.GET['q']
+    dishes = Dish.objects.filter(tags__name=q).order_by("-date_created").all()
+    recipes = Recipe.objects.filter(tags__name=q).order_by("-date_created").all()
+    return render(request, 'tagsearch_results.html', {'dishes': dishes, 'recipes': recipes})
 
 class ChefList(ListView):
     model = Chef
@@ -339,7 +346,7 @@ class RecipeCreate(CreateView):
 
 class RecipeUpdate(UpdateView):
     model = Recipe
-    fields = ['recipe_name', 'recipecategory_id', 'recipe_source', 'recipe_method','recipe_comments',
+    fields = ['recipe_name', 'recipecategory_id', 'tags', 'recipe_source', 'recipe_method','recipe_comments',
               'recipe_image', 'chef_id', 'date_created']
     def get_success_url(self):
         return '/cooklog/recipe/' + str(self.object.recipe_id) + '/'
