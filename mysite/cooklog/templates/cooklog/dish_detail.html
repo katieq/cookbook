@@ -8,7 +8,7 @@
 <div class="detail-head">
     <div class="detail-title">
         {% ifequal dish.recipe_id_id 1 %}
-        Recipe: Unattached
+        <!--Recipe: Unattached .. for now, omit totally!-->
         {% else %}
         Recipe: <a href="/cooklog/recipe/{{object.recipe_id_id}}/"> {{ object.recipe_id }} </a>
         {% endifequal %}
@@ -48,7 +48,9 @@
 
 {% ifequal dish.recipe_id_id 1 %}
 <div class="dev">
-    <p> (Under development) Matched on having any of: {{ recipe_matcher }} </p>
+    <p> (Under development) </p>
+    <p> MATCH TO A RECIPE: </p>
+    <p> Suggestions matched on names having any of: {{ recipe_matcher }} </p>
 
     Testing out a search function:
     Choose an existing recipe...

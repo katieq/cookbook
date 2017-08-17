@@ -19,11 +19,11 @@
     </div>
     
     <div class="dish-mini-text-column">
-        <div class="dish-mini-date-inline">
-            {{ dish.date_created|date:"D M.d"|lower }}
-        </div> &middot;
         <div class="dish-mini-dish-chef-name">
             <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }}</a>
+        </div> &middot;
+        <div class="dish-mini-date-inline">
+            {{ dish.date_created|date:"D M.d"|lower }}
         </div> &middot;
         <div class="dish-mini-recipe-icon">
             {% ifequal user.id dish.chef_id_id %}

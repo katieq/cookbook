@@ -29,7 +29,7 @@ class NewDishQuickForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
-                  'date_created', 'dish_image', 'tags']
+                  'date_created', 'dish_image', 'dish_rating', 'tags']
     
     def __init__(self, *args, **kwargs):
         super(NewDishQuickForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
@@ -39,6 +39,7 @@ class NewDishQuickForm(forms.ModelForm):
         self.fields['recipe_id'].widget = forms.HiddenInput() # Default to 1 = "None"
         
         self.fields['dish_name'].label = "Dish name"
+        self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Upload/take photo"
         
         for key in self.fields:
