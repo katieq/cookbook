@@ -5,46 +5,29 @@
 
 {% block body_block %}
 
-<div class="chef-header">
-    <div class="chef-photo">
-        {% if object.chef_image %}
-
-           <img src="/media/{{ object.chef_image }}" />
-        {% else %}
-            {% ifequal user.id object.chef_id %}
-            <a href="/cooklog/chef/add/{{object.chef_id}}/"><img src="{% static "emoji/img/empty_avatar.png" %}"/></a>
-            {% else %}
-            <img src="{% static "emoji/img/empty_avatar.png" %}"/>
-            {% endifequal %}
-        {% endif %}
-    </div>
-    <div class="chef-header-text">
-        <div class="chef-name">
-            {{ object.first_name }} {{object.last_name.0 }}
-        </div>
-        <a href="/cooklog/chef/feed/{{object.chef_id}}/"> feed </a> &middot;
-        {% ifequal user.id object.chef_id %}
-        <a href="/cooklog/chef/add/{{object.chef_id}}/"><i class="fa fa-pencil"></i></a>
-        {% else %}
-        <a href="/cooklog/cheffollow/add/{{user.id}}/">(<i class="fa fa-user-plus"></i>clunky for now)</a>
-        {% endifequal %}
-        {% if object.bio %}
-        <p>Summary: {{ object.bio }}</p>
-        {% else %}
-        <p>Summary: <i>..write a short summary of your cooking style..</i></p>
-        {% endif %}
-        <p>Stats: <i>Coming soon: A summary of the dishes you've cooked recently</i></p>
-    </div>
-</div>
-
-
 <div class="page-title">
-    recent tasty dishes
+    <div class="pagination" style="margin-top: 0px; margin-bottom: 4px;">
+        <span class="step-links">
+            {% if page_dishes.has_previous %}
+            <a href="?page={{ page_dishes.previous_page_number }}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+            {% endif %}
+            {% ifequal user.id object.chef_id %}
+            My latest dishes
+            {% else %}
+            {{object.first_name}}'s latest dishes
+            {% endifequal %}
+            {% if page_dishes.has_next %}
+            <a href="?page={{ page_dishes.next_page_number }}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+            {% endif %}
+        </span>
+    </div>
 </div>
 
-{% for dish in best_dishes %}
-    {% include "dish_mini.html" %}
+
+{% for dish in page_dishes %}
+{% include "dish_mini.html" %}
 <!--<div class="dish-mini">-->
+<!--    -->
 <!--    <div class="dish-mini-image-column">-->
 <!--        {% if dish.dish_image %}-->
 <!--        <div class="crop-image">-->
@@ -53,9 +36,9 @@
 <!--        {% else %}-->
 <!--        <div class="crop-placeholder">-->
 <!--            {% ifequal user.id dish.chef_id_id %}-->
-<!--            <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img class="fa fa-plus"></a>-->
+<!--            <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>-->
 <!--            {% else %}-->
-<!--            <a href="/cooklog/dish/{{dish.dish_id}}/"><img class="fa fa-plus"></a>-->
+<!--            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>-->
 <!--            {% endifequal %}-->
 <!--            {% comment %}-->
 <!--            <a href="dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/yum.png" %}" alt="My image"/></a>-->
@@ -63,7 +46,7 @@
 <!--        </div>-->
 <!--        {% endif %}-->
 <!--    </div>-->
-<!---->
+<!--    -->
 <!--    <div class="dish-mini-text-column">-->
 <!--        <div class="dish-mini-date-inline">-->
 <!--            {{ dish.date_created|date:"D M.d"|lower }}-->
@@ -134,14 +117,14 @@
 <!--            </div>-->
 <!--        </div>-->
 <!--        -->
-<!--        -->
-<!--    </div>-->
+<!--      </div>-->
 <!--</div>-->
 {% empty %}
 <div class="dish-empty">
-    No dishes yet.
+No dishes yet.
 </div>
 {% endfor %}
+
 
 {% comment %}
 <div class="page-subtitle">

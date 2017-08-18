@@ -1,22 +1,26 @@
-<html>
-    <head>
-        <title>Chef Entry</title>
-    </head>
-    <body>
-        <h1>Enter or edit chef:</h1>
-        
+{% extends 'cooklog/__base.html' %}
+{% load static %}
+
+{% block body_block %}
+    <div class="page-title">
+        Edit chef details:
+    </div>
+
+    <div class="page-text">
+
         {% if form.errors %}
         <p style="color: red;">
         Please correct the error{{ form.errors|pluralize }} below.
         </p>
         {% endif %}
         
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <table>
                 {{ form.as_table }}
             </table>
             {% csrf_token %}
             <input type="submit" value="Submit">
-                </form>
-    </body>
-</html>
+        </form>
+    </div>
+
+{% endblock %}

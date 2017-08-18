@@ -2,15 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db9a15da-df43-4159-bccb-e6527cd9fa2e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/forms.py" afterPath="$PROJECT_DIR$/mysite/cooklog/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/admin.py" afterPath="$PROJECT_DIR$/mysite/cooklog/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/models.py" afterPath="$PROJECT_DIR$/mysite/cooklog/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/static/css/cooklog.css" afterPath="$PROJECT_DIR$/mysite/cooklog/static/css/cooklog.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/chefentry_form.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/chefentry_form.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/__base.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/__base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/dish_detail.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/dish_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/dish_mini.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/dish_mini.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/new_dish_quick_form.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/new_dish_quick_form.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/new_entry_done.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/new_entry_done.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/new_entry_todo.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/new_entry_todo.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_detail.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_form.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/templates/update_chef_follow_form.html" afterPath="$PROJECT_DIR$/mysite/cooklog/templates/update_chef_follow_form.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/urls.py" afterPath="$PROJECT_DIR$/mysite/cooklog/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/cooklog/views.py" afterPath="$PROJECT_DIR$/mysite/cooklog/views.py" />
     </list>
     <ignored path="cooklog.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,8 +36,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/cooklog/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="150" column="31" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
+            <state relative-caret-position="300">
+              <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -46,8 +48,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/cooklog/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="391" column="40" selection-start-line="391" selection-start-column="21" selection-end-line="391" selection-end-column="40" />
+            <state relative-caret-position="267">
+              <caret line="385" column="68" selection-start-line="385" selection-start-column="68" selection-end-line="385" selection-end-column="68" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -55,43 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tagsearch_results.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/tagsearch_results.html">
+      <file leaf-file-name="chef_detail.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/cooklog/forms.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="92" column="18" selection-start-line="92" selection-start-column="4" selection-end-line="92" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dish.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/dish.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="76" column="32" selection-start-line="76" selection-start-column="32" selection-end-line="76" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dish_mini.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/dish_mini.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+            <state relative-caret-position="525">
+              <caret line="35" column="84" selection-start-line="35" selection-start-column="84" selection-end-line="35" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -100,18 +70,8 @@
       <file leaf-file-name="cooklog.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/cooklog/static/css/cooklog.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="304" column="19" selection-start-line="304" selection-start-column="1" selection-end-line="304" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dish_detail.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/dish_detail.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-930">
-              <caret line="52" column="37" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
+            <state relative-caret-position="516">
+              <caret line="419" column="20" selection-start-line="419" selection-start-column="20" selection-end-line="419" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -134,23 +94,27 @@
         <option value="$PROJECT_DIR$/mysite/cooklog/templates/new_dish_todo_quick_form.html" />
         <option value="$PROJECT_DIR$/mysite/cooklog/templates/new_entry.html" />
         <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_list.html" />
-        <option value="$PROJECT_DIR$/mysite/cooklog/templates/update_chef_follow_form.html" />
-        <option value="$PROJECT_DIR$/mysite/cooklog/admin.py" />
         <option value="$PROJECT_DIR$/mysite/mysite/settings.py" />
         <option value="$PROJECT_DIR$/mysite/cooklog/templates/tagsearch_results.html" />
         <option value="$PROJECT_DIR$/mysite/cooklog/templates/dish_mini_todo.html" />
-        <option value="$PROJECT_DIR$/mysite/cooklog/templates/dish.html" />
-        <option value="$PROJECT_DIR$/mysite/cooklog/models.py" />
-        <option value="$PROJECT_DIR$/mysite/cooklog/views.py" />
-        <option value="$PROJECT_DIR$/mysite/cooklog/static/css/cooklog.css" />
         <option value="$PROJECT_DIR$/mysite/cooklog/templates/new_dish_quick_form.html" />
         <option value="$PROJECT_DIR$/mysite/cooklog/forms.py" />
-        <option value="$PROJECT_DIR$/mysite/cooklog/urls.py" />
-        <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/__base.html" />
         <option value="$PROJECT_DIR$/mysite/cooklog/templates/new_entry_todo.html" />
         <option value="$PROJECT_DIR$/mysite/cooklog/templates/new_entry_done.html" />
         <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/dish_detail.html" />
         <option value="$PROJECT_DIR$/mysite/cooklog/templates/dish_mini.html" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_feed.html" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/admin.py" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/dish.html" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/update_chef_follow_form.html" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/chefentry_form.html" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/models.py" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_form.html" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/views.py" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/__base.html" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/static/css/cooklog.css" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/urls.py" />
+        <option value="$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_detail.html" />
       </list>
     </option>
   </component>
@@ -574,22 +538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/update_dish_photo_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/new_dish_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="36" column="68" selection-start-line="36" selection-start-column="68" selection-end-line="36" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/ingredient_form.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -630,36 +578,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/update_chef_follow_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="72" selection-start-line="12" selection-start-column="72" selection-end-line="12" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="40" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#32#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/mysite/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -669,24 +591,6 @@
         <state relative-caret-position="435">
           <caret line="83" column="19" selection-start-line="83" selection-start-column="19" selection-end-line="83" selection-end-column="19" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/dish.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="76" column="32" selection-start-line="76" selection-start-column="32" selection-end-line="76" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="150" column="31" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -722,47 +626,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="92" column="18" selection-start-line="92" selection-start-column="4" selection-end-line="92" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="67" column="32" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="391" column="40" selection-start-line="391" selection-start-column="21" selection-end-line="391" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/__base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="42" column="29" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#a#2;n#div#1;n#div#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#3;n#div#1;n#div#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#head#0;n#div#0;n#div#1;n#html#0;n#!!top" expanded="true" />
-            <marker date="1502928878000" expanded="false" signature="5281:5354" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/new_entry_todo.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -779,14 +642,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/dish_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="68" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/dish_detail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-930">
@@ -795,18 +650,151 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/cooklog/static/css/cooklog.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="304" column="19" selection-start-line="304" selection-start-column="1" selection-end-line="304" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/dish_mini.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_feed.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="11" column="92" selection-start-line="11" selection-start-column="92" selection-end-line="11" selection-end-column="92" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/dish.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="141" selection-start-line="14" selection-start-column="141" selection-end-line="14" selection-end-column="141" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/update_chef_follow_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="50" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/dish_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/chefentry_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="237" column="22" selection-start-line="237" selection-start-column="14" selection-end-line="237" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/new_dish_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="68" selection-start-line="16" selection-start-column="68" selection-end-line="16" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/__base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="19" column="104" selection-start-line="19" selection-start-column="98" selection-end-line="19" selection-end-column="104" />
+          <folding>
+            <element signature="n#style#0;n#a#2;n#div#1;n#div#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#3;n#div#1;n#div#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#head#0;n#div#0;n#div#1;n#html#0;n#!!top" expanded="true" />
+            <marker date="1503014713000" expanded="false" signature="5414:5487" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/static/css/cooklog.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="516">
+          <caret line="419" column="20" selection-start-line="419" selection-start-column="20" selection-end-line="419" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/update_dish_photo_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="708">
+          <caret line="75" column="109" selection-start-line="75" selection-start-column="109" selection-end-line="75" selection-end-column="109" />
+          <folding>
+            <element signature="e#559#600#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="385" column="68" selection-start-line="385" selection-start-column="68" selection-end-line="385" selection-end-column="68" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/cooklog/templates/cooklog/chef_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="84" selection-start-line="35" selection-start-column="84" selection-end-line="35" selection-end-column="84" />
           <folding />
         </state>
       </provider>

@@ -17,7 +17,7 @@ from django.contrib import admin
 from cooklog import views
 from cooklog.views import ChefList, RecipeList, DishList, IngredientList, RecipeCategoryList
 from cooklog.views import HomePageView, RecipeDetailView, DishDetailView, ChefDetailView, IngredientDetailView, RecipeCategoryDetailView
-from cooklog.views import ChefScheduleView, ChefWeekScheduleView, ChefBriefView
+from cooklog.views import ChefScheduleView, ChefWeekScheduleView, ChefBriefView, ChefFeedView
 from cooklog.views import ChefAlbumView, ChefWeekCountView, HomeAlbumView, IngredientAlbumView
 from cooklog.views import RecipeCreate, RecipeUpdate, RecipeDelete
 from cooklog.views import ChefCreate, ChefUpdate, ChefFollowsUpdate
@@ -52,6 +52,7 @@ urlpatterns = [
                url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
                url(r'^recipecategory/(?P<pk>\d+)/$', RecipeCategoryDetailView.as_view(), name='recipecategory_detail'),
                url(r'^chef/(?P<pk>\d+)/$', ChefDetailView.as_view(), name='chef_detail'),
+               url(r'^chef/feed/(?P<pk>\d+)/$', ChefFeedView.as_view(template_name="cooklog/chef_feed.html"), name='chef_feed'),
                url(r'^chef/todo/(?P<pk>\d+)/$', ChefScheduleView.as_view(template_name='cooklog/chef_todo.html'), name='chef_todo'),
                url(r'^chef/weektodo/(?P<pk>\d+)/$', ChefWeekScheduleView.as_view(template_name='cooklog/chef_weektodo.html'), name='chef_weektodo'),
                url(r'^chef/brief/(?P<pk>\d+)/$', ChefBriefView.as_view(template_name='cooklog/chef_brief.html'), name='chef_brief'),

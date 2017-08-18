@@ -414,6 +414,11 @@ a:visited {
 
 
 
+.chef-name {
+    color: #B1654B;
+    font-weight: 700;
+    font-size: 16px;
+}
 
 
 .page-subtitle {
@@ -437,7 +442,7 @@ a:visited {
 
 
 .dish-mini {
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     min-height: 110px;
     background: #ffffff;
     margin-bottom: 10px;
@@ -647,6 +652,35 @@ a:visited {
 .dish-mini-edit {
     font-size: 12px;
 }
+
+.chef-header {
+    margin-left: 10px;
+    background: #ffffff;
+}
+.chef-photo {
+    width: 180px;
+    height: 180px;
+    display: inline-block;
+    background:
+}
+.chef-photo img {
+    max-width:100%;
+    max-height:100%;
+    border: 5px solid #feda9d;
+}
+.chef-header-text {
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: top;
+    width: 400px;
+}
+
+
+
+
+
+
+
 
 .dish-brief {
     padding-left: 40px;
@@ -893,9 +927,6 @@ a:visited {
     margin-top: 5px;
 }
 
-.dish-likes {
-    padding-left: 10px;
-}
 
 .dish-button-add-comment {
     margin-left: 10px;

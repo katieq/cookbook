@@ -239,6 +239,15 @@ class ChefDetailView(DetailView):
     model = Chef
     def get_context_data(self, **kwargs):
         context = super(ChefDetailView, self).get_context_data(**kwargs)
+        context['best_dishes'] = Dish.objects.filter(chef_id=self.object.chef_id,
+                                                     chef_id__followed_by=self.request.user.id).order_by("-dish_rating",
+                                                                                                         "-date_created").all()[:3]
+        return context
+
+class ChefFeedView(DetailView):
+    model = Chef
+    def get_context_data(self, **kwargs):
+        context = super(ChefFeedView, self).get_context_data(**kwargs)
         dish_list = Dish.objects.filter(chef_id = self.object.chef_id, dish_status = 1, chef_id__followed_by = self.request.user.id).order_by("-date_created").all()
         paginator = Paginator(dish_list, 6) # 6 per page
         page = self.request.GET.get('page')
@@ -374,7 +383,7 @@ class ChefFollowsUpdate(UpdateView):
 
 class ChefUpdate(UpdateView):
     model = Chef
-    fields = ['first_name', 'last_name', 'email', 'date_created']
+    fields = ['first_name', 'last_name', 'bio', 'email', 'chef_image'] #'date_created'
 
 class DishCreate(CreateView):
     form_class = NewDishShortForm

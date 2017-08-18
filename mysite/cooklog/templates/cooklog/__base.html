@@ -25,11 +25,12 @@
     <button class="w3-button w3-block w3-left-align" onclick="myAccFunc2()">
         <i class="fa fa-user"></i> <i class="fa fa-caret-down"></i></button>
     <div id="demoAcc2" class="w3-hide w3-white w3-card-2">
-        <a href="/cooklog/chef/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-user"> Chef</i></a>
-        <a href="/cooklog/chef/brief/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-list-ul"> Brief</i></a>
-        <a href="/cooklog/chef/album/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-photo"> Album</i></a>
-        <a href="/cooklog/chef/dishcount/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-bar-chart-o"> Stats</i></a>
-        <a href="/cooklog/cheffollow/add/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-user-plus"> Follow</i></a>
+        <a href="/cooklog/chef/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Profile</a>
+        <a href="/cooklog/chef/feed/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-clone"></i> Feed</a>
+        <!--<a href="/cooklog/chef/brief/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-list-ul"> Brief</i></a>-->
+        <a href="/cooklog/chef/album/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-photo"></i> Album</a>
+        <!--<a href="/cooklog/chef/dishcount/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-bar-chart-o"> Stats</i></a>-->
+        <a href="/cooklog/cheffollow/add/{{user.id}}" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i> Follow</a>
         <a href="/cooklog/logout/" class="w3-bar-item w3-button"><i class="fa fa-user-times"> Logout</i></a>
     </div>
     {% else %}

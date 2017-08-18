@@ -9,7 +9,7 @@ class RecipeInline(admin.TabularInline):
 class ChefAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email')
     search_fields = ('first_name', 'last_name')
-    inlines = [RecipeInline]
+    # inlines = [RecipeInline] # <- Because annoying, forcing entries for the "blank extras"
 
 admin.site.register(Chef, ChefAdmin)
 
