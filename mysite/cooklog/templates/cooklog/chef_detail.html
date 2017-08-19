@@ -33,7 +33,9 @@
         {% else %}
         <p>Summary: <i>..write a short summary of your cooking style..</i></p>
         {% endif %}
-        <p>Stats: <i>Coming soon: A summary of the dishes you've cooked recently</i></p>
+        <p>Stats: </p>
+        <p>{{ week_dish.count }} dish{{ week_dish.count|pluralize:",es" }} this week</p>
+        <p>{{ month_dish.count }} dish{{ month_dish.count|pluralize:",es" }} this month</p>
     </div>
 </div>
 

@@ -317,3 +317,20 @@ class NewLikeForm(forms.ModelForm):
 
 
 
+class UpdateDishMethodForm(forms.ModelForm):
+    dish_method = forms.CharField(label="",
+                             widget=forms.Textarea(attrs={'autofocus': 'autofocus',
+                                                    'autocomplete': 'off',
+                                                    'cols': '65',
+                                                    'rows': '10',
+                                                    'class': 'edit-method',
+                                                    }))
+    class Meta:
+        model = Dish
+        exclude = tuple()
+        fields = ['dish_method'] #dish_id', 'dish_method']
+    def __init__(self, *args, **kwargs):
+        super(UpdateDishMethodForm, self).__init__(*args, **kwargs)
+        # self.fields['dish_id'].widget = forms.HiddenInput()
+        for key in self.fields:
+            self.fields[key].required = False

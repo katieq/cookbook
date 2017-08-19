@@ -90,6 +90,12 @@
         </div>
         <div class="detail-text-section-right">
             {{ object.dish_method | safe | hashtag_links | linebreaks  }}
+            <!--I really want this to work! but currently, when you submit this, it erases all other fields about the dish(except dish_name??)-->
+            <!--<form method="post" action="/cooklog/dish/add/{{object.dish_id}}/">-->
+                <!--{% csrf_token %}-->
+                <!--{{ dish_update_method_on_dish_detail_form }}-->
+                <!--<input type="submit" value="update" style="font-size: 10px">-->
+            <!--</form>-->
         </div>
     </div>
     <div class="detail-text-section">
@@ -112,6 +118,7 @@
         </div>
     </div>
     {% endif %}
+
 </div>
 
 <div class="detail-text">

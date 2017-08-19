@@ -10,7 +10,7 @@ from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, C
 #from django.views.generic import CreateView
 from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, UpdateChefFollowsForm, NewLikeForm # UploadImageForm,
 from cooklog.forms import RecipeChooseForm, NewDishTodoQuickForm
-from cooklog.forms import UpdateDishForm, UpdateDishPhotoForm #, NewDishWeekTodoForm
+from cooklog.forms import UpdateDishForm, UpdateDishPhotoForm, UpdateDishMethodForm #, NewDishWeekTodoForm
 from django import forms
 from django.forms.formsets import formset_factory
 from django.db.models import Count
@@ -201,28 +201,29 @@ class DishUpdate(UpdateView):
 
 class DishDetailView(FormMixin, DetailView):
     model = Dish
-    form_class = NewCommentForm
+    # not needed??? form_class = NewCommentForm #UpdateDishForm
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) #reverse('cooklog/dish/', kwargs={'slug': self.object.slug})
     def get_context_data(self, **kwargs):
         context = super(DishDetailView, self).get_context_data(**kwargs)
 
-        # only if dish name not empty:
+        # only if dish name not empty: removes stop words and single letter words (e.g. "w" for with)
         exclude = set(string.punctuation)
         s = ''.join(ch for ch in self.object.dish_name.replace('-', ' ') if ch not in exclude)
-        go_words = [word for word in s.lower().split() if word not in get_stop_words('en')]
+        go_words = [word for word in s.lower().split() if word not in get_stop_words('en') and len(word)>1]
         if len(go_words) > 0:
             context['recipe_matcher'] = go_words
             context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
 
-
+        context['dish_update_method_on_dish_detail_form'] = UpdateDishMethodForm(initial={'dish_id': self.object, 'dish_method': self.object.dish_method})
         context['add_comment_form'] = NewCommentForm(initial={'dish_id': self.object})
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
         
         context['recipe'] = Recipe.objects.get(recipe_id = self.object.recipe_id_id)
-        if (self.object.recipe_id_id != 1):
+        if self.object.recipe_id_id != 1:
             context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).exclude(dish_id = self.object.dish_id).order_by("-date_created").all()[:10] # 10 most recent version of the recipe...
         return context
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
@@ -230,6 +231,7 @@ class DishDetailView(FormMixin, DetailView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
     def form_valid(self, form):
         form.save()
         return super(DishDetailView, self).form_valid(form)
@@ -239,6 +241,10 @@ class ChefDetailView(DetailView):
     model = Chef
     def get_context_data(self, **kwargs):
         context = super(ChefDetailView, self).get_context_data(**kwargs)
+        context['week_dish'] = Dish.objects.filter(chef_id=self.object.chef_id).filter(dish_status=1).filter(
+            date_created__range=[datetime.now() - timedelta(days=7), datetime.now()])
+        context['month_dish'] = Dish.objects.filter(chef_id=self.object.chef_id).filter(dish_status=1).filter(
+            date_created__range=[datetime.now() - timedelta(days=31), datetime.now()])
         context['best_dishes'] = Dish.objects.filter(chef_id=self.object.chef_id,
                                                      chef_id__followed_by=self.request.user.id).order_by("-dish_rating",
                                                                                                          "-date_created").all()[:3]
@@ -384,6 +390,8 @@ class ChefFollowsUpdate(UpdateView):
 class ChefUpdate(UpdateView):
     model = Chef
     fields = ['first_name', 'last_name', 'bio', 'email', 'chef_image'] #'date_created'
+    def get_success_url(self):
+        return '/cooklog/chef/' + str(self.object.chef_id) + '/'
 
 class DishCreate(CreateView):
     form_class = NewDishShortForm
