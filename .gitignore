@@ -10,4 +10,4 @@ __pycache__
 /static
 .DS_Store
 db.sqlite3
-.idea/
+.idea/*
