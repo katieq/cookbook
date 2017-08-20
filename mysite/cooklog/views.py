@@ -201,7 +201,7 @@ class DishUpdate(UpdateView):
 
 class DishDetailView(FormMixin, DetailView):
     model = Dish
-    # not needed??? form_class = NewCommentForm #UpdateDishForm
+    form_class = NewCommentForm # not needed??? form_class = NewCommentForm #UpdateDishForm
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) #reverse('cooklog/dish/', kwargs={'slug': self.object.slug})
     def get_context_data(self, **kwargs):
@@ -215,7 +215,7 @@ class DishDetailView(FormMixin, DetailView):
             context['recipe_matcher'] = go_words
             context['recipe_match'] = Recipe.objects.filter(reduce(lambda x, y: x | y, [Q(recipe_name__contains=word) for word in go_words]))
 
-        context['dish_update_method_on_dish_detail_form'] = UpdateDishMethodForm(initial={'dish_id': self.object, 'dish_method': self.object.dish_method})
+        # context['dish_update_method_on_dish_detail_form'] = UpdateDishMethodForm(initial={'dish_id': self.object, 'dish_method': self.object.dish_method})
         context['add_comment_form'] = NewCommentForm(initial={'dish_id': self.object})
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id = self.object.dish_id)
         
