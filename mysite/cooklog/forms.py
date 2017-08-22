@@ -25,6 +25,7 @@ from dal import autocomplete
 #        for key in self.fields:
 #            self.fields[key].required = False
 
+# CURRENTLY NOT USED!
 class NewDishQuickForm(forms.ModelForm):
     class Meta:
         model = Dish
@@ -50,13 +51,15 @@ class NewDishShortForm(forms.ModelForm):
     dish_name = forms.CharField(widget=forms.Textarea)
     dish_method = forms.CharField(widget=forms.Textarea) #MentionTextarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
+    date_created = forms.DateField(widget=SelectDateWidget(empty_label="Nothing", years=range(2015, 2027)),
+                                   initial=datetime.now())
 #    NOT WORKING!! recipe_id = forms.ModelChoiceField(queryset=Recipe.objects.all(),
 #                                       widget=autocomplete.ModelSelect2(url='recipe-autocomplete'))
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
-                  'date_created', 'tags', 'dish_method',
-                  'dish_comments', 'dish_rating', 'dish_image']
+                  'date_created', 'tags', 'dish_image', 'dish_method',
+                  'dish_comments', 'dish_rating']
 #        widgets = {
 #            'recipe_id': autocomplete.ModelSelect2(url='recipe-autocomplete',
 #                                                   attrs={
@@ -68,7 +71,7 @@ class NewDishShortForm(forms.ModelForm):
         super(NewDishShortForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
         self.fields['chef_id'].widget = forms.HiddenInput()
         self.fields['dish_status'].widget = forms.HiddenInput()
-        self.fields['date_created'].widget = forms.HiddenInput()
+        # self.fields['date_created'].widget = forms.HiddenInput()
         
         self.fields['recipe_id'].label = "Recipe"
         self.fields['dish_name'].label = "Dish name"
@@ -94,7 +97,8 @@ class NewDishTodoForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
-                  'date_created', 'date_scheduled', 'tags', 'dish_source', 'dish_method', 'dish_comments']
+                  'date_created', 'date_scheduled', 'tags', 'dish_source',
+                  'dish_method', 'dish_comments']
     
     def __init__(self, *args, **kwargs):
         super(NewDishTodoForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
@@ -118,7 +122,7 @@ class NewDishTodoForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = False
 
-
+# CURRENTLY NOT USED!
 class NewDishTodoQuickForm(forms.ModelForm):
     date_scheduled = forms.DateField(widget=SelectDateWidget(empty_label="Nothing"), initial=datetime.now())
 
@@ -148,8 +152,8 @@ class NewDishLongForm(forms.ModelForm):
     #short_desc = forms.CharField(widget=forms.Textarea)
     dish_method = forms.CharField(widget=forms.Textarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
-    photo_comment = forms.CharField(widget=forms.Textarea)
-    ingredient_id = forms.ModelMultipleChoiceField(queryset=Ingredient.objects.all(), widget=forms.SelectMultiple) # or CheckboxSelectMultiple
+    # photo_comment = forms.CharField(widget=forms.Textarea)
+    # ingredient_id = forms.ModelMultipleChoiceField(queryset=Ingredient.objects.all(), widget=forms.SelectMultiple) # or CheckboxSelectMultiple
     #date_created = forms.DateField(widget=forms.DateTimeInput(attrs={'class': 'datetime-input'}))
     #date_scheduled = forms.DateField(widget = SelectDateWidget(empty_label="Nothing"),initial=datetime.now())
     date_created = forms.DateField(widget = SelectDateWidget(empty_label="Nothing",years=range(2015, 2027)),initial=datetime.now())
@@ -157,7 +161,7 @@ class NewDishLongForm(forms.ModelForm):
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status', 'date_scheduled',
                   'date_created', 'tags', 'dish_source', 'dish_method', 'dish_rating',
-                  'dish_comments', 'dish_image','photo_comment', 'ingredient_id']
+                  'dish_comments', 'dish_image'] #'photo_comment', 'ingredient_id'
     
     def __init__(self, *args, **kwargs):
         super(NewDishLongForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
@@ -174,9 +178,9 @@ class NewDishLongForm(forms.ModelForm):
         self.fields['dish_method'].widget.attrs['rows'] = 5
         self.fields['dish_comments'].widget.attrs['cols'] = 80
         self.fields['dish_comments'].widget.attrs['rows'] = 5
-        self.fields['photo_comment'].widget.attrs['rows'] = 1
-        self.fields['photo_comment'].widget.attrs['cols'] = 80
-        self.fields['ingredient_id'].widget.attrs['size']= 10
+        # self.fields['photo_comment'].widget.attrs['rows'] = 1
+        # self.fields['photo_comment'].widget.attrs['cols'] = 80
+        # self.fields['ingredient_id'].widget.attrs['size']= 10
         for key in self.fields:
             self.fields[key].required = False
 
@@ -184,15 +188,15 @@ class UpdateDishForm(forms.ModelForm):
     dish_name = forms.CharField(widget=forms.Textarea)
     dish_method = forms.CharField(widget=forms.Textarea)
     dish_comments = forms.CharField(widget=forms.Textarea)
-    photo_comment = forms.CharField(widget=forms.Textarea)
+    # photo_comment = forms.CharField(widget=forms.Textarea)
     date_created = forms.DateField(widget = SelectDateWidget(empty_label="Nothing",years=range(2015, 2027)),initial=datetime.now())
-    ingredient_id = forms.ModelMultipleChoiceField(queryset=Ingredient.objects.all(),
-                                                   widget=forms.SelectMultiple) # or CheckboxSelectMultiple
+    # ingredient_id = forms.ModelMultipleChoiceField(queryset=Ingredient.objects.all(),
+    #                                                widget=forms.SelectMultiple) # or CheckboxSelectMultiple
     class Meta:
         model = Dish
         fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled', 'date_created', 'tags',
                     'dish_source', 'dish_method', 'dish_rating','dish_comments',
-                  'dish_image', 'photo_comment', 'ingredient_id']
+                  'dish_image'] #, 'photo_comment', 'ingredient_id'
 
     def __init__(self, *args, **kwargs):
         super(UpdateDishForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
@@ -202,9 +206,9 @@ class UpdateDishForm(forms.ModelForm):
         self.fields['dish_method'].widget.attrs['rows'] = 5
         self.fields['dish_comments'].widget.attrs['cols'] = 80
         self.fields['dish_comments'].widget.attrs['rows'] = 5
-        self.fields['photo_comment'].widget.attrs['rows'] = 1
-        self.fields['photo_comment'].widget.attrs['cols'] = 80
-        self.fields['ingredient_id'].widget.attrs['size']= 10
+        # self.fields['photo_comment'].widget.attrs['rows'] = 1
+        # self.fields['photo_comment'].widget.attrs['cols'] = 80
+        # self.fields['ingredient_id'].widget.attrs['size']= 10
         for key in self.fields:
             self.fields[key].required = False
 

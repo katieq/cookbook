@@ -7,17 +7,13 @@
 
 <div class="dish-entry">
     <div class="page-title">
-        Enter or edit recipe:
+        Enter or edit the RECIPE:
     </div>
     <div class="page-subtitle">
-        <a href= "/cooklog/recipes/">see all recipes</a>
-    </div>
-    <div class="page-subtitle">
+        Helpful links: <a href= "/cooklog/recipes/">see all recipes</a> |
         <a href="/cooklog/recipecategory/add/"> add new recipe category </a>
     </div>
-    <div class="page-subtitle">
-        Enter recipe info:
-    </div>
+
     <div class="dish-entry-form">
         
         {% if form.errors %}
@@ -32,8 +28,10 @@
             </table>
             {% csrf_token %}
             <input type="submit" value="Submit">
+            (If you're entering a DISH, after clicking Submit, you'll enter the DISH details on the next page)
         </form>
     </div>
+
 </div>
 {% endblock %}
 
