@@ -70,7 +70,7 @@
                 Method:
             </div>
             <div class="dish-method-text">
-                {{ dish.dish_method | safe | hashtag_links | truncatewords:20 }}
+                {{ dish.dish_method | safe | hashtag_links | truncatewords:40 }}
             </div>
         </div>
         {% endif %}
@@ -80,7 +80,7 @@
                 Review:
             </div>
             <div class="dish-review-text">
-                {{ dish.dish_comments | safe | hashtag_links | truncatewords:20 }}
+                {{ dish.dish_comments | safe | hashtag_links | truncatewords:40 }}
             </div>
         </div>
         {% endif %}
@@ -122,7 +122,7 @@
                         <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a>:
                     </div>
                     <div class="dish-comments-comment">
-                        {{ chef_comment.chef_dish_comment | truncatechars:60 }}
+                        {{ chef_comment.chef_dish_comment | truncatechars:500 }}
                         {% ifequal user.id chef_comment.chef_id_id %}
                         <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/"><i class="fa fa-close" aria-hidden="true"></i></a>
                         {% endifequal %}

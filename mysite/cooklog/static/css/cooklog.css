@@ -251,24 +251,26 @@ a:visited {
     width: 40px;
     vertical-align: top;
     font-size: 10px;
-    padding-top: 4px;
+    /*padding-top: 4px;*/
 }
 .dish-review-label {
     display: inline-block;
     width: 40px;
     vertical-align: top;
     font-size: 10px;
-    padding-top: 4px;
+    /*padding-top: 4px;*/
 }
 .dish-method-text {
     display: inline-block;
     vertical-align: top;
     max-width: 340px;
+    font-size: 10px;
 }
 .dish-review-text {
     display: inline-block;
     vertical-align: top;
     max-width: 340px;
+    font-size: 10px;
 }
 .dish-likes {
     height: 25px;
@@ -300,8 +302,8 @@ a:visited {
     margin-bottom: 2px;
     font-size: 10px;
     color: #666666;
-    max-height: 82px;
-    overflow: hidden;
+    /*max-height: 82px;*/
+    overflow: hidden; /* for now, everything is shown */
 }
 .dish-comments-icon {
     display: inline-block;
@@ -318,17 +320,19 @@ a:visited {
 }
 .dish-single-comment {
     display: block;
-    width: 340px;
+    /*width: 340px;*/
 }
 .dish-comments-name {
     display: inline-block;
     width: 40px;
+    vertical-align: top;
 }
 .dish-comments-name a{
     color: #B1654B;
 }
 .dish-comments-comment {
     display: inline-block;
+    width: 300px;
 }
 
 
