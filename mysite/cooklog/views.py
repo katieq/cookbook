@@ -248,6 +248,7 @@ class ChefDetailView(DetailView):
         context['best_dishes'] = Dish.objects.filter(chef_id=self.object.chef_id,
                                                      chef_id__followed_by=self.request.user.id).order_by("-dish_rating",
                                                                                                          "-date_created").all()[:3]
+        context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['best_dishes'])
         return context
 
 class ChefFeedView(DetailView):
@@ -264,11 +265,11 @@ class ChefFeedView(DetailView):
         except EmptyPage:
             context['page_dishes'] = paginator.page(paginator.num_pages)
 
-        context['best_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id, chef_id__followed_by = self.request.user.id).order_by("-dish_rating","-date_created").all()[:4]
-        context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id, dish_status = 2, chef_id__followed_by = self.request.user.id).order_by("-date_scheduled").all()
+        # context['best_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id, chef_id__followed_by = self.request.user.id).order_by("-dish_rating","-date_created").all()[:4]
+        # context['todo_dishes'] = Dish.objects.filter(chef_id = self.object.chef_id, dish_status = 2, chef_id__followed_by = self.request.user.id).order_by("-date_scheduled").all()
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['page_dishes'])
-        context['best_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['best_dishes'])
-        context['todo_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['todo_dishes'])
+        # context['best_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['best_dishes'])
+        # context['todo_chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['todo_dishes'])
         return context
 
 
@@ -518,7 +519,13 @@ class NewCommentView(CreateView):
     def get_initial(self):
         return {'dish_id' : self.request.GET.get('next') , 'chef_id' : self.request.user.id }
     def get_success_url(self):
-        return '/cooklog/dish/' + self.request.GET.get('next') + '/'
+        if self.request.GET.get('c'):
+            if (str(self.request.GET.get('c')) == "0"):
+                return '/cooklog/'
+            else:
+                return '/cooklog/chef/feed/' + str(self.request.GET.get('c')) + '/'
+        else:
+            return '/cooklog/dish/' + self.request.GET.get('next') + '/'
     def get_context_data(self, **kwargs):
         context = super(NewCommentView, self).get_context_data(**kwargs)
         context['dish'] = Dish.objects.get(dish_id = self.request.GET.get('next'))

@@ -95,7 +95,7 @@
         </div>
         <div class="dish-mini-social-comments-and-likes">
             <div class="dish-mini-comments-icon">
-                <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"><i class="fa fa-comment" aria-hidden="true"></i></a>
+                <a href="{% url 'comment_add' %}?next={{dish.dish_id}}&c={{dish.chef_id_id}}"><i class="fa fa-comment" aria-hidden="true"></i></a>
             </div>
             <div class="dish-mini-comments" >
                 {% for chef_comment in chef_comments %}

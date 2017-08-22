@@ -273,6 +273,7 @@ a:visited {
 .dish-likes {
     height: 25px;
     background-color: #f3f6f9;
+    padding-left: 10px;
 }
 .dish-likes-like {
 /*    color: #F79273;*/
@@ -317,7 +318,7 @@ a:visited {
 }
 .dish-single-comment {
     display: block;
-    width: 345px;
+    width: 340px;
 }
 .dish-comments-name {
     display: inline-block;

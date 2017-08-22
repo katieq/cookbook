@@ -57,8 +57,8 @@ class NewDishShortForm(forms.ModelForm):
 #                                       widget=autocomplete.ModelSelect2(url='recipe-autocomplete'))
     class Meta:
         model = Dish
-        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
-                  'date_created', 'tags', 'dish_image', 'dish_method',
+        fields = ['chef_id', 'dish_status', 'recipe_id', 'date_created', 'dish_name',
+                  'tags', 'dish_image', 'dish_method',
                   'dish_comments', 'dish_rating']
 #        widgets = {
 #            'recipe_id': autocomplete.ModelSelect2(url='recipe-autocomplete',
@@ -96,8 +96,9 @@ class NewDishTodoForm(forms.ModelForm):
     date_scheduled = forms.DateField(widget = SelectDateWidget(empty_label="Nothing"),initial=datetime.now())
     class Meta:
         model = Dish
-        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
-                  'date_created', 'date_scheduled', 'tags', 'dish_source',
+        fields = ['chef_id', 'dish_status', 'recipe_id',
+                  'date_created', 'date_scheduled', 'dish_name',
+                  'tags', 'dish_source',
                   'dish_method', 'dish_comments']
     
     def __init__(self, *args, **kwargs):
@@ -230,6 +231,10 @@ class NewRecipeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(NewRecipeForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
         self.fields['chef_id'].widget = forms.HiddenInput()
+        self.fields['recipecategory_id'].label = "Recipe category"
+        self.fields['recipe_source'].label = "Source (book/url/you)"
+        self.fields['recipe_method'].label = "Ingr/Method"
+        self.fields['recipe_comments'].label = "Notes"
         self.fields['recipe_image'].label = "Upload/take photo"
         for key in self.fields:
             self.fields[key].required = False
