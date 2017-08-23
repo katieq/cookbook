@@ -42,7 +42,7 @@ class NewDishQuickForm(forms.ModelForm):
         self.fields['dish_name'].label = "Dish name"
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Upload/take photo"
-        
+
         for key in self.fields:
             self.fields[key].required = False
 
@@ -59,7 +59,7 @@ class NewDishShortForm(forms.ModelForm):
         model = Dish
         fields = ['chef_id', 'dish_status', 'recipe_id', 'date_created', 'dish_name',
                   'tags', 'dish_image', 'dish_method',
-                  'dish_comments', 'dish_rating']
+                  'dish_comments', 'dish_rating', 'dish_diagram_image']
 #        widgets = {
 #            'recipe_id': autocomplete.ModelSelect2(url='recipe-autocomplete',
 #                                                   attrs={
@@ -79,7 +79,8 @@ class NewDishShortForm(forms.ModelForm):
         self.fields['dish_comments'].label = "Review/notes"
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Photo"
-        
+        self.fields['dish_diagram_image'].label = "(diagram)"
+
         self.fields['dish_name'].widget.attrs['rows'] = 1
         self.fields['dish_name'].widget.attrs['cols'] = 50
         self.fields['dish_method'].widget.attrs['cols'] = 50
@@ -162,7 +163,7 @@ class NewDishLongForm(forms.ModelForm):
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status', 'date_scheduled',
                   'date_created', 'tags', 'dish_source', 'dish_method', 'dish_rating',
-                  'dish_comments', 'dish_image'] #'photo_comment', 'ingredient_id'
+                  'dish_comments', 'dish_image', 'dish_diagram_image'] #'photo_comment', 'ingredient_id'
     
     def __init__(self, *args, **kwargs):
         super(NewDishLongForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
@@ -174,7 +175,8 @@ class NewDishLongForm(forms.ModelForm):
         self.fields['dish_comments'].label = "Review/notes"
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Photo"
-        
+        self.fields['dish_diagram_image'].label = "(diagram)"
+
         self.fields['dish_method'].widget.attrs['cols'] = 80
         self.fields['dish_method'].widget.attrs['rows'] = 5
         self.fields['dish_comments'].widget.attrs['cols'] = 80
@@ -197,7 +199,7 @@ class UpdateDishForm(forms.ModelForm):
         model = Dish
         fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled', 'date_created', 'tags',
                     'dish_source', 'dish_method', 'dish_rating','dish_comments',
-                  'dish_image'] #, 'photo_comment', 'ingredient_id'
+                  'dish_image', 'dish_diagram_image'] #, 'photo_comment', 'ingredient_id'
 
     def __init__(self, *args, **kwargs):
         super(UpdateDishForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor

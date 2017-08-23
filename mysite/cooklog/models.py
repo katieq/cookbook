@@ -64,6 +64,7 @@ class Recipe(models.Model):
     recipe_comments = models.TextField("Recipe comments", blank = True, null = True)
     chef_id = models.ForeignKey(Chef, on_delete=models.SET_NULL, blank=True, null=True)
     recipe_image = models.ImageField(upload_to="recipe_photos", null=True, blank=True)
+    recipe_diagram_image = models.ImageField(upload_to="recipe_diagram_images", null=True, blank=True)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
     tags = TaggableManager(blank=True)
     def __str__(self):
@@ -147,6 +148,7 @@ class Dish(models.Model):
     #can't have two fields to Chef? like_chef_id = models.ManyToManyField(Chef) # tie to dish, instead of its own Likes model. AGH! I think you can! but just needs related_name! thus can remove the "likes" model..??
     like_chef_id = models.ManyToManyField(Chef, blank = True, related_name="chef_like")
     dish_image = models.ImageField(upload_to="dish_photos", null = True, blank = True)
+    dish_diagram_image = models.ImageField(upload_to="dish_diagram_images", null = True, blank = True)
     photo_comment = models.CharField("Photo comment", max_length=200, null = True, blank = True)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
     tags = TaggableManager(blank=True)

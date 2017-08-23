@@ -133,7 +133,14 @@
             </div>
         </div>
     </div>
-    
+
+    <div class="dish-diagram-column">
+        {% if dish.dish_diagram_image %}
+            <div class="dish-photo-image">
+                <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_diagram_image }}" /></a>
+            </div>
+        {% endif %}
+    </div>
     <div class="dish-bottom">
     </div>
 </div>
