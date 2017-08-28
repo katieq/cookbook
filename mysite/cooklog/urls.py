@@ -30,6 +30,7 @@ from cooklog.views import NewCommentView, CommentDeleteView, NewLikeView # Uploa
 from cooklog.views import RecipeChooseView, NewRecipeCategoryView, NewBugView
 from cooklog.views import RecipeAutocomplete
 from cooklog.views import NewEntryView, NewEntryDoneView, NewEntryTodoView, DishTodoQuickCreate
+from cooklog.views import dish_diagram_view
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
@@ -76,7 +77,7 @@ urlpatterns = [
                url(r'^dish/add-photo/(?P<pk>[0-9]+)/$', DishPhotoUpdate.as_view(), name='dish_photo_update'),
                url(r'^ingredient/add/$', IngredientCreate.as_view(), name='ingredient_add'),
                url(r'^ingredient/add/(?P<pk>[0-9]+)/$', IngredientUpdate.as_view(), name='ingredient_update'),
-               #url(r'^my_image/$', my_image),
+               # url(r'^my_image/$', my_image),
                #url(r'^upload/$', UploadImageView.as_view(), name='photo_upload'),
                url(r'^like/(?P<pk>[0-9]+)/$', NewLikeView.as_view(), name='new_like'),
                url(r'^comment/$', NewCommentView.as_view(), name='comment_add'),
@@ -89,5 +90,6 @@ urlpatterns = [
                url(r'^new-done/$', NewEntryDoneView.as_view(), name='new_entry_dish'),
                url(r'^new-todo/$', NewEntryTodoView.as_view(), name='new_entry_todo'),
                url(r'^tagsearch/$', views.tagsearch, name='tagsearch_results'),
-               #url(r'^like/$', 'cooklog.views.like', name='like'),
+               url(r'^diagram/dish/(?P<pk>[0-9]+)/$', dish_diagram_view, name='dish_diagram'),
+    #url(r'^like/$', 'cooklog.views.like', name='like'),
 ]

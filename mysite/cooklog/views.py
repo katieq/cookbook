@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import TemplateView
@@ -32,7 +33,127 @@ from django.views.generic.edit import FormMixin
 #    from django.utils import simplejson as json
 #except ImportError:
 #    import json
+import svgwrite
 
+def generate_diagram_svg_data(pk):
+    # svg_data = """<svg width="400" height="450">
+    #   <marker id="triangle"
+    #     viewBox="0 0 10 10" refX="0" refY="5"
+    #     markerUnits="strokeWidth" markerWidth="4" markerHeight="3"
+    #     orient="auto"> <path d="M 0 0 L 10 5 L 0 10 z" />
+    #   </marker> \n
+    #   <rect x="140" y="10" width="160" height="300" rx="5" ry="5" fill="#FDC08E" opacity=".3"/>\n
+    #   <text x="140" y="20" fill="#B1654B" font-size="12" font-family="Arial">food processor</text>\n
+    #   </svg>"""
+    # need to access the dish's diagram.text in here!
+    diagram_text = Dish.objects.filter(dish_id = pk).all()[0].dish_diagram_text
+    # great, and now operate on that! develop it in my other project :) then shift function here.
+
+
+    import svgwrite
+    import re
+
+    def find(s, ch):
+        return [i for i, ltr in enumerate(s) if ltr == ch]
+
+    ingr_index = find(diagram_text, '[')
+    action_index = find(diagram_text, '/')[0::2]
+
+    ingr2action = list()
+    for ingr_index_i in ingr_index:
+        ingr2action.append(next(x[0] for x in enumerate(action_index) if x[1] > ingr_index_i))
+    action2action = list()
+    for action_index_i in action_index[0:-1]:
+        action2action.append(next(x[0] for x in enumerate(action_index) if x[1] > action_index_i))
+
+    ingr = re.findall('\[(.*?)\]', diagram_text)  # keeps [] '\[[^\[\]]*\]'
+    ingr = [s.strip('->').strip() for s in ingr]
+    ingr = [s.split(' + ') for s in ingr]
+
+    newingr_index = find(diagram_text,'+')
+    tmp = list()
+    for ingr_i in ingr_index:
+        tmp.append(next(x[0] for x in enumerate(newingr_index) if x[1] > ingr_i))
+    line_per_ingr = [tmp[i + 1] - tmp[i] for i in range(len(ingr_index)-1)]
+    line_per_ingr.append(len(newingr_index) - tmp[-1])
+
+    action = re.findall('\/(.*?)\/', diagram_text)
+
+    utensil = re.findall('in(.*?)\{', diagram_text)
+    utensil = [s.strip() for s in utensil]
+    # need to get number of "/" between each set of "{ .. }" e.g. [2,1,1] and use that for height_utensil
+    utensil_index = find(diagram_text,'{')
+    tmp = list()
+    for utensil_i in utensil_index:
+        tmp.append(next(x[0] for x in enumerate(action_index) if x[1] > utensil_i))
+    action_per_utensil = [tmp[i + 1] - tmp[i] for i in range(len(utensil_index)-1)]
+    action_per_utensil.append(len(action_index) - tmp[-1])
+
+    height_ingr = [16*i+30 for i in line_per_ingr]
+    y_ingr = [sum(height_ingr[0:i]) + 50 for i in range(len(height_ingr))]
+    print(y_ingr)
+    # y_ingr = [50 + i * 110 for i in range(len(ingr))] # this gap should be a function of line_per_ingr = number of lines = number of "+"!
+    y_action = [(i + 1) * 80 for i in range(len(action))]
+    # y_utensil = [40 + i * 100 for i in range(len(action))]
+    num_action_to_height = {1: 50, 2: 150, 3: 250, 4: 350} # maybe should be intervals of 80 (y_action interval).. text and see..
+    height_utensil = [num_action_to_height[i] for i in action_per_utensil] # [150, 50, 50]
+    y_utensil = [sum(height_utensil[0:i]) + 40 + 20 * i for i in range(len(height_utensil))]
+
+    dwg = svgwrite.Drawing(filename="test-svgwrite.svg",
+                           size=("400px", "400px"))
+
+    marker = dwg.marker(viewBox="0 0 10 10", refX="0", refY="5",
+                        markerUnits="strokeWidth", markerWidth="4", markerHeight="3",
+                        orient="auto")
+    marker.add(dwg.path(d="M 0 0 L 10 5 L 0 10 z"))
+    dwg.defs.add(marker)
+
+    for i in range(len(utensil)):
+        dwg.add(dwg.text(utensil[i],
+                         insert=(150, y_utensil[i]+10), fill="#b1654B",
+                         style="font-size: 12; font-family: Arial"))
+        dwg.add(dwg.rect(insert=(150, y_utensil[i]), size=("150px", height_utensil[i]),
+                         fill="#FDC08E", style="opacity: .3", rx=5, ry=5))
+
+    for i in range(len(ingr2action)):
+        line = dwg.add(dwg.line(start=(140, y_ingr[i] + line_per_ingr[i]*7), end=(190, y_action[ingr2action[i]]),
+                                stroke='black', stroke_width=2, marker_end=marker.get_funciri()))
+
+    for i in range(len(action2action)):
+        line = dwg.add(dwg.line(start=(210, y_action[i] + 5), end=(210, y_action[action2action[i]] - 20),
+                                stroke='black', stroke_width=2, marker_end=marker.get_funciri()))
+
+    for i in range(len(ingr)):  # need to use tspan for multiple line
+        # paragraph = dwg.add(dwg.g(font_size=12, fill = "#B1654B", style="font-family: Arial"))
+        atext = dwg.text("", insert=(30, y_ingr[i]), fill="#B1654B", style="font-size: 12; font-family: Arial")
+        for ingr_i in ingr[i]:
+            atext.add(dwg.tspan(ingr_i, x='0', dy=['1.2em']))
+        dwg.add(atext)
+
+    for i in range(len(action)):
+        dwg.add(dwg.text(action[i],
+                         insert=(200, y_action[i]), fill="#E75481",
+                         style="font-size: 12px; font-family: Arial; font-weight=bold"))
+
+    return dwg.tostring()
+    #
+    #     dwg.save()
+    #
+    # svg_document = svgwrite.Drawing(size=("300px", "120px"))
+    #
+    # svg_document.add(svg_document.rect(insert=(0, 0),
+    #                                    size=("200px", "100px"),
+    #                                    stroke_width="1",
+    #                                    stroke="black",
+    #                                    fill="rgb(255,255,0)"))
+    #
+    # svg_document.add(svg_document.text(dish_diagram_text,
+    #                                    insert=(10, 10)))
+    # return svg_document.tostring()
+
+def dish_diagram_view(request, pk): # <- probably this ends up existing for each dish, so dish_id may be input and in url like the stack-overflow example
+    svg_data = generate_diagram_svg_data(pk)
+    return HttpResponse(svg_data, content_type="image/svg+xml")
 
 #@login_required
 #@require_POST
@@ -65,7 +186,7 @@ class RecipeAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(recipe_name__icontains=self.q)
         return qs
 
-# Create your views here.
+# Create your views here. 8/26: I forget when I entered this and what it does! For a table!?
 def display_meta(request):
     values = request.META.items()
     values.sort()
@@ -144,6 +265,7 @@ class HomePageView(TemplateView):
         except EmptyPage:
             context['page_dishes'] = paginator.page(paginator.num_pages)
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['page_dishes'])
+        # context['dish_diagram'] = reverse('dish_diagram', args=[1]) # ugh .. how to get this for each dish! probs can't?
         return context
 
 
@@ -222,6 +344,8 @@ class DishDetailView(FormMixin, DetailView):
         context['recipe'] = Recipe.objects.get(recipe_id = self.object.recipe_id_id)
         if self.object.recipe_id_id != 1:
             context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).exclude(dish_id = self.object.dish_id).order_by("-date_created").all()[:10] # 10 most recent version of the recipe...
+
+        context['dish_diagram'] = reverse('dish_diagram', args=[self.object.dish_id])
         return context
 
     def post(self, request, *args, **kwargs):

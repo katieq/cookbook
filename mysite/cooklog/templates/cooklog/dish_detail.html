@@ -5,6 +5,7 @@
 
 {% block body_block %}
 
+
 <div class="detail-head">
     <div class="detail-title">
         {% ifequal dish.recipe_id_id 1 %}
@@ -80,6 +81,9 @@
         {% endifequal %}
     </div>
     {% endif %}
+</div>
+<div class="detail-photo">
+    <img src="{{ dish_diagram }}" alt="img1">
 </div>
 
 <div class="detail-text">

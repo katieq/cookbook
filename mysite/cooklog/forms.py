@@ -199,7 +199,7 @@ class UpdateDishForm(forms.ModelForm):
         model = Dish
         fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled', 'date_created', 'tags',
                     'dish_source', 'dish_method', 'dish_rating','dish_comments',
-                  'dish_image', 'dish_diagram_image'] #, 'photo_comment', 'ingredient_id'
+                  'dish_image', 'dish_diagram_image', 'dish_diagram_text'] #, 'photo_comment', 'ingredient_id'
 
     def __init__(self, *args, **kwargs):
         super(UpdateDishForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor

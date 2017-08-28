@@ -149,6 +149,7 @@ class Dish(models.Model):
     like_chef_id = models.ManyToManyField(Chef, blank = True, related_name="chef_like")
     dish_image = models.ImageField(upload_to="dish_photos", null = True, blank = True)
     dish_diagram_image = models.ImageField(upload_to="dish_diagram_images", null = True, blank = True)
+    dish_diagram_text = models.TextField("Diagram text", null=True, blank = True) # "my" code for diagram.
     photo_comment = models.CharField("Photo comment", max_length=200, null = True, blank = True)
     date_created = models.DateTimeField("Date created", default=datetime.datetime.now)
     tags = TaggableManager(blank=True)

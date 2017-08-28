@@ -135,6 +135,12 @@
     </div>
 
     <div class="dish-diagram-column">
+        {% comment %}
+        {% if dish.dish_diagram_text %}
+            <div class="dish-diagram-image">
+                <img src="{{ dish_diagram }}" alt="img1">
+            </div>
+        {% endcomment %}
         {% if dish.dish_diagram_image %}
             <div class="dish-diagram-image">
                 <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_diagram_image }}" /></a>
