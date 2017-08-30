@@ -111,7 +111,10 @@ def generate_diagram_svg_data(pk):
 
     height_ingr = [16*i+30 for i in line_per_ingr]
     middle_y_ingr = [max(y_action[ingr2action[i]]-40, sum(height_ingr[0:i]) + 50) for i in range(len(height_ingr))]
-    y_ingr = [middle_y_ingr[i] - .5*height_ingr[i] for i in range(len(ingr))]
+    y_ingr = [max(10, middle_y_ingr[i] - .5 * height_ingr[i]) for i in range(len(ingr))]
+    # often this is ideal, but still it can cause overlap. calc the gaps:
+    gap_ingr = [y_ingr[0]] + [y_ingr[i + 1] - (y_ingr[i] + height_ingr[i]) for i in range(len(y_ingr) - 1)]
+    y_ingr = [y_ingr[i] + (-gap_ingr[i] + 5) * (gap_ingr[i] < 0) for i in range(len(y_ingr))]
 
     y_utensil = [-25 + min([y_action[i] for i in range(len(y_action)) if action_in_utensil[i]==(j+1)]) for j in range(len(utensil_index))]
     height_utensil = [30 + \
