@@ -36,95 +36,114 @@ from django.views.generic.edit import FormMixin
 import svgwrite
 
 def generate_diagram_svg_data(pk):
-    # svg_data = """<svg width="400" height="450">
-    #   <marker id="triangle"
-    #     viewBox="0 0 10 10" refX="0" refY="5"
-    #     markerUnits="strokeWidth" markerWidth="4" markerHeight="3"
-    #     orient="auto"> <path d="M 0 0 L 10 5 L 0 10 z" />
-    #   </marker> \n
-    #   <rect x="140" y="10" width="160" height="300" rx="5" ry="5" fill="#FDC08E" opacity=".3"/>\n
-    #   <text x="140" y="20" fill="#B1654B" font-size="12" font-family="Arial">food processor</text>\n
-    #   </svg>"""
+
     # need to access the dish's diagram.text in here!
     diagram_text = Dish.objects.filter(dish_id = pk).all()[0].dish_diagram_text
     # great, and now operate on that! develop it in my other project :) then shift function here.
-
 
     import svgwrite
     import re
 
     def find(s, ch):
         return [i for i, ltr in enumerate(s) if ltr == ch]
-
-    ingr_index = find(diagram_text, '[')
-    action_index = find(diagram_text, '/')[0::2]
+    ingr_index = find(diagram_text,'|')[0::2]
+    action_index = find(diagram_text,'/')[0::2]
+    branch_open_index = find(diagram_text,'[')
+    branch_close_index_raw = find(diagram_text, ']')
+    branch_close_index = list()
+    for b_i in branch_open_index[-1::-1]:
+      branch_close = branch_close_index_raw[next(x[0] for x in enumerate(branch_close_index_raw) if x[1] > b_i)]
+      branch_close_index.append(branch_close)
+      branch_close_index_raw.remove(branch_close)
+    branch_close_index = list(reversed(branch_close_index))
 
     ingr2action = list()
     for ingr_index_i in ingr_index:
         ingr2action.append(next(x[0] for x in enumerate(action_index) if x[1] > ingr_index_i))
-    action2action = list()
-    for action_index_i in action_index[0:-1]:
-        action2action.append(next(x[0] for x in enumerate(action_index) if x[1] > action_index_i))
 
-    ingr = re.findall('\[(.*?)\]', diagram_text)  # keeps [] '\[[^\[\]]*\]'
+    action_in_branch = list()
+    for action_i in action_index:
+        b = 0
+        for i in range(len(branch_open_index)):
+            if branch_open_index[i] < action_i and branch_close_index[i] > action_i:
+                b = i+1 # because want "first"=1 not 0
+        action_in_branch.append(b)
+    action2action = list()
+    for i in range(len(action_in_branch)-1):
+        if action_in_branch[i] in action_in_branch[i+1:]: # is not last occurrence of action_in_branch[i] value:
+            action2action.append(i + 1 + next(x[0] for x in enumerate(action_in_branch[i+1:]) if x[1] == action_in_branch[i])) #index of next occurrence of action_in_branch[i])
+        else:
+            action2action.append(i + 1)
+
+    ingr = re.findall('\|(.*?)\|', diagram_text)  # keeps [] '\[[^\[\]]*\]'
     ingr = [s.strip('->').strip() for s in ingr]
     ingr = [s.split(' + ') for s in ingr]
 
-    newingr_index = find(diagram_text,'+')
-    tmp = list()
-    for ingr_i in ingr_index:
-        tmp.append(next(x[0] for x in enumerate(newingr_index) if x[1] > ingr_i))
-    line_per_ingr = [tmp[i + 1] - tmp[i] for i in range(len(ingr_index)-1)]
-    line_per_ingr.append(len(newingr_index) - tmp[-1])
+    line_per_ingr = [len(ingr[i])-1 for i in range(len(ingr))]
 
     action = re.findall('\/(.*?)\/', diagram_text)
 
     utensil = re.findall('in(.*?)\{', diagram_text)
     utensil = [s.strip() for s in utensil]
-    # need to get number of "/" between each set of "{ .. }" e.g. [2,1,1] and use that for height_utensil
     utensil_index = find(diagram_text,'{')
     tmp = list()
-    for utensil_i in utensil_index:
-        tmp.append(next(x[0] for x in enumerate(action_index) if x[1] > utensil_i))
-    action_per_utensil = [tmp[i + 1] - tmp[i] for i in range(len(utensil_index)-1)]
-    action_per_utensil.append(len(action_index) - tmp[-1])
+    if len(utensil_index) > 0:
+        for utensil_i in utensil_index:
+            tmp.append(next(x[0] for x in enumerate(action_index) if x[1] > utensil_i))
+        action_per_utensil = [tmp[i + 1] - tmp[i] for i in range(len(utensil_index)-1)]
+        action_per_utensil.append(len(action_index) - tmp[-1])
+    else:
+        action_per_utensil = [] # ??? todo this needs to work for no utensils!
+    if len(utensil_index) > 0:
+        action_in_utensil = list()
+        for action_i in action_index:
+            if action_i < utensil_index[0]:
+                action_in_utensil.append(0)
+            elif action_i > utensil_index[-1]:
+                action_in_utensil.append(len(utensil_index))
+            else:
+                action_in_utensil.append(next(x[0] for x in enumerate(utensil_index) if x[1] > action_i))
+
+    branch_zero_before_count = [action_in_branch[0:i].count(0) for i in range(len(action_in_branch))]
+    branch_zero_immed_before = [0] + [1*(action_in_branch[i]==0 and action_in_branch[i+1]!=0) for i in range(len(action_in_branch[0:-1]))]
+    y_action = [80*(branch_zero_before_count[i] - 0.5*branch_zero_immed_before[i] + 1) for i in range(len(action_in_branch))] #  not sure if always works..
+    x_action = [230 - (action_in_branch[i]>0)*50 for i in range(len(action))]
 
     height_ingr = [16*i+30 for i in line_per_ingr]
-    y_ingr = [sum(height_ingr[0:i]) + 50 for i in range(len(height_ingr))]
-    print(y_ingr)
-    # y_ingr = [50 + i * 110 for i in range(len(ingr))] # this gap should be a function of line_per_ingr = number of lines = number of "+"!
-    y_action = [(i + 1) * 80 for i in range(len(action))]
-    # y_utensil = [40 + i * 100 for i in range(len(action))]
-    num_action_to_height = {1: 50, 2: 150, 3: 250, 4: 350} # maybe should be intervals of 80 (y_action interval).. text and see..
-    height_utensil = [num_action_to_height[i] for i in action_per_utensil] # [150, 50, 50]
-    y_utensil = [sum(height_utensil[0:i]) + 40 + 20 * i for i in range(len(height_utensil))]
+    middle_y_ingr = [max(y_action[ingr2action[i]]-40, sum(height_ingr[0:i]) + 50) for i in range(len(height_ingr))]
+    y_ingr = [middle_y_ingr[i] - .5*height_ingr[i] for i in range(len(ingr))]
+
+    y_utensil = [-25 + min([y_action[i] for i in range(len(y_action)) if action_in_utensil[i]==(j+1)]) for j in range(len(utensil_index))]
+    height_utensil = [30 + \
+                      max([y_action[i] for i in range(len(y_action)) if action_in_utensil[i] == (j + 1)]) -
+                      min([y_action[i] for i in range(len(y_action)) if action_in_utensil[i] == (j + 1)])
+                      for j in range(len(utensil_index))]
 
     dwg = svgwrite.Drawing(filename="test-svgwrite.svg",
-                           size=("400px", "400px"))
+                           size=("400px", max(y_action)+50))
 
     marker = dwg.marker(viewBox="0 0 10 10", refX="0", refY="5",
                         markerUnits="strokeWidth", markerWidth="4", markerHeight="3",
-                        orient="auto")
+                        orient="auto", fill="#696969")
     marker.add(dwg.path(d="M 0 0 L 10 5 L 0 10 z"))
     dwg.defs.add(marker)
 
     for i in range(len(utensil)):
         dwg.add(dwg.text(utensil[i],
-                         insert=(150, y_utensil[i]+10), fill="#b1654B",
+                         insert=(280, y_utensil[i] + 10), fill="#545454",
                          style="font-size: 12; font-family: Arial"))
-        dwg.add(dwg.rect(insert=(150, y_utensil[i]), size=("150px", height_utensil[i]),
+        dwg.add(dwg.rect(insert=(150, y_utensil[i]), size=("200px", height_utensil[i]),
                          fill="#FDC08E", style="opacity: .3", rx=5, ry=5))
 
     for i in range(len(ingr2action)):
-        line = dwg.add(dwg.line(start=(140, y_ingr[i] + line_per_ingr[i]*7), end=(190, y_action[ingr2action[i]]),
-                                stroke='black', stroke_width=2, marker_end=marker.get_funciri()))
+        line = dwg.add(dwg.line(start=(100, y_ingr[i] +7 + line_per_ingr[i]*7), end=(x_action[ingr2action[i]]-10, y_action[ingr2action[i]]-3),
+                                stroke='#696969', stroke_width=2, marker_end=marker.get_funciri()))
 
     for i in range(len(action2action)):
-        line = dwg.add(dwg.line(start=(210, y_action[i] + 5), end=(210, y_action[action2action[i]] - 20),
-                                stroke='black', stroke_width=2, marker_end=marker.get_funciri()))
+        line = dwg.add(dwg.line(start=(x_action[i]+10, y_action[i] + 5), end=(x_action[action2action[i]]+10, y_action[action2action[i]] - 20),
+                                stroke='#696969', stroke_width=2, marker_end=marker.get_funciri()))
 
     for i in range(len(ingr)):  # need to use tspan for multiple line
-        # paragraph = dwg.add(dwg.g(font_size=12, fill = "#B1654B", style="font-family: Arial"))
         atext = dwg.text("", insert=(30, y_ingr[i]), fill="#B1654B", style="font-size: 12; font-family: Arial")
         for ingr_i in ingr[i]:
             atext.add(dwg.tspan(ingr_i, x='0', dy=['1.2em']))
@@ -132,24 +151,11 @@ def generate_diagram_svg_data(pk):
 
     for i in range(len(action)):
         dwg.add(dwg.text(action[i],
-                         insert=(200, y_action[i]), fill="#E75481",
+                         insert=(x_action[i], y_action[i]), fill="#E75481",
                          style="font-size: 12px; font-family: Arial; font-weight=bold"))
 
     return dwg.tostring()
-    #
-    #     dwg.save()
-    #
-    # svg_document = svgwrite.Drawing(size=("300px", "120px"))
-    #
-    # svg_document.add(svg_document.rect(insert=(0, 0),
-    #                                    size=("200px", "100px"),
-    #                                    stroke_width="1",
-    #                                    stroke="black",
-    #                                    fill="rgb(255,255,0)"))
-    #
-    # svg_document.add(svg_document.text(dish_diagram_text,
-    #                                    insert=(10, 10)))
-    # return svg_document.tostring()
+
 
 def dish_diagram_view(request, pk): # <- probably this ends up existing for each dish, so dish_id may be input and in url like the stack-overflow example
     svg_data = generate_diagram_svg_data(pk)

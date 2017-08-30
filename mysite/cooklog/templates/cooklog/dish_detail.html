@@ -82,9 +82,16 @@
     </div>
     {% endif %}
 </div>
+{% if object.dish_diagram_text %}
 <div class="detail-photo">
     <img src="{{ dish_diagram }}" alt="img1">
 </div>
+{% endif %}
+{% if object.dish_diagram_image %}
+    <div class="detail-photo">
+        <img src="/media/{{ object.dish_diagram_image }}" />
+    </div>
+{% endif %}
 
 <div class="detail-text">
     
