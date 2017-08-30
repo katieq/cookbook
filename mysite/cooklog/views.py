@@ -61,6 +61,10 @@ def generate_diagram_svg_data(pk):
     for ingr_index_i in ingr_index:
         ingr2action.append(next(x[0] for x in enumerate(action_index) if x[1] > ingr_index_i))
 
+    # # this works if no branching. butneed to develop algorithm that allows for branching.
+    # action2action = list()
+    # for action_index_i in action_index[0:-1]:
+    #     action2action.append(next(x[0] for x in enumerate(action_index) if x[1] > action_index_i))
     action_in_branch = list()
     for action_i in action_index:
         b = 0
@@ -73,49 +77,95 @@ def generate_diagram_svg_data(pk):
         if action_in_branch[i] in action_in_branch[i+1:]: # is not last occurrence of action_in_branch[i] value:
             action2action.append(i + 1 + next(x[0] for x in enumerate(action_in_branch[i+1:]) if x[1] == action_in_branch[i])) #index of next occurrence of action_in_branch[i])
         else:
-            action2action.append(i + 1)
+            # action2action.append(i + 1) # todo: this is WRONG it needs to be the index of the next LOWER action_in_branch value
+            action2action.append(i + 1 + next(x[0] for x in enumerate(action_in_branch[i+1:]) if x[1] < action_in_branch[i]))
+
 
     ingr = re.findall('\|(.*?)\|', diagram_text)  # keeps [] '\[[^\[\]]*\]'
     ingr = [s.strip('->').strip() for s in ingr]
     ingr = [s.split(' + ') for s in ingr]
 
     line_per_ingr = [len(ingr[i])-1 for i in range(len(ingr))]
+    # newingr_index = find(diagram_text,'+')
+    # if len(newingr_index)==0:
+    #     line_per_ingr = [0 for i in range(len(ingr_index))]
+    # else:
+    #     tmp = list()
+    #     for ingr_i in ingr_index:
+    #         if ingr_i > newingr_index[-1]:
+    #             tmp.append(0)
+    #         else:
+    #             tmp.append(next(x[0] for x in enumerate(newingr_index) if x[1] > ingr_i))
+    #     line_per_ingr = [tmp[i + 1] - tmp[i] for i in range(len(ingr_index)-1)]
+    #     line_per_ingr.append(len(newingr_index) - tmp[-1])
+    # # note: line_per_ingr = 0 if 1 line, 1 if 2 lines, etc...
 
     action = re.findall('\/(.*?)\/', diagram_text)
 
     utensil = re.findall('in(.*?)\{', diagram_text)
     utensil = [s.strip() for s in utensil]
+    # need to get number of "/" between each set of "{ .. }" e.g. [2,1,1] and use that for height_utensil
     utensil_index = find(diagram_text,'{')
-    tmp = list()
-    if len(utensil_index) > 0:
-        for utensil_i in utensil_index:
-            tmp.append(next(x[0] for x in enumerate(action_index) if x[1] > utensil_i))
-        action_per_utensil = [tmp[i + 1] - tmp[i] for i in range(len(utensil_index)-1)]
-        action_per_utensil.append(len(action_index) - tmp[-1])
-    else:
-        action_per_utensil = [] # ??? todo this needs to work for no utensils!
+    utensil_close_index_raw = find(diagram_text, '}')
+    utensil_close_index = list() # this code copied from branch_close_index .. should allow for nested utensils.
+    for u_i in utensil_index[-1::-1]:
+      utensil_close = utensil_close_index_raw[next(x[0] for x in enumerate(utensil_close_index_raw) if x[1] > u_i)]
+      utensil_close_index.append(utensil_close)
+      utensil_close_index_raw.remove(utensil_close)
+    utensil_close_index = list(reversed(utensil_close_index))
+
+    # tmp = list()
+    # if len(utensil_index) > 0:
+    #     for utensil_i in utensil_index:
+    #         tmp.append(next(x[0] for x in enumerate(action_index) if x[1] > utensil_i))
+    #     action_per_utensil = [tmp[i + 1] - tmp[i] for i in range(len(utensil_index)-1)]
+    #     action_per_utensil.append(len(action_index) - tmp[-1])
+    # else:
+    #     action_per_utensil = [] # ??? this needs to work for no utensils! ... replaced by action_in_utensil
+    # instead of action_per_utensil, get action_in_utensil, length is same as action
     if len(utensil_index) > 0:
         action_in_utensil = list()
         for action_i in action_index:
-            if action_i < utensil_index[0]:
-                action_in_utensil.append(0)
-            elif action_i > utensil_index[-1]:
-                action_in_utensil.append(len(utensil_index))
-            else:
-                action_in_utensil.append(next(x[0] for x in enumerate(utensil_index) if x[1] > action_i))
+            u = 0
+            for i in range(len(utensil_index)):
+                if utensil_index[i] < action_i and utensil_close_index[i] > action_i:
+                    u = i + 1  # because want "first"=1 not 0
+            action_in_utensil.append(u)
+            # if action_i < utensil_index[0]:
+            #     action_in_utensil.append(0)
+            # elif action_i > utensil_index[-1]:
+            #     if action_i > utensil_close_index[-1]:
+            #         action_in_utensil.append(0)
+            #     else:
+            #         action_in_utensil.append(len(utensil_index))
+            # else:
+            #     action_in_utensil.append(next(x[0] for x in enumerate(utensil_index) if x[1] > action_i))
 
+    # y_action = [(i + 1) * 80 for i in range(len(action))] # <- needs to change depending on action_in_branch..!
     branch_zero_before_count = [action_in_branch[0:i].count(0) for i in range(len(action_in_branch))]
     branch_zero_immed_before = [0] + [1*(action_in_branch[i]==0 and action_in_branch[i+1]!=0) for i in range(len(action_in_branch[0:-1]))]
-    y_action = [80*(branch_zero_before_count[i] - 0.5*branch_zero_immed_before[i] + 1) for i in range(len(action_in_branch))] #  not sure if always works..
-    x_action = [230 - (action_in_branch[i]>0)*50 for i in range(len(action))]
+    # y_action = [80*(branch_zero_before_count[i] - 0.5*branch_zero_immed_before[i] + 1) for i in range(len(action_in_branch))] #  todo not sure if always works.. DOES NOT
+    branch_to_y_delta = {0: 50, 1: 30, 2: 30, 3: 40}
+    y_delta = [branch_to_y_delta[action_in_branch[i]] for i in range(len(action))]
+    y_action = [sum(y_delta[:i+1]) for i in range(len(action))]
+    #y_action = [40*(i+1) + 40*(branch_zero_before_count[i]) for i in range(len(action))] # todo probably want to define *delta* and then y_action is cumulative sum
+    x_action = [230 - (action_in_branch[i]>0)*50 - (action_in_branch[i]>2)*30 - (action_in_utensil[i]==0 and i > 0)*60
+                for i in range(len(action))] # todo not sure always works
+    # y_utensil = [40 + i * 100 for i in range(len(action))]
 
+    # y_ingr = [50 + i * 110 for i in range(len(ingr))] # this gap should be a function of line_per_ingr = number of lines = number of "+"!
     height_ingr = [16*i+30 for i in line_per_ingr]
     middle_y_ingr = [max(y_action[ingr2action[i]]-40, sum(height_ingr[0:i]) + 50) for i in range(len(height_ingr))]
-    y_ingr = [max(10, middle_y_ingr[i] - .5 * height_ingr[i]) for i in range(len(ingr))]
+    # hm, but if one ingr block is very large, it might get displayed too close together; and would rather this be the *middle*
+    y_ingr = [max(10,middle_y_ingr[i] - .5*height_ingr[i]) for i in range(len(ingr))]
     # often this is ideal, but still it can cause overlap. calc the gaps:
-    gap_ingr = [y_ingr[0]] + [y_ingr[i + 1] - (y_ingr[i] + height_ingr[i]) for i in range(len(y_ingr) - 1)]
-    y_ingr = [y_ingr[i] + (-gap_ingr[i] + 5) * (gap_ingr[i] < 0) for i in range(len(y_ingr))]
+    gap_ingr = [y_ingr[0]] + [y_ingr[i+1] - (y_ingr[i]+height_ingr[i]) for i in range(len(y_ingr)-1)]
+    y_ingr = [y_ingr[i] + (-gap_ingr[i]+5)*(gap_ingr[i]<0) for i in range(len(y_ingr))]
 
+    # num_action_to_height = {1: 50, 2: 100, 3: 200, 4: 250} # maybe should be intervals of 80 (y_action interval).. text and see..
+    # height_utensil = [num_action_to_height[i] for i in action_per_utensil] # [150, 50, 50]
+    # y_utensil = [sum(height_utensil[0:i]) + 40 + 20 * i for i in range(len(height_utensil))]
+    # height utensil and y _utensil should just come from y_action and action_per_utensil
     y_utensil = [-25 + min([y_action[i] for i in range(len(y_action)) if action_in_utensil[i]==(j+1)]) for j in range(len(utensil_index))]
     height_utensil = [30 + \
                       max([y_action[i] for i in range(len(y_action)) if action_in_utensil[i] == (j + 1)]) -
@@ -123,7 +173,7 @@ def generate_diagram_svg_data(pk):
                       for j in range(len(utensil_index))]
 
     dwg = svgwrite.Drawing(filename="test-svgwrite.svg",
-                           size=("400px", max(y_action)+50))
+                           size=("400px", max(y_action + middle_y_ingr)+50))
 
     marker = dwg.marker(viewBox="0 0 10 10", refX="0", refY="5",
                         markerUnits="strokeWidth", markerWidth="4", markerHeight="3",
