@@ -61,10 +61,6 @@ def generate_diagram_svg_data(pk):
     for ingr_index_i in ingr_index:
         ingr2action.append(next(x[0] for x in enumerate(action_index) if x[1] > ingr_index_i))
 
-    # # this works if no branching. butneed to develop algorithm that allows for branching.
-    # action2action = list()
-    # for action_index_i in action_index[0:-1]:
-    #     action2action.append(next(x[0] for x in enumerate(action_index) if x[1] > action_index_i))
     action_in_branch = list()
     for action_i in action_index:
         b = 0
@@ -77,7 +73,6 @@ def generate_diagram_svg_data(pk):
         if action_in_branch[i] in action_in_branch[i+1:]: # is not last occurrence of action_in_branch[i] value:
             action2action.append(i + 1 + next(x[0] for x in enumerate(action_in_branch[i+1:]) if x[1] == action_in_branch[i])) #index of next occurrence of action_in_branch[i])
         else:
-            # action2action.append(i + 1) # todo: this is WRONG it needs to be the index of the next LOWER action_in_branch value
             action2action.append(i + 1 + next(x[0] for x in enumerate(action_in_branch[i+1:]) if x[1] < action_in_branch[i]))
 
 
@@ -86,19 +81,6 @@ def generate_diagram_svg_data(pk):
     ingr = [s.split(' + ') for s in ingr]
 
     line_per_ingr = [len(ingr[i])-1 for i in range(len(ingr))]
-    # newingr_index = find(diagram_text,'+')
-    # if len(newingr_index)==0:
-    #     line_per_ingr = [0 for i in range(len(ingr_index))]
-    # else:
-    #     tmp = list()
-    #     for ingr_i in ingr_index:
-    #         if ingr_i > newingr_index[-1]:
-    #             tmp.append(0)
-    #         else:
-    #             tmp.append(next(x[0] for x in enumerate(newingr_index) if x[1] > ingr_i))
-    #     line_per_ingr = [tmp[i + 1] - tmp[i] for i in range(len(ingr_index)-1)]
-    #     line_per_ingr.append(len(newingr_index) - tmp[-1])
-    # # note: line_per_ingr = 0 if 1 line, 1 if 2 lines, etc...
 
     action = re.findall('\/(.*?)\/', diagram_text)
 
@@ -114,15 +96,6 @@ def generate_diagram_svg_data(pk):
       utensil_close_index_raw.remove(utensil_close)
     utensil_close_index = list(reversed(utensil_close_index))
 
-    # tmp = list()
-    # if len(utensil_index) > 0:
-    #     for utensil_i in utensil_index:
-    #         tmp.append(next(x[0] for x in enumerate(action_index) if x[1] > utensil_i))
-    #     action_per_utensil = [tmp[i + 1] - tmp[i] for i in range(len(utensil_index)-1)]
-    #     action_per_utensil.append(len(action_index) - tmp[-1])
-    # else:
-    #     action_per_utensil = [] # ??? this needs to work for no utensils! ... replaced by action_in_utensil
-    # instead of action_per_utensil, get action_in_utensil, length is same as action
     if len(utensil_index) > 0:
         action_in_utensil = list()
         for action_i in action_index:
@@ -131,46 +104,39 @@ def generate_diagram_svg_data(pk):
                 if utensil_index[i] < action_i and utensil_close_index[i] > action_i:
                     u = i + 1  # because want "first"=1 not 0
             action_in_utensil.append(u)
-            # if action_i < utensil_index[0]:
-            #     action_in_utensil.append(0)
-            # elif action_i > utensil_index[-1]:
-            #     if action_i > utensil_close_index[-1]:
-            #         action_in_utensil.append(0)
-            #     else:
-            #         action_in_utensil.append(len(utensil_index))
-            # else:
-            #     action_in_utensil.append(next(x[0] for x in enumerate(utensil_index) if x[1] > action_i))
 
-    # y_action = [(i + 1) * 80 for i in range(len(action))] # <- needs to change depending on action_in_branch..!
-    branch_zero_before_count = [action_in_branch[0:i].count(0) for i in range(len(action_in_branch))]
-    branch_zero_immed_before = [0] + [1*(action_in_branch[i]==0 and action_in_branch[i+1]!=0) for i in range(len(action_in_branch[0:-1]))]
-    # y_action = [80*(branch_zero_before_count[i] - 0.5*branch_zero_immed_before[i] + 1) for i in range(len(action_in_branch))] #  todo not sure if always works.. DOES NOT
     branch_to_y_delta = {0: 50, 1: 30, 2: 30, 3: 40}
     y_delta = [branch_to_y_delta[action_in_branch[i]] for i in range(len(action))]
     y_action = [sum(y_delta[:i+1]) for i in range(len(action))]
-    #y_action = [40*(i+1) + 40*(branch_zero_before_count[i]) for i in range(len(action))] # todo probably want to define *delta* and then y_action is cumulative sum
-    x_action = [230 - (action_in_branch[i]>0)*50 - (action_in_branch[i]>2)*30 - (action_in_utensil[i]==0 and i > 0)*60
+    x_action = [230 - (action_in_branch[i]>0)*50 - (action_in_branch[i]>2)*30 - (action_in_utensil[i]==0 and i != 0 and (i != len(action)-1))*60
                 for i in range(len(action))] # todo not sure always works
-    # y_utensil = [40 + i * 100 for i in range(len(action))]
 
-    # y_ingr = [50 + i * 110 for i in range(len(ingr))] # this gap should be a function of line_per_ingr = number of lines = number of "+"!
-    height_ingr = [16*i+30 for i in line_per_ingr]
-    middle_y_ingr = [max(y_action[ingr2action[i]]-40, sum(height_ingr[0:i]) + 50) for i in range(len(height_ingr))]
-    # hm, but if one ingr block is very large, it might get displayed too close together; and would rather this be the *middle*
-    y_ingr = [max(10,middle_y_ingr[i] - .5*height_ingr[i]) for i in range(len(ingr))]
-    # often this is ideal, but still it can cause overlap. calc the gaps:
-    gap_ingr = [y_ingr[0]] + [y_ingr[i+1] - (y_ingr[i]+height_ingr[i]) for i in range(len(y_ingr)-1)]
-    y_ingr = [y_ingr[i] + (-gap_ingr[i]+5)*(gap_ingr[i]<0) for i in range(len(y_ingr))]
+    height_ingr = [16*i for i in line_per_ingr]
+    # attempt to align with action, but put it lower if heigh_ingr makes it necessary:
+    middle_y_ingr = [max(y_action[ingr2action[i]]-25, sum(height_ingr[0:i]) + .5*height_ingr[i]  + (i+1)*20) for i in range(len(height_ingr))]
+    y_ingr = [max(10,10 + middle_y_ingr[i] - .5*height_ingr[i]) for i in range(len(ingr))]
 
-    # num_action_to_height = {1: 50, 2: 100, 3: 200, 4: 250} # maybe should be intervals of 80 (y_action interval).. text and see..
-    # height_utensil = [num_action_to_height[i] for i in action_per_utensil] # [150, 50, 50]
-    # y_utensil = [sum(height_utensil[0:i]) + 40 + 20 * i for i in range(len(height_utensil))]
     # height utensil and y _utensil should just come from y_action and action_per_utensil
-    y_utensil = [-25 + min([y_action[i] for i in range(len(y_action)) if action_in_utensil[i]==(j+1)]) for j in range(len(utensil_index))]
-    height_utensil = [30 + \
+    y_utensil = [-23 + min([y_action[i] for i in range(len(y_action)) if action_in_utensil[i]==(j+1)]) for j in range(len(utensil_index))]
+    height_utensil = [26 + \
                       max([y_action[i] for i in range(len(y_action)) if action_in_utensil[i] == (j + 1)]) -
                       min([y_action[i] for i in range(len(y_action)) if action_in_utensil[i] == (j + 1)])
                       for j in range(len(utensil_index))]
+
+    # want: if x1 far from x2, then make x1_a2a further from (more positive) x1
+    x1_a2a = [x_action[i]+10 + 5*(x_action[action2action[i]]!=x_action[i]) for i in range(len(action2action))]
+    # want: if x1 far from x2, make x2_a2a further from (more negative) x2
+    x2_a2a = [x_action[action2action[i]] + 10 - 7/30*(x_action[action2action[i]]-x_action[i]) for i in range(len(action2action))]
+    # want: fine as is.
+    y1_a2a = [y_action[i] + 5 for i in range(len(action2action))]
+    # if y1 closer to y2, then make it get closer to y2
+    y2_a2a = [y_action[action2action[i]] - 8 - 5/50*(y_action[action2action[i]]-y_action[i]) for i in range(len(action2action))]
+
+
+    x1_i2a = [50 + 3*len(max(ingr[i], key=len)) for i in range(len(ingr2action))] # based on longest string within ingr block
+    x2_i2a = [x_action[ingr2action[i]]-10 for i in range(len(ingr2action))]
+    y1_i2a = [y_ingr[i] +10 + line_per_ingr[i]*7 for i in range(len(ingr2action))]
+    y2_i2a = [y_action[ingr2action[i]]-5 for i in range(len(ingr2action))]
 
     dwg = svgwrite.Drawing(filename="test-svgwrite.svg",
                            size=("400px", max(y_action + middle_y_ingr)+50))
@@ -189,17 +155,18 @@ def generate_diagram_svg_data(pk):
                          fill="#FDC08E", style="opacity: .3", rx=5, ry=5))
 
     for i in range(len(ingr2action)):
-        line = dwg.add(dwg.line(start=(100, y_ingr[i] +7 + line_per_ingr[i]*7), end=(x_action[ingr2action[i]]-10, y_action[ingr2action[i]]-3),
+        line = dwg.add(dwg.line(start=(x1_i2a[i], y1_i2a[i]), end=(x2_i2a[i], y2_i2a[i]),
                                 stroke='#696969', stroke_width=2, marker_end=marker.get_funciri()))
 
     for i in range(len(action2action)):
-        line = dwg.add(dwg.line(start=(x_action[i]+10, y_action[i] + 5), end=(x_action[action2action[i]]+10, y_action[action2action[i]] - 20),
+        line = dwg.add(dwg.line(start=(x1_a2a[i], y1_a2a[i]), end=(x2_a2a[i], y2_a2a[i]),
                                 stroke='#696969', stroke_width=2, marker_end=marker.get_funciri()))
 
     for i in range(len(ingr)):  # need to use tspan for multiple line
+        # paragraph = dwg.add(dwg.g(font_size=12, fill = "#B1654B", style="font-family: Arial"))
         atext = dwg.text("", insert=(30, y_ingr[i]), fill="#B1654B", style="font-size: 12; font-family: Arial")
         for ingr_i in ingr[i]:
-            atext.add(dwg.tspan(ingr_i, x='0', dy=['1.2em']))
+            atext.add(dwg.tspan(ingr_i, x='0', dy=['1.05em']))
         dwg.add(atext)
 
     for i in range(len(action)):

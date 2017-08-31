@@ -1,7 +1,10 @@
+{% extends 'cooklog/__base.html' %}
+
 <html>
     <head>
         <title>Like form</title>
     </head>
+    {% block body_block %}
     <body>
         {% comment %}
         <h3>Say you like ...</h3>
@@ -19,9 +22,10 @@
                 {{ form.as_table }}
             </table>
             {% csrf_token %}
-            <input type="submit" value="Like it!">
+            <input type="submit" value="give Compliments!">
         </form>
         
         <h6> Sorry that you have to click through this page! It's on the list of things to solve.. </h6>
     </body>
+    {% endblock %}
 </html>
