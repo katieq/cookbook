@@ -280,11 +280,11 @@ def search(request): # this still works for searching dish names!
                 recipe_categories = RecipeCategory.objects.filter(recipecategory_name__icontains=q).all()
                 recipes = Recipe.objects.filter(
                     Q(recipe_name__icontains=q) | Q(recipecategory_id__in=recipe_categories)).order_by(
-                    "-date_created").all()[:7]
+                    "-date_created").all()[:12]
                 dishes = Dish.objects.filter(chef_id=ch).filter(
-                    Q(dish_method__icontains=q) | Q(dish_name__icontains=q) | Q(recipe_id__in=recipes)).order_by(
-                    "-date_created").all()[:7]
-                chefs = Chef.objects.filter(chef_id=ch).all()[:7]
+                    Q(dish_method__icontains=q) | Q(dish_name__icontains=q) | Q(tags__name=q) | Q(recipe_id__in=recipes)).order_by(
+                    "-date_created").all()[:12]
+                chefs = Chef.objects.filter(chef_id=ch).all()[:12]
                 return render(request, 'search_results.html',
                               {'dishes': dishes, 'query': q, 'chefs': chefs})
             else:
@@ -292,12 +292,12 @@ def search(request): # this still works for searching dish names!
                 recipe_categories = RecipeCategory.objects.filter(recipecategory_name__icontains=q).all()
                 recipes = Recipe.objects.filter(
                     Q(recipe_name__icontains=q) | Q(recipecategory_id__in=recipe_categories)).order_by(
-                    "-date_created").all()[:7]
+                    "-date_created").all()[:12]
                 dishes = Dish.objects.filter(
-                    Q(dish_method__icontains=q) | Q(dish_name__icontains=q) | Q(recipe_id__in=recipes)).order_by(
-                    "-date_created").all()[:7]
-                chefs = Chef.objects.filter(first_name__icontains=q).all()[:7]
-                ingredients = Ingredient.objects.filter(ingredient_name__icontains=q).all()[:7]
+                    Q(dish_method__icontains=q) | Q(dish_name__icontains=q) | Q(tags__name=q) | Q(recipe_id__in=recipes)).order_by(
+                    "-date_created").all()[:12]
+                chefs = Chef.objects.filter(first_name__icontains=q).all()[:12]
+                ingredients = Ingredient.objects.filter(ingredient_name__icontains=q).all()[:12]
                 return render(request, 'search_results.html',
                               {'dishes': dishes, 'recipes': recipes, 'chefs': chefs,
                               'ingredients': ingredients, 'query': q})

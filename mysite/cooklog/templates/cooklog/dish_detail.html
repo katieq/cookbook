@@ -94,7 +94,12 @@
 {% endif %}
 
 <div class="detail-text">
-    
+    <div class="dish-tags">
+            {% for tag in dish.tags.names %}
+                <a href="/cooklog/tagsearch/?q={{tag}}">#{{ tag }}</a> &middot;
+            {% endfor %}
+        </div>
+
     <div class="detail-text-section">
         <div class="detail-text-section-left">
             Method:
