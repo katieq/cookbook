@@ -23,11 +23,17 @@
             {{ object.first_name }} {{object.last_name.0 }}
         </div>
         <a href="/cooklog/chef/feed/{{object.chef_id}}/"> feed </a> &middot;
+        <a href="/cooklog/chef/album/{{object.chef_id}}/"> album </a> &middot;
         {% ifequal user.id object.chef_id %}
         <a href="/cooklog/chef/add/{{object.chef_id}}/"><i class="fa fa-pencil"></i></a>
         {% else %}
         <a href="/cooklog/cheffollow/add/{{user.id}}/">(<i class="fa fa-user-plus"></i>clunky for now)</a>
         {% endifequal %}
+        <form action="{% url 'search_results' %}" method="get">
+            <input type="text" name="q" style="width: 60px; font-size: 14px; margin-left: 10px;"/>
+            <input type="hidden" name="ch" value={{object.chef_id}} style="width: 60px; font-size: 14px; margin-left: 10px;"/>
+        <button type="submit" class="w3-bar-item w3-button"> <i class="fa fa-search"></i></button>
+        </form>
         {% if object.bio %}
         <p>Summary: {{ object.bio }}</p>
         {% else %}

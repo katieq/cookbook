@@ -275,13 +275,32 @@ def search(request): # this still works for searching dish names!
             errors.append('Please enter at most 40 characters.')
         else:
             #dishes = Dish.objects.filter(dish_method__icontains=q).order_by("date_created").all()
-            dishes = Dish.objects.filter(Q(dish_method__icontains=q) | Q(dish_name__icontains=q)).order_by("-date_created").all()[:10]
-            recipes = Recipe.objects.filter(recipe_name__icontains=q).order_by("-date_created").all()[:10]
-            chefs = Chef.objects.filter(first_name__icontains=q).all()[:10]
-            ingredients = Ingredient.objects.filter(ingredient_name__icontains=q).all()[:10]
-            return render(request, 'search_results.html',
-                          {'dishes': dishes, 'recipes': recipes, 'chefs': chefs,
-                          'ingredients': ingredients, 'query': q})
+            if 'ch' in request.GET:
+                ch = request.GET['ch']
+                recipe_categories = RecipeCategory.objects.filter(recipecategory_name__icontains=q).all()
+                recipes = Recipe.objects.filter(
+                    Q(recipe_name__icontains=q) | Q(recipecategory_id__in=recipe_categories)).order_by(
+                    "-date_created").all()[:7]
+                dishes = Dish.objects.filter(chef_id=ch).filter(
+                    Q(dish_method__icontains=q) | Q(dish_name__icontains=q) | Q(recipe_id__in=recipes)).order_by(
+                    "-date_created").all()[:7]
+                chefs = Chef.objects.filter(chef_id=ch).all()[:7]
+                return render(request, 'search_results.html',
+                              {'dishes': dishes, 'query': q, 'chefs': chefs})
+            else:
+                # todo get dishes with recipe_category__icontains=q .. I think this below works.
+                recipe_categories = RecipeCategory.objects.filter(recipecategory_name__icontains=q).all()
+                recipes = Recipe.objects.filter(
+                    Q(recipe_name__icontains=q) | Q(recipecategory_id__in=recipe_categories)).order_by(
+                    "-date_created").all()[:7]
+                dishes = Dish.objects.filter(
+                    Q(dish_method__icontains=q) | Q(dish_name__icontains=q) | Q(recipe_id__in=recipes)).order_by(
+                    "-date_created").all()[:7]
+                chefs = Chef.objects.filter(first_name__icontains=q).all()[:7]
+                ingredients = Ingredient.objects.filter(ingredient_name__icontains=q).all()[:7]
+                return render(request, 'search_results.html',
+                              {'dishes': dishes, 'recipes': recipes, 'chefs': chefs,
+                              'ingredients': ingredients, 'query': q})
     return render(request, 'search_form.html', {'errors': errors})
 
 

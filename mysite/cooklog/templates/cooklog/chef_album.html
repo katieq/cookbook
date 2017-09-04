@@ -23,42 +23,7 @@
 </div>
 
 {% for dish in page_dishes %}
-    <div class="dish-album">
-    
-        <div class="album-date">
-            {{ dish.date_created|date:"D M.d"|lower }}
-        </div> &middot;
-        <div class="album-recipe-icon">
-            {% ifequal dish.recipe_id_id 1 %}
-            <a href="/cooklog/dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
-            {% else %}
-            <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><i class="fa fa-book"></i></a>
-            {% endifequal %}
-        </div> &middot;
-        <div class="album-stars">
-            {% if dish.dish_rating %}
-            {% for i in "x"|rjust:dish.dish_rating %}
-            <i class="fa fa-star"></i>
-            {% endfor %}
-            {% endif %}
-        </div>
-        
-        {% if dish.dish_image %}
-        <div class="album-photo">
-            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
-        </div>
-        {% else %}
-        <div class="album-img-placeholder">
-            <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>
-        </div>
-        {% endif %}
-    
-    
-        
-        <div class="album-dish-name">
-            <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
-        </div>
-    </div>
+    {% include "dish_album.html" %}
 
 {% endfor %}
 <p></p>
