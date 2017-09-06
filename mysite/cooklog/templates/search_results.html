@@ -8,8 +8,19 @@
     Searched {{query}} ...
 </div>
 
-<div class="page-subtitle">
-    (showing top results only; soon: will show all with pagination)
+<div class="page-title">
+    <div class="pagination" style="margin-top: 0px; margin-bottom: 4px;">
+        <span class="step-links">
+            {% if dishes.has_previous %}
+            <!--todo: this shouldn't include page if it's in get_full_path .. it works, but ugly long urls..-->
+            <a href="{{request.get_full_path}}&page={{ dishes.previous_page_number }}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+            {% endif %}
+            search results
+            {% if dishes.has_next %}
+            <a href="{{request.get_full_path}}&page={{ dishes.next_page_number }}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+            {% endif %}
+        </span>
+    </div>
 </div>
 
 {% if dishes %}
