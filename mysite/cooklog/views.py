@@ -389,7 +389,8 @@ def generate_diagram_svg_data(pk):
     try:
         dwg.saveas(filename="mysite/media/dish_flow_svg/dish_flow_"+pk+".svg") # this does do it, locally, not on pythonanywhere (because different file structure?)
     except:
-        dwg.saveas(filename="~/cookbook/mysite/media/dish_flow_svg/dish_flow_"+pk+".svg") # maybe works for pythonanywhere??
+        pass # for now, it should just display it
+        # dwg.saveas(filename="~/cookbook/mysite/media/dish_flow_svg/dish_flow_"+pk+".svg") # maybe works for pythonanywhere??
 
     return dwg.tostring()
 
