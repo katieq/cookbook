@@ -28,7 +28,7 @@ from dal import autocomplete
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.edit import FormMixin
 from itertools import chain
-import os
+import os.path
 
 #from django.views.decorators.http import require_POST
 #try:

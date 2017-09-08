@@ -25,7 +25,10 @@ def include_anything(file_name):
 @register.simple_tag
 def include_dish_diagram(dish_id):
     import os.path
-    file_name = "mysite/media/dish_flow_svg/dish_flow_"+str(dish_id)+".svg"
+    # file_name = "mysite/media/dish_flow_svg/dish_flow_"+str(dish_id)+".svg"
+    # file_name = "/Users/katiequinn/Documents/cooklog/mysite/media/dish_flow_svg/dish_flow_"+str(dish_id)+".svg"
+    file_name = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+                             "media/dish_flow_svg/dish_flow_"+str(dish_id)+".svg")
     if os.path.exists(file_name):
         return open(file_name).read()
     else:
