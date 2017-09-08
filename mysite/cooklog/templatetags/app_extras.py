@@ -16,3 +16,17 @@ def hashtag_links(value):
     return mark_safe(
                      re.sub(r"#(\w+)", lambda m: create_hashtag_link(m.group(1)),
                             conditional_escape(value)))
+
+
+@register.simple_tag
+def include_anything(file_name):
+    return open(file_name).read()
+
+@register.simple_tag
+def include_dish_diagram(dish_id):
+    import os.path
+    file_name = "mysite/media/dish_flow_svg/dish_flow_"+str(dish_id)+".svg"
+    if os.path.exists(file_name):
+        return open(file_name).read()
+    else:
+        return " "

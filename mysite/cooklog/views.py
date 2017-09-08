@@ -66,24 +66,22 @@ def generate_diagram_svg_data(pk):
                }.get(
             utensil_name, " M 0 0 L 10 5 L 0 10 z ")
 
-
     def get_utensil_scale(utensil_name):
         return{'frying pan': 0.035,
                'cast iron pan': .04,
-               'mixing bowl': .4,
-               'bowl': .4,
-               'large mixing bowl': .5,
+               'mixing bowl': .35,
+               'bowl': .35,
+               'large mixing bowl': .42,
                'food processor': 1.7,
                'saucepan': .7,
                'oven': .025,
                'rolling pin': .4,
                'pie dish': .7,
-               'baking dish': .7,
+               'baking dish': .6,
                'wok': 2,
-               'muffin tray': .8,
+               'muffin tray': .7,
                'stand mixer': .5,
                }.get(utensil_name, 1)
-
 
     def get_ingr_path(ingr_name):
         return{
@@ -111,6 +109,7 @@ def generate_diagram_svg_data(pk):
             'eggplant': "M28.152,40.531c-8.299,1.522-14.431,6.173-18.066,11.986   c-1.576,2.629-2.664,5.427-3.226,8.343c-0.563,2.918-0.583,5.923-0.021,8.88c1.22,6.393,5.056,12.427,11.856,16.638   c5.542,3.427,12.447,4.883,19.417,4.585c7.106-0.331,14.363-2.461,20.506-6.15c5.802-3.501,10.283-8.313,13.681-13.771   c5.559-8.946,8.129-19.332,9.275-29.662c0.74,0.288,1.512,0.493,2.278,0.699c1.069,0.302,2.207-0.304,2.478-1.41   c0.209-0.649,0.048-1.305-0.35-1.799c-1.142-1.402-1.741-2.912-2.078-4.467c-0.335-1.531-0.376-3.202-0.304-4.906   c1.104-3.623,0.763-7.381-0.766-10.621c-1.118-2.399-2.928-4.5-5.222-6.039c0.298-2.083,0.755-9.509-7.914-11.763   c-1.086-0.273-2.184,0.393-2.476,1.508c-0.281,1.065,0.418,2.18,1.526,2.446c4.212,1.083,4.935,4.177,4.957,6.055   c-2.827-0.885-5.78-0.815-8.481,0.006c-2.972,0.912-5.714,2.835-7.616,5.441c-1.356,1.135-2.829,2.196-4.428,2.937   c-1.621,0.854-3.431,1.452-5.582,1.689c-1.842,0.164-2.446,2.519-1.039,3.582l0.057,0.035c1.132,0.858,2.357,1.594,3.63,2.219   l-0.116,0.13C43.435,33.996,39.088,38.448,28.152,40.531z M55.01,23.126c1.985-0.986,3.686-2.231,5.277-3.594   c0.199-0.098,0.35-0.286,0.48-0.468c1.39-1.981,3.42-3.381,5.644-4.109c2.194-0.646,4.659-0.614,6.94,0.281   c2.648,0.976,4.688,2.999,5.823,5.371c1.088,2.38,1.38,5.135,0.525,7.776c-0.07,0.219-0.116,0.43-0.153,0.682   c-0.095,2.004-0.072,4.086,0.397,6.173c0.066,0.459,0.169,0.877,0.314,1.261c-0.729-0.339-1.452-0.655-2.104-1.085   c-1.925-1.156-3.606-2.724-4.62-4.802c-0.267-0.479-0.688-0.868-1.27-1.02c-1.053-0.333-2.215,0.275-2.513,1.365   c-0.86,2.918-3.388,4.711-6.306,5.143c0.988-2.999,1.756-6.189,1.889-9.345c-0.035-0.143-0.013-0.247-0.046-0.385   c-0.176-1.1-1.214-1.88-2.306-1.682c-2.505,0.397-5.129,0.311-7.604-0.262c-0.683-0.157-1.329-0.366-1.973-0.552   C53.947,23.639,54.475,23.36,55.01,23.126z M54.927,31.851c0.917-0.897,1.854-1.923,2.914-2.932   c1.059,0.083,2.151,0.083,3.185,0.049c-0.422,2.881-1.301,5.729-2.409,8.438c-0.391,1.016,0.079,2.213,1.152,2.637   c0.141,0.064,0.298,0.1,0.525,0.116c4.388,0.496,8.973-0.995,11.657-4.664c0.906,1.063,1.998,1.958,3.112,2.749   c-0.818,10.146-3.057,20.469-8.471,29.207c-2.914,4.62-6.669,8.657-11.448,11.555c-5.174,3.129-11.318,4.93-17.355,5.194   c-5.638,0.263-11.167-0.84-15.51-3.549c-5.094-3.12-7.939-7.571-8.81-12.162c-0.382-2.141-0.366-4.272,0.064-6.415   c0.349-2.072,1.158-4.106,2.306-5.979c2.67-4.312,7.317-7.747,13.62-8.922C42.432,44.708,47.327,39.672,54.927,31.851z",
             'broccoli': "M58,95H41.1c-0.8,0-1.5-0.7-1.5-1.5c0-5.8-1.3-11.3-3.8-16.6L24.6,53.4c-0.9,0.1-1.7,0.2-2.6,0.2   c-8.9,0-16.1-6.8-16.1-15.2c0-6.4,4.3-12.1,10.6-14.2c0.3-11.1,10-19.9,21.9-19.9c4.7,0,9.4,1.5,13.2,4.1C52.4,8.1,53.2,8,54,7.9   c1.3-0.2,2.6-0.3,3.9-0.3c9.5,0,17.7,5.7,20.7,13.9c0,0.1,0.1,0.1,0.1,0.2c0.2,0.6,0.5,1.2,0.6,1.8c7.9,1.1,13.9,7.6,13.7,15.3   c-0.1,7-5.6,13.2-13,14.6c-1.9,0.4-3.9,0.4-5.9,0L63.5,75.7c-2.7,5.6-4,11.6-4,17.7C59.5,94.3,58.8,95,58,95z M42.6,92h13.9   c0.2-6.1,1.7-12,4.3-17.5L72,51c0.3-0.6,1-1,1.7-0.8c1.9,0.5,3.9,0.5,5.8,0.2c6-1.1,10.5-6.1,10.6-11.7c0.1-5.8-4.2-10.8-10.1-12   c0.2,2.2,0,4.4-0.6,6.4c-1.1,3.7-3.5,6.4-6.8,7.8c-0.8,0.3-1.6-0.1-2-0.8c-0.3-0.8,0.1-1.6,0.8-2c2.4-1,4.2-3.1,5-5.9   c0.6-2,0.7-4.2,0.3-6.4c-0.2-0.2-0.3-0.4-0.3-0.7C75,16.7,67.2,10.5,58,10.5c-0.5,0-1,0-1.5,0.1c-0.2,0.1-0.5,0.2-0.7,0.2   c-0.4,0-0.9,0-1.3,0.1c-0.9,0.2-1.8,0.4-2.6,0.6c-0.1,0-0.2,0.1-0.3,0.1c-4.4,1.7-7.6,6-7.6,11c0,0.8-0.7,1.5-1.5,1.5   s-1.5-0.7-1.5-1.5c0-5.4,3-10.2,7.3-12.8c-2.9-1.7-6.3-2.6-9.8-2.6c-10.4,0-18.9,7.9-18.9,17.5c0,0.1,0,0.2,0,0.3l0,0.2   c0,0.7-0.4,1.3-1.1,1.5c-5.6,1.5-9.5,6.3-9.5,11.7c0,6.7,5.9,12.2,13.1,12.2c1,0,2-0.1,3.1-0.4c0,0,0,0,0,0   c0.1-0.1,0.2-0.2,0.4-0.2c2-0.8,3.5-2.3,4.3-4.3c0.8-2,0.8-4.1,0-6.1c-0.3-0.8,0.1-1.6,0.8-2c0.8-0.3,1.6,0.1,2,0.8   c1.1,2.7,1.1,5.7,0,8.4c-1,2.4-2.8,4.4-5.2,5.5l11.1,23.2C41,80.8,42.4,86.3,42.6,92z M45.8,77c-0.6,0-1.1-0.3-1.4-0.9l-9.7-20.2   c-0.2-0.5-0.2-1.1,0.1-1.5c0.3-0.4,0.9-0.7,1.4-0.6c0.7,0.1,1.2,0.1,1.7,0.1c2.5,0,4.9-0.7,7-1.9c0.5-0.3,1-0.3,1.5,0   c0.5,0.3,0.8,0.8,0.8,1.3v22.2c0,0.7-0.5,1.3-1.2,1.5C46,77,45.9,77,45.8,77z M38.5,56.9l5.7,12V55.7   C42.5,56.4,40.5,56.8,38.5,56.9z M53.9,75.1c-0.1,0-0.2,0-0.3,0c-0.7-0.2-1.2-0.8-1.2-1.5V54.9c0-0.5,0.2-0.9,0.6-1.2   c0.4-0.3,0.8-0.4,1.3-0.3c2.9,0.7,5.7,0.5,8.3-0.6c0.6-0.2,1.2-0.1,1.6,0.4c0.4,0.5,0.5,1.1,0.3,1.7l-9.2,19.3   C55,74.8,54.5,75.1,53.9,75.1z M55.4,56.7V67l4.9-10.4C58.7,56.9,57.1,57,55.4,56.7z",
             'potatoes': "M88.99,16.147C83.017,9.843,73.25,7.5,65.022,7.5c-9.522,0-17.306,4.028-25.096,7.922   c-8.7,4.348-16.83,9.781-23.508,16.888c-3.489,3.714-6.387,7.913-8.259,12.672c-0.936,2.38-1.637,4.87-2.219,7.389   c-1.873,8.111-0.812,16.624,2.848,24.1C9.717,78.37,17.75,92.5,33.227,92.5c18.523,0,34.02-12.338,45.541-25.384   c2.698-3.055,5.2-6.296,7.621-9.573c2.792-3.78,5.097-7.756,6.479-12.271c1.246-4.072,1.948-8.503,2.115-12.758   c0.14-3.594-0.578-7.227-2.066-10.503C91.939,19.858,90.617,17.865,88.99,16.147z M85.696,43.077   c-0.991,3.239-2.688,6.419-5.34,10.009c-2.812,3.806-5.035,6.602-7.21,9.065C59.757,77.313,46.326,85,33.227,85   c-11.535,0-17.644-11.708-17.703-11.826c-2.932-5.989-3.74-12.777-2.277-19.115c0.574-2.485,1.192-4.556,1.891-6.331   c1.394-3.542,3.663-7.002,6.746-10.282c5.509-5.863,12.508-10.873,21.396-15.315l0.642-0.321C50.921,18.307,57.532,15,65.022,15   c6.067,0,14.119,1.656,18.523,6.305c1.038,1.096,1.894,2.376,2.543,3.806c1.011,2.226,1.495,4.684,1.4,7.109   C87.342,35.971,86.722,39.724,85.696,43.077z",
+            'bananas': "M89.406,21.438c-0.012-2.452-0.188-11.065-2.044-14.957c-0.428-0.892-1.327-1.459-2.315-1.459   c-2.188,0-7.003,1.967-8.206,2.738c-0.769,0.492-1.217,1.353-1.18,2.263c0.212,5.282,0.169,8.484,0.104,10.164   c-15.63,28.3-42.295,32.441-63.81,32.874c-2.434,0.049-4.638,1.382-5.752,3.478c-1.157,2.177-1.702,6.062,2.27,12.214   c2.151,3.33,5.834,6.356,10.423,8.731c-0.106,0.308-0.196,0.622-0.257,0.947c-0.456,2.412,0.129,6.252,5.498,10.848   c4.196,3.59,11.499,5.732,19.538,5.733c0.003,0,0.002,0,0.004,0c13.578,0,26.976-5.839,36.756-16.019   C101.485,57.08,93.941,31.812,89.406,21.438z M22.491,73.525c-4.75-2.258-8.124-5.1-9.709-7.556   c-2.338-3.621-2.592-6.002-2.05-7.021c0.355-0.668,1.046-0.753,1.327-0.759c9.747-0.195,22.556-1.062,35.192-6.074   c9.09-3.605,16.898-8.96,23.354-15.976c-4.169,8.612-9.827,15.32-16.221,20.634c-6.847,3.955-15.941,6.831-27.947,6.926   c-1.416,0.011-2.556,1.168-2.544,2.584c0.011,1.411,1.157,2.545,2.563,2.545c0.007,0,0.014,0,0.021,0   c3.349-0.025,6.478-0.263,9.418-0.659c-4.289,1.978-8.59,3.631-12.729,5.07C22.933,73.32,22.71,73.42,22.491,73.525z M76.733,75.44   c-8.818,9.178-20.867,14.443-33.056,14.443c0,0-0.002,0-0.003,0c-6.751,0-12.959-1.726-16.202-4.502   c-3.936-3.367-3.899-5.444-3.793-6c0.167-0.885,0.939-1.218,1.172-1.298c9.274-3.224,21.3-8.043,32.056-16.769   C69.1,51.422,77.113,38.38,80.726,22.551c0.02-0.092,0.037-0.185,0.047-0.277c0.014-0.126,0.333-3.006,0.076-10.785   c0.745-0.309,1.67-0.649,2.481-0.909c0.71,3.16,0.965,8.298,0.947,11.384c-0.002,0.368,0.074,0.731,0.223,1.065   C88.575,32.116,95.974,55.412,76.733,75.44z",
         }.get(ingr_name, " M 0 0 L 10 5 L 0 10 z ")
     # todo: find simpler paths: some of these paths too slow, esp tomato and feta I think (based on that they are long in terms of characters)
     def get_ingr_scale(ingr_name):
@@ -139,7 +138,37 @@ def generate_diagram_svg_data(pk):
             'eggplant': .3,
             'broccoli': .3,
             'potatoes': .2,
+            'bananas': .3,
         }.get(ingr_name, .01)
+    # todo .. probably set colors! def get_ingr_color(ingr_name): ...
+    def get_ingr_color(ingr_name):
+        return {
+            'eggs': '#998100',
+            'butternut pumpkin': '#e59400',
+            # 'butter': 1,
+            # 'flour': .3,
+            'chard': '#007f00',
+            'garlic': '#998100',
+            'olive oil': '#998100',
+            'lemon': '#ffd700',
+            'feta': '#f1e8dc',
+            'parsley': '#007f00',
+            'zucchini': '#007f00',
+            'tomato': '#FF0000',
+            'parmesan': '#ffd700',
+            'avocado': '#b2d8b2',
+            'bacon': '#f1e8dc',
+            'thyme': '#007f00',
+            'leek': '#007f00',
+            'onion': '#B1654B',
+            'orange': '#ffa500',
+            'chicken': '#B1654B',
+            'mushrooms': '#B1654B',
+            'eggplant': '#400040',
+            'broccoli': '#007f00',
+            'potatoes': '#B1654B',
+            'bananas': '#ffd700',
+        }.get(ingr_name, "#B1654B")
 
     def find(s, ch):
         return [i for i, ltr in enumerate(s) if ltr == ch]
@@ -176,10 +205,6 @@ def generate_diagram_svg_data(pk):
       branch_close_index_raw.remove(branch_close)
     branch_close_index = list(reversed(branch_close_index))
 
-    ingr2action = list()
-    for ingr_index_i in ingr_index:
-        ingr2action.append(next(x[0] for x in enumerate(action_index) if x[1] > ingr_index_i))
-
     action_in_branch = list()
     for action_i in action_index:
         b = 0
@@ -190,6 +215,31 @@ def generate_diagram_svg_data(pk):
                 else:
                     b = i+1 # because want "first" branch =1 not 0 .. but check this works when sometimes assign a branch_number!
         action_in_branch.append(b)
+
+
+    ingr2action = list()
+    for ingr_index_i in ingr_index:
+        ingr2action.append(next(x[0] for x in enumerate(action_index) if x[1] > ingr_index_i ))
+    # decision: *could* use below, to take branching into account and link ingr to next action *in its branch*
+    # but, that will cause criss-crossing of ingr order. Better to force user to write ingr in order
+    # ingr_in_branch = list()
+    # for ingr_i in ingr_index:
+    #     b = 0
+    #     for i in range(len(branch_open_index)):
+    #         if branch_open_index[i] < ingr_i and branch_close_index[i] > ingr_i:
+    #             if branch_number[i]>0:
+    #                 b = branch_number[i]
+    #             else:
+    #                 b = i+1 # because want "first" branch =1 not 0 .. but check this works when sometimes assign a branch_number!
+    #     ingr_in_branch.append(b)
+    # ingr2action = list()
+    # for i in range(len(ingr_in_branch)):
+    #     a = 0
+    #     for j in reversed(range(len(action_index))):
+    #         if (ingr_in_branch[i] == action_in_branch[j] and (action_index[j] > ingr_index[i])):
+    #             a = j
+    #     ingr2action.append(a)
+
     action2action = list()
     for i in range(len(action_in_branch)-1):
         if action_in_branch[i] in action_in_branch[i+1:]: # is not last occurrence of action_in_branch[i] value:
@@ -232,14 +282,21 @@ def generate_diagram_svg_data(pk):
     else:
         action_in_utensil = [0 for i in range(len(action))]
 
+    width_ingr_icon = 30
+    width_ingr = 130
+    width_rect = 140
+    ingr_font_size = 10
+    utensil_font_size = 10
+    action_font_size = 10
+
     branch_to_y_delta = {0: 50, 1: 30, 2: 30, 3: 40, 4: 40}
     y_delta = [branch_to_y_delta[action_in_branch[i]] for i in range(len(action))]
     y_action = [sum(y_delta[:i+1]) for i in range(len(action))]
-    x_action = [230 - (action_in_branch[i]>0)*50 - (action_in_branch[i]>2)*30
+    x_action = [width_ingr_icon+width_ingr+.5*width_rect - (action_in_branch[i]>0)*40 - (action_in_branch[i]>2)*20
                 # - (action_in_utensil[i]==0 and i != 0 and (i != len(action)-1))*60 # <- remove for now. not sure if do want this
                 for i in range(len(action))] # todo not sure always works
 
-    height_ingr = [16*i for i in line_per_ingr]
+    height_ingr = [(ingr_font_size+4)*i for i in line_per_ingr]
     # attempt to align with action, but put it lower if heigh_ingr makes it necessary:
     # todo oh wait, should use middle_y_ingr[i-1] instead of sum(height_ingr[0:i]) for cases where only gets crowded "midway"
     middle_y_ingr = list()
@@ -255,7 +312,7 @@ def generate_diagram_svg_data(pk):
                       max([y_action[i] for i in range(len(y_action)) if action_in_utensil[i] == (j + 1)]) -
                       min([y_action[i] for i in range(len(y_action)) if action_in_utensil[i] == (j + 1)])
                       for j in range(len(utensil_index))]
-    x_utensil = [340 - 5*len(utensil[i]) for i in range(len(utensil_index))]
+    x_utensil = [width_ingr+width_rect - 10 - .4*utensil_font_size*len(utensil[i]) for i in range(len(utensil_index))]
 
     # want: if x1 far from x2, then make x1_a2a further from (more positive) x1
     x1_a2a = [x_action[i]+10 + 5*(x_action[action2action[i]]!=x_action[i]) for i in range(len(action2action))]
@@ -267,13 +324,13 @@ def generate_diagram_svg_data(pk):
     y2_a2a = [y_action[action2action[i]] - 8 - 5/50*min(100, y_action[action2action[i]]-y_action[i]) for i in range(len(action2action))] # "min(100" puts max on y-gap, for distant action2action
 
 
-    x1_i2a = [50 + 4*len(max(ingr[i], key=len)) for i in range(len(ingr2action))] # based on longest string within ingr block
+    x1_i2a = [width_ingr_icon + 20 + .5*ingr_font_size*len(max(ingr[i], key=len)) for i in range(len(ingr2action))] # based on longest string within ingr block
     x2_i2a = [x_action[ingr2action[i]]-10 for i in range(len(ingr2action))]
     y1_i2a = [y_ingr[i] +10 + line_per_ingr[i]*7 for i in range(len(ingr2action))]
     y2_i2a = [y_action[ingr2action[i]]-5 for i in range(len(ingr2action))]
 
     dwg = svgwrite.Drawing(filename="test-svgwrite.svg",
-                           size=("600px", max(y_action + middle_y_ingr)+50))
+                           size=("390px", max(y_action + middle_y_ingr)+50))
 
     marker = dwg.marker(viewBox="0 0 10 10", refX="0", refY="5",
                         markerUnits="strokeWidth", markerWidth="4", markerHeight="3",
@@ -281,9 +338,8 @@ def generate_diagram_svg_data(pk):
     marker.add(dwg.path(d="M 0 0 L 10 5 L 0 10 z"))
     dwg.defs.add(marker)
 
-
     for i in range(len(utensil)):
-        dwg.add(dwg.rect(insert=(50+150, y_utensil[i]), size=("200px", height_utensil[i]),
+        dwg.add(dwg.rect(insert=(width_ingr_icon+width_ingr, y_utensil[i]), size=(width_rect, height_utensil[i]),
                          fill="#FDC08E", style="opacity: .3", rx=5, ry=5))
         t = utensil[i].find('(')
         if t == -1:
@@ -291,18 +347,18 @@ def generate_diagram_svg_data(pk):
         else:
             utensil_name = utensil[i][:t].strip()
         dwg.add(dwg.path(d=get_utensil_path(utensil_name),
-                         transform="translate(" + str(50+350) + "," + str(y_utensil[i] - 10) + ") scale("+str(get_utensil_scale(utensil_name))+")",
+                         transform="translate(" + str(width_ingr_icon+width_ingr+width_rect) + "," + str(y_utensil[i] - 10) + ") scale("+str(get_utensil_scale(utensil_name))+")",
                          style="opacity: .5", fill="#ff9900"))
         dwg.add(dwg.text(utensil[i],
-                         insert=(50+x_utensil[i], y_utensil[i] + 10), fill="#545454",
-                         style="font-size: 12; font-family: Arial"))
+                         insert=(width_ingr_icon+x_utensil[i], y_utensil[i] + 10), fill="#545454",
+                         style="font-size: 10; font-family: Arial"))
 
     for i in range(len(ingr2action)):
-        line = dwg.add(dwg.line(start=(50+x1_i2a[i], y1_i2a[i]), end=(50+x2_i2a[i], y2_i2a[i]),
+        line = dwg.add(dwg.line(start=(x1_i2a[i], y1_i2a[i]), end=(x2_i2a[i], y2_i2a[i]),
                                 stroke='#696969', stroke_width=2, marker_end=marker.get_funciri()))
 
     for i in range(len(action2action)):
-        line = dwg.add(dwg.line(start=(50+x1_a2a[i], y1_a2a[i]), end=(50+x2_a2a[i], y2_a2a[i]),
+        line = dwg.add(dwg.line(start=(x1_a2a[i], y1_a2a[i]), end=(x2_a2a[i], y2_a2a[i]),
                                 stroke='#696969', stroke_width=2, marker_end=marker.get_funciri()))
 
     for i in range(len(ingr)):  # need to use tspan for multiple line
@@ -313,11 +369,12 @@ def generate_diagram_svg_data(pk):
             else:
                 ingr_name = ingr[i][j][:t].strip()
             dwg.add(dwg.path(d=get_ingr_path(ingr_name), # todo: until '('
-                             transform="translate(" + str(45-((j+i)%3)*20) + "," + str(-15+y_ingr[i]+12*1.05*(j+1)) + ") scale(" + str(
+                             transform="translate(" + str(width_ingr_icon-((j+i)%3)*15) + "," + str(-15+y_ingr[i]+ingr_font_size*1.05*(j+1)) + ") scale(" + str(
                                  get_ingr_scale(ingr_name)) + ")",
-                             style="opacity: .5", fill="#B1654B"))
+                             style="opacity: .8", fill=get_ingr_color(ingr_name)))
             dwg.add(dwg.text(ingr[i][j],
-                             insert=(50+30, y_ingr[i]+12*1.05*(j+1)), fill="#B1654B", style="font-size: 12; font-family: Arial"))
+                             insert=(width_ingr_icon+30, y_ingr[i]+12*1.05*(j+1)),
+                             fill="#B1654B", style="font-size: 10; font-family: Arial"))
         # paragraph = dwg.add(dwg.g(font_size=12, fill = "#B1654B", style="font-family: Arial"))
         # atext = dwg.text("", insert=(50+30, y_ingr[i]), fill="#B1654B", style="font-size: 12; font-family: Arial")
         # for ingr_j in ingr[i]:
@@ -326,8 +383,10 @@ def generate_diagram_svg_data(pk):
 
     for i in range(len(action)):
         dwg.add(dwg.text(action[i],
-                         insert=(50+x_action[i], y_action[i]), fill="#E75481",
-                         style="font-size: 12px; font-family: Arial; font-weight=bold"))
+                         insert=(x_action[i], y_action[i]), fill="#E75481",
+                         style="font-size: 10px; font-family: Arial; font-weight=bold"))
+
+    dwg.saveas(filename="mysite/media/dish_flow_svg/dish_flow_"+pk+".svg") # this does do it,
 
     return dwg.tostring()
 
@@ -477,7 +536,7 @@ class HomePageView(TemplateView):
         except EmptyPage:
             context['page_dishes'] = paginator.page(paginator.num_pages)
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['page_dishes'])
-        # context['dish_diagram'] = reverse('dish_diagram', args=[1]) # ugh .. how to get this for each dish! probs can't?
+        # context['dish_diagram'] = reverse('dish_diagram', args=[42]) # ugh .. how to get this for each dish! probs can't?
         return context
 
 

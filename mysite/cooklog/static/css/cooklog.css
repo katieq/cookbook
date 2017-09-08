@@ -56,6 +56,15 @@ a:visited {
     color: #B1654B; /*#ca2558;*/
     font-family:  'Roboto';
 }
+.page-header-title {
+    display: inline-block;
+}
+.page-header-subscript {
+    display: inline-block;
+    margin-left: 30px;
+    font-size: 10px;
+    color: #666666;
+}
 
 .page-header-menu {
     font-size: 28px;
@@ -142,9 +151,10 @@ a:visited {
 .dish-diagram-column {
     display: inline-table;
     margin-top: 5px;
-    width: 400px;
     margin-left: 10px;
+    width: 400px;
 }
+
 /*.dish-social-column {*/
 /*    display: inline-table;*/
 /*    vertical-align: top;*/
