@@ -164,11 +164,7 @@
     </div>
 
     <div class="dish-diagram-column">
-        <!--{% if dish.dish_diagram_text %}-->
-            <!--<div class="dish-diagram-image">-->
-                <!--<img src="{{ dish_diagram }}" alt="img1">-->
-            <!--</div>-->
-        <!--{% endif %}-->
+<!--WORKS locally, but on pythonanywhere, just displays the svg string!! turn "off" for now then..-->
         {% include_dish_diagram dish.dish_id %}
 
         <!--{% if dish.dish_diagram_image %}-->
