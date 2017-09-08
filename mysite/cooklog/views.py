@@ -28,6 +28,7 @@ from dal import autocomplete
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.edit import FormMixin
 from itertools import chain
+import os
 
 #from django.views.decorators.http import require_POST
 #try:
@@ -387,7 +388,8 @@ def generate_diagram_svg_data(pk):
                          style="font-size: 10px; font-family: Arial; font-weight=bold"))
 
     try:
-        dwg.saveas(filename="mysite/media/dish_flow_svg/dish_flow_"+pk+".svg") # this does do it, locally, not on pythonanywhere (because different file structure?)
+        # dwg.saveas(filename="mysite/media/dish_flow_svg/dish_flow_"+pk+".svg") # this does do it, locally, not on pythonanywhere (because different file structure?)
+        dwg.saveas(filename=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "media/dish_flow_svg/dish_flow_"+pk+".svg"))
     except:
         pass # for now, it should just display it
         # dwg.saveas(filename="~/cookbook/mysite/media/dish_flow_svg/dish_flow_"+pk+".svg") # maybe works for pythonanywhere??
