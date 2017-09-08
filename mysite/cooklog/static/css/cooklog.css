@@ -338,7 +338,11 @@ a:visited {
 }
 .dish-comments-comment {
     display: inline-block;
-    width: 300px;
+    width: 292px;
+}
+.dish-comments-delete {
+    display: inline-block;
+    width: 8px;
 }
 .dish-diagram-image img {
     max-width: 100%;
@@ -591,6 +595,9 @@ a:visited {
     width: 30px;
 }
 .dish-mini-comments-comment {
+    display: inline-block;
+}
+.dish-mini-comments-delete {
     display: inline-block;
 }
 

@@ -139,8 +139,15 @@
 
 <div class="detail-text">
     <div class="detail-likes">
+        <!--Compliments:-->
         <div class="dish-likes-like">
-            <a href="/cooklog/like/{{dish.dish_id}}/"><i class="fa fa-thumbs-up" aria-hidden="true"></i>   </a> {{ dish.like_chef_id.count }}
+        <form action="/cooklog/compliments/{{dish.dish_id}}/" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="like_chef_id" value="{{user.id}}" style="width: 60px; font-size: 14px; margin-left: 10px;"/>
+            <button title="Give compliments!" type="submit" style="background-color: Transparent; border: none; color: #666666; padding: 0px 0px;"> <i class="fa fa-thumbs-up"></i></button>
+            {{ dish.like_chef_id.count }}
+        </form>
+            <!--<a href="/cooklog/like/{{dish.dish_id}}/"><i class="fa fa-thumbs-up" aria-hidden="true"></i>   </a> -->
         </div>
         <div class="dish-likes-chef-list">
             {% for chef_like in dish.like_chef_id.all %}
@@ -150,8 +157,10 @@
     </div>
     
     <div class="detail-comments">
+        <!--Comments:-->
         <div class="dish-comments-icon">
-            <a href="{% url 'comment_add' %}?next={{dish.dish_id}}"><i class="fa fa-comment" aria-hidden="true"></i></a>
+            <!--<a href="{% url 'comment_add' %}?next={{dish.dish_id}}"></a>-->
+            <i class="fa fa-comment" aria-hidden="true"></i>
         </div>
         <div class="dish-comments-wrapper">
             {% for chef_comment in chef_comments %}
@@ -160,12 +169,21 @@
                 <div class="dish-comments-name" >
                     <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a>:
                 </div>
-                <div class="dish-comments-comment">
-                    {{ chef_comment.chef_dish_comment }}
-                    {% ifequal user.id chef_comment.chef_id_id %}
-                    <a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/"><i class="fa fa-close" aria-hidden="true"></i></a>
-                    {% endifequal %}
-                </div>
+                <div class="dish-comments-delete">
+                        {% ifequal user.id chef_comment.chef_id_id %}
+                            <!--<a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/"><i class="fa fa-close" aria-hidden="true"></i></a>-->
+                            <form action="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/" method="post">
+                                {% csrf_token %}
+                                <button title="Delete comment" type="submit"
+                                        style="display: inline-block; background-color: Transparent;
+                                        border: none; color: #d3d3d3; font-size: 8px; padding: 0px 0px;">
+                                    <i class="fa fa-close"></i></button>
+                            </form>
+                        {% endifequal %}
+                    </div>
+                    <div class="dish-comments-comment">
+                        {{ chef_comment.chef_dish_comment | truncatechars:500 }}
+                    </div>
             </div>
             {% endifequal %}
             {% endfor %}
@@ -180,7 +198,7 @@
                     <form method="post" action="{% url "comment_add" %}?next={{object.dish_id}}">
                         {% csrf_token %}
                         {{ add_comment_form }}
-                        
+
                     </form>
                 </div>
             </div>

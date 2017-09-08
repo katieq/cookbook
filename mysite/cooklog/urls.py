@@ -79,7 +79,7 @@ urlpatterns = [
                url(r'^ingredient/add/(?P<pk>[0-9]+)/$', IngredientUpdate.as_view(), name='ingredient_update'),
                # url(r'^my_image/$', my_image),
                #url(r'^upload/$', UploadImageView.as_view(), name='photo_upload'),
-               url(r'^like/(?P<pk>[0-9]+)/$', NewLikeView.as_view(), name='new_like'),
+               url(r'^compliments/(?P<pk>[0-9]+)/$', NewLikeView.as_view(), name='new_like'),
                url(r'^comment/$', NewCommentView.as_view(), name='comment_add'),
                url(r'^comment/delete/(?P<pk>[0-9]+)/$', CommentDeleteView.as_view(), name='comment_delete'),
                url(r'^dish/recipe_choose/(?P<pk>[0-9]+)/$', RecipeChooseView.as_view(), name='recipe_choose'),

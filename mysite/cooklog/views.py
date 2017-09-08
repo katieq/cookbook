@@ -27,6 +27,7 @@ import string
 from dal import autocomplete
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.edit import FormMixin
+from itertools import chain
 
 #from django.views.decorators.http import require_POST
 #try:
@@ -498,14 +499,10 @@ class RecipeCategoryDetailView(DetailView):
         return context
 
 class DishUpdate(UpdateView):
-    #model = Dish
     template_name = 'update_dish_form.html'
     form_class = UpdateDishForm
     def get_queryset(self):
         return Dish.objects.filter(dish_id=self.kwargs.get("pk", None))
-    #fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled',
-    #      'date_created', 'dish_source', 'dish_method', 'dish_rating',
-    #      'dish_comments', 'ingredient_id', 'dish_image', 'photo_comment']
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 
@@ -559,17 +556,18 @@ class DishDetailView(FormMixin, DetailView):
         context['dish_diagram'] = reverse('dish_diagram', args=[self.object.dish_id])
         return context
 
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
-
-    def form_valid(self, form):
-        form.save()
-        return super(DishDetailView, self).form_valid(form)
+# I thought this was necessary for e.g. putting comments on this, but I dont think so!!
+    # def post(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     form = self.get_form()
+    #     if form.is_valid():
+    #         return self.form_valid(form)
+    #     else:
+    #         return self.form_invalid(form)
+    #
+    # def form_valid(self, form):
+    #     form.save()
+    #     return super(DishDetailView, self).form_valid(form)
 
 
 class ChefDetailView(DetailView):
@@ -847,6 +845,8 @@ class IngredientUpdate(UpdateView):
 #    template_name = 'upload.html'
 #    success_url = '/cooklog/dishes/' # ideally it would be that dish!!
 
+# todo surely this should be a View based on the ..Comments.. MODEL, similar to the NewLike View? where dish_id is a "pk"?
+# (todo cont'd ... this may help solve the problem getting the "in place" edit"??)
 class NewCommentView(CreateView):
     form_class = NewCommentForm #(initial={'chef_id': 3}) #user = request.user) #, initial={'chef_id': user.id})
     template_name = 'new_comment_form.html'
@@ -861,7 +861,7 @@ class NewCommentView(CreateView):
                 return '/cooklog/chef/feed/' + str(self.request.GET.get('c')) + '/'
         else:
             return '/cooklog/dish/' + self.request.GET.get('next') + '/'
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):  # todo is this necessary? does it do anything??
         context = super(NewCommentView, self).get_context_data(**kwargs)
         context['dish'] = Dish.objects.get(dish_id = self.request.GET.get('next'))
         return context
@@ -905,12 +905,13 @@ class CommentDeleteView(DeleteView):
     template_name = 'cooklog/comment_confirm_delete.html'
     #success_url = '/cooklog/dishes/' # later send it back using "next"
     def get_success_url(self):
-        # Assuming there is a ForeignKey from Comment to Dish in your model
-        #dish_id = self.object.dish_id
         if self.request.GET.get('next'):
-            return '/cooklog/dish/' + str(self.request.GET.get('next')) + '/'
+            if (str(self.request.GET.get('next')) == "0"):  # <- HM MAYBE this is incorrect way to do it?
+                return '/cooklog/'
+            else:
+                return '/cooklog/chef/feed/' + str(self.request.GET.get('next')) + '/'
         else:
-            return '/cooklog/'
+            return '/cooklog/dish/' + str(self.object.dish_id_id) + '/'
 
 
 
@@ -926,22 +927,30 @@ class RecipeChooseView(UpdateView): # <- "built" based on NewCommentView
     def get_initial(self):
         return {'recipe_id' : self.request.GET.get('next') }
 
+# dammit... struggling with ManyToMany! Should this be a def NewLikeView(request) with request.POST and save??
 class NewLikeView(UpdateView): # <- "built" based on RecipeChooseView, but uses user..
-    model = Dish
+    model = Dish # dont need, because it's in NewLikeForm
     form_class = NewLikeForm
     template_name = 'new_like_form.html'
     def get_queryset(self):
         return Dish.objects.filter(dish_id=self.kwargs.get("pk", None))
-    def get_success_url(self):
+    def get_initial(self):
+        return {'like_chef_id': list(chain(self.object.like_chef_id.all(),
+                                           Chef.objects.filter(chef_id=self.request.user.id).all()))}
+    # def form_valid(self, form):
+    #     update_like_chef = form.save(commit=False)
+    #     update_like_chef.modified_by = self.request.user
+    #     update_like_chef.save()
+    #     form.save_m2m()
+    #     return super(NewLikeView, self).form_valid(form)
+    def get_success_url(self):    # todo surely there's a (better) way to have success_url = previous page?
         if self.request.GET.get('next'):
             if (str(self.request.GET.get('next'))=="0"):    # <- HM MAYBE this is incorrect way to do it?
                 return '/cooklog/'
             else:
-                return '/cooklog/chef/' + str(self.request.GET.get('next')) + '/'
+                return '/cooklog/chef/feed/' + str(self.request.GET.get('next')) + '/'
         else:
             return '/cooklog/dish/' + str(self.object.dish_id) + '/'
-    def get_initial(self):
-        return {'like_chef_id' : self.request.user.id }
 
 class NewRecipeCategoryView(CreateView):
     model = RecipeCategory

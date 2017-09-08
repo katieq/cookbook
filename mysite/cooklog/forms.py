@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.extras.widgets import SelectDateWidget
-from cooklog.models import Dish, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows ##Likes,
+from cooklog.models import Chef, Dish, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows ##Likes,
 from datetime import datetime
 from dal import autocomplete
 
@@ -272,8 +272,7 @@ class NewCommentForm(forms.ModelForm):
                              widget=forms.TextInput(attrs={'autofocus': 'autofocus',
                                                     'autocomplete': 'off',
                                                     'size': '15',
-                                                    'class': 'add-comment',
-                                                    }))
+                                                    'class': 'add-comment',}))
     class Meta:
         model = Chef_Dish_Comments
         exclude = tuple()
@@ -314,18 +313,17 @@ class RecipeChooseForm(forms.ModelForm):
 
 class NewLikeForm(forms.ModelForm):
     dish_id = forms.CharField(widget=forms.Textarea)
-    like_chef_id = forms.CharField(widget=forms.Textarea)
+    like_chef_id = forms.ModelMultipleChoiceField(queryset=Chef.objects.all(), widget=forms.SelectMultiple)
     class Meta:
         model = Dish
         exclude = tuple()
         fields = ['dish_id', 'like_chef_id']
     def __init__(self, *args, **kwargs):
         super(NewLikeForm, self).__init__(*args, **kwargs)
-        self.fields['dish_id'].widget = forms.HiddenInput()
-        self.fields['like_chef_id'].widget = forms.HiddenInput()
+        # self.fields['dish_id'].widget = forms.HiddenInput()
+        # self.fields['like_chef_id'].widget = forms.HiddenInput()
         for key in self.fields:
             self.fields[key].required = False
-
 
 
 class UpdateDishMethodForm(forms.ModelForm):
