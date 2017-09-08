@@ -144,7 +144,11 @@
         <form action="/cooklog/compliments/{{dish.dish_id}}/" method="post">
             {% csrf_token %}
             <input type="hidden" name="like_chef_id" value="{{user.id}}" style="width: 60px; font-size: 14px; margin-left: 10px;"/>
-            <button title="Give compliments!" type="submit" style="background-color: Transparent; border: none; color: #666666; padding: 0px 0px;"> <i class="fa fa-thumbs-up"></i></button>
+            <!--super super super dodgy way to do this, but it'll work for now-->
+            {% for chef_like in dish.like_chef_id.all %}
+            <input type="hidden" name="like_chef_id" value="{{chef_like.chef_id}}" style="width: 60px; font-size: 14px; margin-left: 10px;"/>
+            {% endfor %}
+    <button title="Give compliments!" type="submit" style="background-color: Transparent; border: none; color: #666666; padding: 0px 0px;"> <i class="fa fa-thumbs-up"></i></button>
             {{ dish.like_chef_id.count }}
         </form>
             <!--<a href="/cooklog/like/{{dish.dish_id}}/"><i class="fa fa-thumbs-up" aria-hidden="true"></i>   </a> -->

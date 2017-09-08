@@ -929,12 +929,12 @@ class RecipeChooseView(UpdateView): # <- "built" based on NewCommentView
 
 # dammit... struggling with ManyToMany! Should this be a def NewLikeView(request) with request.POST and save??
 class NewLikeView(UpdateView): # <- "built" based on RecipeChooseView, but uses user..
-    model = Dish # dont need, because it's in NewLikeForm
+    # model = Dish # dont need, because it's in NewLikeForm
     form_class = NewLikeForm
     template_name = 'new_like_form.html'
     def get_queryset(self):
         return Dish.objects.filter(dish_id=self.kwargs.get("pk", None))
-    def get_initial(self):
+    def get_initial(self): # only used if you visit the actual url; not if submit the "form" using in-template html
         return {'like_chef_id': list(chain(self.object.like_chef_id.all(),
                                            Chef.objects.filter(chef_id=self.request.user.id).all()))}
     # def form_valid(self, form):
@@ -951,6 +951,7 @@ class NewLikeView(UpdateView): # <- "built" based on RecipeChooseView, but uses 
                 return '/cooklog/chef/feed/' + str(self.request.GET.get('next')) + '/'
         else:
             return '/cooklog/dish/' + str(self.object.dish_id) + '/'
+
 
 class NewRecipeCategoryView(CreateView):
     model = RecipeCategory

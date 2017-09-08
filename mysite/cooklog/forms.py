@@ -4,7 +4,7 @@ from django.forms.extras.widgets import SelectDateWidget
 from cooklog.models import Chef, Dish, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows ##Likes,
 from datetime import datetime
 from dal import autocomplete
-
+from itertools import chain
 
 # from django.forms import inlineformset_factory
 
@@ -324,6 +324,11 @@ class NewLikeForm(forms.ModelForm):
         # self.fields['like_chef_id'].widget = forms.HiddenInput()
         for key in self.fields:
             self.fields[key].required = False
+    # def clean_like_chef_id(self):
+    #     data = list(chain(self.cleaned_data['like_chef_id'], self.object.like_chef_id.all())) #Chef.objects.all()))
+    #     # data = list(chain(self.object.like_chef_id.all(),
+    #     #                   Chef.objects.filter(chef_id=self.request.user.id).all()))
+    #     return data
 
 
 class UpdateDishMethodForm(forms.ModelForm):
