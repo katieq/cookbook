@@ -30,6 +30,6 @@ def include_dish_diagram(dish_id):
     file_name = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
                              "media/dish_flow_svg/dish_flow_"+str(dish_id)+".svg")
     if os.path.exists(file_name):
-        return open(file_name).read() # on pythonanywhere, just displays the xml string!!
+        return mark_safe(open(file_name).read()) # on pythonanywhere, just displays the xml string!!
     else:
         return " "
