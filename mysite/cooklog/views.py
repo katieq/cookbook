@@ -632,9 +632,9 @@ class DishDiagramUpdate(UpdateView):
 
 class DishDetailView(FormMixin, DetailView):
     model = Dish
-    # form_class = NewCommentForm # not needed??? form_class = NewCommentForm #UpdateDishForm
-    # def get_success_url(self):
-    #     return '/cooklog/dish/' + str(self.object.dish_id) #reverse('cooklog/dish/', kwargs={'slug': self.object.slug})
+    form_class = NewCommentForm # apparently *is* needed, at least on pythonanywhere version? form_class = NewCommentForm #UpdateDishForm
+    def get_success_url(self):
+        return '/cooklog/dish/' + str(self.object.dish_id) #reverse('cooklog/dish/', kwargs={'slug': self.object.slug})
     def get_context_data(self, **kwargs):
         context = super(DishDetailView, self).get_context_data(**kwargs)
 
