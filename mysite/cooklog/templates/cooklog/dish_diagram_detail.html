@@ -1,0 +1,35 @@
+
+{% extends 'cooklog/__base.html' %}
+{% load static %}
+{% load app_extras %}
+
+{% block body_block %}
+
+
+<div class="detail-head">
+
+    <p>If the diagram here looks good, congrats! </p>
+    <p>Otherwise, <a href="{% url "dish_diagram_update" dish.dish_id %}">edit the text.</a></p>
+
+    <div class="detail-title">
+        {% ifequal dish.recipe_id_id 1 %}
+        <!--Recipe: Unattached .. for now, omit totally!-->
+        {% else %}
+        Recipe: <a href="/cooklog/recipe/{{object.recipe_id_id}}/"> {{ object.recipe_id }} </a>
+        {% endifequal %}
+    </div>
+</div>
+<div class="detail-head">
+    <div class="detail-title">
+        Dish: <a href="/cooklog/dish/{{object.dish_id}}/"> {{ object.dish_name }} </a>
+        <a href="{% url "dish_update" dish.dish_id %}"> <i class="fa fa-pencil"></i></a>
+    </div>
+</div>
+
+{% if object.dish_diagram_text %}
+<div class="detail-photo">
+    <img src="{{ dish_diagram }}" alt="img1">
+</div>
+{% endif %}
+
+{% endblock %}

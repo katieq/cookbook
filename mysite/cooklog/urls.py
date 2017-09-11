@@ -30,7 +30,7 @@ from cooklog.views import NewCommentView, CommentDeleteView, NewLikeView # Uploa
 from cooklog.views import RecipeChooseView, NewRecipeCategoryView, NewBugView
 from cooklog.views import RecipeAutocomplete
 from cooklog.views import NewEntryView, NewEntryDoneView, NewEntryTodoView, DishTodoQuickCreate
-from cooklog.views import dish_diagram_view
+from cooklog.views import dish_diagram_view, DishDiagramUpdate, DishDiagramDetailView
 
 urlpatterns = [
                url(r'^admin/', include(admin.site.urls)),
@@ -91,5 +91,8 @@ urlpatterns = [
                url(r'^new-todo/$', NewEntryTodoView.as_view(), name='new_entry_todo'),
                url(r'^tagsearch/$', views.tagsearch, name='tagsearch_results'),
                url(r'^diagram/dish/(?P<pk>[0-9]+)/$', dish_diagram_view, name='dish_diagram'),
+               url(r'^diagram/dish/add/(?P<pk>[0-9]+)/$', DishDiagramUpdate.as_view(), name='dish_diagram_update'),
+               url(r'^diagram/save/dish/(?P<pk>[0-9]+)/$', DishDiagramDetailView.as_view(), name='dish_diagram_save'),
+
     #url(r'^like/$', 'cooklog.views.like', name='like'),
 ]

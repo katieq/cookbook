@@ -215,6 +215,21 @@ class UpdateDishForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = False
 
+class UpdateDishDiagramForm(forms.ModelForm):
+    dish_name = forms.CharField(widget=forms.Textarea)
+    class Meta:
+        model = Dish
+        fields = ['dish_name', 'dish_diagram_text']
+    def __init__(self, *args, **kwargs):
+        super(UpdateDishDiagramForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['dish_name'].widget.attrs['rows'] = 1
+        self.fields['dish_name'].widget.attrs['cols'] = 80
+        self.fields['dish_diagram_text'].widget.attrs['cols'] = 80
+        self.fields['dish_diagram_text'].widget.attrs['rows'] = 15
+        for key in self.fields:
+            self.fields[key].required = False
+
+
 class UpdateDishPhotoForm(forms.ModelForm):
     class Meta:
         model = Dish
@@ -330,21 +345,21 @@ class NewLikeForm(forms.ModelForm):
     #     #                   Chef.objects.filter(chef_id=self.request.user.id).all()))
     #     return data
 
-
-class UpdateDishMethodForm(forms.ModelForm):
-    dish_method = forms.CharField(label="",
-                             widget=forms.Textarea(attrs={'autofocus': 'autofocus',
-                                                    'autocomplete': 'off',
-                                                    'cols': '65',
-                                                    'rows': '10',
-                                                    'class': 'edit-method',
-                                                    }))
-    class Meta:
-        model = Dish
-        exclude = tuple()
-        fields = ['dish_method'] #dish_id', 'dish_method']
-    def __init__(self, *args, **kwargs):
-        super(UpdateDishMethodForm, self).__init__(*args, **kwargs)
-        # self.fields['dish_id'].widget = forms.HiddenInput()
-        for key in self.fields:
-            self.fields[key].required = False
+# # not used: attempted to use this to update method on dish detail (now, if want to, know how to use "html" to do it)
+# class UpdateDishMethodForm(forms.ModelForm):
+#     dish_method = forms.CharField(label="",
+#                              widget=forms.Textarea(attrs={'autofocus': 'autofocus',
+#                                                     'autocomplete': 'off',
+#                                                     'cols': '65',
+#                                                     'rows': '10',
+#                                                     'class': 'edit-method',
+#                                                     }))
+#     class Meta:
+#         model = Dish
+#         exclude = tuple()
+#         fields = ['dish_method'] #dish_id', 'dish_method']
+#     def __init__(self, *args, **kwargs):
+#         super(UpdateDishMethodForm, self).__init__(*args, **kwargs)
+#         # self.fields['dish_id'].widget = forms.HiddenInput()
+#         for key in self.fields:
+#             self.fields[key].required = False

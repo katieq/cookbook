@@ -11,7 +11,7 @@ from cooklog.models import Dish, Chef, Recipe, Ingredient, Chef_Dish_Comments, C
 #from django.views.generic import CreateView
 from cooklog.forms import NewDishShortForm, NewDishQuickForm, NewDishTodoForm, NewDishLongForm, NewCommentForm, CommentDeleteForm, NewRecipeForm, UpdateChefFollowsForm, NewLikeForm # UploadImageForm,
 from cooklog.forms import RecipeChooseForm, NewDishTodoQuickForm
-from cooklog.forms import UpdateDishForm, UpdateDishPhotoForm, UpdateDishMethodForm #, NewDishWeekTodoForm
+from cooklog.forms import UpdateDishForm, UpdateDishPhotoForm, UpdateDishDiagramForm #, UpdateDishMethodForm #, NewDishWeekTodoForm
 from django import forms
 from django.forms.formsets import formset_factory
 from django.db.models import Count
@@ -427,6 +427,7 @@ def dish_diagram_view(request, pk): # <- probably this ends up existing for each
     svg_data = generate_diagram_svg_data(pk)
     return HttpResponse(svg_data, content_type="image/svg+xml")
 
+
 #@login_required
 #@require_POST
 #def like(request):
@@ -568,7 +569,6 @@ class HomePageView(TemplateView):
         except EmptyPage:
             context['page_dishes'] = paginator.page(paginator.num_pages)
         context['chef_comments'] = Chef_Dish_Comments.objects.filter(dish_id__in=context['page_dishes'])
-        # context['dish_diagram'] = reverse('dish_diagram', args=[42]) # ugh .. how to get this for each dish! probs can't?
         return context
 
 
@@ -597,6 +597,16 @@ class DishUpdate(UpdateView):
     def get_success_url(self):
         return '/cooklog/dish/' + str(self.object.dish_id) + '/'
 
+class DishDiagramUpdate(UpdateView):
+    form_class = UpdateDishDiagramForm
+    template_name = 'update_dish_diagram_form.html'
+
+    def get_queryset(self):
+        return Dish.objects.filter(dish_id=self.kwargs.get("pk", None))
+
+    def get_success_url(self):
+        return '/cooklog/diagram/save/dish/' + str(self.object.dish_id) + '/'
+
 
 #class DishDetailView(DetailView):
 #    model = Dish
@@ -622,9 +632,9 @@ class DishUpdate(UpdateView):
 
 class DishDetailView(FormMixin, DetailView):
     model = Dish
-    form_class = NewCommentForm # not needed??? form_class = NewCommentForm #UpdateDishForm
-    def get_success_url(self):
-        return '/cooklog/dish/' + str(self.object.dish_id) #reverse('cooklog/dish/', kwargs={'slug': self.object.slug})
+    # form_class = NewCommentForm # not needed??? form_class = NewCommentForm #UpdateDishForm
+    # def get_success_url(self):
+    #     return '/cooklog/dish/' + str(self.object.dish_id) #reverse('cooklog/dish/', kwargs={'slug': self.object.slug})
     def get_context_data(self, **kwargs):
         context = super(DishDetailView, self).get_context_data(**kwargs)
 
@@ -644,10 +654,19 @@ class DishDetailView(FormMixin, DetailView):
         if self.object.recipe_id_id != 1:
             context['recipe_dishes'] = Dish.objects.filter(dish_status = 1).filter(recipe_id = self.object.recipe_id).exclude(dish_id = self.object.dish_id).order_by("-date_created").all()[:10] # 10 most recent version of the recipe...
 
+        # This now done in DishDiagramDetailView, which go to after UpdateDishDiagram form: context['dish_diagram'] = reverse('dish_diagram', args=[self.object.dish_id])
+        return context
+
+class DishDiagramDetailView(DetailView):
+    model = Dish
+    template_name = "cooklog/dish_diagram_detail.html"
+    def get_context_data(self, **kwargs):
+        context = super(DishDiagramDetailView, self).get_context_data(**kwargs)
         context['dish_diagram'] = reverse('dish_diagram', args=[self.object.dish_id])
         return context
 
-# I thought this was necessary for e.g. putting comments on this, but I dont think so!!
+    # Previously inside DishDetail
+    # I thought this was necessary for e.g. putting comments on this, but I dont think so!!
     # def post(self, request, *args, **kwargs):
     #     self.object = self.get_object()
     #     form = self.get_form()

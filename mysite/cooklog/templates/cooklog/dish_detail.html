@@ -82,16 +82,29 @@
     </div>
     {% endif %}
 </div>
-{% if object.dish_diagram_text %}
 <div class="detail-photo">
-    <img src="{{ dish_diagram }}" alt="img1">
+    {% if dish.dish_diagram_text %}
+        {% ifequal user.id dish.chef_id_id %}
+            <a href="{% url "dish_diagram_update" dish.dish_id %}">{% include_dish_diagram dish.dish_id %}</a>
+        {% else %}
+            {% include_dish_diagram dish.dish_id %}
+        {% endifequal %}
+    {% elif dish.dish_diagram_image %}
+        <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_diagram_image }}" /></a>
+    {% else %}
+        <a href="/cooklog/dish/add/{{dish.dish_id}}/"> placeholder icon and link here <i class="fa fa-bar-chart-o"></i> </a>
+    {% endif %}
 </div>
-{% endif %}
-{% if object.dish_diagram_image %}
-    <div class="detail-photo">
-        <img src="/media/{{ object.dish_diagram_image }}" />
-    </div>
-{% endif %}
+<!--{% if object.dish_diagram_text %}-->
+<!--<div class="detail-photo">-->
+    <!--<img src="{{ dish_diagram }}" alt="img1">-->
+<!--</div>-->
+<!--{% endif %}-->
+<!--{% if object.dish_diagram_image %}-->
+    <!--<div class="detail-photo">-->
+        <!--<img src="/media/{{ object.dish_diagram_image }}" />-->
+    <!--</div>-->
+<!--{% endif %}-->
 
 <div class="detail-text">
     <div class="dish-tags">

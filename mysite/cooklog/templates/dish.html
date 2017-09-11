@@ -7,14 +7,14 @@
         <div class="dish-photo">
             {% if dish.dish_image %}
             <div class="dish-photo-image">
-                <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_image }}" /></a>
+                <a href="{% url "dish_detail" dish.dish_id %}"><img src="/media/{{ dish.dish_image }}" /></a>
             </div>
             {% else %}
             <div class="dish-photo-placeholder">
                 {% ifequal user.id dish.chef_id_id %}
                 <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
                 {% else %}
-                <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>
+                <a href="{% url "dish_detail" dish.dish_id %}"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>
                 {% endifequal %}
             </div>
             {% endif %}
@@ -39,7 +39,7 @@
             <div class="dish-header-right">
                 &middot; <a href="/cooklog/dish/add-todo/?next={{dish.recipe_id_id}}"><i class="fa fa-calendar-plus-o"></i></a> &middot;
                 {% ifequal dish.recipe_id_id 1 %}
-                <a href="/cooklog/dish/{{dish.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
+                <a href="{% url "dish_detail" dish.dish_id %}"><i class="fa fa-question fa-lg"></i></a>
                 {% else %}
                 <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><i class="fa fa-book"></i></a>
                 {% endifequal %}
@@ -54,7 +54,7 @@
             </div>
             {% endif %}
             <div class="dish-header-dish-name">
-                <a href="/cooklog/dish/{{dish.dish_id}}/">{{ dish.dish_name }}</a>
+                <a href="{% url "dish_detail" dish.dish_id %}">{{ dish.dish_name }}</a>
             </div>
         </div>
 
@@ -164,14 +164,24 @@
     </div>
 
     <div class="dish-diagram-column">
-<!--WORKS locally, but on pythonanywhere, just displays the svg string!! turn "off" for now then..-->
-        {% include_dish_diagram dish.dish_id %}
-
-        <!--{% if dish.dish_diagram_image %}-->
-            <!--<div class="dish-diagram-image">-->
-                <!--<a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_diagram_image }}" /></a>-->
-            <!--</div>-->
-        <!--{% endif %}-->
+        <div class="dish-diagram-image">
+            <!--or could do this "if" in the app_extras and if file not exist then return "placeholder icon and link"-->
+        {% if dish.dish_diagram_text %}
+            {% ifequal user.id dish.chef_id_id %}
+            <a href="{% url "dish_diagram_update" dish.dish_id %}">{% include_dish_diagram dish.dish_id %}</a>
+            {% else %}
+            <a href="{% url "dish_detail" dish.dish_id %}">{% include_dish_diagram dish.dish_id %}</a>
+            {% endifequal %}
+        {% elif dish.dish_diagram_image %}
+            <a href="{% url "dish_detail" dish.dish_id %}"><img src="/media/{{ dish.dish_diagram_image }}" /></a>
+        {% else %}
+            {% ifequal user.id dish.chef_id_id %}
+            <a href="{% url "dish_diagram_update" dish.dish_id %}"> <i class="fa fa-pencil"></i> : <i class="fa fa-square-o"></i>
+            <i class="fa fa-long-arrow-right"></i><i class="fa fa-square-o"></i><i class="fa fa-long-arrow-right"></i>
+            <i class="fa fa-square-o"></i> </a>
+            {% endifequal %}
+        {% endif %}
+        </div>
     </div>
     <div class="dish-bottom">
     </div>
