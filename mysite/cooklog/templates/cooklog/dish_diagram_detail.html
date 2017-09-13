@@ -9,7 +9,7 @@
 <div class="detail-head">
 
     <p>If the diagram here looks good, congrats! </p>
-    <p>Otherwise, <a href="{% url "dish_diagram_update" dish.dish_id %}">edit the text.</a></p>
+    <p>Otherwise, <a href="{% url "dish_diagram_update" dish.dish_id %}">edit the text <i class="fa fa-pencil"></i></a></p>
 
     <div class="detail-title">
         {% ifequal dish.recipe_id_id 1 %}

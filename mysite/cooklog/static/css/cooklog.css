@@ -436,7 +436,13 @@ a:visited {
     .margin-left: 10px;
 }
 
-
+.example-diagram img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    margin-left: 50px;
+    margin-bottom: 20px;
+}
 
 .add-comment {
     font-size: 10px;

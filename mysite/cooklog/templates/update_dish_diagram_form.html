@@ -1,4 +1,5 @@
 {% extends 'cooklog/__base.html' %}
+{% load static %}
 
 <head>
     <title>Dish Diagram Entry</title>
@@ -7,7 +8,10 @@
 
 <div class="dish-entry">
     <div class="page-title">
-        Enter or edit the dish diagram text:
+        Enter or edit the dish diagram text, following this pattern:
+    </div>
+    <div class="example-diagram">
+        <img src="{% static "emoji/img/example_diagram.png" %}"/>
     </div>
 
     <div class="dish-entry-form">

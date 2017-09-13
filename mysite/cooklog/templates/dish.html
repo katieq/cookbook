@@ -24,7 +24,8 @@
     <div class="dish-text-column">
         <div class="dish-header">
             <div class="dish-header-chef">
-                <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }} {{dish.chef_id.last_name.0}}</a>
+                <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }} </a>
+                <!--{{dish.chef_id.last_name.0}}-->
             </div>
             <div class="dish-header-center-date" >
                 {{ dish.date_created|date:"D M.d"|lower }} &middot;
@@ -176,9 +177,11 @@
             <a href="{% url "dish_detail" dish.dish_id %}"><img src="/media/{{ dish.dish_diagram_image }}" /></a>
         {% else %}
             {% ifequal user.id dish.chef_id_id %}
-            <a href="{% url "dish_diagram_update" dish.dish_id %}"> <i class="fa fa-pencil"></i> : <i class="fa fa-square-o"></i>
-            <i class="fa fa-long-arrow-right"></i><i class="fa fa-square-o"></i><i class="fa fa-long-arrow-right"></i>
-            <i class="fa fa-square-o"></i> </a>
+            <a href="{% url "dish_diagram_update" dish.dish_id %}"> Make a diagram <i class="fa fa-pencil"></i>
+            <!--: <i class="fa fa-square-o"></i>-->
+            <!--<i class="fa fa-long-arrow-right"></i><i class="fa fa-square-o"></i><i class="fa fa-long-arrow-right"></i>-->
+            <!--<i class="fa fa-square-o"></i> -->
+            </a>
             {% endifequal %}
         {% endif %}
         </div>

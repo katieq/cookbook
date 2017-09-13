@@ -23,7 +23,8 @@
 
 <div class="dish-header">
     <div class="dish-header-chef" style="width: 100px;">
-        <a href="/cooklog/chef/{{object.chef_id_id}}/">{{ object.chef_id.first_name }} {{object.chef_id.last_name.0}}</a>
+        <a href="/cooklog/chef/{{object.chef_id_id}}/">{{ object.chef_id.first_name }} </a>
+        <!--{{object.chef_id.last_name.0}}-->
     </div>
     <div class="dish-header-center-rating" style="width: 180px;">
         {{ object.date_created|date:"D M.d"|lower }} &middot;
@@ -92,7 +93,9 @@
     {% elif dish.dish_diagram_image %}
         <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="/media/{{ dish.dish_diagram_image }}" /></a>
     {% else %}
-        <a href="/cooklog/dish/add/{{dish.dish_id}}/"> placeholder icon and link here <i class="fa fa-bar-chart-o"></i> </a>
+        {% ifequal user.id dish.chef_id_id %}
+        <a href="{% url "dish_diagram_update" dish.dish_id %}"> Make a diagram <i class="fa fa-pencil"></i></a>
+        {% endifequal %}
     {% endif %}
 </div>
 <!--{% if object.dish_diagram_text %}-->
