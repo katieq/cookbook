@@ -199,7 +199,7 @@ class UpdateDishForm(forms.ModelForm):
         model = Dish
         fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled', 'date_created', 'tags',
                     'dish_source', 'dish_method', 'dish_rating','dish_comments',
-                  'dish_image', 'dish_diagram_image', 'dish_diagram_text'] #, 'photo_comment', 'ingredient_id'
+                  'dish_image', 'dish_diagram_image'] # NOT diagram_text because this form doesn't render., 'dish_diagram_text'] #, 'photo_comment', 'ingredient_id'
 
     def __init__(self, *args, **kwargs):
         super(UpdateDishForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
@@ -231,11 +231,14 @@ class UpdateDishDiagramForm(forms.ModelForm):
 
 
 class UpdateDishPhotoForm(forms.ModelForm):
+    dish_name = forms.CharField(widget=forms.Textarea)
     class Meta:
         model = Dish
         fields = ['dish_name', 'dish_image'] #, 'photo_comment']
     def __init__(self, *args, **kwargs):
         super(UpdateDishPhotoForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
+        self.fields['dish_name'].widget.attrs['rows'] = 1
+        self.fields['dish_name'].widget.attrs['cols'] = 80
         for key in self.fields:
             self.fields[key].required = False
 

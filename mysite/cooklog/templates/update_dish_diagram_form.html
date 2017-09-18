@@ -7,11 +7,11 @@
 {% block body_block %}
 
 <div class="dish-entry">
-    <div class="page-title">
-        Enter or edit the dish diagram text, following this pattern:
+    <div class="page-title" style="margin-bottom: 10px;">
+        Enter or edit the dish diagram text:
     </div>
-    <div class="example-diagram">
-        <img src="{% static "emoji/img/example_diagram.png" %}"/>
+    <div class="page-subtitle" style="margin-bottom: 10px; color: #333333">
+        (it's easier than it looks! just follow the pattern in the example below)
     </div>
 
     <div class="dish-entry-form">
@@ -30,6 +30,9 @@
             <input type="submit" value="Submit">
 
         </form>
+    </div>
+    <div class="example-diagram">
+        <img src="{% static "emoji/img/example_diagram.png" %}"/>
     </div>
 
 </div>

@@ -12,7 +12,7 @@
             {% else %}
             <div class="dish-photo-placeholder">
                 {% ifequal user.id dish.chef_id_id %}
-                <a href="/cooklog/dish/add-photo/{{dish.dish_id}}/?next=0"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
+                <a href="{% url "dish_photo_update" dish.dish_id %}?next=0"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
                 {% else %}
                 <a href="{% url "dish_detail" dish.dish_id %}"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>
                 {% endifequal %}
@@ -24,7 +24,7 @@
     <div class="dish-text-column">
         <div class="dish-header">
             <div class="dish-header-chef">
-                <a href="/cooklog/chef/{{dish.chef_id_id}}/">{{ dish.chef_id.first_name }} </a>
+                <a href="{% url "chef_detail" dish.chef_id_id %}">{{ dish.chef_id.first_name }} </a>
                 <!--{{dish.chef_id.last_name.0}}-->
             </div>
             <div class="dish-header-center-date" >
@@ -38,20 +38,20 @@
                 {% endif %}
             </div>
             <div class="dish-header-right">
-                &middot; <a href="/cooklog/dish/add-todo/?next={{dish.recipe_id_id}}"><i class="fa fa-calendar-plus-o"></i></a> &middot;
+                &middot; <a href="{% url "dish_add_todo"%}?next={{dish.recipe_id_id}}"><i class="fa fa-calendar-plus-o"></i></a> &middot;
                 {% ifequal dish.recipe_id_id 1 %}
                 <a href="{% url "dish_detail" dish.dish_id %}"><i class="fa fa-question fa-lg"></i></a>
                 {% else %}
-                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/"><i class="fa fa-book"></i></a>
+                <a href="{% url "recipe_detail" dish.recipe_id_id %}"><i class="fa fa-book"></i></a>
                 {% endifequal %}
                 {% ifequal user.id dish.chef_id_id %}
-                &middot; <a href="/cooklog/dish/add/{{dish.dish_id}}/"><i class="fa fa-pencil"></i></a>
+                &middot; <a href="{% url "dish_update" dish.dish_id %}"><i class="fa fa-pencil"></i></a>
                 {% endifequal %}
             </div>
 
             {% if dish.recipe_id_id != 1 %}
             <div class="dish-header-recipe-name">
-                <a href="/cooklog/recipe/{{dish.recipe_id_id}}/">{{ dish.recipe_id }}:</a>
+                <a href="{% url "recipe_detail" dish.recipe_id_id %}">{{ dish.recipe_id }}:</a>
             </div>
             {% endif %}
             <div class="dish-header-dish-name">
@@ -61,7 +61,7 @@
 
         <div class="dish-tags">
             {% for tag in dish.tags.names %}
-                <a href="/cooklog/tagsearch/?q={{tag}}">#{{ tag }}</a> &middot;
+                <a href="{% url "tagsearch_results" %}?q={{tag}}">#{{ tag }}</a> &middot;
             {% endfor %}
         </div>
 
@@ -90,7 +90,7 @@
             <!--Compliments:-->
             <div class="dish-likes-like">
                 <!-- todo: make button look good, and inline, and mouseover "give compliments"-->
-                <form action="/cooklog/compliments/{{dish.dish_id}}/?next=0" method="post">
+                <form action="{% url "new_like" dish.dish_id %}?next=0" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="like_chef_id" value="{{user.id}}" style="width: 60px; font-size: 14px; margin-left: 10px;"/>
                     <!--super super super dodgy way to do this, but it'll work for now-->
@@ -105,7 +105,7 @@
             </div>
             <div class="dish-likes-chef-list">
                 {% for chef_like in dish.like_chef_id.all %}
-                <a href="/cooklog/chef/{{chef_like.chef_id}}/">{{chef_like.first_name}}</a>,
+                <a href="{% url "chef_detail" chef_like.chef_id %}">{{chef_like.first_name}}</a>,
                 {% endfor %}
             </div>
         </div>
@@ -121,13 +121,13 @@
                 {% ifequal chef_comment.dish_id_id dish.dish_id %}
                 <div class="dish-single-comment">
                     <div class="dish-comments-name" >
-                        <a href="/cooklog/chef/{{chef_comment.chef_id_id}}/">{{ chef_comment.chef_id.first_name }}</a>:
+                        <a href="{% url "chef_detail" chef_comment.chef_id_id %}">{{ chef_comment.chef_id.first_name }}</a>:
                     </div>
 
                     <div class="dish-comments-delete">
                         {% ifequal user.id chef_comment.chef_id_id %}
                             <!--<a href="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/"><i class="fa fa-close" aria-hidden="true"></i></a>-->
-                            <form action="/cooklog/comment/delete/{{chef_comment.chef_dish_comment_id}}/?next=0" method="post">
+                            <form action="{% url "comment_delete" chef_comment.chef_dish_comment_id %}?next=0" method="post">
                                 {% csrf_token %}
                                 <button title="Delete comment" type="submit"
                                         style="display: inline-block; background-color: Transparent;
@@ -145,7 +145,7 @@
 
                 <div class="dish-single-comment">
                     <div class="dish-comments-name">
-                        <a href="/cooklog/chef/{{user.id}}/">{{ user.get_username }}</a>:
+                        <a href="{% url "chef_detail" user.id %}">{{ user.get_username }}</a>:
                     </div>
                     <!--<div class="dish-comments-comment" style="font-style: italic; font-size: 8px; color: #d3d3d3;">-->
                         <!--<a href="{% url 'comment_add' %}?next={{dish.dish_id}}&c=0"> ... write a comment ... </a>-->
