@@ -6,9 +6,18 @@
 
 <div class="page-text">
     <p>Enter a dish that you've cooked!</p>
-    <p> Does the recipe exist on this site?</p>
-    <p> YES --> <a href="/cooklog/dish/add/">Enter the dish here</a>,</p>
-    <p> NO ---> <a href="/cooklog/recipe/add/?next=new">Enter the recipe</a>, and then the dish</p>
+    <p>Does the recipe exist on this site?</p>
+    <!--<p> YES &ndash;&gt; <a href="/cooklog/dish/add/">Enter the dish here</a>,</p>-->
+    <p> YES --> Find the recipe here:
+
+    <form action="{% url 'recipe_select' %}" method="get">
+        <input type="text" name="q" style="width: 120px; font-size: 14px; margin-left: 70px; margin-bottom: 20px;"/>
+        <button type="submit" class="w3-bar-item w3-button">
+            <i class="fa fa-search"></i>
+        </button>
+    </form>
+
+    <p> NO ---> <a href="/cooklog/recipe/add/?next=new">Enter the recipe here</a>, and then the dish</p>
 
 <!--I removed /cooklog/dish/quick/ for now! -->
 </div>

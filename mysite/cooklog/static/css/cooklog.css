@@ -297,15 +297,19 @@ a:visited {
 /*    color: #F79273;*/
     font-size: 14px;
     display: inline-block;
-    width: 40px;
+    width: 18px;
     padding-left: 5px;
 }
 .dish-likes-like a {
     color: #F79273;
     font-size: 14px;
 }
+.dish-likes-compliment-count {
+    display: inline-block;
+    font-size: 8px;
+}
 .dish-likes-chef-list {
-    font-size: 10px;
+    font-size: 8px;
     display: inline-block;
     color: #666666;
 }
@@ -584,13 +588,26 @@ a:visited {
 .dish-mini-social-comments-and-likes a {
     color: #F79273;
 }
-.dish-mini-likes-icon {
+/*.dish-mini-likes-icon {
     display: inline-block;
     width: 35px;
     padding-left: 5px;
+}*/
+.dish-mini-likes-like {
+    display: inline-block;
+    width: 18px;
+    padding-left: 5px;
+}
+.dish-mini-likes-like a {
+    color: #F79273;
+}
+.dish-mini-compliments-count {
+    display: inline-block;
+    font-size: 8px;
 }
 .dish-mini-likes {
     display: inline-block;
+    font-size: 8px;
 }
 .dish-mini-comments-icon {
     display: inline-block;

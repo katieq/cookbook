@@ -59,7 +59,7 @@ class NewDishShortForm(forms.ModelForm):
         model = Dish
         fields = ['chef_id', 'dish_status', 'recipe_id', 'date_created', 'dish_name',
                   'tags', 'dish_image', 'dish_method',
-                  'dish_comments', 'dish_rating', 'dish_diagram_image']
+                  'dish_comments', 'dish_rating'] #, 'dish_diagram_image']
 #        widgets = {
 #            'recipe_id': autocomplete.ModelSelect2(url='recipe-autocomplete',
 #                                                   attrs={
@@ -79,7 +79,7 @@ class NewDishShortForm(forms.ModelForm):
         self.fields['dish_comments'].label = "Review/notes"
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Photo"
-        self.fields['dish_diagram_image'].label = "(diagram)"
+        # self.fields['dish_diagram_image'].label = "(diagram)"
 
         self.fields['dish_name'].widget.attrs['rows'] = 1
         self.fields['dish_name'].widget.attrs['cols'] = 50

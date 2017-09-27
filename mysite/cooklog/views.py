@@ -471,7 +471,7 @@ def display_meta(request):
 def search_form(request):
     return render(request, 'search_form.html')
 
-def search(request): # this still works for searching dish names!
+def search(request):
     errors = []
     if 'q' in request.GET:
         q = request.GET['q']
@@ -527,6 +527,28 @@ def tagsearch(request):
     dishes = Dish.objects.filter(tags__name=q).order_by("-date_created").all()
     recipes = Recipe.objects.filter(tags__name=q).order_by("-date_created").all()
     return render(request, 'tagsearch_results.html', {'dishes': dishes, 'recipes': recipes})
+
+
+def recipe_search(request):
+    errors = []
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if 'todo' in request.GET:
+            todo = 1
+        else:
+            todo = 0
+        if not q:
+            errors.append('Enter a search term.')
+        elif len(q) > 40:
+            errors.append('Please enter at most 40 characters.')
+        else:
+            recipe_categories = RecipeCategory.objects.filter(recipecategory_name__icontains=q).all()
+            recipes = Recipe.objects.filter(
+                Q(recipe_name__icontains=q) | Q(recipecategory_id__in=recipe_categories)).order_by(
+                "-date_created").all()[:12]
+            return render(request, 'recipe_select.html', {'query': q, 'recipes': recipes, 'todo': todo})
+    return render(request, 'recipe_select.html', {'query': q, 'errors': errors})
+
 
 class ChefList(ListView):
     model = Chef

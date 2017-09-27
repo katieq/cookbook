@@ -42,6 +42,7 @@ urlpatterns = [
                
                url(r'^search-form/$', views.search_form),
                url(r'^search/$', views.search, name='search_results'),
+               url(r'^recipe_select/$', views.recipe_search, name='recipe_select'),
                url(r'^chefs/$', ChefList.as_view()),
                url(r'^recipes/$', RecipeList.as_view()),
                url(r'^dishes/$', DishList.as_view()),

@@ -87,7 +87,7 @@
             <!--<div class="dish-mini-likes-icon">-->
                 <!--<a href="/cooklog/compliments/{{dish.dish_id}}/?next=0"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a> ({{ dish.like_chef_id.count }}):-->
             <!--</div>-->
-            <div class="dish-likes-like">
+            <div class="dish-mini-likes-like">
                 <!-- todo: make button look good, and inline, and mouseover "give compliments"-->
                 <form action="/cooklog/compliments/{{dish.dish_id}}/?next={{dish.chef_id_id}}" method="post">
                     {% csrf_token %}
@@ -97,13 +97,15 @@
                     <input type="hidden" name="like_chef_id" value="{{chef_like.chef_id}}" style="width: 60px; font-size: 14px; margin-left: 10px;"/>
                     {% endfor %}
                     <button title="Give compliments!" type="submit" style="background-color: Transparent; border: none; color: #666666; padding: 0px 0px;"> <i class="fa fa-thumbs-up"></i></button>
-                    {{ dish.like_chef_id.count }}
                 </form>
                 <!--<a href="/cooklog/compliments/{{dish.dish_id}}/?next=0"><i class="fa fa-thumbs-up" aria-hidden="true"></i>   </a> {{ dish.like_chef_id.count }}-->
             </div>
+            <div class="dish-mini-compliments-count">
+                {{ dish.like_chef_id.count }} gave compliments:
+            </div>
             <div class="dish-mini-likes">
                 {% for chef_like in dish.like_chef_id.all %}
-                <a href="/cooklog/chef/{{chef_like.chef_id}}/">{{chef_like.first_name}}</a>,
+                    <a href="/cooklog/chef/{{chef_like.chef_id}}/">{{chef_like.first_name}}</a>,
                 {% endfor %}
             </div>
         </div>
