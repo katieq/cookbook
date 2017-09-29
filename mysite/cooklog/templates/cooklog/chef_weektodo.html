@@ -5,7 +5,7 @@
 {% block body_block %}
 
 <div class="page-title">
-    <a href="../../{{object.chef_id}}/"> {{object.first_name}}</a>'s to-do list for next 7 days
+    <a href="{% url 'chef_detail' object.chef_id %}"> {{object.first_name}}</a>'s to-do list for next 7 days
 </div>
 
 <div class="page-subtitle">
@@ -23,7 +23,7 @@
 <p> </p>
 
 <div class="page-subtitle">
-    <a href="/cooklog/dish/add-todo/">Add new dish(to-do) <i class="fa fa-pencil"></i></a>
+    <a href="{% url 'new_entry_todo' %}">Add new dish(to-do) <i class="fa fa-pencil"></i></a>
 </div>
 
 

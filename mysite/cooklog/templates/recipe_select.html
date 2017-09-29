@@ -8,51 +8,103 @@
     You searched: {{query}}
 </div>
 
-{% if recipes %}
-<div class="page-text">
-    Select the dish's recipe from the search results:
-</div>
+{% ifequal the_dish_id 0 %}
+
+    {% if recipes %}
+    <div class="page-text">
+        Select the dish's recipe from the search results:
+    </div>
 
 
-{% for recipe in recipes %}
-<div class="dish-brief">
-    <div class="dish-brief-inner">
-        <div class="dish-brief-inner-name" style="margin-left:20px;">
-            {% ifequal todo 1 %}
-                <a href="/cooklog/dish/add-todo/?next={{recipe.recipe_id}}">{{ recipe.recipe_name }}</a> ({{recipe.recipecategory_id}})
-            {% else %}
-                <a href="/cooklog/dish/add/?next={{recipe.recipe_id}}">{{ recipe.recipe_name }}</a> ({{recipe.recipecategory_id}})
-            {% endifequal %}
+    {% for recipe in recipes %}
+    <div class="dish-brief">
+        <div class="dish-brief-inner">
+            <div class="dish-brief-inner-name" style="margin-left:20px;">
+                {% ifequal todo 1 %}
+                    <a href="{% url 'dish_add_todo' %}?next={{recipe.recipe_id}}">{{ recipe.recipe_name }}</a> ({{recipe.recipecategory_id}})
+                {% else %}
+                    <a href="{% url 'dish_add' %}?next={{recipe.recipe_id}}">{{ recipe.recipe_name }}</a> ({{recipe.recipecategory_id}})
+                {% endifequal %}
+            </div>
         </div>
     </div>
-</div>
-{% endfor %}
-<div class="page-text">
-    Otherwise, ...
-</div>
-{% else %}
-<div class="page-text">
-    No results for that search...
-</div>
-{% endif %}
-
-<div class="page-text">
-    Search again:
-    <form action="{% url 'recipe_select' %}" method="get">
-        <input type="text" name="q" style="width: 120px; font-size: 14px; margin-left: 70px; margin-bottom: 20px;"/>
-        {% ifequal todo 1 %}
-            <input type="hidden" name="todo" />
-        {% endifequal %}
-        <button type="submit" class="w3-bar-item w3-button">
-            <i class="fa fa-search"></i>
-        </button>
-    </form>
-    {% ifequal todo 1 %}
-        Or <a href="/cooklog/recipe/add/?next=newtodo">create a new recipe here</a>, then upload the dish.
+    {% endfor %}
+    <div class="page-text">
+        Otherwise, ...
+    </div>
     {% else %}
-        Or <a href="/cooklog/recipe/add/?next=new">create a new recipe here</a>, then upload the dish.
-    {% endifequal %}
-</div>
+    <div class="page-text">
+        No results for that search...
+    </div>
+    {% endif %}
 
+    <div class="page-text">
+        Search again:
+        <form action="{% url 'recipe_select' %}" method="get">
+            <input type="text" name="q" style="width: 120px; font-size: 14px; margin-left: 70px; margin-bottom: 20px;"/>
+            {% ifequal todo 1 %}
+                <input type="hidden" name="todo" />
+            {% endifequal %}
+            <button type="submit" class="w3-bar-item w3-button">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+        {% ifequal todo 1 %}
+            Or <a href="/cooklog/recipe/add/?next=newtodo">create a new recipe here</a>, then upload the dish.
+        {% else %}
+            Or <a href="/cooklog/recipe/add/?next=new">create a new recipe here</a>, then upload the dish.
+        {% endifequal %}
+    </div>
+{% else %}
+
+    {% if recipes %}
+    <div class="page-text">
+        Select the dish's recipe from the search results:
+        (todo: make these buttons instead of links to buttons at 'recipe_choose')
+    </div>
+
+    {% for recipe in recipes %}
+    <div class="dish-brief">
+        <div class="dish-brief-inner">
+            <div class="dish-brief-inner-name" style="margin-left:20px;">
+                {% ifequal todo 1 %}
+                    <a href="{% url 'recipe_choose' the_dish_id %}?next={{recipe.recipe_id}}">{{ recipe.recipe_name }}</a> ({{recipe.recipecategory_id}})
+                {% else %}
+                    <a href="{% url 'recipe_choose' the_dish_id %}?next={{recipe.recipe_id}}">{{ recipe.recipe_name }}</a> ({{recipe.recipecategory_id}})
+                {% endifequal %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="page-text">
+        Otherwise, ...
+    </div>
+    {% else %}
+    <div class="page-text">
+        No results for that search...
+    </div>
+    {% endif %}
+
+    <div class="page-text">
+        Search again:
+        <form action="{% url 'recipe_select' %}" method="get">
+            <input type="hidden" name="dish" value={{the_dish_id}}
+               style="width: 120px; font-size: 14px; margin-left: 0px; margin-bottom: 0px;"/>
+            <input type="text" name="q" style="width: 120px; font-size: 14px; margin-left: 70px; margin-bottom: 20px;"/>
+            {% ifequal todo 1 %}
+                <input type="hidden" name="todo" />
+            {% endifequal %}
+            <button type="submit" class="w3-bar-item w3-button">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+        {% ifequal todo 1 %}
+            Or <a href="/cooklog/recipe/add/?next={{the_dish_id}}">create a new recipe here</a>, then upload the dish.
+        {% else %}
+            Or <a href="/cooklog/recipe/add/?next={{the_dish_id}}">create a new recipe here</a>, then upload the dish.
+        {% endifequal %}
+    </div>
+
+{% endifequal %}
 
 {% endblock %}

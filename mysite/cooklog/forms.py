@@ -3,6 +3,7 @@ from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.extras.widgets import SelectDateWidget
 from cooklog.models import Chef, Dish, Recipe, Ingredient, Chef_Dish_Comments, ChefFollows ##Likes,
 from datetime import datetime
+import calendar
 from dal import autocomplete
 from itertools import chain
 
@@ -27,10 +28,23 @@ from itertools import chain
 
 # CURRENTLY NOT USED!
 class NewDishQuickForm(forms.ModelForm):
+
+    if datetime.now().hour < 10:
+        initial_dish_name = calendar.day_name[datetime.today().weekday()] + ' Breakfast'
+    elif datetime.now().hour < 14:
+        initial_dish_name = calendar.day_name[datetime.today().weekday()] + ' Lunch'
+    elif datetime.now().hour < 17:
+        initial_dish_name = calendar.day_name[datetime.today().weekday()] + ' Afternoon Tea'
+    else:
+        initial_dish_name = calendar.day_name[datetime.today().weekday()] + ' Dinner'
+
+    dish_name = forms.CharField(initial= initial_dish_name)
+    dish_rating = forms.IntegerField(initial = 3)
+    
     class Meta:
         model = Dish
-        fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status',
-                  'date_created', 'dish_image', 'dish_rating', 'tags']
+        fields = ['recipe_id', 'chef_id', 'dish_status',
+                  'date_created', 'dish_image', 'dish_name', 'dish_rating', 'tags']
     
     def __init__(self, *args, **kwargs):
         super(NewDishQuickForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor

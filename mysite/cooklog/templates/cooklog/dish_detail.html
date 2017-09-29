@@ -50,21 +50,29 @@
 
 {% ifequal dish.recipe_id_id 1 %}
 <div class="dev">
-    <p> (Under development) </p>
-    <p> MATCH TO A RECIPE: </p>
-    <p> Suggestions matched on names having any of: {{ recipe_matcher }} </p>
+    Find its recipe:
 
-    Testing out a search function:
-    Choose an existing recipe...
+    {% if recipe_match %}
+    <p> Recipe suggestions (matches to existing recipes): </p>
+    <p> !!!todo: make the matched recipe name the button to choose it!!! </p>
     {% for recipe in recipe_match %}
         <div class="button-recipe-choose">
-            <a href="/cooklog/dish/recipe_choose/{{object.dish_id}}/?next={{recipe.recipe_id}}">{{ recipe.recipe_name }}</a>
+            <a href="{% url 'recipe_choose' object.dish_id %}?next={{recipe.recipe_id}}">{{ recipe.recipe_name }}</a>
         </div>
     {% empty %}
         <p> No matches! </p>
     {% endfor %}
-    ... or <a href="/cooklog/recipe/add/?next={{object.dish_id}}">make a new one</a> for this dish!
-    ... or <a href="/cooklog/search/">search</a> in existing recipes!
+    {% endif %}
+    <p>... or <a href="{% url 'recipe_add' %}?next={{object.dish_id}}">make a new one</a> for this dish!</p>
+    <p>... or search existing recipes:</p>
+    <form action="{% url 'recipe_select' %}" method="get">
+        <input type="hidden" name="dish" value={{object.dish_id}}
+               style="width: 120px; font-size: 14px; margin-left: 0px; margin-bottom: 0px;"/>
+        <input type="text" name="q" style="width: 120px; font-size: 14px; margin-left: 0px; margin-bottom: 0px;"/>
+        <button type="submit" class="w3-bar-item w3-button">
+            <i class="fa fa-search"></i>
+        </button>
+    </form>
 </div>
 {% endifequal %}
 

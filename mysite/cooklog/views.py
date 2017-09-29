@@ -537,6 +537,10 @@ def recipe_search(request):
             todo = 1
         else:
             todo = 0
+        if 'dish' in request.GET:
+            the_dish_id = request.GET['dish']
+        else:
+            the_dish_id = 0
         if not q:
             errors.append('Enter a search term.')
         elif len(q) > 40:
@@ -546,7 +550,8 @@ def recipe_search(request):
             recipes = Recipe.objects.filter(
                 Q(recipe_name__icontains=q) | Q(recipecategory_id__in=recipe_categories)).order_by(
                 "-date_created").all()[:12]
-            return render(request, 'recipe_select.html', {'query': q, 'recipes': recipes, 'todo': todo})
+            return render(request, 'recipe_select.html', {'query': q, 'recipes': recipes,
+                                                          'todo': todo, 'the_dish_id': the_dish_id})
     return render(request, 'recipe_select.html', {'query': q, 'errors': errors})
 
 
