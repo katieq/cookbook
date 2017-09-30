@@ -4,6 +4,7 @@
 
 {% block body_block %}
 
+{% if user.is_authenticated %}
 <div class="page-title">
     <div class="pagination" style="margin-top: 0px; margin-bottom: 4px;">
         <span class="step-links">
@@ -253,6 +254,12 @@
         {% endif %}
     </span>
 </div>
+
+{% else %}
+
+    <p><a href="{% url 'login' %}">Login here first!</a></p>
+
+{% endif %}
 
 {% endblock %}
 
