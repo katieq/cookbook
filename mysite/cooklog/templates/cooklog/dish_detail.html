@@ -22,11 +22,11 @@
 </div>
 
 <div class="dish-header">
-    <div class="dish-header-chef" style="width: 100px;">
+    <div class="dish-header-chef" style="width: 70px;">
         <a href="/cooklog/chef/{{object.chef_id_id}}/">{{ object.chef_id.first_name }} </a>
         <!--{{object.chef_id.last_name.0}}-->
     </div>
-    <div class="dish-header-center-rating" style="width: 180px;">
+    <div class="dish-header-center-rating" style="width: 140px;">
         {{ object.date_created|date:"D M.d"|lower }} &middot;
         {% if object.dish_rating %}
         {% for i in "x"|rjust:object.dish_rating %}
@@ -34,7 +34,7 @@
         {% endfor %} &middot;
         {% endif %}
     </div>
-    <div class="dish-header-right" style="width: 150px;">
+    <div class="dish-header-right" style="width: 90px;">
         <a href="/cooklog/dish/add-todo/?next={{object.recipe_id_id}}"><i class="fa fa-calendar-plus-o"></i></a> &middot;
         {% ifequal object.recipe_id_id 1 %}
         <a href="/cooklog/dish/{{object.dish_id}}/"><i class="fa fa-question fa-lg"></i></a>
