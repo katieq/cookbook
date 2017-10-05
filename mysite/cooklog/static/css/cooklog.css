@@ -3,7 +3,7 @@ h2 a {
 }
 
 body {
-    background-color: #f3f6f9; /* #e8eef4; /*#f8fbfd;*/
+    background-color: #fcfcfb; /*#f3f6f9; /* #e8eef4; /*#f8fbfd;*/
     color: #000000;
     font-family: 'Roboto';
 }
@@ -42,7 +42,7 @@ a:visited {
 
 
 .page-header {
-    background-color: #d9e3ed; /*#b4c7db; /*add8e6 #99D1B7;*/
+    background-color: #f7f5f4; /*#d9e3ed; /*#b4c7db; /*add8e6 #99D1B7;*/
     margin-top: 0;
     padding: 0px 0px 0px 0px;
     height: 40px;
@@ -290,7 +290,7 @@ a:visited {
 }
 .dish-likes {
     height: 25px;
-    background-color: #f3f6f9;
+    background-color: #fcfcfb; /*#f3f6f9;*/
     padding-left: 10px;
 }
 .dish-likes-like {
@@ -317,7 +317,7 @@ a:visited {
     color: #B1654B
 }
 .dish-comments {
-    background: #f3f6f9;
+    background-color: #fcfcfb; /*#f3f6f9;*/
     padding-left: 10px;
     margin-bottom: 2px;
     font-size: 10px;
@@ -568,21 +568,21 @@ a:visited {
 }
 .dish-mini-dish-method {
     font-size: 10px;
-    background: #f3f6f9;
+    background-color: #fcfcfb; /*#f3f6f9;*/
     margin-bottom: 2px;
     width: 280px;
 }
 
 .dish-mini-dish-comments {
     font-size: 10px;
-    background: #f3f6f9;
+    background-color: #fcfcfb; /* #f3f6f9;*/
     margin-bottom: 2px;
     width: 280px;
 }
 
 .dish-mini-social-comments-and-likes {
     font-size: 10px;
-    background: #f3f6f9;
+    background-color: #fcfcfb; /*#f3f6f9;*/
     margin-bottom: 2px;
     width: 280px;
 }
