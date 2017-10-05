@@ -177,7 +177,7 @@ class NewDishLongForm(forms.ModelForm):
         model = Dish
         fields = ['recipe_id', 'dish_name', 'chef_id', 'dish_status', 'date_scheduled',
                   'date_created', 'tags', 'dish_source', 'dish_method', 'dish_rating',
-                  'dish_comments', 'dish_image', 'dish_diagram_image'] #'photo_comment', 'ingredient_id'
+                  'dish_comments', 'dish_image'] #, 'dish_diagram_image'] #'photo_comment', 'ingredient_id'
     
     def __init__(self, *args, **kwargs):
         super(NewDishLongForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor
@@ -189,7 +189,7 @@ class NewDishLongForm(forms.ModelForm):
         self.fields['dish_comments'].label = "Review/notes"
         self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Photo"
-        self.fields['dish_diagram_image'].label = "(diagram)"
+        #self.fields['dish_diagram_image'].label = "(diagram)"
 
         self.fields['dish_method'].widget.attrs['cols'] = 80
         self.fields['dish_method'].widget.attrs['rows'] = 5
@@ -213,7 +213,7 @@ class UpdateDishForm(forms.ModelForm):
         model = Dish
         fields = ['dish_name', 'chef_id', 'recipe_id', 'dish_status', 'date_scheduled', 'date_created', 'tags',
                     'dish_source', 'dish_method', 'dish_rating','dish_comments',
-                  'dish_image', 'dish_diagram_image'] # NOT diagram_text because this form doesn't render., 'dish_diagram_text'] #, 'photo_comment', 'ingredient_id'
+                  'dish_image'] #, 'dish_diagram_image'] # NOT diagram_text because this form doesn't render., 'dish_diagram_text'] #, 'photo_comment', 'ingredient_id'
 
     def __init__(self, *args, **kwargs):
         super(UpdateDishForm, self).__init__(*args, **kwargs) # Call to ModelForm constructor

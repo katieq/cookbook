@@ -27,7 +27,11 @@
     </div>
     {% else %}
     <div class="album-img-placeholder">
-        <a href="/cooklog/dish/{{dish.dish_id}}/"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>
+        {% ifequal user.id dish.chef_id_id %}
+        <a href="{% url 'dish_photo_update' dish.dish_id %}"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
+        {% else %}
+        <a href="{% url 'dish_detail' dish.dish_id %}"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>
+        {% endifequal %}
     </div>
     {% endif %}
 

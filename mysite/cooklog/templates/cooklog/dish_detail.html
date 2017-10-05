@@ -79,14 +79,14 @@
 <div class="detail-photo">
     {% if object.dish_image %}
     <div class="detail-photo-image">
-        <a href="/cooklog/dish/{{object.dish_id}}/"><img src="/media/{{ object.dish_image }}" /></a>
+        <img src="/media/{{ object.dish_image }}" />
     </div>
     {% else %}
     <div class="detail-photo-placeholder">
         {% ifequal user.id object.chef_id_id %}
-        <a href="/cooklog/dish/add-photo/{{object.dish_id}}/"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
+        <a href="{% url 'dish_photo_update' object.dish_id %}"><img src="{% static "emoji/img/placeholder-add-dish.png" %}"/></a>
         {% else %}
-        <a href="/cooklog/dish/{{object.dish_id}}/"><img src="{% static "emoji/img/placeholder-dish.png" %}"/></a>
+        <img src="{% static "emoji/img/placeholder-dish.png" %}"/>
         {% endifequal %}
     </div>
     {% endif %}
