@@ -25,10 +25,19 @@
         {% endif %}
         
         <form action="" method="post" enctype="multipart/form-data">
-            <table>
-                {{ form.as_table }}
-
-            </table>
+            <!--<table>-->
+                <!--{{ form.as_table }}-->
+            <!--</table>-->
+            <p>Take or Upload photo: {{ form.dish_image}} </p>
+            <p>Dish name: {{ form.dish_name}}</p>
+            <p>Tags: {{ form.tags }} </p>
+            Dish rating:
+            {% for radio in form.dish_rating %}
+                    <div class="form-radio">
+                        {{ radio }} <i class="fa fa-star"></i>
+                    </div>
+                {% endfor %}
+            <p></p>
             {% csrf_token %}
             <input type="submit" value="Upload">
         </form>

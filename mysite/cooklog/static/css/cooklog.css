@@ -751,6 +751,11 @@ a:visited {
 
 
 
+.form-radio {
+    display: inline-block;
+    margin-right: 10px;
+}
+
 
 
 

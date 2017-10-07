@@ -12,6 +12,8 @@
     ( Today is {% now "F-j" %} )
 </div>
 
+
+
 {% for dish in todo_dishes %}
     {% include "dish_mini_todo.html" %}
 {% empty %}
@@ -25,7 +27,9 @@
 <div class="page-subtitle">
     <a href="{% url 'new_entry_todo' %}">Add new dish(to-do) <i class="fa fa-pencil"></i></a>
 </div>
-
+<div class="page-subtitle">
+    <a href="{% url 'chef_todo' user.id %}">See all current and elapsed to-do dishes</a>
+</div>
 
 {% endblock %}
 

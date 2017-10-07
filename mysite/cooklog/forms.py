@@ -26,7 +26,7 @@ from itertools import chain
 #        for key in self.fields:
 #            self.fields[key].required = False
 
-# CURRENTLY NOT USED!
+
 class NewDishQuickForm(forms.ModelForm):
 
     if datetime.now().hour < 10:
@@ -39,7 +39,8 @@ class NewDishQuickForm(forms.ModelForm):
         initial_dish_name = calendar.day_name[datetime.today().weekday()] + ' Dinner'
 
     dish_name = forms.CharField(initial= initial_dish_name)
-    dish_rating = forms.IntegerField(initial = 3)
+    # dish_rating = forms.IntegerField(initial = 3)
+    dish_rating = forms.ChoiceField(required=False,widget=forms.RadioSelect,choices=((1,1),(2,2),(3,3),(4,4),(5,5)),)
     
     class Meta:
         model = Dish
@@ -54,7 +55,7 @@ class NewDishQuickForm(forms.ModelForm):
         self.fields['recipe_id'].widget = forms.HiddenInput() # Default to 1 = "None"
         
         self.fields['dish_name'].label = "Dish name"
-        self.fields['dish_rating'].label = "Rating (/5)"
+        # self.fields['dish_rating'].label = "Rating (/5)"
         self.fields['dish_image'].label = "Upload/take photo"
 
         for key in self.fields:
